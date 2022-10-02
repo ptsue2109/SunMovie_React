@@ -2,7 +2,7 @@ import { Fragment, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import { ClientTheme } from "./themes";
-
+import 'antd/dist/antd.css';
 function App() {
   return (
     <>
