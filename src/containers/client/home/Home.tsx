@@ -128,11 +128,22 @@ const Home = (props: Props) => {
           </div>
         </Link>
 
-        <div className={styles.Content_News_Cmt}>
-          <div className={styles.Content_News}>
+        <div className={styles.content_news_cmt}>
+          <div className={styles.content_news}>
             <h3>Tin tức</h3>
+            <div className={styles.content_new_item}>
+              <div>
+                <img src="https://chieuphimquocgia.com.vn/content/images/thumbs/0016628_215.jpeg" alt="" />
+              </div>
+              <div className={styles.content_new_item_info}>
+                <h4>LIÊN HOAN PHIM ITALIA 2022 TẠI TRUNG TÂM CHIẾU PHIM QUỐC GIA (03/10 - 09/10/2022)</h4>
+                <div>
+                  Đại sứ quán Italia tại Hà Nội hân hạnh giới thiệu “LIÊN HOAN PHIM ITALIA 2022”, được tổ chức tại Trung tâm Chiếu phim Quốc gia Hà Nội từ ngày 3.10.2022- 9.10.2022
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={styles.Content_Cmt}>
+          <div className={styles.content_cmt}>
             <h3>Bình luận phim</h3>
           </div>
         </div>
