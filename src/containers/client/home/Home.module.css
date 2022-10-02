@@ -5,12 +5,30 @@
 .content_btn{
     display: flex;
     position: relative;
+    margin: 40px 0;
 }
 .content_btn button{
-    color:white;
+    color:gray/10;
     font-size: 25px;
     text-transform: uppercase;
     padding-right: 40px;
+    font-weight: 600;
+    position: relative;
+    transition: all ease 0.5s;
+}
+.content_btn button:hover{
+    color:white;
+    transition: color ease 1s;
+}
+.content_btn button:hover:after{
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    height: 4px;
+    background-color: #40a9ff;
+    width: 70%;
+    left: 0;
+    transition: all ease 1s;
 }
 .content_btn:after{
     content: "";
@@ -20,4 +38,99 @@
     background-color: #284774;
     position: absolute;
     bottom: -10px;
+}
+.content_btn .content_btn_active{
+    color:white;
+}
+.content_btn .content_btn_active:after{
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    height: 4px;
+    background-color: #40a9ff;
+    width: 70%;
+    left: 0;
+    transition: all ease 1s;
+}
+.content_list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 80px 0;
+}
+.content_list_item{
+    position: relative;
+    cursor: pointer;
+}
+
+.content_list_item_info{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    opacity: 85%;
+    height: 0%;
+    text-align: center;
+    transition: all ease 0.5s;
+    left: 0;
+    overflow: hidden;
+}
+.content_list_item_info h3{
+    text-transform: uppercase;
+    color:black;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 20px 0;
+}
+.content_list_item_info p{
+    padding: 5px 0;
+    color: #284774;
+}
+.content_list_item_info button{
+    border: 1px solid #284774;
+    border-radius: 30px;
+    width: 60%;
+    height: 50px;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #284774;
+}
+.content_list_item_info button:hover{
+    background-color: #284774;
+    color: white;
+}
+.content_list_item:hover .content_list_item_info{
+    height: 60%;
+}
+
+
+
+.more{
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+    color: white;
+}
+.more p{
+    text-decoration: underline;
+}
+.more span{
+    margin-top: 5px;
+    font-size: 20px;
+    padding-left: 10px;
+    animation: aniMore infinite 1.5s linear;
+}
+
+@keyframes aniMore {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    100%{
+        opacity: 0;
+        transform: translateX(0);
+    }
 }

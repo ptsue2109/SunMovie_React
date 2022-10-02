@@ -6,7 +6,7 @@
 }
 .header .logo img{
     width: 100px;
-    margin: auto 0;
+    margin-top: 5px;
 }
 .header .header_navbar nav ul{
     display: flex;
@@ -14,7 +14,7 @@
 }
 .header .header_navbar nav ul li{
     display: inline-block;
-    padding: 20px;
+    padding: 25px;
 }
 .header .header_navbar nav ul li{
     text-transform: uppercase;
@@ -40,7 +40,6 @@
 .header_right{
     display: flex;
     margin-top: 20px;
-    
 }
 .header_right_btn{
     color: white;
