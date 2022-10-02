@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import configRoute from "../config";
-import Home from "../containers/client/Home";
+import Home from "../containers/client/home/Home";
 import Movie from "../containers/client/Movie";
 type RoutesType = {
    path: string;
