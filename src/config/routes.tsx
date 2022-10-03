@@ -1,6 +1,7 @@
 const routes = {
    home: '/',
-   movie: '/movie'
+   movie: '/movie',
+   detail:'d'
 }
 
 export default routes

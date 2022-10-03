@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import  ClientHeader  from "./Header";
+import Footer from "../../components/client/Footer/Footer";
+import  ClientHeader  from "../../components/client/Header";
 
 type ClientLayoutProps = {
   children: JSX.Element;
@@ -7,9 +8,12 @@ type ClientLayoutProps = {
 
 const ClientLayout = ({ children }: ClientLayoutProps) => {
   return (
-    <div className="font-montserrat">
-      <ClientHeader />
+    <div className="bg-[#151f32] min-h-screen">
+      <div className="mb-[70px]">
+        <ClientHeader />
+      </div>
       <main>{children}</main>
+      <Footer/>
     </div>
   );
 };
