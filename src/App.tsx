@@ -10,7 +10,7 @@ function App() {
         <Routes>
           {publicRoutes.map((route, index) => {
             const Page = route.component;
-            let Layout: any = ClientTheme;
+            let Layout: any = ClientTheme ;
 
             if (route.layout) {
               Layout = route.layout;
@@ -30,7 +30,7 @@ function App() {
               />
             );
           })}
-          
+
         </Routes>
       </BrowserRouter>
     </>

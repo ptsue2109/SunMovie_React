@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
-import  ClientHeader  from "./Header";
+import { Outlet } from "react-router-dom";
+import ClientHeader from "./Header";
 
 type ClientLayoutProps = {
-  children: JSX.Element;
+  children: any
 };
 
-const ClientLayout = ({ children }: ClientLayoutProps) => {
+const ClientLayout = ({children}: ClientLayoutProps) => {
+  const [offsetTop, setOffsetTop] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setOffsetTop(window.scrollY);
+    });
+  }, []);
   return (
-    <div className="font-montserrat">
-      <ClientHeader />
-      <main>{children}</main>
+    <div className="">
+      <ClientHeader offsetTop={offsetTop} />
+      <main>
+      {children}
+        </main>
     </div>
   );
 };

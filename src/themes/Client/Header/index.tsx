@@ -1,11 +1,13 @@
 import React from 'react'
+type ClientHeaderProps = {
+  offsetTop: number;
+};
 
-type Props = {}
-
-const ClientHeader = (props: Props) => {
+const ClientHeader = ({ offsetTop }: ClientHeaderProps) => {
   return (
     <div className='bg-red-700 w-full'>
-      ClientHeader</div>
+      this is header
+      </div>
   )
 }
 
