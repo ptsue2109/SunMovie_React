@@ -22,15 +22,17 @@ const Home = (props: Props) => {
         <div className={isAcive==1?styles.content_btn1:"hidden"}>
           <div className={styles.content_list}>
             <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
-              </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
+              <Link to={`/d`}>
+                <div className={styles.content_list_item_img}>
+                  <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+                </div>
+                <div className={styles.content_list_item_info}>
+                  <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                  <p>Thể loại: Kinh dị</p>
+                  <p>Khởi chiếu: 23/09/2022</p>
+                  <button>Đặt vé</button>
+                </div>
+              </Link>
             </div>
             <div className={styles.content_list_item}>
               <div className={styles.content_list_item_img}>
@@ -138,13 +140,28 @@ const Home = (props: Props) => {
               <div className={styles.content_new_item_info}>
                 <h4>LIÊN HOAN PHIM ITALIA 2022 TẠI TRUNG TÂM CHIẾU PHIM QUỐC GIA (03/10 - 09/10/2022)</h4>
                 <div>
-                  Đại sứ quán Italia tại Hà Nội hân hạnh giới thiệu “LIÊN HOAN PHIM ITALIA 2022”, được tổ chức tại Trung tâm Chiếu phim Quốc gia Hà Nội từ ngày 3.10.2022- 9.10.2022
+                  Đại sứ quán Italia tại Hà Nội hân hạnh giới thiệu “LIÊN HOAN PHIM ITALIA 2022”, được tổ chức tại Sun Cinema từ ngày 3.10.2022- 9.10.2022
                 </div>
               </div>
             </div>
           </div>
           <div className={styles.content_cmt}>
             <h3>Bình luận phim</h3>
+          </div>
+        </div>
+
+        <div className={styles.discountNews}>
+          <h3>Tin khuyến mãi</h3>
+          <div className={styles.discountNewsItems}>
+            <div className={styles.discountNewsItem}>
+              <img src="https://cdn.galaxycine.vn/media/2022/9/19/back2shool-digital-300x450_1663573378238.jpg" alt="" />
+              <div className={styles.discountNewsItemInfo}>
+                <h4>Nhận vé miễn phí</h4>
+                <p>
+                  Nhận ngay vé MIỄN PHÍ & mua 01 tặng 01 & Combo bắp nước chỉ bằng một thao tác đơn giản!
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
