@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import ClientHeader from "./Header";
+import Footer from "../../components/client/Footer/Footer";
+import  ClientHeader  from "../../components/client/Header";
 
 type ClientLayoutProps = {
   children: any
@@ -15,11 +15,12 @@ const ClientLayout = ({children}: ClientLayoutProps) => {
     });
   }, []);
   return (
-    <div className="">
-      <ClientHeader offsetTop={offsetTop} />
-      <main>
-      {children}
-        </main>
+    <div className="bg-[#151f32] min-h-screen">
+      <div className="mb-[70px]">
+        <ClientHeader />
+      </div>
+      <main>{children}</main>
+      <Footer/>
     </div>
   );
 };

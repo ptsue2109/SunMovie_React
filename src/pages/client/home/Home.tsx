@@ -1,0 +1,172 @@
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import SlideShow from '../../../components/client/SlideShow/SlideShow'
+import "./Home.scss"
+import {HiOutlineArrowNarrowRight} from "react-icons/hi"
+type Props = {}
+
+const Home = (props: Props) => {
+  const [isAcive,setActive] =useState(1);
+  const Toggle = (number:number)=>{
+    setActive(number);
+  }
+  return (
+    <>
+      <SlideShow/>
+      <div className='content'>
+        <div className='content_btn'>
+          <button onClick={()=>Toggle(1)} className={isAcive==1?'content_btn_active':""}>Phim đang chiếu</button>
+          <button onClick={()=>Toggle(2)} className={isAcive==2?'content_btn_active':""}>Phim sắp chiếu</button>
+        </div>
+        {/* Home Page 1 */}
+        <div className={isAcive==1?'content_btn1':"hidden"}>
+          <div className='content_list'>
+            <div className='content_list_item'>
+              <Link to={`/d`}>
+                <div className='content_list_item_img'>
+                  <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+                </div>
+                <div className='content_list_item_info'>
+                  <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                  <p>Thể loại: Kinh dị</p>
+                  <p>Khởi chiếu: 23/09/2022</p>
+                  <button>Đặt vé</button>
+                </div>
+              </Link>
+            </div>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End Home Page 1 */}
+
+        {/* Home page 2 */}
+        <div className={isAcive==2?'content_btn2':"hidden"}>
+          <div className='content_list'>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016585_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016585_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+            <div className='content_list_item'>
+              <div className='content_list_item_img'>
+                <img src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg" alt="" />
+              </div>
+              <div className='content_list_item_info'>
+                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+                <p>Thể loại: Kinh dị</p>
+                <p>Khởi chiếu: 23/09/2022</p>
+                <button>Đặt vé</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End Home Page 2 */}
+
+        
+        <Link to={`#`}>
+          <div className='more'>
+            <p>Xem thêm</p>
+            <span><HiOutlineArrowNarrowRight/></span>
+          </div>
+        </Link>
+
+        <div className='content_news_cmt'>
+          <div className='content_news'>
+            <h3>Tin tức</h3>
+            <div className='content_new_item'>
+              <div>
+                <img src="https://chieuphimquocgia.com.vn/content/images/thumbs/0016628_215.jpeg" alt="" />
+              </div>
+              <div className='content_new_item_info'>
+                <h4>LIÊN HOAN PHIM ITALIA 2022 TẠI TRUNG TÂM CHIẾU PHIM QUỐC GIA (03/10 - 09/10/2022)</h4>
+                <div>
+                  Đại sứ quán Italia tại Hà Nội hân hạnh giới thiệu “LIÊN HOAN PHIM ITALIA 2022”, được tổ chức tại Sun Cinema từ ngày 3.10.2022- 9.10.2022
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='content_cmt'>
+            <h3>Bình luận phim</h3>
+          </div>
+        </div>
+
+        <div className='discountNews'>
+          <h3>Tin khuyến mãi</h3>
+          <div className='discountNewsItems'>
+            <div className='discountNewsItem'>
+              <img src="https://cdn.galaxycine.vn/media/2022/9/19/back2shool-digital-300x450_1663573378238.jpg" alt="" />
+              <div className='discountNewsItemInfo'>
+                <h4>Nhận vé miễn phí</h4>
+                <p>
+                  Nhận ngay vé MIỄN PHÍ & mua 01 tặng 01 & Combo bắp nước chỉ bằng một thao tác đơn giản!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Home
