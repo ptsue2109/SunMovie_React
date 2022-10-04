@@ -1,0 +1,14 @@
+.container{
+    width: 1200px;
+    margin: 50px auto;
+}
+.title{
+    text-align: center;
+    padding-top: 100px;
+}
+.title h3{
+    color:white;
+    font-size: 40px;
+    text-transform: uppercase;
+    padding: 20px 0;
+}
