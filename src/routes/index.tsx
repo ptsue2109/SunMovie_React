@@ -1,7 +1,9 @@
 import { PropsWithChildren } from "react";
 import configRoute from "../config";
-import Home from "../containers/client/Home";
+import BookChair from "../containers/client/bookChair/BookChair";
+import Home from "../containers/client/home/Home";
 import Movie from "../containers/client/Movie";
+import MovieDetail from "../containers/client/movieDetail/MovieDetail";
 type RoutesType = {
    path: string;
    component: (args: PropsWithChildren) => JSX.Element;
@@ -12,4 +14,6 @@ type RoutesType = {
 export const publicRoutes : RoutesType[] = [
    { path: configRoute.routes.home, component: Home },
    { path: configRoute.routes.movie, component: Movie },
+   { path: configRoute.routes.detail, component: MovieDetail },
+   { path: configRoute.routes.bookChair, component: BookChair },
 ]

@@ -2,7 +2,8 @@ import { Fragment, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import { ClientTheme } from "./themes";
-
+import 'antd/dist/antd.css';
+import ScrollToTop from "./ultils/ScrollToTop";
 function App() {
   return (
     <>
@@ -32,6 +33,7 @@ function App() {
           })}
           
         </Routes>
+        <ScrollToTop/>
       </BrowserRouter>
     </>
   );
