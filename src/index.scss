@@ -52,14 +52,14 @@ body {
 .font-montserrat {
   font-family: var(--font-family) !important;
 }
-.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before{
-  content: "MUST";
-  color: var(--white);
-  font-family: var(--font-family);
-  font-size: 10px;
-  background-color: var(--primary);
-  padding: 3px;
-  border-radius: 3px
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  content: "MUST" !important;
+  color: var(--white) !important;
+  font-family: var(--font-family) !important;
+  font-size: 10px !important;
+  background-color: var(--primary) !important;
+  padding: 3px !important;
+  border-radius: 3px !important
 }
 .each-slide>div {
   display: flex;
