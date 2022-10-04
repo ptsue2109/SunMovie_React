@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from './BookChair.module.css'
+import "./BookChair.scss"
 type Props = {}
 
 const BookChair = (props: Props) => {
   return (
     <>
-      <div className={styles.container}>
-            <div className={styles.title}>
+      <div className='container'>
+            <div className='title'>
                 <h3>Chọn ghế</h3>
                 <p>Bạn đã chọn: <span>AVATAR 2</span> </p>
                 <p>Phòng chiếu: 5</p>
@@ -27,7 +27,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>A</p>
           <div className='absolute top-0 right-1 text-white'>A</div>
-          <div className={styles.chair}>
+          <div className="chair">
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -50,7 +50,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>B</p>
           <div className='absolute top-0 right-1 text-white'>B</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -72,7 +72,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>C</p>
           <div className='absolute top-0 right-1 text-white'>C</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -94,7 +94,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>D</p>
           <div className='absolute top-0 right-1 text-white'>D</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -116,7 +116,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>E</p>
           <div className='absolute top-0 right-1 text-white'>E</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -138,7 +138,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>F</p>
           <div className='absolute top-0 right-1 text-white'>F</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -160,7 +160,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>G</p>
           <div className='absolute top-0 right-1 text-white'>G</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -182,7 +182,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>H</p>
           <div className='absolute top-0 right-1 text-white'>H</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -204,7 +204,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>I</p>
           <div className='absolute top-0 right-1 text-white'>I</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -226,7 +226,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>J</p>
           <div className='absolute top-0 right-1 text-white'>J</div>
-          <div className={styles.chair}>
+          <div className='chair'>
             <span><button className='active'>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>
@@ -248,7 +248,7 @@ const BookChair = (props: Props) => {
         <div className='relative my-4'>
           <p className='absolute left-1 text-white'>K</p>
           <div className='absolute top-0 right-1  text-white'>K</div>
-          <div className={styles.chair_K}>
+          <div className='chair_K'>
             <span><button>1</button></span>
             <span><button>2</button></span>
             <span><button>3</button></span>

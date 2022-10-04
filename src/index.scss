@@ -1,0 +1,73 @@
+@import "antd/dist/antd.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  max-height: 5px;
+  height: 5px;
+  margin-top: 40px;
+  height: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  max-height: 5px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  height: 3px;
+  border-radius: 4px;
+  background: #d9d9d9;
+}
+
+:root {
+  --font-family: "Noto Sans", sans-serif;
+  --primary: #48647f;
+  --bg: #f0f0f0;
+  --white: #ffff;
+  --border: #dcdcdc;
+  --black: #000000;
+}
+
+body {
+  border-radius: 3px;
+  scroll-behavior: smooth;
+  ::selection {
+    color: var(--white);
+    background-color: var(--primary);
+  }
+}
+.font-montserrat {
+  font-family: var(--font-family) !important;
+}
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before{
+  content: "MUST";
+  color: var(--white);
+  font-family: var(--font-family);
+  font-size: 10px;
+  background-color: var(--primary);
+  padding: 3px;
+  border-radius: 3px
+}
+.each-slide>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 500px;
+}
+.newStyle .ant-modal-header{
+  text-align: center;
+}
