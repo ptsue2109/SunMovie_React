@@ -6,6 +6,7 @@ const routes = {
   detail: "d",
   bookChair: "book-chair",
   tickitPrice: "tickit-price",
+  Admin : "/admin"
 };
 
 export default routes;

@@ -4,6 +4,7 @@ import { publicRoutes } from "./routes";
 import { ClientTheme } from "./themes";
 import 'antd/dist/antd.css';
 import ScrollToTop from "./ultils/ScrollToTop";
+import "bootstrap/dist/css/bootstrap.min.css"
 function App() {
   return (
     <>
@@ -29,6 +30,8 @@ function App() {
                   </Layout>
                 }
               />
+
+              
             );
           })}
 

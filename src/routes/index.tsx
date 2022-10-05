@@ -10,6 +10,7 @@ import BookChair from "../pages/client/bookChair/BookChair";
 import Home from "../pages/client/home/Home";
 import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
+import Layout_admin from "../themes/Admin";
 
 type RoutesType = {
   path: string;
@@ -25,5 +26,6 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.detail, component: MovieDetail },
   { path: configRoute.routes.bookChair, component: BookChair },
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
+  { path: configRoute.routes.Admin, component: Layout_admin },
   { path: "*", component: NotFoundPage, layout: null },
 ];
