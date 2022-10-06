@@ -108,10 +108,11 @@
     flex-wrap: wrap;
     grid-gap: 20px;
 }
-.showTimesListItem span{
+.showTimesListItem span a{
     color: white;
     border: 1px solid white;
     padding: 5px 10px;
+    @apply hover:text-[#3a70d6]
 }
 .showFilmList{
     background: rgb(19, 36, 69);
