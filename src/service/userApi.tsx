@@ -7,4 +7,8 @@ export const UserApi = {
       let url = "/users";
       return AxiosRequest.get(url, options);
     },
+    removeUser(userID?: string) {
+      let url = `users/${userID}`
+      return AxiosRequest.delete(url);
+    },
  };

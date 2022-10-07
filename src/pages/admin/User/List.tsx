@@ -1,17 +1,28 @@
 import React, { useEffect } from 'react';
-import { Button, message, Popconfirm, Space, Table, Tag } from "antd";
+import { Button, message, Popconfirm, Space, Tag } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-import { UserApi } from '../../../service/userApi';
+import { removeUser } from '../../../redux/slice/userSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 type Props = {}
 
 const AdminUserList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { users, isSucess , isFetching, isErr} = useAppSelector(state => state.userReducer);
-  console.log('users', users)
+  const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
 
+  const deleteUser = async (data: string | undefined) => {
+    await dispatch(removeUser(data))
+  };
 
+  useEffect(() => {
+    if (isErr) {
+      message.error({ content: `${errorMessage}` });
+    }
+    if (isSucess) {
+      message.success({ content: "Xoá thành công", key: "handling" });
+    }
+  }, [isSucess, isErr, errorMessage]);
 
   const columnUserList: any = [
     {
@@ -20,7 +31,8 @@ const AdminUserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}/edit`}>
-          <img width="40px" src={record?.image} alt="" />
+          <img width="40px" height="40px" src={record?.avatar} alt="" />
+
         </Link>
       ),
     },
@@ -94,18 +106,16 @@ const AdminUserList = (props: Props) => {
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Button type="primary">
-            <Link to={`${record._id}/edit`}>Edit</Link>
-          </Button>
+          <Link to={`${record._id}/edit`}>
+            <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
+          </Link>
           <Popconfirm
-            title={`Delete ${record.brandName}?`}
+            title={`Delete ${record?.username ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
-
+            onConfirm={() => deleteUser(record?._id)}
           >
-            <Button type="dashed" danger>
-              Delete
-            </Button>
+            <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
           </Popconfirm>
         </Space>
       ),
@@ -119,7 +129,7 @@ const AdminUserList = (props: Props) => {
       username: item?.username,
       fullname: item?.fullname,
       email: item?.email,
-      avatar: item?.avatar[0] ?? "",
+      avatar: item?.avatar ? item?.avatar[0] : "",
       phone: item?.phone,
       address: item?.address,
       role: item?.role
@@ -133,7 +143,7 @@ const AdminUserList = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="add">Add Users</Link>
       </Button>
-      <DataTable column={columnUserList} data={data}  loading={isFetching}/>
+      <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>
   )
 }
