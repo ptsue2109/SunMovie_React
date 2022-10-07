@@ -4,7 +4,18 @@ import { publicRoutes, privateRoutes } from "./routes";
 import { ClientTheme, AdminTheme } from "./themes";
 import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
+import { useAppDispatch } from "./redux/hook";
+import { getUsers } from "./redux/slice/userSlice";
+
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getUsers())
+  }, [dispatch]);
+
+
+
+
   return (
     <>
       <BrowserRouter>
