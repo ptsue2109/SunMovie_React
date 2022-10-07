@@ -1,9 +1,11 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import styles from './layout_admin.module.scss'
-type Props = {}
+type Props = {
+  children: JSX.Element
+}
 
-const Layout_admin = (props: Props) => {
+const Layout_admin = ({children}: Props) => {
   return (
     <div>
       <header className={`${styles.navbar2} navbar navbar-dark sticky-top bg-warning flex-md-nowrap p-0 shadow`}>
@@ -174,7 +176,7 @@ const Layout_admin = (props: Props) => {
                 </button>
               </div>
             </div>
-            {/* <Outlet/> */}
+{children}
           </main>
         </div>
       </div>
