@@ -4,7 +4,11 @@ const routes = {
    signin: '/auth/signin',
    signup: '/auth/signup',
    detail:'d',
-   bookChair:'book-chair'
+   bookChair:'book-chair',
+
+   // admin
+   dashboard: '/admin',
+   adminUserList: '/admin/users'
 }
 
 export default routes

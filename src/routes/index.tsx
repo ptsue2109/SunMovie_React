@@ -10,6 +10,12 @@ import BookChair from "../pages/client/bookChair/BookChair";
 import Home from "../pages/client/home/Home";
 import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 
+// admin
+import Dashboard from "../pages/admin/Dashboard";
+import AdminUserList from "../pages/admin/User/List"
+
+
+
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -26,4 +32,11 @@ export const publicRoutes: RoutesType[] = [
   { path: "*" , component: NotFoundPage , layout: null},
 ];
 
+
+
+export const privateRoutes: RoutesType[] = [
+  { path: configRoute.routes.dashboard, component: Dashboard },
+  { path: configRoute.routes.adminUserList, component: AdminUserList },
+  
+];
 

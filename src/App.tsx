@@ -1,8 +1,8 @@
 import { Fragment, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { publicRoutes } from "./routes";
-import { ClientTheme } from "./themes";
-import 'antd/dist/antd.css';
+import { publicRoutes, privateRoutes } from "./routes";
+import { ClientTheme, AdminTheme } from "./themes";
+import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Routes>
           {publicRoutes.map((route, index) => {
             const Page = route.component;
-            let Layout: any = ClientTheme ;
+            let Layout: any = ClientTheme;
 
             if (route.layout) {
               Layout = route.layout;
@@ -32,8 +32,30 @@ function App() {
             );
           })}
 
+          {privateRoutes.map((route, index) => {
+            const Page = route.component;
+            let Layout: any = AdminTheme;
+
+            if (route.layout) {
+              Layout = route.layout;
+            } else if (route.layout === null) {
+              Layout = Fragment;
+            }
+
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              />
+            );
+          })}
         </Routes>
-        <ScrollToTop/>
+        <ScrollToTop />
       </BrowserRouter>
     </>
   );
