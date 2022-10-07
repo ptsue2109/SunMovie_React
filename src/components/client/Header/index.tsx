@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom'
 import styles from './header.module.css'
 import {BiSearch} from 'react-icons/bi'
 import Navbar from './Navbar'
+<<<<<<< HEAD
 import config from '../../../config'
+=======
+import config from "../../../config"
+>>>>>>> 3ba99aff02a7307880f29ea375d3e7d1dbd42409
 type Props = {}
 
 const ClientHeader = (props: Props) => {
