@@ -11,6 +11,12 @@ import Home from "../pages/client/home/Home";
 import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 
+// admin
+import Dashboard from "../pages/admin/Dashboard";
+import AdminUserList from "../pages/admin/User/List"
+
+
+
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -27,3 +33,12 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
   { path: "*", component: NotFoundPage, layout: null },
 ];
+
+
+
+export const privateRoutes: RoutesType[] = [
+  { path: configRoute.routes.dashboard, component: Dashboard },
+  { path: configRoute.routes.adminUserList, component: AdminUserList },
+  
+];
+
