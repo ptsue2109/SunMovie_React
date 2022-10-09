@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {  UserApi } from "../../service/userApi";
 
-export const getUsers = createAsyncThunk<any, any, { rejectValue: string }>("users/getUsers",
+export const getUsers = createAsyncThunk<any, void, { rejectValue: string }>("users/getUsers",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await UserApi.getAll();
@@ -68,45 +68,45 @@ const userSlice = createSlice({
          state.isFetching = false
       });
 
-      //delete
-      // builder.addCase(removeUser.pending, (state) => {
-      //    state.isFetching = true
-      //    state.isErr = false
-      //    state.isSucess = false
-      // });
-      // builder.addCase(removeUser.fulfilled, (state, { payload }) => {
-      //    state.isFetching = false
-      //    state.isErr = false
-      //    state.isSucess = true
-      //    state.users = state.users.filter((item) => item._id !== payload._id)
-      // });
-      // builder.addCase(removeUser.rejected, (state, { payload }) => {
-      //    state.isErr = true
-      //    state.isFetching = false
-      //    state.isSucess = false
-      //    state.errorMessage = payload
-      // });
+      // delete
+      builder.addCase(removeUser.pending, (state) => {
+         state.isFetching = true
+         state.isErr = false
+         state.isSucess = false
+      });
+      builder.addCase(removeUser.fulfilled, (state, { payload }) => {
+         state.isFetching = false
+         state.isErr = false
+         state.isSucess = true
+         state.users = state.users.filter((item) => item._id !== payload._id)
+      });
+      builder.addCase(removeUser.rejected, (state, { payload }) => {
+         state.isErr = true
+         state.isFetching = false
+         state.isSucess = false
+         state.errorMessage = payload
+      });
 
       //create
 
 
 
       //update
-      // builder.addCase(updateUser.pending, (state) => {
-      //    state.isFetching = true;
-      //  });
-      //  builder.addCase(updateUser.fulfilled, (state, action) => {
-      //    state.isFetching = false;
-      //    state.isSucess = true;
-      //    state.users = state.users.map((item) =>
-      //      item._id !== action.payload._id ? item : action.payload
-      //    );
-      //  });
-      //  builder.addCase(updateUser.rejected, (state, action) => {
-      //    state.isFetching = false;
+      builder.addCase(updateUser.pending, (state) => {
+         state.isFetching = true;
+       });
+       builder.addCase(updateUser.fulfilled, (state, action) => {
+         state.isFetching = false;
+         state.isSucess = true;
+         state.users = state.users.map((item) =>
+           item._id !== action.payload._id ? item : action.payload
+         );
+       });
+       builder.addCase(updateUser.rejected, (state, action) => {
+         state.isFetching = false;
 
-      //    state.errorMessage = action.payload;
-      //  });
+         state.errorMessage = action.payload;
+       });
    },
 });
 export default userSlice.reducer;

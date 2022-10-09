@@ -9,8 +9,7 @@ import { ConfigProvider, Spin } from 'antd';
 import styled from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 let persistor = persistStore(store);
-const App = React.lazy(() => import("./App"));
-
+import App from "./App"
 const LoadingStyle = styled.div`
   position: fixed;
   width: 100%;

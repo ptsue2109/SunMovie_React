@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Tag, Pagination } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-// import { removeUser } from '../../../redux/slice/userSlice';
+ import { removeUser,getUsers } from '../../../redux/slice/userSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 
@@ -12,15 +12,21 @@ const AdminUserList = (props: Props) => {
   const dispatch = useAppDispatch();
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
 
-  // const deleteUser =  (data: string | undefined) => {
-  //    dispatch(removeUser(data)).unwrap()
-  //   .then(() =>{
-  //     message.success({ content: "Xoá thành công", key: "handling" });
-  //   })
-  //   .catch(() =>{
-  //     message.error({content: {errorMessage}})
-  //   })
-  // };
+  const deleteUser =  (data: string | undefined) => {
+     dispatch(removeUser(data)).unwrap()
+    .then(() =>{
+      message.success({ content: "Xoá thành công", key: "handling" });
+    })
+    .catch(() =>{
+      message.error({content: {errorMessage}})
+    })
+  };
+useEffect(() =>{
+  dispatch(getUsers())
+},[dispatch])
+
+
+
 
   const columnUserList: any = [
     {
@@ -116,7 +122,7 @@ const AdminUserList = (props: Props) => {
             title={`Delete ${record?.username ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            // onConfirm={() => deleteUser(record?._id)}
+            onConfirm={() => deleteUser(record?._id)}
           >
             <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
           </Popconfirm>
