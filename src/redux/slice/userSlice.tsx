@@ -88,7 +88,23 @@ const userSlice = createSlice({
       });
 
       //create
-
+      builder.addCase(createUser.pending, (state) => {
+         state.isFetching = true;
+         state.isSucess = false;
+         state.isErr = false;
+       });
+       builder.addCase(createUser.fulfilled, (state, {payload}) => {
+         state.isFetching = false;
+         state.isSucess = true;
+         state.isErr = false;
+         state.users.push(payload);
+       });
+       builder.addCase(createUser.rejected, (state, {payload}) => {
+         state.isFetching = false;
+         state.isSucess = false;
+         state.isErr = true;
+         state.errorMessage = payload;
+       });
 
 
       //update

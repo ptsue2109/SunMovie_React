@@ -28,8 +28,8 @@ const AdminUserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}`}>
-          <img width="40px" height="40px" src={record?.avatar ?? record?.avatar} alt="" />
-          {/* cái này chưa lấy url được do BE chưa làm upload ảnh */}
+          
+          <img width="40px" height="40px" src={record?.avatar} alt="" />
         </Link>
       ),
       width: 30
@@ -126,14 +126,14 @@ const AdminUserList = (props: Props) => {
   ];
 
   const data: Props[] = users?.map((item: any, index: any) => {
-    console.log('users', users)
+    console.log(item.avatar)
     return {
       key: index + 1,
       _id: item?._id,
       username: item?.username,
       fullname: item?.fullname,
       email: item?.email,
-      avatar: item?.avatar ? item?.avatar[0] : `${import.meta.env.VITE_HIDDEN_SRC}`,
+      avatar:  item?.avatar ? item?.avatar : `${import.meta.env.VITE_HIDDEN_SRC}`,
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
