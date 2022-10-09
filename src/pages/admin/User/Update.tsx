@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
- import { updateUser } from "../../../redux/slice/userSlice";
+import { updateUser } from "../../../redux/slice/userSlice";
 import UserForm from "../../../components/admin/Form&Table/UserForm"
 import config from "../../../config";
 interface Props { }
@@ -36,6 +36,7 @@ const UserEdit = (props: Props) => {
    const onFinish = (data: any) => {
       data.avatar = fileList;
       data._id = id;
+      console.log('update', data)
       dispatch(updateUser(data)).unwrap()
       .then(() =>{
          navigate(config.routes.adminUserList)

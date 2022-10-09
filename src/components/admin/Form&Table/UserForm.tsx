@@ -57,7 +57,14 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
       });
       setFileList(files);
    };
-
+   const roles = [
+      { value: 0, name: "Khách hàng" },
+      { value: 1, name: "Admin" }
+   ];
+   const status = [
+      { value: 0, name: "Active" },
+      { value: 1, name: "Inactive" }
+   ];
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid">
@@ -73,7 +80,59 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                            <img style={{ width: "100%" }} src={previewImage} />
                         </Modal>
                      </Form.Item>
-                     <Form.Item label="Tên nguoi dung" name="username" rules={[{ required: true, min: 5 }]}>
+                     <Form.Item label="Tên người dùng" name="username" rules={[{ required: true, min: 5 }]}>
+                        <Input placeholder="Nhập vào" />
+                     </Form.Item>
+                     <Form.Item label="Họ và tên" name="fullname" rules={[{ required: true, min: 5 }]}>
+                        <Input placeholder="Nhập vào" />
+                     </Form.Item>
+                     <Form.Item label="SDT" name="phone" rules={[{ required: true }]} >
+                        <Input placeholder="Nhập vào" />
+                     </Form.Item>
+                     <Form.Item label="Password" name="password" rules={[{ required: true }]}>
+                        <Input.Password placeholder="Nhập vào" />
+                     </Form.Item>
+                     <Form.Item label="email" name="email" rules={[{ required: true }]}>
+                        <Input placeholder="Nhập vào" />
+                     </Form.Item>
+                     <Form.Item label="address" name="address">
+                        <Select>
+                           {providers && providers?.map((item: any, index: any) => (
+                              <Select.Option value={item.name} key={index}>{item.name}</Select.Option>
+                           ))}
+                        </Select>
+                     </Form.Item>
+                  </Card>
+
+                  <Card className="col-6">
+                     <Form.Item label="Status" name="status">
+                        <Select>
+                           {status.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
+                        </Select>
+                     </Form.Item>
+                     <Form.Item label="Chức vụ" name="role">
+                        <Select>
+                           {roles.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
+                        </Select>
+                     </Form.Item>
+                  </Card>
+               </>
+            ) : (
+               <>
+                  <Card className="col-6">
+                     <Form.Item label="" style={{ alignItems: "left" }}>
+                        <UploadCard beforeUpload={() => false} listType="picture-card" fileList={fileList} onPreview={handlePreview} onChange={handleChange}>
+                           {fileList.length >= 2 ? null : <BsPlus size={36} fill="#d9d9d9" />}
+                        </UploadCard>
+                        <small>(Tải lên ít nhất 1 ảnh và tối đa 2 ảnh)</small>
+                        <Modal open={previewVisible} footer={null} onCancel={handleCancel}>
+                           <img style={{ width: "100%" }} src={previewImage} />
+                        </Modal>
+                     </Form.Item>
+                     <Form.Item label="Tên người dùng" name="username" rules={[{ required: true, min: 5 }]}>
+                        <Input placeholder="Nhập vào" />
+                     </Form.Item>
+                     <Form.Item label="Họ và tên" name="fullname" rules={[{ required: true, min: 5 }]}>
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
                      <Form.Item label="SDT" name="phone" rules={[{ required: true }]} >
@@ -94,42 +153,15 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
                   <Card className="col-6">
                      <Form.Item label="Status" name="status">
                         <Select>
-                           <Select.Option value="0">Active</Select.Option>
-                           <Select.Option value="1">inactive</Select.Option>
+                           {status.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chức vụ" name="role">
                         <Select>
-                           <Select.Option value="0">Quản trị viên</Select.Option>
-                           <Select.Option value="1">Khach hang</Select.Option>
+                           {roles.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
-                  </Card>
-               </>
-            ) : (
-               <Card className="col-12">
-                  <Form.Item label="" style={{ alignItems: "left" }} name="avatar">
-                     <UploadCard beforeUpload={() => false} listType="picture-card" fileList={fileList} onPreview={handlePreview} onChange={handleChange}>
-                        {fileList.length >= 2 ? null : <BsPlus size={36} fill="#d9d9d9" />}
-                     </UploadCard>
-                     <small>(Tải lên ít nhất 1 ảnh và tối đa 8 ảnh)</small>
-                     <Modal open={previewVisible} footer={null} onCancel={handleCancel}>
-                        <img alt="example" style={{ width: "100%" }} src={previewImage} />
-                     </Modal>
-                  </Form.Item>
-                  <Form.Item label="Tên nguoi dung" name="username" rules={[{ required: true, }]}>
-                     <Input placeholder="Nhập vào" />
-                  </Form.Item>
-                  <Form.Item label="SDT" name="phoneNumber" rules={[{ required: true, }]}>
-                     <Input placeholder="Nhập vào" />
-                  </Form.Item>
-                  <Form.Item label="email" name="email" rules={[{ required: true, }]}>
-                     <Input placeholder="Nhập vào" />
-                  </Form.Item>
-                  <Form.Item label="address" name="address" rules={[{ required: true, }]}>
-                     <Input placeholder="Nhập vào" />
-                  </Form.Item>
-               </Card>
+                  </Card></>
             )}
             <div className="col-12">
                <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
