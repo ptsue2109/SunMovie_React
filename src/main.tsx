@@ -5,15 +5,35 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { ConfigProvider, Spin } from 'antd';
+import styled from "styled-components";
+import { BrowserRouter } from "react-router-dom";
 let persistor = persistStore(store);
-import App from "./App";
+const App = React.lazy(() => import("./App"));
+
+const LoadingStyle = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Loading = (
+  <LoadingStyle>
+    <Spin size="large" />
+  </LoadingStyle>
+);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <React.Suspense fallback={null}>
-        <App />
-      </React.Suspense>
-    </PersistGate>
-  </Provider>
+  <React.Suspense fallback={Loading}>
+    <BrowserRouter>
+      <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+      </Provider>
+    </BrowserRouter>
+  </React.Suspense>
+
 );

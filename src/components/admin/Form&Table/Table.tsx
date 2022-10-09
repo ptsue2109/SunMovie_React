@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Empty, Table } from "antd";
-import styled from "styled-components";
-
-
+import styled from "styled-components"
 interface DataTableProps {
     column: any[];
     data?: any[];
@@ -15,7 +13,7 @@ const DataTable = ({ data, column, scrollWidth, size = "small", loading }: DataT
     return (
         <>
             <TableWrapper>
-                <Table 
+                <Table
                     dataSource={data?.map((item, index) => {
                         return { ...item, key: index + 1 };
                     })}
@@ -23,7 +21,7 @@ const DataTable = ({ data, column, scrollWidth, size = "small", loading }: DataT
                         {
                             title: "#",
                             dataIndex: "key",
-                            width: 60,
+                            width: 20,
                         },
                         ...column,
                     ]}
@@ -37,6 +35,7 @@ const DataTable = ({ data, column, scrollWidth, size = "small", loading }: DataT
                         ),
                     }}
                     loading={loading}
+                    pagination={false}
                 />
             </TableWrapper>
         </>
