@@ -10,8 +10,9 @@ const routes = {
 
   // admin
   dashboard: '/admin',
-  adminUserList: '/admin/users'
-
+  adminUserList: '/admin/users',
+  adminUserAdd: '/admin/users/add',
+  adminUserUpdate: '/admin/users/:id'
 };
 
 export default routes;

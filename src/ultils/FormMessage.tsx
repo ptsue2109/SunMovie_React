@@ -1,6 +1,5 @@
 const typeTemplate = "'${name}' is not a valid ${type}";
-
-export const defaultValidateMessages = {
+export const validateMessages = {
   default: "Validation error on field '${name}'",
   required: "'${name}' is required",
   enum: "'${name}' must be one of [${enum}]",
@@ -44,6 +43,7 @@ export const defaultValidateMessages = {
     range: "'${name}' must be between ${min} and ${max} in length",
   },
   pattern: {
-    mismatch: "'${name}' does not match pattern ${pattern}",
+    mismatch: "${name} không hợp lệ",
   },
 };
+
