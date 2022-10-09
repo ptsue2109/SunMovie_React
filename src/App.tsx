@@ -12,10 +12,10 @@ function App() {
 
   const dispatch = useAppDispatch();
   
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  //   dispatch(getProvider());
-  // }, []);
+  useEffect(() => {
+    dispatch(getUsers());
+    dispatch(getProvider());
+  }, []);
 
 
   return (

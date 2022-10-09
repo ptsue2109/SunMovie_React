@@ -10,7 +10,7 @@ export const getProviderApi = () =>{
 
 export const getProvider = createAsyncThunk("cities/getALL", async (options: AxiosRequestConfig = {}) => {
    try {
-      const { data } = await  getProviderApi()
+      const { data } = await  getProviderApi();
       return data;
    } catch (error: any) {
       return `${error.response.data}`
@@ -40,12 +40,7 @@ const providerSlice = createSlice({
       builder.addCase(getProvider.fulfilled, (state, { payload }) => {
          state.providers = payload
       });
-      builder.addCase(getProvider.pending, (state, { payload }) => {
-         state.providers = []
-      });
-      builder.addCase(getProvider.rejected, (state, { payload }) => {
-         state.providers = []
-      });
+     
    },
 });
 export default providerSlice.reducer;

@@ -57,7 +57,14 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
       });
       setFileList(files);
    };
-
+   const roles = [
+      { value: 0, name: "Khách hàng" },
+      { value: 1, name: "Admin" }
+   ];
+   const status = [
+      { value: 0, name: "Active" },
+      { value: 1, name: "Inactive" }
+   ];
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid">
@@ -93,15 +100,13 @@ const UserForm = ({ fileList, form, onFinish, setFileList, onReset, edit = false
 
                   <Card className="col-6">
                      <Form.Item label="Status" name="status">
-                        <Select>
-                           <Select.Option value="0">Active</Select.Option>
-                           <Select.Option value="1">inactive</Select.Option>
+                     <Select>
+                           {status.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chức vụ" name="role">
                         <Select>
-                           <Select.Option value="0">Quản trị viên</Select.Option>
-                           <Select.Option value="1">Khach hang</Select.Option>
+                           {roles.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                   </Card>
