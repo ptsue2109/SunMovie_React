@@ -19,6 +19,7 @@ import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 import UserCreate from "../pages/admin/User/Create";
 import UserEdit from "../pages/admin/User/Update";
 import ListMovieType from "../pages/admin/MovieType/ListMovieType";
+import ListAddminTicket from "../pages/admin/Ticket/ListTicket";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -43,4 +44,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminUserAdd, component: UserCreate },
   { path: configRoute.routes.adminUserUpdate, component: UserEdit },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
+  { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
 ];
