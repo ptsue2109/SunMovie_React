@@ -15,6 +15,7 @@ const routes = {
   adminUserAdd: "/admin/users/add",
   adminUserUpdate: "/admin/users/:id",
   adminListTicket: "/admin/ticket",
+  adminTicketAdd: "/admin/ticket/add",
 };
 
 export default routes;

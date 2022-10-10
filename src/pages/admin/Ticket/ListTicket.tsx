@@ -67,7 +67,7 @@ const AdminListTiket = (props: Props) => {
           color={status == "active" ? "red" : "blue"}
           key={status >= "active" ? "red" : "blue"}
         >
-          {status == "active" ? "inactive" : "active"}
+          {status == true ? "inactive" : "active"}
         </Tag>
       ),
       width: "30px",
