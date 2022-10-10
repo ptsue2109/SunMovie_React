@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { AxiosRequest } from "./instance";
+import AxiosRequest from "./instance";
 
 export const MovieTypeApi = {
   getAll(options: AxiosRequestConfig = {}): Promise<any> {

@@ -1,8 +1,9 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import configRoute from "../config";
 import { AuthTheme } from "../themes";
 
 import SignIn from "../pages/auth/SignIn";
+
 import SignUp from "../pages/auth/SignUp";
 import NotFoundPage from "../pages/NotFound";
 
@@ -15,7 +16,8 @@ import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 import Dashboard from "../pages/admin/Dashboard";
 import AdminUserList from "../pages/admin/User/List";
 import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
-
+import UserCreate from "../pages/admin/User/Create";
+import UserEdit from "../pages/admin/User/Update";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -37,4 +39,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.dashboard, component: Dashboard },
   { path: configRoute.routes.adminUserList, component: AdminUserList },
   { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
+  { path: configRoute.routes.adminUserAdd, component: UserCreate },
+  { path: configRoute.routes.adminUserUpdate, component: UserEdit },
 ];

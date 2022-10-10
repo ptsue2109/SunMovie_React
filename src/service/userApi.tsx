@@ -1,14 +1,21 @@
-import { AxiosRequestConfig } from "axios";
-import AxiosRequest from "./instance";
+
+import axiosClient from "./instance";
 
 
 export const UserApi = {
-   getAll(options: AxiosRequestConfig = {}): Promise<any> {
-      let url = "/users";
-      return AxiosRequest.get(url, options);
-    },
-    removeUser(userID?: string) {
-      let url = `users/${userID}`
-      return AxiosRequest.delete(url);
-    },
- };
+  getAll(){
+    let url = "/users";
+    return axiosClient.get(url);
+  },
+  removeUser(userID?: string) {
+    let url = `users/${userID}`
+    return axiosClient.delete(url);
+  },
+  updateUser(payload: any) {
+    const url = `/users/${payload._id}`
+    return axiosClient.patch(url, payload)
+  },
+  create(data: any): Promise<any> {
+    return axiosClient.post("/register", data);
+  }
+};
