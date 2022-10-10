@@ -12,4 +12,7 @@ export const MovieTypeApi = {
   create(data?: any) {
     return AxiosRequest.post("/movieType", data);
   },
+  edit(data: any) {
+    return AxiosRequest.patch(`/movieType/${data._id}`, data);
+  },
 };
