@@ -12,6 +12,18 @@ export const createMovieType = createAsyncThunk(
     }
   }
 );
+
+export const getMovieType = createAsyncThunk(
+  "movieType/list",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await MovieTypeApi.getAll();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 type movieTypeState = {
   movieType: any[];
   isFetching: boolean;
@@ -29,6 +41,7 @@ const movieTypeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // create
     builder.addCase(createMovieType.pending, (state, action) => {
       state.isErr = false;
       state.isFetching = true;
@@ -41,6 +54,23 @@ const movieTypeSlice = createSlice({
       state.movieType = action.payload;
     });
     builder.addCase(createMovieType.rejected, (state, action) => {
+      state.isErr = true;
+      state.isFetching = false;
+      state.isSucess = false;
+    });
+    // list
+    builder.addCase(getMovieType.pending, (state, action) => {
+      state.isErr = false;
+      state.isFetching = true;
+      state.isSucess = false;
+    });
+    builder.addCase(getMovieType.fulfilled, (state, action) => {
+      state.isErr = false;
+      state.isFetching = false;
+      state.isSucess = true;
+      state.movieType = action.payload;
+    });
+    builder.addCase(getMovieType.rejected, (state, action) => {
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
