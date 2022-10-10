@@ -19,7 +19,7 @@ const AdminListTiket = (props: Props) => {
         message.success({ content: "Xoá thành công", key: "handling" });
       })
       .catch(() => {
-        message.error({ content: { errorMessage } });
+        message.error({ content: { errorMessage } }); //
       });
   };
 
