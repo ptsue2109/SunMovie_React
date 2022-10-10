@@ -13,9 +13,8 @@ import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 
 // admin
 import Dashboard from "../pages/admin/Dashboard";
-import AdminUserList from "../pages/admin/User/List"
-
-
+import AdminUserList from "../pages/admin/User/List";
+import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 
 type RoutesType = {
   path: string;
@@ -34,11 +33,8 @@ export const publicRoutes: RoutesType[] = [
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
-
-
 export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.dashboard, component: Dashboard },
   { path: configRoute.routes.adminUserList, component: AdminUserList },
-  
+  { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
 ];
-
