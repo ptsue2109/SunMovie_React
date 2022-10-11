@@ -14,6 +14,7 @@ const routes = {
   adminMovieType: "/admin/movie-type",
   adminUserAdd: "/admin/users/add",
   adminUserUpdate: "/admin/users/:id",
+  adminMovieTypeEdit: "/admin/movie-type/:id",
 };
 
 export default routes;

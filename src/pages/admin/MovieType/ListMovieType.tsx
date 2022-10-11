@@ -15,6 +15,7 @@ const ListMovieType = (props: Props) => {
   );
   const deleteUser = (id: any) => {
     dispatch(removeMovieTypeItem(id))
+      .unwrap()
       .then(() => message.success({ content: "Xóa thành công" }))
       .catch(() => message.error({ content: "lỗi" }));
   };

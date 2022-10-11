@@ -3,7 +3,7 @@ import { MovieTypeApi } from "../../service/movieTypeApi";
 
 export const createMovieType = createAsyncThunk(
   "movieType/add",
-  async (item, { rejectWithValue }) => {
+  async (item: any, { rejectWithValue }) => {
     try {
       const { data } = await MovieTypeApi.create(item);
       return data;
@@ -30,6 +30,17 @@ export const removeMovieTypeItem = createAsyncThunk(
   async (id: any, { rejectWithValue }) => {
     try {
       const { data } = await MovieTypeApi.remove(id);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const UpdateMovieType = createAsyncThunk(
+  "movieType/edit",
+  async (items: any, { rejectWithValue }) => {
+    try {
+      const { data } = await MovieTypeApi.edit(items);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -96,10 +107,19 @@ const movieTypeSlice = createSlice({
         (x: any) => x._id !== action.payload._id
       );
     });
-    builder.addCase(removeMovieTypeItem.rejected, (state, action) => {
+    builder.addCase(UpdateMovieType.rejected, (state, action) => {
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
+    });
+    // update
+    builder.addCase(UpdateMovieType.fulfilled, (state, action) => {
+      state.isErr = false;
+      state.isFetching = false;
+      state.isSucess = true;
+      state.movieType = state.movieType.map((item: any) => {
+        item._id !== action.payload._id ? item : action.payload;
+      });
     });
   },
 });
