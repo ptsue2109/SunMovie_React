@@ -16,4 +16,20 @@ export const TicketApi = {
   createTiket(data: any): Promise<any> {
     return axiosClient.post("/tickets", data);
   },
+  // ticketPrice
+  getAllTicketPrice() {
+    let url = "/ticketPrice";
+    return axiosClient.get(url);
+  },
+  removeTiketPrice(tiketID?: string) {
+    let url = `ticketPrice/${tiketID}`;
+    return axiosClient.delete(url);
+  },
+  updateTiketPrice(payload: any) {
+    const url = `/ticketPrice/${payload._id}`;
+    return axiosClient.put(url, payload);
+  },
+  createTiketPrice(data: any): Promise<any> {
+    return axiosClient.post("/ticketPrice", data);
+  },
 };

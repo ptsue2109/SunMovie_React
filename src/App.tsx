@@ -9,6 +9,7 @@ import { getUsers } from "./redux/slice/userSlice";
 import { getProvider } from "./redux/slice/Provider";
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getTicket } from "./redux/slice/ticketSlice";
+import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function App() {
     dispatch(getProvider());
     dispatch(getMovieType());
     dispatch(getTicket());
+    dispatch(getTicketPrice());
   }, []);
 
   return (
