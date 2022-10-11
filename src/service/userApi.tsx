@@ -13,7 +13,7 @@ export const UserApi = {
   },
   updateUser(payload: any) {
     const url = `/users/${payload._id}`
-    return axiosClient.patch(url, payload)
+    return axiosClient.put(url, payload)
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/register", data);

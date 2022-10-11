@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Tag, Pagination } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-import { removeUser, getUsers } from '../../../redux/slice/userSlice';
+import { removeUser } from '../../../redux/slice/userSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 
@@ -10,8 +10,7 @@ type Props = {}
 
 const AdminUserList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
-
+  const { users, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data)).unwrap()
       .then(() => {
@@ -28,7 +27,7 @@ const AdminUserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}`}>
-          
+
           <img width="40px" height="40px" src={record?.avatar} alt="" />
         </Link>
       ),
@@ -126,14 +125,14 @@ const AdminUserList = (props: Props) => {
   ];
 
   const data: Props[] = users?.map((item: any, index: any) => {
-    console.log(item.avatar)
+    console.log(users)
     return {
       key: index + 1,
       _id: item?._id,
       username: item?.username,
       fullname: item?.fullname,
       email: item?.email,
-      avatar:  item?.avatar ? item?.avatar : `${import.meta.env.VITE_HIDDEN_SRC}`,
+      avatar: item?.avatar[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
@@ -141,7 +140,11 @@ const AdminUserList = (props: Props) => {
     }
   });
 
-
+  useEffect(() => {
+    if (isErr) {
+      message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
+    }
+  }, [isErr])
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>

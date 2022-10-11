@@ -67,6 +67,10 @@ const userSlice = createSlice({
          state.users = payload
          state.isFetching = false
       });
+      builder.addCase(getUsers.rejected, (state, { payload }) => {
+         state.isFetching = false;
+         state.errorMessage= payload
+      });
 
       // delete
       builder.addCase(removeUser.pending, (state) => {
@@ -120,7 +124,6 @@ const userSlice = createSlice({
        });
        builder.addCase(updateUser.rejected, (state, action) => {
          state.isFetching = false;
-
          state.errorMessage = action.payload;
        });
    },

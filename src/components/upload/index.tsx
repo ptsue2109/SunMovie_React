@@ -6,7 +6,8 @@ import axios from 'axios';
 
 type Props = {
   imageList: UploadFile<any>[],
-  imagesCount: number
+  limit: number,
+ 
 }
 
 
@@ -15,14 +16,7 @@ const ImageUpload = (props: Props) => {
   const [previewImage, setPreviewImage] = React.useState<string>('');
   const [previewTitle, setPreviewTitle] = React.useState<string>('');
   const [fileList, setFileList] = React.useState<Array<UploadFile>>(props.imageList);
-  // function getBase64(file: any) {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => resolve(reader.result);
-  //     reader.onerror = error => reject(error);
-  //   });
-  // }
+ 
 
   const uploadButton = (
     <div>
@@ -54,7 +48,8 @@ const ImageUpload = (props: Props) => {
       onError({ error });
     }
   }
-  const accepts = ["image/gif", "image/jpeg", "image/png"]
+  const accepts = ["image/gif", "image/jpeg", "image/png"];
+
   const handleChange = ({ fileList, file }: { fileList: any; file: any }) => {
     const extensionFile = accepts.map((item) => item.split("image/")[1]);
     if (file.size / 1024 / 1024 > 2) {
@@ -79,14 +74,18 @@ const ImageUpload = (props: Props) => {
   }, [props.imageList])
 
   return (<>
-    <Form.Item name='image' rules={[{ required: true }]} style={{ display: "flex", alignItems: "center", justifyContent: 'center' }} >
-      <Upload listType='picture-card' fileList={fileList} customRequest={dummyrequest} maxCount={props.imagesCount} onChange={handleChange} onPreview={handlePreview}>
-        {fileList.length >= props.imagesCount ? null : uploadButton}
-
+    <Form.Item name='avatarList' style={{ display: "flex", alignItems: "start", justifyContent: 'start' }} >
+      <Upload listType='picture-card'
+        fileList={fileList}
+        customRequest={dummyrequest}
+        maxCount={props.limit}
+        onChange={handleChange}
+        onPreview={handlePreview}>
+        {fileList.length >= props.limit ? null : uploadButton}
       </Upload>
     </Form.Item>
     <Modal
-      visible={previewVisible}
+      open={previewVisible}
       title={previewTitle}
       footer={null}
       onCancel={handleCancel}
