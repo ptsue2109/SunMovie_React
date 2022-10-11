@@ -14,7 +14,7 @@ const CreateTicketPrice = (props: Props) => {
   const onFinish = async (values: any) => {
     const { meta, payload } = await dispatch(createTicketPrice(values));
     if (meta.requestStatus == "fulfilled") {
-      message.success("Thêm thành công");
+      message.success("Thêm thành  Thành  công");
       navigate(configRoute.routes.adminTicketPrice);
     } else {
       message.error(`${payload}`);
