@@ -11,7 +11,7 @@ export const TicketApi = {
   },
   updateTiket(payload: any) {
     const url = `/tickets/${payload._id}`;
-    return axiosClient.patch(url, payload);
+    return axiosClient.put(url, payload);
   },
   createTiket(data: any): Promise<any> {
     return axiosClient.post("/tickets", data);

@@ -148,7 +148,7 @@ const AdminListTiket = (props: Props) => {
             />
           </Link>
           <Popconfirm
-            title={`Delete ${record?.username ?? record?._id}?`}
+            title={`Delete ${record?.tickets ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteTiket(record?._id)}
@@ -179,7 +179,7 @@ const AdminListTiket = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Add Users</Link>
+        <Link to="add">Add Ticket</Link>
       </Button>
       <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>
