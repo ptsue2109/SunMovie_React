@@ -43,7 +43,7 @@ const ListTicketPrice = (props: Props) => {
             title={`Delete ${item?.name ?? item?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            onConfirm={() => deleteTicketPrice(item?._id)}
+            onConfirm={() => deleteTicketPrice(item?._id)} //
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
