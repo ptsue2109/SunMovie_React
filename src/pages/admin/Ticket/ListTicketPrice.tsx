@@ -62,7 +62,7 @@ const ListTicketPrice = (props: Props) => {
   return (
     <>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.adminMovieTypeAdd}>Add TicketPrice</Link>
+        <Link to={configRoute.routes.adminTicketPriceAdd}>Add TicketPrice</Link>
       </Button>
       <DataTable column={columnList} data={data} loading={isFetching} />
     </>

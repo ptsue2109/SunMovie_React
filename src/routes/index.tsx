@@ -23,6 +23,7 @@ import ListAddminTicket from "../pages/admin/Ticket/ListTicket";
 import CreateTicket from "../pages/admin/Ticket/Create";
 import UploadTicket from "../pages/admin/Ticket/Upload";
 import ListTicketPrice from "../pages/admin/Ticket/ListTicketPrice";
+import CreateTicketPrice from "../pages/admin/Ticket/CreateTicketPrice";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -51,4 +52,8 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
   { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
   { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
+  {
+    path: configRoute.routes.adminTicketPriceAdd,
+    component: CreateTicketPrice,
+  },
 ];
