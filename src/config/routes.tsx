@@ -19,6 +19,7 @@ const routes = {
   adminTicketUpdate: "/admin/ticket/:id",
   adminTicketPrice: "/admin/ticketprice",
   adminTicketPriceAdd: "/admin/ticketprice/add",
+  adminTicketPriceUpdate: "/admin/ticketprice/:id",
 };
 
 export default routes;

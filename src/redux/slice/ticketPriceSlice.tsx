@@ -12,6 +12,18 @@ export const createTicketPrice = createAsyncThunk(
     }
   }
 );
+export const updateTiketPrice = createAsyncThunk<
+  any,
+  any,
+  { rejectValue: string }
+>("TicketPrice/update", async (ticketPrice, { rejectWithValue }) => {
+  try {
+    const { data } = await TicketApi.updateTiketPrice(ticketPrice);
+    return data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data);
+  }
+});
 
 export const getTicketPrice = createAsyncThunk(
   "ticketPriceType/list",
@@ -100,6 +112,15 @@ const ticketPriceSlice = createSlice({
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
+    });
+    ///update
+    builder.addCase(updateTiketPrice.fulfilled, (state, action) => {
+      state.isErr = false;
+      state.isFetching = false;
+      state.isSucess = true;
+      state.ticketPrice = state.ticketPrice.map((item: any) => {
+        item._id !== action.payload._id ? item : action.payload;
+      });
     });
   },
 });
