@@ -16,7 +16,7 @@ function App() {
     dispatch(getUsers());
     dispatch(getProvider());
     dispatch(getMovieType());
-  }, []);
+  }, [getMovieType()]);
 
   return (
     <>

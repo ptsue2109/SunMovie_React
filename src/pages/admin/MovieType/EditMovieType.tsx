@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -15,8 +15,8 @@ const EditMovieType = (props: Props) => {
   const { movieType, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.movieTypeReducer
   );
-  const data = movieType?.find((item) => item._id === id);
 
+  const data = movieType?.find((item: any) => item._id === id);
   useEffect(() => {
     if (data) {
       form.setFieldsValue({
