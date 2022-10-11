@@ -1,7 +1,4 @@
-import {
-  UserOutlined,
-  PieChartOutlined,
-} from "@ant-design/icons";
+import { UserOutlined, PieChartOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import type { MenuProps } from "antd/es/menu";
 import React from "react";
@@ -33,21 +30,33 @@ const items: MenuItem[] = [
     <PieChartOutlined />
   ),
   getItem("Quản lí người dùng", "sub2", <UserOutlined />, [
-    getItem(<Link to={config.routes.adminUserList}> Danh sách người dùng</Link>, "3"),
-    getItem(<Link  to={config.routes.adminUserAdd}> Thêm người dùng</Link>, "4"),
+    getItem(
+      <Link to={config.routes.adminUserList}> Danh sách người dùng</Link>,
+      "3"
+    ),
+    getItem(<Link to={config.routes.adminUserAdd}> Thêm người dùng</Link>, "4"),
+  ]),
+  getItem("Quản lí thể loại phim", "sub3", <UserOutlined />, [
+    getItem(
+      <Link to={config.routes.adminMovieType}> Danh sách thể loại</Link>,
+      "5"
+    ),
+    getItem(
+      <Link to={config.routes.adminMovieTypeAdd}> Thêm thể loại</Link>,
+      "6"
+    ),
   ]),
 ];
 const MenuAdminLayout = (props: Props) => {
   return (
-    <Menu 
-    theme="dark"
-    style={{ width: 256 }}
-    defaultSelectedKeys={["link"]}
-    defaultOpenKeys={["link"]}
-    items={items}
-    mode="inline"
-  
-  />
+    <Menu
+      theme="dark"
+      style={{ width: 256 }}
+      defaultSelectedKeys={["link"]}
+      defaultOpenKeys={["link"]}
+      items={items}
+      mode="inline"
+    />
   );
 };
 

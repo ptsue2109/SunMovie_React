@@ -14,9 +14,12 @@ import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 
 // admin
 import Dashboard from "../pages/admin/Dashboard";
-import AdminUserList from "../pages/admin/User/List"
-import UserCreate from "../pages/admin/User/Create"
-import UserEdit from "../pages/admin/User/Update"
+import AdminUserList from "../pages/admin/User/List";
+import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
+import UserCreate from "../pages/admin/User/Create";
+import UserEdit from "../pages/admin/User/Update";
+import EditMovieType from "../pages/admin/MovieType/EditMovieType";
+import ListMovieType from "../pages/admin/MovieType/ListMovieType";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -34,14 +37,12 @@ export const publicRoutes: RoutesType[] = [
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
-
-
 export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.dashboard, component: Dashboard },
   { path: configRoute.routes.adminUserList, component: AdminUserList },
+  { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
   { path: configRoute.routes.adminUserAdd, component: UserCreate },
   { path: configRoute.routes.adminUserUpdate, component: UserEdit },
-  
-  
+  { path: configRoute.routes.adminMovieType, component: ListMovieType },
+  { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
 ];
-
