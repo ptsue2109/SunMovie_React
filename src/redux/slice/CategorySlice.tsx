@@ -1,15 +1,38 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CategoriesApi } from "../../service/categoriesApi";
 
-export const getCategories = createAsyncThunk("categories/list", async () => {
-  const { data } = await CategoriesApi.getAll();
-  return data;
-});
+export const getCategories = createAsyncThunk(
+  "categories/list",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await CategoriesApi.getAll();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const createCategories = createAsyncThunk(
   "categories/create",
-  async (item: any) => {
-    const { data } = await CategoriesApi.create(item);
-    return data;
+  async (item: any, { rejectWithValue }) => {
+    try {
+      const { data } = await CategoriesApi.create(item);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const removeCategory = createAsyncThunk(
+  "categories/remove",
+  async (id: any, { rejectWithValue }) => {
+    try {
+      const { data } = await CategoriesApi.remove(id);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 type categoriesState = {
@@ -32,10 +55,13 @@ const categoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getCategories.pending, (state, action) => {
       state.isFetching = true;
+      state.isSucess = false;
+      state.isErr = false;
     });
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
+      state.isErr = false;
       state.categories = action.payload;
     });
     builder.addCase(getCategories.rejected, (state, action) => {
@@ -54,6 +80,27 @@ const categoriesSlice = createSlice({
       state.isSucess = true;
       state.isErr = false;
       state.categories.push(action.payload);
+    });
+    // remove
+
+    builder.addCase(removeCategory.pending, (state, action) => {
+      state.isFetching = true;
+      state.isSucess = false;
+      state.isErr = false;
+    });
+    builder.addCase(removeCategory.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.isSucess = true;
+      state.isErr = false;
+      state.categories = state.categories.filter(
+        (item) => item._id != action.payload.category._id
+      );
+      // console.log(action.payload.categories._id);
+    });
+    builder.addCase(removeCategory.rejected, (state, action) => {
+      state.isErr = true;
+      state.isFetching = false;
+      state.isSucess = false;
     });
   },
 });

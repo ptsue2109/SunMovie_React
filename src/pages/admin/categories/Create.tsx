@@ -19,7 +19,6 @@ const CreateCategory = (props: Props) => {
     } else {
       message.error({ content: "Lỗi" });
     }
-    console.log(values);
   };
   return (
     <>
