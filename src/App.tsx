@@ -6,7 +6,7 @@ import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
 import { useAppDispatch } from "./redux/hook";
 import { getUsers } from "./redux/slice/userSlice";
-import { getProvider } from "./redux/slice/Provider";
+
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 
@@ -15,14 +15,12 @@ function App() {
 
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getProvider());
     dispatch(getMovieType());
     dispatch(getCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      {/* <BrowserRouter> */}
       <Routes>
         {publicRoutes.map((route, index) => {
           const Page = route.component;
@@ -71,7 +69,6 @@ function App() {
         })}
       </Routes>
       <ScrollToTop />
-      {/* </BrowserRouter> */}
     </>
   );
 }

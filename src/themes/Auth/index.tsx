@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from "react";
-import firebase from "firebase/compat/app";
-import { StyledFirebaseAuth } from "react-firebaseui";
-import "firebase/compat/auth";
+// import firebase from "firebase/compat/app";
+// import { StyledFirebaseAuth } from "react-firebaseui";
+// import "firebase/compat/auth";
 import "./index.scss";
 import configRoute from "../../config";
 
-const config = {
-  apiKey: "AIzaSyCUdof8BHr8LfDIZIYDCvDv1e8mjmIpgGY",
-  authDomain: "my-app-7bb3f.firebaseapp.com",
-};
-firebase.initializeApp(config);
+// const config = {
+//   apiKey: "AIzaSyCUdof8BHr8LfDIZIYDCvDv1e8mjmIpgGY",
+//   authDomain: "my-app-7bb3f.firebaseapp.com",
+// };
+// firebase.initializeApp(config);
 
 type Props = {
   children: JSX.Element;
 };
-const uiConfig = {
-  signInFlow: "redirect",
-  signInSuccessUrl: configRoute.routes.home,
-  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
-};
+// const uiConfig = {
+//   signInFlow: "redirect",
+//   signInSuccessUrl: configRoute.routes.home,
+//   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+// };
 
 const AuthCore = ({ children }: Props) => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  // const [isSignedIn, setIsSignedIn] = useState(false);
 
-  useEffect(() => {
-    const unregisterAuthObserver = firebase
-      .auth()
-      .onAuthStateChanged((user) => {
-        setIsSignedIn(!!user);
-        if (user) {
-          console.log("LOgin success", user);
-        }
-      });
-    return () => unregisterAuthObserver();
-  }, []);
+  // useEffect(() => {
+  //   const unregisterAuthObserver = firebase
+  //     .auth()
+  //     .onAuthStateChanged((user) => {
+  //       setIsSignedIn(!!user);
+  //       if (user) {
+  //         console.log("LOgin success", user);
+  //       }
+  //     });
+  //   return () => unregisterAuthObserver();
+  // }, []);
 
   return (
     <div className="wrapper">
@@ -58,10 +58,10 @@ const AuthCore = ({ children }: Props) => {
             <div className="divider text-center font-bold">OR</div>
             <div className="">
               <div className="">
-                <StyledFirebaseAuth
+                {/* <StyledFirebaseAuth
                   uiConfig={uiConfig}
                   firebaseAuth={firebase.auth()}
-                />
+                /> */}
               </div>
             </div>
           </div>
