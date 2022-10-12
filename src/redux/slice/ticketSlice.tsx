@@ -12,18 +12,17 @@ export const getTicket = createAsyncThunk<any, void, { rejectValue: string }>(
     }
   }
 );
-export const removeTiket = createAsyncThunk<
-  any,
-  string | undefined,
-  { rejectValue: string }
->("tickets/removeTicket", async (id, { rejectWithValue }) => {
-  try {
-    const { data } = await TicketApi.removeTiket(id);
-    return data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+export const removeTicket = createAsyncThunk(
+  "tickets/removeTicket",
+  async (id: any, { rejectWithValue }) => {
+    try {
+      const { data } = await TicketApi.removeTiket(id);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 export const updateTiket = createAsyncThunk<any, any, { rejectValue: string }>(
   "tickets/updateTicket",
   async (tiket, { rejectWithValue }) => {
@@ -77,22 +76,18 @@ const tiketSlice = createSlice({
     });
 
     // delete
-    builder.addCase(removeTiket.pending, (state) => {
-      state.isFetching = true;
+    builder.addCase(removeTicket.fulfilled, (state, action) => {
       state.isErr = false;
-      state.isSucess = false;
-    });
-    builder.addCase(removeTiket.fulfilled, (state, { payload }) => {
       state.isFetching = false;
-      state.isErr = false;
       state.isSucess = true;
-      state.tickets = state.tickets.filter((item) => item._id !== payload._id);
+      state.tickets = state.tickets.filter(
+        (x: any) => x._id !== action.payload._id
+      );
     });
-    builder.addCase(removeTiket.rejected, (state, { payload }) => {
+    builder.addCase(removeTicket.rejected, (state, action) => {
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
-      state.errorMessage = payload;
     });
 
     //create

@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { removeTiket, getTicket } from "../../../redux/slice/ticketSlice";
+import { removeTicket, getTicket } from "../../../redux/slice/ticketSlice";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 type Props = {};
 
@@ -13,14 +13,10 @@ const AdminListTiket = (props: Props) => {
     (state) => state.ticketReducer
   );
 
-  const deleteTiket = (data: string | undefined) => {
-    dispatch(removeTiket(data))
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errorMessage } }); //
-      });
+  const deleteTicket = (id: any) => {
+    dispatch(removeTicket(id))
+      .then(() => message.success({ content: "Xóa thành công" }))
+      .catch(() => message.error({ content: "lỗi" }));
   };
 
   const columnUserList: any = [
@@ -151,7 +147,7 @@ const AdminListTiket = (props: Props) => {
             title={`Delete ${record?.tickets ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            onConfirm={() => deleteTiket(record?._id)}
+            onConfirm={() => deleteTicket(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
