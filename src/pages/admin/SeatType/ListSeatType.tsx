@@ -62,7 +62,7 @@ const ListSeatType = (props: Props) => {
   return (
     <>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.adminMovieTypeAdd}>Add Movie Type</Link>
+        <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
       </Button>
       <DataTable column={columnList} data={data} loading={isFetching} />
     </>

@@ -26,6 +26,7 @@ import ListTicketPrice from "../pages/admin/Ticket/ListTicketPrice";
 import CreateTicketPrice from "../pages/admin/Ticket/CreateTicketPrice";
 import UploadTicketPrice from "../pages/admin/Ticket/UploadTicketPrice";
 import ListSeatType from "../pages/admin/SeatType/ListSeatType";
+import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -63,4 +64,5 @@ export const privateRoutes: RoutesType[] = [
     component: CreateTicketPrice,
   },
   { path: configRoute.routes.adminSeatType, component: ListSeatType },
+  { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
 ];
