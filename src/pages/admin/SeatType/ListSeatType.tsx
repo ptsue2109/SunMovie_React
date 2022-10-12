@@ -26,7 +26,7 @@ const ListSeatType = (props: Props) => {
     },
     {
       title: "extraPrice",
-      render: (item: any, index: any) => <p>{item.extraPrice}</p>,
+      render: (item: any, index: any) => <p>{item.extraPrice} VNĐ</p>,
       height: "10",
     },
     {
