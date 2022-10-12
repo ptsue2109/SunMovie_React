@@ -46,6 +46,17 @@ const items: MenuItem[] = [
       "6"
     ),
   ]),
+
+  getItem("Quản lí danh mục phim", "sub4", <UserOutlined />, [
+    getItem(
+      <Link to={config.routes.adminCategories}> Danh sách danh mục</Link>,
+      "7"
+    ),
+    getItem(
+      <Link to={config.routes.adminCategoriesCreate}> Thêm danh mục</Link>,
+      "8"
+    ),
+  ]),
 ];
 const MenuAdminLayout = (props: Props) => {
   return (

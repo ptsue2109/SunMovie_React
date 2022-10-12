@@ -8,6 +8,7 @@ import { useAppDispatch } from "./redux/hook";
 import { getUsers } from "./redux/slice/userSlice";
 import { getProvider } from "./redux/slice/Provider";
 import { getMovieType } from "./redux/slice/movieTypeSlice";
+import { getCategories } from "./redux/slice/CategorySlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -16,7 +17,8 @@ function App() {
     dispatch(getUsers());
     dispatch(getProvider());
     dispatch(getMovieType());
-  }, [getMovieType()]);
+    dispatch(getCategories());
+  }, []);
 
   return (
     <>
