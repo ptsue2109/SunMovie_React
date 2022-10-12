@@ -7,6 +7,7 @@ import movieTypeReducer from "./slice/movieTypeSlice";
 import providerReducer from "./slice/Provider";
 import ticketReducer from "./slice/ticketSlice";
 import ticketPriceReducer from "./slice/ticketPriceSlice";
+import seatTypeReducer from "./slice/SeatTypeSlice";
 const persistConfig = {
   key: "root",
   storage,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   providerReducer,
   ticketReducer,
   ticketPriceReducer,
+  seatTypeReducer,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

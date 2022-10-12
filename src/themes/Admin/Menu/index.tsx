@@ -49,16 +49,26 @@ const items: MenuItem[] = [
   getItem("Quản lí Vé Xem phim", "sub4", <UserOutlined />, [
     getItem(
       <Link to={config.routes.adminListTicket}> Danh sách Vé Xem phim</Link>,
-      "3"
+      "7"
     ),
-    getItem(<Link to={config.routes.adminTicketAdd}> Thêm Vé</Link>, "4"),
+    getItem(<Link to={config.routes.adminTicketAdd}> Thêm Vé</Link>, "8"),
   ]),
   getItem("Quản lí Vé  ", "sub5", <UserOutlined />, [
     getItem(
       <Link to={config.routes.adminTicketPrice}> Danh sách Vé Xem phim</Link>,
-      "3"
+      "9"
     ),
-    getItem(<Link to={config.routes.adminTicketPriceAdd}> Thêm Vé</Link>, "4"),
+    getItem(<Link to={config.routes.adminTicketPriceAdd}> Thêm Vé</Link>, "10"),
+  ]),
+  getItem("Quản lí Loại Ghế  ", "sub6", <UserOutlined />, [
+    getItem(
+      <Link to={config.routes.adminSeatType}> Danh sách loại ghế</Link>,
+      "11"
+    ),
+    getItem(
+      <Link to={config.routes.adminTicketPriceAdd}> Thêm ghế</Link>,
+      "12"
+    ),
   ]),
 ];
 const MenuAdminLayout = (props: Props) => {

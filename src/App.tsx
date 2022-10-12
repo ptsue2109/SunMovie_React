@@ -10,6 +10,7 @@ import { getProvider } from "./redux/slice/Provider";
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getTicket } from "./redux/slice/ticketSlice";
 import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
+import { getSeatType } from "./redux/slice/SeatTypeSlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ function App() {
     dispatch(getMovieType());
     dispatch(getTicket());
     dispatch(getTicketPrice());
+    dispatch(getSeatType());
   }, []);
 
   return (
