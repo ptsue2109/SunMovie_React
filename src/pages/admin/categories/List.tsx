@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import configRoute from "../../../config";
 import DataTable from "../../../components/admin/Form&Table/Table";
+import { removeCategory } from "../../../redux/slice/CategorySlice";
 type Props = {};
 
 const ListCategories = (props: Props) => {
@@ -12,6 +13,12 @@ const ListCategories = (props: Props) => {
     (state) => state.categoriesReducer
   );
   const dispatch = useAppDispatch();
+  const remove = (id: any) => {
+    dispatch(removeCategory(id))
+      .unwrap()
+      .then(() => message.success({ content: "Xóa thành công" }))
+      .catch(() => message.error({ content: "Xóa lỗi" }));
+  };
   const columnList: any = [
     {
       title: "Name",
@@ -30,10 +37,10 @@ const ListCategories = (props: Props) => {
             />
           </Link>
           <Popconfirm
-            title={`Delete ${item?.movieName ?? item?._id}?`}
+            title={`Delete ${item?.title ?? item?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            onConfirm={() => null}
+            onConfirm={() => remove(item?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
