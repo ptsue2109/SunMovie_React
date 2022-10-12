@@ -8,6 +8,7 @@ import { useAppDispatch } from "./redux/hook";
 import { getUsers } from "./redux/slice/userSlice";
 
 import { getMovieType } from "./redux/slice/movieTypeSlice";
+import { getCategories } from "./redux/slice/CategorySlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -15,6 +16,7 @@ function App() {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getMovieType());
+    dispatch(getCategories());
   }, [dispatch]);
 
   return (

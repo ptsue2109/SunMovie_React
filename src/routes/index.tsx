@@ -18,8 +18,10 @@ import AdminUserList from "../pages/admin/User/List";
 import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 import UserCreate from "../pages/admin/User/Create";
 import UserEdit from "../pages/admin/User/Update";
-import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import ListMovieType from "../pages/admin/MovieType/ListMovieType";
+import ListCategories from "../pages/admin/categories/List";
+import EditMovieType from "../pages/admin/MovieType/EditMovieType";
+import CreateCategory from "../pages/admin/categories/Create";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -45,4 +47,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminUserUpdate, component: UserEdit },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
   { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
+  { path: configRoute.routes.adminCategories, component: ListCategories },
+  { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
 ];

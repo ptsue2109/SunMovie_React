@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./slice/AuthSlice";
 import userReducer from "./slice/userSlice";
 import movieTypeReducer from "./slice/movieTypeSlice";
+import categoriesReducer from "./slice/CategorySlice";
 
 const persistConfig = {
   key: "root",
@@ -14,7 +15,7 @@ const reducers = combineReducers({
   authReducer,
   userReducer,
   movieTypeReducer,
- 
+  categoriesReducer,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 
