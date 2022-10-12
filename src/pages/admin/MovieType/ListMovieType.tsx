@@ -28,6 +28,7 @@ const ListMovieType = (props: Props) => {
     {
       title: "ACTION",
       key: "action",
+      height: "10",
       render: (_: any, item: any) => (
         <Space size="middle">
           <Link to={`${item._id}`}>
