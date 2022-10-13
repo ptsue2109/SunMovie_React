@@ -4,10 +4,11 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./slice/AuthSlice";
 import userReducer from "./slice/userSlice";
 import movieTypeReducer from "./slice/movieTypeSlice";
-import providerReducer from "./slice/Provider";
 import ticketReducer from "./slice/ticketSlice";
 import ticketPriceReducer from "./slice/ticketPriceSlice";
 import seatTypeReducer from "./slice/SeatTypeSlice";
+import categoriesReducer from "./slice/CategorySlice";
+
 const persistConfig = {
   key: "root",
   storage,
@@ -17,10 +18,10 @@ const reducers = combineReducers({
   authReducer,
   userReducer,
   movieTypeReducer,
-  providerReducer,
   ticketReducer,
   ticketPriceReducer,
   seatTypeReducer,
+  categoriesReducer,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

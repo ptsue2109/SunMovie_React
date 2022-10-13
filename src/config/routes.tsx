@@ -23,6 +23,9 @@ const routes = {
   adminSeatType: "/admin/seattype",
   adminSeatTypeAdd: "/admin/seattype/add",
   adminSeatTypeUpdate: "/admin/seattype/:id",
+  adminMovieTypeEdit: "/admin/movie-type/:id",
+  adminCategories: "/admin/categories",
+  adminCategoriesCreate: "/admin/categories/create",
 };
 
 export default routes;

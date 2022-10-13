@@ -1,28 +1,28 @@
-import { Button, message, Popconfirm, Space } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
-import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { Button, message, Popconfirm, Space } from "antd";
+import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { removeMovieTypeItem } from "../../../redux/slice/movieTypeSlice";
+import configRoute from "../../../config";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import { removeCategory } from "../../../redux/slice/CategorySlice";
 type Props = {};
 
-const ListMovieType = (props: Props) => {
-  const dispatch = useAppDispatch();
-  const { movieType, isErr, isFetching, isSucess } = useAppSelector(
-    (state) => state.movieTypeReducer
+const ListCategories = (props: Props) => {
+  const { categories, isErr, isFetching, isSucess } = useAppSelector(
+    (state) => state.categoriesReducer
   );
-  const deleteUser = (id: any) => {
-    dispatch(removeMovieTypeItem(id))
+  const dispatch = useAppDispatch();
+  const remove = (id: any) => {
+    dispatch(removeCategory(id))
       .unwrap()
       .then(() => message.success({ content: "Xóa thành công" }))
-      .catch(() => message.error({ content: "lỗi" }));
+      .catch(() => message.error({ content: "Xóa lỗi" }));
   };
   const columnList: any = [
     {
-      title: "name",
-      render: (item: any, index: any) => <p>{item.movieName}</p>,
+      title: "Name",
+      render: (item: any, index: any) => <p>{item.title}</p>,
       height: "10",
     },
     {
@@ -37,10 +37,10 @@ const ListMovieType = (props: Props) => {
             />
           </Link>
           <Popconfirm
-            title={`Delete ${item?.movieName ?? item?._id}?`}
+            title={`Delete ${item?.title ?? item?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            onConfirm={() => deleteUser(item?._id)}
+            onConfirm={() => remove(item?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
@@ -49,20 +49,20 @@ const ListMovieType = (props: Props) => {
       width: 30,
     },
   ];
-  const data = movieType?.map((item: any) => {
+  const data = categories?.map((item: any) => {
     return {
       _id: item._id,
-      movieName: item.movieName,
+      title: item.title,
     };
   });
   return (
     <>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.adminMovieTypeAdd}>Add Movie Type</Link>
+        <Link to={configRoute.routes.adminCategoriesCreate}>Add Category</Link>
       </Button>
       <DataTable column={columnList} data={data} loading={isFetching} />
     </>
   );
 };
 
-export default ListMovieType;
+export default ListCategories;

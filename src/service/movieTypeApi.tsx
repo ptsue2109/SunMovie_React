@@ -6,10 +6,12 @@ export const MovieTypeApi = {
     return AxiosRequest.get("/movieType");
   },
   remove(id?: any) {
-    let url = `movieType/${id}`;
-    return AxiosRequest.delete(url);
+    return AxiosRequest.delete(`movieType/${id}`);
   },
   create(data?: any) {
     return AxiosRequest.post("/movieType", data);
+  },
+  edit(data: any) {
+    return AxiosRequest.patch(`/movieType/${data._id}`, data);
   },
 };

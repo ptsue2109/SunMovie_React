@@ -6,27 +6,27 @@ import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
 import { useAppDispatch } from "./redux/hook";
 import { getUsers } from "./redux/slice/userSlice";
-import { getProvider } from "./redux/slice/Provider";
+
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getTicket } from "./redux/slice/ticketSlice";
 import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
+import { getCategories } from "./redux/slice/CategorySlice";
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getProvider());
     dispatch(getMovieType());
     dispatch(getTicket());
     dispatch(getTicketPrice());
     dispatch(getSeatType());
-  }, []);
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <>
-      {/* <BrowserRouter> */}
       <Routes>
         {publicRoutes.map((route, index) => {
           const Page = route.component;
@@ -75,7 +75,6 @@ function App() {
         })}
       </Routes>
       <ScrollToTop />
-      {/* </BrowserRouter> */}
     </>
   );
 }

@@ -28,6 +28,9 @@ import UploadTicketPrice from "../pages/admin/Ticket/UploadTicketPrice";
 import ListSeatType from "../pages/admin/SeatType/ListSeatType";
 import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
 import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
+import ListCategories from "../pages/admin/categories/List";
+import EditMovieType from "../pages/admin/MovieType/EditMovieType";
+import CreateCategory from "../pages/admin/categories/Create";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -67,4 +70,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminSeatType, component: ListSeatType },
   { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
   { path: configRoute.routes.adminSeatTypeUpdate, component: UploadSeatType },
+  { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
+  { path: configRoute.routes.adminCategories, component: ListCategories },
+  { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
 ];

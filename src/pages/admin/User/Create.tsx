@@ -1,5 +1,5 @@
 import { Form, Button, message } from "antd";
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserForm from '../../../components/admin/Form&Table/UserForm';
 import config from '../../../config';
@@ -11,7 +11,8 @@ const UserCreate = (props: Props) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [fileList, setFileList] = React.useState<any[]>([]);
+  const [avatarList, setAvatarList] = useState<any[]>([]);
+  const [newPass, setNewPass] = useState<string>('')
   const { errorMessage ,isSucess,isFetching,isErr} = useAppSelector((state) => state.userReducer);
   React.useEffect(() => {
     document.title = "Admin | Add Users";
@@ -26,13 +27,13 @@ const UserCreate = (props: Props) => {
   }, [isSucess,isFetching,isErr]);
 
   const onFinish = (data: any) => {
-    data.avatar = fileList;
+    data.avatar = data.avatarList.fileList;
     dispatch(createUser(data))
   };
 
   const onReset = () => {
     form.resetFields();
-    setFileList([]);
+    setAvatarList([]);
   };
   return (
     <div>
@@ -42,9 +43,11 @@ const UserCreate = (props: Props) => {
       <UserForm
         onFinish={onFinish}
         form={form}
-        fileList={fileList}
-        setFileList={setFileList}
+        avatarList={avatarList}
+        setAvatarList={setAvatarList}
         onReset={onReset}
+        newPass = {newPass}
+        setNewPass = {setNewPass}
       />
     </div>
   )

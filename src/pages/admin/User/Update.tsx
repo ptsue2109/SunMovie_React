@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -11,9 +11,9 @@ const UserEdit = (props: Props) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [fileList, setFileList] = React.useState<any[]>([]);
+  const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-
+  const [newPass, setNewPass] = useState<any>();
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
@@ -24,22 +24,26 @@ const UserEdit = (props: Props) => {
       dataSelected?.username ?? dataSelected?._id
     }`;
     if (dataSelected) {
-      console.log(dataSelected);
-
-      setFileList(dataSelected?.avatar as any[]);
+      setAvatarList(dataSelected?.avatar as any[]);
       form.setFieldsValue({
         ...dataSelected,
       });
     }
   }, [dataSelected]);
+
   const onReset = () => {
     form.resetFields();
-    setFileList([]);
+    setAvatarList([]);
   };
+
   const onFinish = (data: any) => {
-    data.avatar = fileList;
     data._id = id;
-    console.log("update", data);
+    let avatarList = data?.avatarList?.fileList;
+    if (avatarList) data.avatar = avatarList;
+    else data.avatar = dataSelected?.avatar;
+    delete data?.avatarList;
+    console.log(data);
+
     dispatch(updateUser(data))
       .unwrap()
       .then(() => {
@@ -56,8 +60,10 @@ const UserEdit = (props: Props) => {
       <UserForm
         onFinish={onFinish}
         form={form}
-        fileList={fileList}
-        setFileList={setFileList}
+        avatarList={avatarList}
+        newPass={newPass}
+        setNewPass={setNewPass}
+        setAvatarList={setAvatarList}
         onReset={onReset}
         edit={true}
       />
