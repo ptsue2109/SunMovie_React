@@ -8,6 +8,9 @@ import { useAppDispatch } from "./redux/hook";
 import { getUsers } from "./redux/slice/userSlice";
 
 import { getMovieType } from "./redux/slice/movieTypeSlice";
+import { getTicket } from "./redux/slice/ticketSlice";
+import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
+import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 
 function App() {
@@ -16,6 +19,9 @@ function App() {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getMovieType());
+    dispatch(getTicket());
+    dispatch(getTicketPrice());
+    dispatch(getSeatType());
     dispatch(getCategories());
   }, [dispatch]);
 

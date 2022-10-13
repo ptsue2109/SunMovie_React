@@ -19,6 +19,15 @@ import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 import UserCreate from "../pages/admin/User/Create";
 import UserEdit from "../pages/admin/User/Update";
 import ListMovieType from "../pages/admin/MovieType/ListMovieType";
+import ListAddminTicket from "../pages/admin/Ticket/ListTicket";
+import CreateTicket from "../pages/admin/Ticket/Create";
+import UploadTicket from "../pages/admin/Ticket/Upload";
+import ListTicketPrice from "../pages/admin/Ticket/ListTicketPrice";
+import CreateTicketPrice from "../pages/admin/Ticket/CreateTicketPrice";
+import UploadTicketPrice from "../pages/admin/Ticket/UploadTicketPrice";
+import ListSeatType from "../pages/admin/SeatType/ListSeatType";
+import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
+import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
 import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
@@ -46,6 +55,21 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminUserAdd, component: UserCreate },
   { path: configRoute.routes.adminUserUpdate, component: UserEdit },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
+  { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
+  { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
+  { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
+  { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
+  {
+    path: configRoute.routes.adminTicketPriceUpdate,
+    component: UploadTicketPrice,
+  },
+  {
+    path: configRoute.routes.adminTicketPriceAdd,
+    component: CreateTicketPrice,
+  },
+  { path: configRoute.routes.adminSeatType, component: ListSeatType },
+  { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
+  { path: configRoute.routes.adminSeatTypeUpdate, component: UploadSeatType },
   { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
