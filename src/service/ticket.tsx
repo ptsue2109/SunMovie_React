@@ -1,35 +1,28 @@
-import axiosClient from "./instance";
-
+import AxiosRequest from "./instance";
 export const TicketApi = {
   getAll() {
-    let url = "/tickets";
-    return axiosClient.get(url);
+    return AxiosRequest.get("/tickets");
   },
-  removeTiket(tiketID?: string) {
-    let url = `tickets/${tiketID}`;
-    return axiosClient.delete(url);
+  removeTiket(id?: any) {
+    return AxiosRequest.delete(`tickets/${id}`);
   },
-  updateTiket(payload: any) {
-    const url = `/tickets/${payload._id}`;
-    return axiosClient.put(url, payload);
+  updateTiket(data?: any) {
+    return AxiosRequest.put(`/tickets/${data._id}`, data);
   },
   createTiket(data: any): Promise<any> {
-    return axiosClient.post("/tickets", data);
+    return AxiosRequest.post("/tickets", data);
   },
   // ticketPrice
   getAllTicketPrice() {
-    let url = "/ticketPrice";
-    return axiosClient.get(url);
+    return AxiosRequest.get("/ticketPrice");
   },
-  removeTiketPrice(tiketID?: string) {
-    let url = `ticketPrice/${tiketID}`;
-    return axiosClient.delete(url);
+  removeTiketPrice(id?: any) {
+    return AxiosRequest.delete(`ticketPrice/${id}`);
   },
-  updateTiketPrice(payload: any) {
-    const url = `/ticketPrice/${payload._id}`;
-    return axiosClient.put(url, payload);
+  updateTiketPrice(data?: any) {
+    return AxiosRequest.put(`/ticketPrice/${data._id}`, data);
   },
   createTiketPrice(data: any): Promise<any> {
-    return axiosClient.post("/ticketPrice", data);
+    return AxiosRequest.post("/ticketPrice", data);
   },
 };

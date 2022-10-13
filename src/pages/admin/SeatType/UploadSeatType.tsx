@@ -3,19 +3,19 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { updateTiketPrice } from "../../../redux/slice/ticketPriceSlice";
+import { updateSeatType } from "../../../redux/slice/SeatTypeSlice";
 
 type Props = {};
 
-const UploadTicketPrice = (props: Props) => {
+const UploadSeatType = (props: Props) => {
   const { id } = useParams();
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { ticketPrice, isErr, isFetching, isSucess } = useAppSelector(
-    (state) => state.ticketPriceReducer
+  const { seatType, isErr, isFetching, isSucess } = useAppSelector(
+    (state) => state.seatTypeReducer
   );
-  const data = ticketPrice?.find((item: any) => item._id === id);
+  const data = seatType?.find((item) => item._id === id);
 
   useEffect(() => {
     if (data) {
@@ -25,14 +25,13 @@ const UploadTicketPrice = (props: Props) => {
     }
   }, [data]);
 
-  const onFinish = async (values: any) => {
-    values._id = id;
-
-    dispatch(updateTiketPrice(values))
+  const onFinish = async (item: any) => {
+    item._id = id;
+    dispatch(updateSeatType(item))
       .unwrap()
       .then(() => {
         message.success({ content: "Sửa thành công" });
-        navigate(configRoute.routes.adminTicketPrice);
+        navigate(configRoute.routes.adminSeatType);
       })
       .catch(() => {
         message.error({ content: "Thất bại" });
@@ -49,13 +48,15 @@ const UploadTicketPrice = (props: Props) => {
         <Form.Item
           name="name"
           label="Name"
-          rules={[{ required: true, message: "Không được để trống! " }]}
+          rules={[
+            { required: true, message: "Không được để trống! ", min: 10 },
+          ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name="price"
-          label="Price"
+          name="extraPrice"
+          label="extraPrice"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
@@ -70,4 +71,4 @@ const UploadTicketPrice = (props: Props) => {
   );
 };
 
-export default UploadTicketPrice;
+export default UploadSeatType;

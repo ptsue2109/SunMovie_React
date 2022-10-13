@@ -12,18 +12,17 @@ export const createTicketPrice = createAsyncThunk(
     }
   }
 );
-export const updateTiketPrice = createAsyncThunk<
-  any,
-  any,
-  { rejectValue: string }
->("TicketPrice/update", async (ticketPrice, { rejectWithValue }) => {
-  try {
-    const { data } = await TicketApi.updateTiketPrice(ticketPrice);
-    return data;
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
+export const updateTiketPrice = createAsyncThunk(
+  "TicketPrice/update",
+  async (items: any, { rejectWithValue }) => {
+    try {
+      const { data } = await TicketApi.updateTiketPrice(items);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 export const getTicketPrice = createAsyncThunk(
   "ticketPriceType/list",
@@ -48,13 +47,13 @@ export const removeTicketPrice = createAsyncThunk(
     }
   }
 );
-type movieTypeState = {
+type ticketPriceState = {
   ticketPrice: any[];
   isFetching: boolean;
   isSucess: boolean;
   isErr: boolean;
 };
-const initialState: movieTypeState = {
+const initialState: ticketPriceState = {
   ticketPrice: [],
   isFetching: false,
   isSucess: false,
@@ -105,7 +104,7 @@ const ticketPriceSlice = createSlice({
       state.isFetching = false;
       state.isSucess = true;
       state.ticketPrice = state.ticketPrice.filter(
-        (x: any) => x._id !== action.payload._id
+        (item: any) => item._id !== action.payload.ticketPrice._id
       );
     });
     builder.addCase(removeTicketPrice.rejected, (state, action) => {
@@ -113,13 +112,25 @@ const ticketPriceSlice = createSlice({
       state.isFetching = false;
       state.isSucess = false;
     });
+    builder.addCase(removeTicketPrice.pending, (state, action) => {
+      state.isFetching = true;
+      state.isSucess = false;
+      state.isErr = false;
+    });
     ///update
+    builder.addCase(updateTiketPrice.rejected, (state, action) => {
+      state.isErr = true;
+      state.isFetching = false;
+      state.isSucess = false;
+    });
+
     builder.addCase(updateTiketPrice.fulfilled, (state, action) => {
       state.isErr = false;
       state.isFetching = false;
       state.isSucess = true;
       state.ticketPrice = state.ticketPrice.map((item: any) => {
         item._id !== action.payload._id ? item : action.payload;
+        return action.payload;
       });
     });
   },

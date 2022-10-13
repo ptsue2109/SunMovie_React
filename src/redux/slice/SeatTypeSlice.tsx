@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SeatTypeApi } from "../../service/seatTypeApi";
 
 export const createSeatType = createAsyncThunk(
-  "SeatType/add",
+  "seatType/add",
   async (item, { rejectWithValue }) => {
     try {
       const { data } = await SeatTypeApi.createSeatType(item);
@@ -16,9 +16,9 @@ export const updateSeatType = createAsyncThunk<
   any,
   any,
   { rejectValue: string }
->("SeatType/update", async (seatType, { rejectWithValue }) => {
+>("seatType/edit", async (item: any, { rejectWithValue }) => {
   try {
-    const { data } = await SeatTypeApi.updateSeatType(seatType);
+    const { data } = await SeatTypeApi.updateSeatType(item);
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -26,7 +26,7 @@ export const updateSeatType = createAsyncThunk<
 });
 
 export const getSeatType = createAsyncThunk(
-  "SeatType/list",
+  "seatType/list",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await SeatTypeApi.getAll();
@@ -38,7 +38,7 @@ export const getSeatType = createAsyncThunk(
 );
 
 export const removeSeatType = createAsyncThunk(
-  "ticketPriceType/remove",
+  "seatType/remove",
   async (id: any, { rejectWithValue }) => {
     try {
       const { data } = await SeatTypeApi.removeSeatType(id);
@@ -53,12 +53,14 @@ type seatTypeState = {
   isFetching: boolean;
   isSucess: boolean;
   isErr: boolean;
+  errorMessage: string | undefined;
 };
 const initialState: seatTypeState = {
   seatType: [],
   isFetching: false,
   isSucess: false,
   isErr: false,
+  errorMessage: "",
 };
 const SeatTypeSlice = createSlice({
   name: "seatType",
@@ -105,8 +107,9 @@ const SeatTypeSlice = createSlice({
       state.isFetching = false;
       state.isSucess = true;
       state.seatType = state.seatType.filter(
-        (x: any) => x._id !== action.payload._id
+        (item: any) => item._id !== action.payload._id
       );
+      console.log(action.payload);
     });
     builder.addCase(removeSeatType.rejected, (state, action) => {
       state.isErr = true;
@@ -118,9 +121,18 @@ const SeatTypeSlice = createSlice({
       state.isErr = false;
       state.isFetching = false;
       state.isSucess = true;
+
       state.seatType = state.seatType.map((item: any) => {
         item._id !== action.payload._id ? item : action.payload;
+        return action.payload;
       });
+    });
+    builder.addCase(updateSeatType.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(updateSeatType.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
     });
   },
 });

@@ -9,12 +9,13 @@ type Props = {};
 
 const AdminListTiket = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { tickets, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
+  const { tickets, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.ticketReducer
   );
 
   const deleteTicket = (id: any) => {
     dispatch(removeTicket(id))
+      .unwrap()
       .then(() => message.success({ content: "Xóa thành công" }))
       .catch(() => message.error({ content: "lỗi" }));
   };
@@ -136,18 +137,18 @@ const AdminListTiket = (props: Props) => {
     {
       title: "ACTION",
       key: "action",
-      render: (_: any, record: any) => (
+      render: (_: any, item: any) => (
         <Space size="middle">
-          <Link to={`${record._id}`}>
+          <Link to={`${item._id}`}>
             <EditOutlined
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
           <Popconfirm
-            title={`Delete ${record?.tickets ?? record?._id}?`}
+            title={`Delete ${item?.totalPrice ?? item?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            onConfirm={() => deleteTicket(record?._id)}
+            onConfirm={() => deleteTicket(item?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
@@ -157,18 +158,16 @@ const AdminListTiket = (props: Props) => {
     },
   ];
   const data: Props[] = tickets.map((item: any, index: any) => {
-    console.log(tickets);
-
     return {
       key: index + 1,
-      _id: item?._id,
+      _id: item._id,
       totalPrice: item?.totalPrice,
       showtimeId: item?.showtimeId,
-      seatId: item?.seatId,
+      seatId: item.seatId,
       ticketPriceId: item?.ticketPriceId,
-      userId: item?.userId,
-      role: item?.role,
-      date: item?.date,
+      userId: item.userId,
+      role: item.role,
+      date: item.date,
     };
   });
 

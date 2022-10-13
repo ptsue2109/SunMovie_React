@@ -81,13 +81,18 @@ const tiketSlice = createSlice({
       state.isFetching = false;
       state.isSucess = true;
       state.tickets = state.tickets.filter(
-        (x: any) => x._id !== action.payload._id
+        (item: any) => item._id !== action.payload.ticket._id
       );
     });
     builder.addCase(removeTicket.rejected, (state, action) => {
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
+    });
+    builder.addCase(removeTicket.pending, (state, action) => {
+      state.isFetching = true;
+      state.isSucess = false;
+      state.isErr = false;
     });
 
     //create
@@ -110,19 +115,21 @@ const tiketSlice = createSlice({
     });
 
     //update
+    builder.addCase(updateTiket.fulfilled, (state, action) => {
+      state.isErr = false;
+      state.isFetching = false;
+      state.isSucess = true;
+
+      state.tickets = state.tickets.map((item: any) => {
+        item._id !== action.payload._id ? item : action.payload;
+        return action.payload;
+      });
+    });
     builder.addCase(updateTiket.pending, (state) => {
       state.isFetching = true;
     });
-    builder.addCase(updateTiket.fulfilled, (state, action) => {
-      state.isFetching = false;
-      state.isSucess = true;
-      state.tickets = state.tickets.map((item) =>
-        item._id !== action.payload._id ? item : action.payload
-      );
-    });
     builder.addCase(updateTiket.rejected, (state, action) => {
       state.isFetching = false;
-
       state.errorMessage = action.payload;
     });
   },

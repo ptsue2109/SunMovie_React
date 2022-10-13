@@ -15,6 +15,7 @@ const ListTicketPrice = (props: Props) => {
   );
   const deleteTicketPrice = (id: any) => {
     dispatch(removeTicketPrice(id))
+      .unwrap()
       .then(() => message.success({ content: "Xóa thành công" }))
       .catch(() => message.error({ content: "lỗi" }));
   };
