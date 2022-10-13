@@ -124,6 +124,9 @@ const SeatTypeSlice = createSlice({
 
       state.seatType = state.seatType.map((item: any) => {
         item._id !== action.payload._id ? item : action.payload;
+        if (item._id !== action.payload._id) {
+          return item;
+        }
         return action.payload;
       });
     });

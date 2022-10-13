@@ -121,7 +121,9 @@ const tiketSlice = createSlice({
       state.isSucess = true;
 
       state.tickets = state.tickets.map((item: any) => {
-        item._id !== action.payload._id ? item : action.payload;
+        if (item._id !== action.payload._id) {
+          return item;
+        }
         return action.payload;
       });
     });

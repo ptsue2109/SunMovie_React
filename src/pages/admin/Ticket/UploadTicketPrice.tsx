@@ -12,10 +12,12 @@ const UploadTicketPrice = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const { ticketPrice, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.ticketPriceReducer
   );
-  const data = ticketPrice?.find((item: any) => item._id === id);
+  const data = ticketPrice.find((item) => item._id === id);
+  console.log(id, data);
 
   useEffect(() => {
     if (data) {

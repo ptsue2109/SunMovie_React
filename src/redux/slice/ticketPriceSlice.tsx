@@ -13,7 +13,7 @@ export const createTicketPrice = createAsyncThunk(
   }
 );
 export const updateTiketPrice = createAsyncThunk(
-  "TicketPrice/update",
+  "ticketPrice/update",
   async (items: any, { rejectWithValue }) => {
     try {
       const { data } = await TicketApi.updateTiketPrice(items);
@@ -129,7 +129,9 @@ const ticketPriceSlice = createSlice({
       state.isFetching = false;
       state.isSucess = true;
       state.ticketPrice = state.ticketPrice.map((item: any) => {
-        item._id !== action.payload._id ? item : action.payload;
+        if (item._id !== action.payload._id) {
+          return item;
+        }
         return action.payload;
       });
     });
