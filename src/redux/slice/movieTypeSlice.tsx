@@ -118,7 +118,10 @@ const movieTypeSlice = createSlice({
       state.isFetching = false;
       state.isSucess = true;
       state.movieType = state.movieType.map((item: any) => {
-        item._id !== action.payload._id ? item : action.payload;
+        if (item._id !== action.payload._id) {
+          return item;
+        }
+        return action.payload;
       });
     });
   },
