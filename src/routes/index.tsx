@@ -32,6 +32,7 @@ import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
 import ListTicketDetail from "../pages/admin/Ticket/ListTicketDetail";
+import CreateTicketDetail from "../pages/admin/Ticket/CreateTicketDetail";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -75,4 +76,8 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
   { path: configRoute.routes.adminTicketDetail, component: ListTicketDetail },
+  {
+    path: configRoute.routes.adminTicketDetailAdd,
+    component: CreateTicketDetail,
+  },
 ];

@@ -63,7 +63,7 @@ const ListTicketDetail = (props: Props) => {
   return (
     <>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.adminTicketPriceAdd}>
+        <Link to={configRoute.routes.adminTicketDetailAdd}>
           Add TicketDetail
         </Link>
       </Button>
