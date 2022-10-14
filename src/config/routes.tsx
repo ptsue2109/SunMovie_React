@@ -1,6 +1,7 @@
 const routes = {
   home: "/",
   movie: "/movie",
+  news:"/news",
   signin: "/auth/signin",
   signup: "/auth/signup",
   detail: "/d",
