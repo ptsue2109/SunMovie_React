@@ -25,4 +25,17 @@ export const TicketApi = {
   createTiketPrice(data: any): Promise<any> {
     return AxiosRequest.post("/ticketPrice", data);
   },
+  /// ticketDetail
+  getAllTicketDetail() {
+    return AxiosRequest.get("/ticketDetail");
+  },
+  removeTiketDetail(id?: any) {
+    return AxiosRequest.delete(`ticketDetail/${id}`);
+  },
+  updateTiketDetail(data?: any) {
+    return AxiosRequest.patch(`/ticketDetail/${data._id}`, data);
+  },
+  createTiketDetail(data: any): Promise<any> {
+    return AxiosRequest.post("/ticketDetail", data);
+  },
 };

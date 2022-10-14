@@ -12,6 +12,7 @@ import { getTicket } from "./redux/slice/ticketSlice";
 import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
+import { getTicketDetail } from "./redux/slice/ticketDetailSlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ function App() {
     dispatch(getTicketPrice());
     dispatch(getSeatType());
     dispatch(getCategories());
+    dispatch(getTicketDetail());
   }, [dispatch]);
 
   return (

@@ -67,6 +67,13 @@ const items: MenuItem[] = [
     ),
     getItem(<Link to={config.routes.adminSeatTypeAdd}> Thêm ghế</Link>, "12"),
   ]),
+  getItem("Quản lí Loại Vé  ", "sub7", <UserOutlined />, [
+    getItem(
+      <Link to={config.routes.adminTicketDetail}> Danh sách Loại Vé</Link>,
+      "13"
+    ),
+    getItem(<Link to={config.routes.adminSeatTypeAdd}> Thêm ghế</Link>, "14"),
+  ]),
 ];
 const MenuAdminLayout = (props: Props) => {
   return (
