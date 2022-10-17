@@ -24,7 +24,7 @@
 }
 .main {
     background-color: #343a40;
-    height: 600px;
+    height: fit-content;
     z-index: 99999;
     margin: 100px 60px;
     border-radius: 20px;
@@ -51,14 +51,18 @@
     padding: 50px;
     color: white;
 }
-.info div{
+.infoItems div{
     font-size: 18px;
     color :white;
-    text-align: center;
+    margin-left: 10%;
 }
-.info div span{
+.infoItems div span{
     padding: 0 10px;
 }
-.info div span:first-child{
+.infoItems div span:first-child{
     padding-left: 0;
+}
+.history{
+    width: 98%;
+    margin: 20px auto;
 }

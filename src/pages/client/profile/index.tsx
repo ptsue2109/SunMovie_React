@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hook";
 import styles from "./profile.module.scss";
-import { Button, Form, Input, InputNumber, Radio } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Space,
+  Table,
+  Tag,
+} from "antd";
 type Props = {};
 
 const Profile = (props: Props) => {
@@ -29,6 +38,52 @@ const Profile = (props: Props) => {
   const onFinish = (values: any) => {
     console.log(values);
   };
+  const columns: any[] = [
+    {
+      title: "Mã vé",
+      dataIndex: "name",
+      key: "name",
+      render: (text: any) => <a>{text}</a>,
+    },
+    {
+      title: "Tên phim",
+      dataIndex: "address",
+      key: "address",
+    },
+    {
+      title: "Thời gian đặt",
+      dataIndex: "address",
+      key: "address",
+    },
+    {
+      title: "Số ghế",
+      dataIndex: "address",
+      key: "address",
+    },
+  ];
+  const data: any[] = [
+    {
+      key: "1",
+      name: "John Brown",
+      age: 32,
+      address: "New York No. 1 Lake Park",
+      tags: ["nice", "developer"],
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      age: 42,
+      address: "London No. 1 Lake Park",
+      tags: ["loser"],
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      age: 32,
+      address: "Sidney No. 1 Lake Park",
+      tags: ["cool", "teacher"],
+    },
+  ];
   return (
     <>
       <div className={styles.container}>
@@ -131,7 +186,7 @@ const Profile = (props: Props) => {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <div>
+              <div className={styles.infoItems}>
                 <div>Khách hàng</div>
                 <div>Trạng thái: Đã kích hoạt</div>
                 <div>
@@ -148,6 +203,7 @@ const Profile = (props: Props) => {
                     width: "150px",
                     height: "50px",
                     backgroundColor: "#151f32",
+                    fontSize: "17px",
                   }}
                 >
                   Save
@@ -161,7 +217,7 @@ const Profile = (props: Props) => {
           </div>
           {/* history */}
           <div className={isActive == 3 ? styles.history : "hidden"}>
-            lịch sử
+            <Table columns={columns} dataSource={data} />;
           </div>
         </div>
       </div>
