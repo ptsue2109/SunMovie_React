@@ -31,6 +31,7 @@ import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
 import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
+import Profile from "../pages/client/profile";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -45,6 +46,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.detail, component: MovieDetail },
   { path: configRoute.routes.bookChair, component: BookChair },
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
+  { path: configRoute.routes.profile, component: Profile },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -59,6 +61,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
   { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
   { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
+
   {
     path: configRoute.routes.adminTicketPriceUpdate,
     component: UploadTicketPrice,
