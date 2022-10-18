@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateUser } from "../../../redux/slice/userSlice";
 import UserForm from "../../../components/admin/Form&Table/UserForm";
 import config from "../../../config";
-interface Props {}
+interface Props { }
 
 const UserEdit = (props: Props) => {
   const [form] = Form.useForm();
@@ -20,9 +20,7 @@ const UserEdit = (props: Props) => {
   const dataSelected = users.find((item) => item._id === id);
 
   useEffect(() => {
-    document.title = `Admin | Edit ${
-      dataSelected?.username ?? dataSelected?._id
-    }`;
+    document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id}`;
     if (dataSelected) {
       setAvatarList(dataSelected?.avatar as any[]);
       form.setFieldsValue({
