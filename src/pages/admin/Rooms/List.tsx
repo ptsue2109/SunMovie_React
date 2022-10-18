@@ -17,13 +17,13 @@ const AdminRoomList = (props: Props) => {
 
   const deleteData = (data: string | undefined) => {
 
-    // dispatch(removeUser(data)).unwrap()
-    //   .then(() => {
-    //     message.success({ content: "Xoá thành công", key: "handling" });
-    //   })
-    //   .catch(() => {
-    //     message.error({ content: { errorMessage } })
-    //   })
+    dispatch(removeRoom(data)).unwrap()
+      .then(() => {
+        message.success({ content: "Xoá thành công", key: "handling" });
+      })
+      .catch(() => {
+        message.error({ content: { errorMessage } })
+      })
   };
   const columns: any = [
     {
