@@ -41,6 +41,9 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFini
                      <Form.Item label="Họ và tên" name="fullname" rules={[{ required: true, min: 5 }]}>
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
+                     <Form.Item label="Password" name="password" rules={[{ required: true, min: 5 }]}>
+                        <Input.Password placeholder="Nhập vào" />
+                     </Form.Item>
                      <Form.Item label="SDT" name="phone" rules={[{ required: true, type: 'string', whitespace: true, len: 10 }]} >
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
