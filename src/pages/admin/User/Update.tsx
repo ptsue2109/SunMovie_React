@@ -40,14 +40,14 @@ const UserEdit = (props: Props) => {
       if (avatarList) data.avatar = avatarList;
       else data.avatar = dataSelected?.avatar;
       delete data?.avatarList;
-      console.log(data);
+      console.log('data', data);
 
-      dispatch(updateUser(data)).unwrap()
-         .then(() => {
-            navigate(config.routes.adminUserList)
-            message.success('update thành công')
-         })
-         .catch(() => message.error(`${errorMessage}`))
+      // dispatch(updateUser(data)).unwrap()
+      //    .then(() => {
+      //       navigate(config.routes.adminUserList)
+      //       message.success('update thành công')
+      //    })
+      //    .catch(() => message.error(`${errorMessage}`))
    };
    return (
       <div>

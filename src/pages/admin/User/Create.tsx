@@ -27,8 +27,10 @@ const UserCreate = (props: Props) => {
   }, [isSucess,isFetching,isErr]);
 
   const onFinish = (data: any) => {
-    data.avatar = data.avatarList.fileList;
-    dispatch(createUser(data))
+
+    data.avatar = data?.avatarList?.fileList;
+    delete data?.avatarList;
+    dispatch(createUser(data))  
   };
 
   const onReset = () => {

@@ -12,7 +12,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_ba_dinh",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Hoàn Kiếm",
@@ -20,7 +20,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_hoan_kiem",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Tây Hồ",
@@ -28,7 +28,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_tay_ho",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Long Biên",
@@ -36,7 +36,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_long_bien",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Cầu Giấy",
@@ -44,7 +44,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_cau_giay",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Đống Đa",
@@ -52,7 +52,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_dong_da",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Hai Bà Trưng",
@@ -60,7 +60,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_hai_ba_trung",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Hoàng Mai",
@@ -68,7 +68,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_hoang_mai",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Thanh Xuân",
@@ -76,7 +76,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_thanh_xuan",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sóc Sơn",
@@ -84,7 +84,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_soc_son",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đông Anh",
@@ -92,7 +92,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_anh",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gia Lâm",
@@ -100,7 +100,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_gia_lam",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Nam Từ Liêm",
@@ -108,7 +108,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_nam_tu_liem",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Trì",
@@ -116,7 +116,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_tri",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Bắc Từ Liêm",
@@ -124,7 +124,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_bac_tu_liem",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mê Linh",
@@ -132,7 +132,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_me_linh",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Quận Hà Đông",
@@ -140,7 +140,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_ha_dong",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Sơn Tây",
@@ -148,7 +148,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_son_tay",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ba Vì",
@@ -156,7 +156,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ba_vi",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phúc Thọ",
@@ -164,7 +164,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phuc_tho",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đan Phượng",
@@ -172,7 +172,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dan_phuong",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoài Đức",
@@ -180,7 +180,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoai_duc",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quốc Oai",
@@ -188,7 +188,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quoc_oai",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạch Thất",
@@ -196,7 +196,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thach_that",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chương Mỹ",
@@ -204,7 +204,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chuong_my",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Oai",
@@ -212,7 +212,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_oai",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thường Tín",
@@ -220,7 +220,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuong_tin",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Xuyên",
@@ -228,7 +228,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_xuyen",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ứng Hòa",
@@ -236,7 +236,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ung_hoa",
             "province_code": 1,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mỹ Đức",
@@ -244,7 +244,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_my_duc",
             "province_code": 1,
-            "wards": []
+       
          }
       ]
    },
@@ -261,7 +261,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ha_giang",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đồng Văn",
@@ -269,7 +269,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_van",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mèo Vạc",
@@ -277,7 +277,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_meo_vac",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Minh",
@@ -285,7 +285,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_minh",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quản Bạ",
@@ -293,7 +293,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quan_ba",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vị Xuyên",
@@ -301,7 +301,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vi_xuyen",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Mê",
@@ -309,7 +309,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_me",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoàng Su Phì",
@@ -317,7 +317,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoang_su_phi",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Xín Mần",
@@ -325,7 +325,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_xin_man",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Quang",
@@ -333,7 +333,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_quang",
             "province_code": 2,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quang Bình",
@@ -341,7 +341,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quang_binh",
             "province_code": 2,
-            "wards": []
+       
          }
       ]
    },
@@ -358,7 +358,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_cao_bang",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bảo Lâm",
@@ -366,7 +366,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bao_lam",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bảo Lạc",
@@ -374,7 +374,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bao_lac",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hà Quảng",
@@ -382,7 +382,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ha_quang",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trùng Khánh",
@@ -390,7 +390,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_trung_khanh",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hạ Lang",
@@ -398,7 +398,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ha_lang",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quảng Hòa",
@@ -406,7 +406,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quang_hoa",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoà An",
@@ -414,7 +414,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoa_an",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nguyên Bình",
@@ -422,7 +422,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nguyen_binh",
             "province_code": 4,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạch An",
@@ -430,7 +430,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thach_an",
             "province_code": 4,
-            "wards": []
+       
          }
       ]
    },
@@ -447,7 +447,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_bac_kan",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Pác Nặm",
@@ -455,7 +455,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_pac_nam",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ba Bể",
@@ -463,7 +463,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ba_be",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ngân Sơn",
@@ -471,7 +471,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ngan_son",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bạch Thông",
@@ -479,7 +479,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bach_thong",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chợ Đồn",
@@ -487,7 +487,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cho_don",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chợ Mới",
@@ -495,7 +495,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cho_moi",
             "province_code": 6,
-            "wards": []
+       
          },
          {
             "name": "Huyện Na Rì",
@@ -503,7 +503,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_na_ri",
             "province_code": 6,
-            "wards": []
+       
          }
       ]
    },
@@ -520,7 +520,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tuyen_quang",
             "province_code": 8,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lâm Bình",
@@ -528,7 +528,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lam_binh",
             "province_code": 8,
-            "wards": []
+       
          },
          {
             "name": "Huyện Na Hang",
@@ -536,7 +536,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_na_hang",
             "province_code": 8,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chiêm Hóa",
@@ -544,7 +544,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chiem_hoa",
             "province_code": 8,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hàm Yên",
@@ -552,7 +552,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ham_yen",
             "province_code": 8,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Sơn",
@@ -560,7 +560,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_son",
             "province_code": 8,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sơn Dương",
@@ -568,7 +568,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_son_duong",
             "province_code": 8,
-            "wards": []
+       
          }
       ]
    },
@@ -585,7 +585,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_lao_cai",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bát Xát",
@@ -593,7 +593,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bat_xat",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường Khương",
@@ -601,7 +601,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_khuong",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Si Ma Cai",
@@ -609,7 +609,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_si_ma_cai",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Hà",
@@ -617,7 +617,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_ha",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bảo Thắng",
@@ -625,7 +625,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bao_thang",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bảo Yên",
@@ -633,7 +633,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bao_yen",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Sa Pa",
@@ -641,7 +641,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_sa_pa",
             "province_code": 10,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Bàn",
@@ -649,7 +649,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_ban",
             "province_code": 10,
-            "wards": []
+       
          }
       ]
    },
@@ -666,7 +666,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_dien_bien_phu",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Mường Lay",
@@ -674,7 +674,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_muong_lay",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường Nhé",
@@ -682,7 +682,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_nhe",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường Chà",
@@ -690,7 +690,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_cha",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tủa Chùa",
@@ -698,7 +698,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tua_chua",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tuần Giáo",
@@ -706,7 +706,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuan_giao",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Điện Biên",
@@ -714,7 +714,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dien_bien",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Điện Biên Đông",
@@ -722,7 +722,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dien_bien_dong",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường Ảng",
@@ -730,7 +730,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_ang",
             "province_code": 11,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nậm Pồ",
@@ -738,7 +738,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_po",
             "province_code": 11,
-            "wards": []
+       
          }
       ]
    },
@@ -755,7 +755,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_lai_chau",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tam Đường",
@@ -763,7 +763,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tam_duong",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường Tè",
@@ -771,7 +771,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_te",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sìn Hồ",
@@ -779,7 +779,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_sin_ho",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phong Thổ",
@@ -787,7 +787,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phong_tho",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Than Uyên",
@@ -795,7 +795,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_than_uyen",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Uyên",
@@ -803,7 +803,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_uyen",
             "province_code": 12,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nậm Nhùn",
@@ -811,7 +811,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_nhun",
             "province_code": 12,
-            "wards": []
+       
          }
       ]
    },
@@ -828,7 +828,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_son_la",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quỳnh Nhai",
@@ -836,7 +836,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quynh_nhai",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thuận Châu",
@@ -844,7 +844,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuan_chau",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường La",
@@ -852,7 +852,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_la",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Yên",
@@ -860,7 +860,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_yen",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phù Yên",
@@ -868,7 +868,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_yen",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mộc Châu",
@@ -876,7 +876,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_moc_chau",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Châu",
@@ -884,7 +884,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_chau",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mai Sơn",
@@ -892,7 +892,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mai_son",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sông Mã",
@@ -900,7 +900,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_song_ma",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sốp Cộp",
@@ -908,7 +908,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_sop_cop",
             "province_code": 14,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vân Hồ",
@@ -916,7 +916,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_ho",
             "province_code": 14,
-            "wards": []
+       
          }
       ]
    },
@@ -933,7 +933,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_yen_bai",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Nghĩa Lộ",
@@ -941,7 +941,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_nghia_lo",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lục Yên",
@@ -949,7 +949,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_luc_yen",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Yên",
@@ -957,7 +957,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_yen",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mù Căng Chải",
@@ -965,7 +965,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mu_cang_chai",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trấn Yên",
@@ -973,7 +973,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tran_yen",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trạm Tấu",
@@ -981,7 +981,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tram_tau",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Chấn",
@@ -989,7 +989,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_chan",
             "province_code": 15,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Bình",
@@ -997,7 +997,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_binh",
             "province_code": 15,
-            "wards": []
+       
          }
       ]
    },
@@ -1014,7 +1014,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_hoa_binh",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đà Bắc",
@@ -1022,7 +1022,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_da_bac",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lương Sơn",
@@ -1030,7 +1030,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_luong_son",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kim Bôi",
@@ -1038,7 +1038,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kim_boi",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cao Phong",
@@ -1046,7 +1046,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cao_phong",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Lạc",
@@ -1054,7 +1054,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_lac",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mai Châu",
@@ -1062,7 +1062,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mai_chau",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lạc Sơn",
@@ -1070,7 +1070,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lac_son",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Thủy",
@@ -1078,7 +1078,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_thuy",
             "province_code": 17,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lạc Thủy",
@@ -1086,7 +1086,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lac_thuy",
             "province_code": 17,
-            "wards": []
+       
          }
       ]
    },
@@ -1103,7 +1103,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_thai_nguyen",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Sông Công",
@@ -1111,7 +1111,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_song_cong",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Huyện Định Hóa",
@@ -1119,7 +1119,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dinh_hoa",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Lương",
@@ -1127,7 +1127,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_luong",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đồng Hỷ",
@@ -1135,7 +1135,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_hy",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Huyện Võ Nhai",
@@ -1143,7 +1143,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vo_nhai",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đại Từ",
@@ -1151,7 +1151,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dai_tu",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Phổ Yên",
@@ -1159,7 +1159,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_pho_yen",
             "province_code": 19,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Bình",
@@ -1167,7 +1167,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_binh",
             "province_code": 19,
-            "wards": []
+       
          }
       ]
    },
@@ -1184,7 +1184,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_lang_son",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tràng Định",
@@ -1192,7 +1192,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_trang_dinh",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Gia",
@@ -1200,7 +1200,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_gia",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Lãng",
@@ -1208,7 +1208,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_lang",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cao Lộc",
@@ -1216,7 +1216,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cao_loc",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Quan",
@@ -1224,7 +1224,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_quan",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Sơn",
@@ -1232,7 +1232,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_son",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hữu Lũng",
@@ -1240,7 +1240,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_huu_lung",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chi Lăng",
@@ -1248,7 +1248,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chi_lang",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lộc Bình",
@@ -1256,7 +1256,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_loc_binh",
             "province_code": 20,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đình Lập",
@@ -1264,7 +1264,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dinh_lap",
             "province_code": 20,
-            "wards": []
+       
          }
       ]
    },
@@ -1281,7 +1281,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ha_long",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Móng Cái",
@@ -1289,7 +1289,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_mong_cai",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Cẩm Phả",
@@ -1297,7 +1297,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_cam_pha",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Uông Bí",
@@ -1305,7 +1305,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_uong_bi",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Liêu",
@@ -1313,7 +1313,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_lieu",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiên Yên",
@@ -1321,7 +1321,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tien_yen",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đầm Hà",
@@ -1329,7 +1329,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dam_ha",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hải Hà",
@@ -1337,7 +1337,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hai_ha",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ba Chẽ",
@@ -1345,7 +1345,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ba_che",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vân Đồn",
@@ -1353,7 +1353,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_don",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Đông Triều",
@@ -1361,7 +1361,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_dong_trieu",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Quảng Yên",
@@ -1369,7 +1369,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_quang_yen",
             "province_code": 22,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cô Tô",
@@ -1377,7 +1377,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_co_to",
             "province_code": 22,
-            "wards": []
+       
          }
       ]
    },
@@ -1394,7 +1394,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_bac_giang",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Thế",
@@ -1402,7 +1402,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_the",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Yên",
@@ -1410,7 +1410,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_yen",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lạng Giang",
@@ -1418,7 +1418,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lang_giang",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lục Nam",
@@ -1426,7 +1426,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_luc_nam",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lục Ngạn",
@@ -1434,7 +1434,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_luc_ngan",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sơn Động",
@@ -1442,7 +1442,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_son_dong",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Dũng",
@@ -1450,7 +1450,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_dung",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Việt Yên",
@@ -1458,7 +1458,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_viet_yen",
             "province_code": 24,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hiệp Hòa",
@@ -1466,7 +1466,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hiep_hoa",
             "province_code": 24,
-            "wards": []
+       
          }
       ]
    },
@@ -1483,7 +1483,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_viet_tri",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Phú Thọ",
@@ -1491,7 +1491,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_phu_tho",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đoan Hùng",
@@ -1499,7 +1499,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_doan_hung",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hạ Hoà",
@@ -1507,7 +1507,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ha_hoa",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Ba",
@@ -1515,7 +1515,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_ba",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phù Ninh",
@@ -1523,7 +1523,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_ninh",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Lập",
@@ -1531,7 +1531,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_lap",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cẩm Khê",
@@ -1539,7 +1539,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_khe",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tam Nông",
@@ -1547,7 +1547,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tam_nong",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lâm Thao",
@@ -1555,7 +1555,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lam_thao",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Sơn",
@@ -1563,7 +1563,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_son",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Thuỷ",
@@ -1571,7 +1571,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_thuy",
             "province_code": 25,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Sơn",
@@ -1579,7 +1579,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_son",
             "province_code": 25,
-            "wards": []
+       
          }
       ]
    },
@@ -1596,7 +1596,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_vinh_yen",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Phúc Yên",
@@ -1604,7 +1604,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_phuc_yen",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lập Thạch",
@@ -1612,7 +1612,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lap_thach",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tam Dương",
@@ -1620,7 +1620,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tam_duong",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tam Đảo",
@@ -1628,7 +1628,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tam_dao",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Xuyên",
@@ -1636,7 +1636,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_xuyen",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Lạc",
@@ -1644,7 +1644,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_lac",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Tường",
@@ -1652,7 +1652,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_tuong",
             "province_code": 26,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sông Lô",
@@ -1660,7 +1660,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_song_lo",
             "province_code": 26,
-            "wards": []
+       
          }
       ]
    },
@@ -1677,7 +1677,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_bac_ninh",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Phong",
@@ -1685,7 +1685,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_phong",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quế Võ",
@@ -1693,7 +1693,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_que_vo",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiên Du",
@@ -1701,7 +1701,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tien_du",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Từ Sơn",
@@ -1709,7 +1709,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_tu_son",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thuận Thành",
@@ -1717,7 +1717,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuan_thanh",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gia Bình",
@@ -1725,7 +1725,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_gia_binh",
             "province_code": 27,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lương Tài",
@@ -1733,7 +1733,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_luong_tai",
             "province_code": 27,
-            "wards": []
+       
          }
       ]
    },
@@ -1750,7 +1750,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_hai_duong",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Chí Linh",
@@ -1758,7 +1758,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_chi_linh",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nam Sách",
@@ -1766,7 +1766,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_sach",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Kinh Môn",
@@ -1774,7 +1774,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_kinh_mon",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kim Thành",
@@ -1782,7 +1782,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kim_thanh",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Hà",
@@ -1790,7 +1790,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_ha",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cẩm Giàng",
@@ -1798,7 +1798,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_giang",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Giang",
@@ -1806,7 +1806,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_giang",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gia Lộc",
@@ -1814,7 +1814,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_gia_loc",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tứ Kỳ",
@@ -1822,7 +1822,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tu_ky",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ninh Giang",
@@ -1830,7 +1830,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ninh_giang",
             "province_code": 30,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Miện",
@@ -1838,7 +1838,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_mien",
             "province_code": 30,
-            "wards": []
+       
          }
       ]
    },
@@ -1855,7 +1855,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_hong_bang",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Quận Ngô Quyền",
@@ -1863,7 +1863,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_ngo_quyen",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Quận Lê Chân",
@@ -1871,7 +1871,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_le_chan",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Quận Hải An",
@@ -1879,7 +1879,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_hai_an",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Quận Kiến An",
@@ -1887,7 +1887,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_kien_an",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Quận Đồ Sơn",
@@ -1895,7 +1895,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_do_son",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Quận Dương Kinh",
@@ -1903,7 +1903,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_duong_kinh",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thuỷ Nguyên",
@@ -1911,7 +1911,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuy_nguyen",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện An Dương",
@@ -1919,7 +1919,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_duong",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện An Lão",
@@ -1927,7 +1927,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_lao",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kiến Thuỵ",
@@ -1935,7 +1935,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kien_thuy",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiên Lãng",
@@ -1943,7 +1943,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tien_lang",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Bảo",
@@ -1951,7 +1951,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_bao",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cát Hải",
@@ -1959,7 +1959,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cat_hai",
             "province_code": 31,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bạch Long Vĩ",
@@ -1967,7 +1967,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bach_long_vi",
             "province_code": 31,
-            "wards": []
+       
          }
       ]
    },
@@ -1984,7 +1984,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_hung_yen",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Lâm",
@@ -1992,7 +1992,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_lam",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Văn Giang",
@@ -2000,7 +2000,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_giang",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Mỹ",
@@ -2008,7 +2008,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_my",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Mỹ Hào",
@@ -2016,7 +2016,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_my_hao",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ân Thi",
@@ -2024,7 +2024,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_thi",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Khoái Châu",
@@ -2032,7 +2032,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_khoai_chau",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kim Động",
@@ -2040,7 +2040,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kim_dong",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiên Lữ",
@@ -2048,7 +2048,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tien_lu",
             "province_code": 33,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phù Cừ",
@@ -2056,7 +2056,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_cu",
             "province_code": 33,
-            "wards": []
+       
          }
       ]
    },
@@ -2073,7 +2073,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_thai_binh",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quỳnh Phụ",
@@ -2081,7 +2081,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quynh_phu",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hưng Hà",
@@ -2089,7 +2089,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hung_ha",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đông Hưng",
@@ -2097,7 +2097,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_hung",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thái Thụy",
@@ -2105,7 +2105,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thai_thuy",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiền Hải",
@@ -2113,7 +2113,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tien_hai",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kiến Xương",
@@ -2121,7 +2121,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kien_xuong",
             "province_code": 34,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vũ Thư",
@@ -2129,7 +2129,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vu_thu",
             "province_code": 34,
-            "wards": []
+       
          }
       ]
    },
@@ -2146,7 +2146,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_phu_ly",
             "province_code": 35,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Duy Tiên",
@@ -2154,7 +2154,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_duy_tien",
             "province_code": 35,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kim Bảng",
@@ -2162,7 +2162,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kim_bang",
             "province_code": 35,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Liêm",
@@ -2170,7 +2170,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_liem",
             "province_code": 35,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Lục",
@@ -2178,7 +2178,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_luc",
             "province_code": 35,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lý Nhân",
@@ -2186,7 +2186,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ly_nhan",
             "province_code": 35,
-            "wards": []
+       
          }
       ]
    },
@@ -2203,7 +2203,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_nam_dinh",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mỹ Lộc",
@@ -2211,7 +2211,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_my_loc",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vụ Bản",
@@ -2219,7 +2219,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vu_ban",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ý Yên",
@@ -2227,7 +2227,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_y_yen",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nghĩa Hưng",
@@ -2235,7 +2235,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nghia_hung",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nam Trực",
@@ -2243,7 +2243,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_truc",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trực Ninh",
@@ -2251,7 +2251,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_truc_ninh",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Xuân Trường",
@@ -2259,7 +2259,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_xuan_truong",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Giao Thủy",
@@ -2267,7 +2267,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_giao_thuy",
             "province_code": 36,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hải Hậu",
@@ -2275,7 +2275,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hai_hau",
             "province_code": 36,
-            "wards": []
+       
          }
       ]
    },
@@ -2292,7 +2292,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ninh_binh",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Tam Điệp",
@@ -2300,7 +2300,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tam_diep",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nho Quan",
@@ -2308,7 +2308,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nho_quan",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gia Viễn",
@@ -2316,7 +2316,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_gia_vien",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoa Lư",
@@ -2324,7 +2324,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoa_lu",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Khánh",
@@ -2332,7 +2332,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_khanh",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kim Sơn",
@@ -2340,7 +2340,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kim_son",
             "province_code": 37,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Mô",
@@ -2348,7 +2348,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_mo",
             "province_code": 37,
-            "wards": []
+       
          }
       ]
    },
@@ -2365,7 +2365,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_thanh_hoa",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Bỉm Sơn",
@@ -2373,7 +2373,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_bim_son",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Sầm Sơn",
@@ -2381,7 +2381,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_sam_son",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mường Lát",
@@ -2389,7 +2389,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_muong_lat",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quan Hóa",
@@ -2397,7 +2397,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quan_hoa",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bá Thước",
@@ -2405,7 +2405,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ba_thuoc",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quan Sơn",
@@ -2413,7 +2413,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quan_son",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lang Chánh",
@@ -2421,7 +2421,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lang_chanh",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ngọc Lặc",
@@ -2429,7 +2429,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ngoc_lac",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cẩm Thủy",
@@ -2437,7 +2437,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_thuy",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạch Thành",
@@ -2445,7 +2445,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thach_thanh",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hà Trung",
@@ -2453,7 +2453,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ha_trung",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Lộc",
@@ -2461,7 +2461,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_loc",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Định",
@@ -2469,7 +2469,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_dinh",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thọ Xuân",
@@ -2477,7 +2477,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tho_xuan",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thường Xuân",
@@ -2485,7 +2485,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuong_xuan",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Triệu Sơn",
@@ -2493,7 +2493,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_trieu_son",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thiệu Hóa",
@@ -2501,7 +2501,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thieu_hoa",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoằng Hóa",
@@ -2509,7 +2509,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoang_hoa",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hậu Lộc",
@@ -2517,7 +2517,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hau_loc",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nga Sơn",
@@ -2525,7 +2525,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nga_son",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Như Xuân",
@@ -2533,7 +2533,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nhu_xuan",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Như Thanh",
@@ -2541,7 +2541,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nhu_thanh",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nông Cống",
@@ -2549,7 +2549,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nong_cong",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đông Sơn",
@@ -2557,7 +2557,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_son",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quảng Xương",
@@ -2565,7 +2565,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quang_xuong",
             "province_code": 38,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Nghi Sơn",
@@ -2573,7 +2573,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_nghi_son",
             "province_code": 38,
-            "wards": []
+       
          }
       ]
    },
@@ -2590,7 +2590,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_vinh",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Cửa Lò",
@@ -2598,7 +2598,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_cua_lo",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Thái Hoà",
@@ -2606,7 +2606,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_thai_hoa",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quế Phong",
@@ -2614,7 +2614,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_que_phong",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quỳ Châu",
@@ -2622,7 +2622,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quy_chau",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kỳ Sơn",
@@ -2630,7 +2630,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ky_son",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tương Dương",
@@ -2638,7 +2638,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuong_duong",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nghĩa Đàn",
@@ -2646,7 +2646,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nghia_dan",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quỳ Hợp",
@@ -2654,7 +2654,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quy_hop",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quỳnh Lưu",
@@ -2662,7 +2662,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quynh_luu",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Con Cuông",
@@ -2670,7 +2670,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_con_cuong",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Kỳ",
@@ -2678,7 +2678,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_ky",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Anh Sơn",
@@ -2686,7 +2686,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_anh_son",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Diễn Châu",
@@ -2694,7 +2694,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dien_chau",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Yên Thành",
@@ -2702,7 +2702,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_yen_thanh",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đô Lương",
@@ -2710,7 +2710,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_do_luong",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Chương",
@@ -2718,7 +2718,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_chuong",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nghi Lộc",
@@ -2726,7 +2726,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nghi_loc",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nam Đàn",
@@ -2734,7 +2734,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_dan",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hưng Nguyên",
@@ -2742,7 +2742,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hung_nguyen",
             "province_code": 40,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Hoàng Mai",
@@ -2750,7 +2750,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_hoang_mai",
             "province_code": 40,
-            "wards": []
+       
          }
       ]
    },
@@ -2767,7 +2767,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ha_tinh",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Hồng Lĩnh",
@@ -2775,7 +2775,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_hong_linh",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hương Sơn",
@@ -2783,7 +2783,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_huong_son",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đức Thọ",
@@ -2791,7 +2791,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duc_tho",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vũ Quang",
@@ -2799,7 +2799,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vu_quang",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nghi Xuân",
@@ -2807,7 +2807,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nghi_xuan",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Can Lộc",
@@ -2815,7 +2815,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_can_loc",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hương Khê",
@@ -2823,7 +2823,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_huong_khe",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạch Hà",
@@ -2831,7 +2831,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thach_ha",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cẩm Xuyên",
@@ -2839,7 +2839,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_xuyen",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kỳ Anh",
@@ -2847,7 +2847,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ky_anh",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lộc Hà",
@@ -2855,7 +2855,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_loc_ha",
             "province_code": 42,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Kỳ Anh",
@@ -2863,7 +2863,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_ky_anh",
             "province_code": 42,
-            "wards": []
+       
          }
       ]
    },
@@ -2880,7 +2880,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_dong_hoi",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Huyện Minh Hóa",
@@ -2888,7 +2888,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_minh_hoa",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tuyên Hóa",
@@ -2896,7 +2896,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuyen_hoa",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quảng Trạch",
@@ -2904,7 +2904,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quang_trach",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bố Trạch",
@@ -2912,7 +2912,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bo_trach",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quảng Ninh",
@@ -2920,7 +2920,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quang_ninh",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lệ Thủy",
@@ -2928,7 +2928,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_le_thuy",
             "province_code": 44,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Ba Đồn",
@@ -2936,7 +2936,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_ba_don",
             "province_code": 44,
-            "wards": []
+       
          }
       ]
    },
@@ -2953,7 +2953,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_dong_ha",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Quảng Trị",
@@ -2961,7 +2961,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_quang_tri",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Linh",
@@ -2969,7 +2969,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_linh",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hướng Hóa",
@@ -2977,7 +2977,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_huong_hoa",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gio Linh",
@@ -2985,7 +2985,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_gio_linh",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đa Krông",
@@ -2993,7 +2993,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_da_krong",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cam Lộ",
@@ -3001,7 +3001,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_lo",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Triệu Phong",
@@ -3009,7 +3009,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_trieu_phong",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hải Lăng",
@@ -3017,7 +3017,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hai_lang",
             "province_code": 45,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cồn Cỏ",
@@ -3025,7 +3025,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_con_co",
             "province_code": 45,
-            "wards": []
+       
          }
       ]
    },
@@ -3042,7 +3042,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_hue",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phong Điền",
@@ -3050,7 +3050,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phong_dien",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quảng Điền",
@@ -3058,7 +3058,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_quang_dien",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Vang",
@@ -3066,7 +3066,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_vang",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Hương Thủy",
@@ -3074,7 +3074,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_huong_thuy",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Hương Trà",
@@ -3082,7 +3082,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_huong_tra",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Huyện A Lưới",
@@ -3090,7 +3090,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_a_luoi",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Lộc",
@@ -3098,7 +3098,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_loc",
             "province_code": 46,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nam Đông",
@@ -3106,7 +3106,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_dong",
             "province_code": 46,
-            "wards": []
+       
          }
       ]
    },
@@ -3123,7 +3123,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_lien_chieu",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Quận Thanh Khê",
@@ -3131,7 +3131,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_thanh_khe",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Quận Hải Châu",
@@ -3139,7 +3139,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_hai_chau",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Quận Sơn Trà",
@@ -3147,7 +3147,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_son_tra",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Quận Ngũ Hành Sơn",
@@ -3155,7 +3155,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_ngu_hanh_son",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Quận Cẩm Lệ",
@@ -3163,7 +3163,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_cam_le",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hòa Vang",
@@ -3171,7 +3171,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoa_vang",
             "province_code": 48,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoàng Sa",
@@ -3179,7 +3179,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoang_sa",
             "province_code": 48,
-            "wards": []
+       
          }
       ]
    },
@@ -3196,7 +3196,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tam_ky",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Hội An",
@@ -3204,7 +3204,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_hoi_an",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tây Giang",
@@ -3212,7 +3212,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tay_giang",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đông Giang",
@@ -3220,7 +3220,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_giang",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đại Lộc",
@@ -3228,7 +3228,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dai_loc",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Điện Bàn",
@@ -3236,7 +3236,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_dien_ban",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Duy Xuyên",
@@ -3244,7 +3244,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duy_xuyen",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Quế Sơn",
@@ -3252,7 +3252,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_que_son",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nam Giang",
@@ -3260,7 +3260,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_giang",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phước Sơn",
@@ -3268,7 +3268,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phuoc_son",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hiệp Đức",
@@ -3276,7 +3276,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hiep_duc",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thăng Bình",
@@ -3284,7 +3284,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thang_binh",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiên Phước",
@@ -3292,7 +3292,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tien_phuoc",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Trà My",
@@ -3300,7 +3300,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_tra_my",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nam Trà My",
@@ -3308,7 +3308,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_tra_my",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Núi Thành",
@@ -3316,7 +3316,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nui_thanh",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Ninh",
@@ -3324,7 +3324,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_ninh",
             "province_code": 49,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nông Sơn",
@@ -3332,7 +3332,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nong_son",
             "province_code": 49,
-            "wards": []
+       
          }
       ]
    },
@@ -3349,7 +3349,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_quang_ngai",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Sơn",
@@ -3357,7 +3357,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_son",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trà Bồng",
@@ -3365,7 +3365,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tra_bong",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sơn Tịnh",
@@ -3373,7 +3373,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_son_tinh",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tư Nghĩa",
@@ -3381,7 +3381,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tu_nghia",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sơn Hà",
@@ -3389,7 +3389,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_son_ha",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sơn Tây",
@@ -3397,7 +3397,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_son_tay",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Minh Long",
@@ -3405,7 +3405,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_minh_long",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nghĩa Hành",
@@ -3413,7 +3413,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nghia_hanh",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mộ Đức",
@@ -3421,7 +3421,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mo_duc",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Đức Phổ",
@@ -3429,7 +3429,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_duc_pho",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ba Tơ",
@@ -3437,7 +3437,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ba_to",
             "province_code": 51,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lý Sơn",
@@ -3445,7 +3445,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ly_son",
             "province_code": 51,
-            "wards": []
+       
          }
       ]
    },
@@ -3462,7 +3462,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_quy_nhon",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện An Lão",
@@ -3470,7 +3470,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_lao",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Hoài Nhơn",
@@ -3478,7 +3478,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_hoai_nhon",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoài Ân",
@@ -3486,7 +3486,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoai_an",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phù Mỹ",
@@ -3494,7 +3494,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_my",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Thạnh",
@@ -3502,7 +3502,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_thanh",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tây Sơn",
@@ -3510,7 +3510,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tay_son",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phù Cát",
@@ -3518,7 +3518,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_cat",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Thị xã An Nhơn",
@@ -3526,7 +3526,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_an_nhon",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tuy Phước",
@@ -3534,7 +3534,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuy_phuoc",
             "province_code": 52,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vân Canh",
@@ -3542,7 +3542,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_canh",
             "province_code": 52,
-            "wards": []
+       
          }
       ]
    },
@@ -3559,7 +3559,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tuy_hoa",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Sông Cầu",
@@ -3567,7 +3567,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_song_cau",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đồng Xuân",
@@ -3575,7 +3575,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_xuan",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tuy An",
@@ -3583,7 +3583,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuy_an",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sơn Hòa",
@@ -3591,7 +3591,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_son_hoa",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sông Hinh",
@@ -3599,7 +3599,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_song_hinh",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tây Hoà",
@@ -3607,7 +3607,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tay_hoa",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Hoà",
@@ -3615,7 +3615,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_hoa",
             "province_code": 54,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Đông Hòa",
@@ -3623,7 +3623,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_dong_hoa",
             "province_code": 54,
-            "wards": []
+       
          }
       ]
    },
@@ -3640,7 +3640,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_nha_trang",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Cam Ranh",
@@ -3648,7 +3648,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_cam_ranh",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cam Lâm",
@@ -3656,7 +3656,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_lam",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vạn Ninh",
@@ -3664,7 +3664,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_van_ninh",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Ninh Hòa",
@@ -3672,7 +3672,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_ninh_hoa",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Huyện Khánh Vĩnh",
@@ -3680,7 +3680,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_khanh_vinh",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Huyện Diên Khánh",
@@ -3688,7 +3688,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dien_khanh",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Huyện Khánh Sơn",
@@ -3696,7 +3696,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_khanh_son",
             "province_code": 56,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trường Sa",
@@ -3704,7 +3704,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_truong_sa",
             "province_code": 56,
-            "wards": []
+       
          }
       ]
    },
@@ -3721,7 +3721,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_phan_rang_thap_cham",
             "province_code": 58,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bác Ái",
@@ -3729,7 +3729,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_ai",
             "province_code": 58,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ninh Sơn",
@@ -3737,7 +3737,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ninh_son",
             "province_code": 58,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ninh Hải",
@@ -3745,7 +3745,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ninh_hai",
             "province_code": 58,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ninh Phước",
@@ -3753,7 +3753,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ninh_phuoc",
             "province_code": 58,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thuận Bắc",
@@ -3761,7 +3761,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuan_bac",
             "province_code": 58,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thuận Nam",
@@ -3769,7 +3769,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thuan_nam",
             "province_code": 58,
-            "wards": []
+       
          }
       ]
    },
@@ -3786,7 +3786,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_phan_thiet",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Thị xã La Gi",
@@ -3794,7 +3794,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_la_gi",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tuy Phong",
@@ -3802,7 +3802,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuy_phong",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Bình",
@@ -3810,7 +3810,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_binh",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hàm Thuận Bắc",
@@ -3818,7 +3818,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ham_thuan_bac",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hàm Thuận Nam",
@@ -3826,7 +3826,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ham_thuan_nam",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tánh Linh",
@@ -3834,7 +3834,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tanh_linh",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đức Linh",
@@ -3842,7 +3842,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duc_linh",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hàm Tân",
@@ -3850,7 +3850,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ham_tan",
             "province_code": 60,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Quí",
@@ -3858,7 +3858,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_qui",
             "province_code": 60,
-            "wards": []
+       
          }
       ]
    },
@@ -3875,7 +3875,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_kon_tum",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đắk Glei",
@@ -3883,7 +3883,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_glei",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ngọc Hồi",
@@ -3891,7 +3891,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ngoc_hoi",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đắk Tô",
@@ -3899,7 +3899,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_to",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kon Plông",
@@ -3907,7 +3907,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kon_plong",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kon Rẫy",
@@ -3915,7 +3915,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kon_ray",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đắk Hà",
@@ -3923,7 +3923,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_ha",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Sa Thầy",
@@ -3931,7 +3931,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_sa_thay",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tu Mơ Rông",
@@ -3939,7 +3939,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tu_mo_rong",
             "province_code": 62,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ia H' Drai",
@@ -3947,7 +3947,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ia_h_drai",
             "province_code": 62,
-            "wards": []
+       
          }
       ]
    },
@@ -3964,7 +3964,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_pleiku",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Thị xã An Khê",
@@ -3972,7 +3972,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_an_khe",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Ayun Pa",
@@ -3980,7 +3980,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_ayun_pa",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện KBang",
@@ -3988,7 +3988,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kbang",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đăk Đoa",
@@ -3996,7 +3996,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_doa",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chư Păh",
@@ -4004,7 +4004,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chu_pah",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ia Grai",
@@ -4012,7 +4012,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ia_grai",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mang Yang",
@@ -4020,7 +4020,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mang_yang",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kông Chro",
@@ -4028,7 +4028,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kong_chro",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đức Cơ",
@@ -4036,7 +4036,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duc_co",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chư Prông",
@@ -4044,7 +4044,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chu_prong",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chư Sê",
@@ -4052,7 +4052,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chu_se",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đăk Pơ",
@@ -4060,7 +4060,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_po",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ia Pa",
@@ -4068,7 +4068,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ia_pa",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông Pa",
@@ -4076,7 +4076,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_pa",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Thiện",
@@ -4084,7 +4084,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_thien",
             "province_code": 64,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chư Pưh",
@@ -4092,7 +4092,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chu_puh",
             "province_code": 64,
-            "wards": []
+       
          }
       ]
    },
@@ -4109,7 +4109,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_buon_ma_thuot",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Buôn Hồ",
@@ -4117,7 +4117,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_buon_ho",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ea H'leo",
@@ -4125,7 +4125,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ea_hleo",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ea Súp",
@@ -4133,7 +4133,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ea_sup",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Buôn Đôn",
@@ -4141,7 +4141,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_buon_don",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cư M'gar",
@@ -4149,7 +4149,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cu_mgar",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông Búk",
@@ -4157,7 +4157,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_buk",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông Năng",
@@ -4165,7 +4165,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_nang",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ea Kar",
@@ -4173,7 +4173,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ea_kar",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện M'Đrắk",
@@ -4181,7 +4181,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mdrak",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông Bông",
@@ -4189,7 +4189,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_bong",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông Pắc",
@@ -4197,7 +4197,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_pac",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông A Na",
@@ -4205,7 +4205,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_a_na",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lắk",
@@ -4213,7 +4213,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lak",
             "province_code": 66,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cư Kuin",
@@ -4221,7 +4221,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cu_kuin",
             "province_code": 66,
-            "wards": []
+       
          }
       ]
    },
@@ -4238,7 +4238,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_gia_nghia",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đăk Glong",
@@ -4246,7 +4246,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_glong",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cư Jút",
@@ -4254,7 +4254,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cu_jut",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đắk Mil",
@@ -4262,7 +4262,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_mil",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Krông Nô",
@@ -4270,7 +4270,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_krong_no",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đắk Song",
@@ -4278,7 +4278,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_song",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đắk R'Lấp",
@@ -4286,7 +4286,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dak_rlap",
             "province_code": 67,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tuy Đức",
@@ -4294,7 +4294,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tuy_duc",
             "province_code": 67,
-            "wards": []
+       
          }
       ]
    },
@@ -4311,7 +4311,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_da_lat",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Bảo Lộc",
@@ -4319,7 +4319,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_bao_loc",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đam Rông",
@@ -4327,7 +4327,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dam_rong",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lạc Dương",
@@ -4335,7 +4335,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lac_duong",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lâm Hà",
@@ -4343,7 +4343,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lam_ha",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đơn Dương",
@@ -4351,7 +4351,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_don_duong",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đức Trọng",
@@ -4359,7 +4359,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duc_trong",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Di Linh",
@@ -4367,7 +4367,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_di_linh",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bảo Lâm",
@@ -4375,7 +4375,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bao_lam",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đạ Huoai",
@@ -4383,7 +4383,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_da_huoai",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đạ Tẻh",
@@ -4391,7 +4391,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_da_teh",
             "province_code": 68,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cát Tiên",
@@ -4399,7 +4399,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cat_tien",
             "province_code": 68,
-            "wards": []
+       
          }
       ]
    },
@@ -4416,7 +4416,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_phuoc_long",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Đồng Xoài",
@@ -4424,7 +4424,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_dong_xoai",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Bình Long",
@@ -4432,7 +4432,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_binh_long",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bù Gia Mập",
@@ -4440,7 +4440,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bu_gia_map",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lộc Ninh",
@@ -4448,7 +4448,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_loc_ninh",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bù Đốp",
@@ -4456,7 +4456,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bu_dop",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hớn Quản",
@@ -4464,7 +4464,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hon_quan",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đồng Phú",
@@ -4472,7 +4472,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_phu",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bù Đăng",
@@ -4480,7 +4480,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bu_dang",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chơn Thành",
@@ -4488,7 +4488,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chon_thanh",
             "province_code": 70,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Riềng",
@@ -4496,7 +4496,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_rieng",
             "province_code": 70,
-            "wards": []
+       
          }
       ]
    },
@@ -4513,7 +4513,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tay_ninh",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Biên",
@@ -4521,7 +4521,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_bien",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Châu",
@@ -4529,7 +4529,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_chau",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Huyện Dương Minh Châu",
@@ -4537,7 +4537,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duong_minh_chau",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -4545,7 +4545,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Hòa Thành",
@@ -4553,7 +4553,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_hoa_thanh",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gò Dầu",
@@ -4561,7 +4561,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_go_dau",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bến Cầu",
@@ -4569,7 +4569,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ben_cau",
             "province_code": 72,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Trảng Bàng",
@@ -4577,7 +4577,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_trang_bang",
             "province_code": 72,
-            "wards": []
+       
          }
       ]
    },
@@ -4594,7 +4594,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_thu_dau_mot",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bàu Bàng",
@@ -4602,7 +4602,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bau_bang",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Huyện Dầu Tiếng",
@@ -4610,7 +4610,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dau_tieng",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Bến Cát",
@@ -4618,7 +4618,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_ben_cat",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Giáo",
@@ -4626,7 +4626,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_giao",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Tân Uyên",
@@ -4634,7 +4634,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_tan_uyen",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Dĩ An",
@@ -4642,7 +4642,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_di_an",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Thuận An",
@@ -4650,7 +4650,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_thuan_an",
             "province_code": 74,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bắc Tân Uyên",
@@ -4658,7 +4658,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_bac_tan_uyen",
             "province_code": 74,
-            "wards": []
+       
          }
       ]
    },
@@ -4675,7 +4675,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_bien_hoa",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Long Khánh",
@@ -4683,7 +4683,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_long_khanh",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Phú",
@@ -4691,7 +4691,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_phu",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Cửu",
@@ -4699,7 +4699,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_cuu",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Định Quán",
@@ -4707,7 +4707,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dinh_quan",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trảng Bom",
@@ -4715,7 +4715,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_trang_bom",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thống Nhất",
@@ -4723,7 +4723,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thong_nhat",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cẩm Mỹ",
@@ -4731,7 +4731,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cam_my",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Long Thành",
@@ -4739,7 +4739,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_long_thanh",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Xuân Lộc",
@@ -4747,7 +4747,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_xuan_loc",
             "province_code": 75,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nhơn Trạch",
@@ -4755,7 +4755,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nhon_trach",
             "province_code": 75,
-            "wards": []
+       
          }
       ]
    },
@@ -4772,7 +4772,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_vung_tau",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Bà Rịa",
@@ -4780,7 +4780,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ba_ria",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Đức",
@@ -4788,7 +4788,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_duc",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Huyện Xuyên Mộc",
@@ -4796,7 +4796,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_xuyen_moc",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Huyện Long Điền",
@@ -4804,7 +4804,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_long_dien",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đất Đỏ",
@@ -4812,7 +4812,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dat_do",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Phú Mỹ",
@@ -4820,7 +4820,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_phu_my",
             "province_code": 77,
-            "wards": []
+       
          },
          {
             "name": "Huyện Côn Đảo",
@@ -4828,7 +4828,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_con_dao",
             "province_code": 77,
-            "wards": []
+       
          }
       ]
    },
@@ -4845,7 +4845,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_1",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 12",
@@ -4853,7 +4853,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_12",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận Gò Vấp",
@@ -4861,7 +4861,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_go_vap",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận Bình Thạnh",
@@ -4869,7 +4869,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_binh_thanh",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận Tân Bình",
@@ -4877,7 +4877,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_tan_binh",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận Tân Phú",
@@ -4885,7 +4885,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_tan_phu",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận Phú Nhuận",
@@ -4893,7 +4893,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_phu_nhuan",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Thủ Đức",
@@ -4901,7 +4901,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_thu_duc",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 3",
@@ -4909,7 +4909,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_3",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 10",
@@ -4917,7 +4917,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_10",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 11",
@@ -4925,7 +4925,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_11",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 4",
@@ -4933,7 +4933,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_4",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 5",
@@ -4941,7 +4941,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_5",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 6",
@@ -4949,7 +4949,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_6",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 8",
@@ -4957,7 +4957,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_8",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận Bình Tân",
@@ -4965,7 +4965,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_binh_tan",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Quận 7",
@@ -4973,7 +4973,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_7",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Huyện Củ Chi",
@@ -4981,7 +4981,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cu_chi",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hóc Môn",
@@ -4989,7 +4989,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoc_mon",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Chánh",
@@ -4997,7 +4997,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_chanh",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Huyện Nhà Bè",
@@ -5005,7 +5005,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nha_be",
             "province_code": 79,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cần Giờ",
@@ -5013,7 +5013,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_can_gio",
             "province_code": 79,
-            "wards": []
+       
          }
       ]
    },
@@ -5030,7 +5030,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tan_an",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Kiến Tường",
@@ -5038,7 +5038,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_kien_tuong",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Hưng",
@@ -5046,7 +5046,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_hung",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Hưng",
@@ -5054,7 +5054,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_hung",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mộc Hóa",
@@ -5062,7 +5062,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_moc_hoa",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Thạnh",
@@ -5070,7 +5070,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_thanh",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạnh Hóa",
@@ -5078,7 +5078,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_hoa",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đức Huệ",
@@ -5086,7 +5086,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duc_hue",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đức Hòa",
@@ -5094,7 +5094,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duc_hoa",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bến Lức",
@@ -5102,7 +5102,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ben_luc",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thủ Thừa",
@@ -5110,7 +5110,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thu_thua",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Trụ",
@@ -5118,7 +5118,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_tru",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cần Đước",
@@ -5126,7 +5126,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_can_duoc",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cần Giuộc",
@@ -5134,7 +5134,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_can_giuoc",
             "province_code": 80,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5142,7 +5142,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 80,
-            "wards": []
+       
          }
       ]
    },
@@ -5159,7 +5159,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_my_tho",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Gò Công",
@@ -5167,7 +5167,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_go_cong",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Cai Lậy",
@@ -5175,7 +5175,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_cai_lay",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Phước",
@@ -5183,7 +5183,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_phuoc",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cái Bè",
@@ -5191,7 +5191,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cai_be",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cai Lậy",
@@ -5199,7 +5199,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cai_lay",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5207,7 +5207,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chợ Gạo",
@@ -5215,7 +5215,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cho_gao",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gò Công Tây",
@@ -5223,7 +5223,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_go_cong_tay",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gò Công Đông",
@@ -5231,7 +5231,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_go_cong_dong",
             "province_code": 82,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Phú Đông",
@@ -5239,7 +5239,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_phu_dong",
             "province_code": 82,
-            "wards": []
+       
          }
       ]
    },
@@ -5256,7 +5256,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ben_tre",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5264,7 +5264,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chợ Lách",
@@ -5272,7 +5272,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cho_lach",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mỏ Cày Nam",
@@ -5280,7 +5280,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mo_cay_nam",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Giồng Trôm",
@@ -5288,7 +5288,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_giong_trom",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Đại",
@@ -5296,7 +5296,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_dai",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ba Tri",
@@ -5304,7 +5304,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ba_tri",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạnh Phú",
@@ -5312,7 +5312,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_phu",
             "province_code": 83,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mỏ Cày Bắc",
@@ -5320,7 +5320,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mo_cay_bac",
             "province_code": 83,
-            "wards": []
+       
          }
       ]
    },
@@ -5337,7 +5337,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_tra_vinh",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Càng Long",
@@ -5345,7 +5345,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cang_long",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cầu Kè",
@@ -5353,7 +5353,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cau_ke",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tiểu Cần",
@@ -5361,7 +5361,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tieu_can",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5369,7 +5369,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cầu Ngang",
@@ -5377,7 +5377,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cau_ngang",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trà Cú",
@@ -5385,7 +5385,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tra_cu",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Huyện Duyên Hải",
@@ -5393,7 +5393,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_duyen_hai",
             "province_code": 84,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Duyên Hải",
@@ -5401,7 +5401,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_duyen_hai",
             "province_code": 84,
-            "wards": []
+       
          }
       ]
    },
@@ -5418,7 +5418,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_vinh_long",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Huyện Long Hồ",
@@ -5426,7 +5426,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_long_ho",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mang Thít",
@@ -5434,7 +5434,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_mang_thit",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vũng Liêm",
@@ -5442,7 +5442,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vung_liem",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tam Bình",
@@ -5450,7 +5450,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tam_binh",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Bình Minh",
@@ -5458,7 +5458,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_binh_minh",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trà Ôn",
@@ -5466,7 +5466,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tra_on",
             "province_code": 86,
-            "wards": []
+       
          },
          {
             "name": "Huyện Bình Tân",
@@ -5474,7 +5474,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_binh_tan",
             "province_code": 86,
-            "wards": []
+       
          }
       ]
    },
@@ -5491,7 +5491,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_cao_lanh",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Sa Đéc",
@@ -5499,7 +5499,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_sa_dec",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Hồng Ngự",
@@ -5507,7 +5507,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_hong_ngu",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Hồng",
@@ -5515,7 +5515,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_hong",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hồng Ngự",
@@ -5523,7 +5523,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hong_ngu",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tam Nông",
@@ -5531,7 +5531,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tam_nong",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tháp Mười",
@@ -5539,7 +5539,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thap_muoi",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cao Lãnh",
@@ -5547,7 +5547,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cao_lanh",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thanh Bình",
@@ -5555,7 +5555,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_binh",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lấp Vò",
@@ -5563,7 +5563,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lap_vo",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Lai Vung",
@@ -5571,7 +5571,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_lai_vung",
             "province_code": 87,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5579,7 +5579,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 87,
-            "wards": []
+       
          }
       ]
    },
@@ -5596,7 +5596,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_long_xuyen",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Châu Đốc",
@@ -5604,7 +5604,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_chau_doc",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện An Phú",
@@ -5612,7 +5612,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_phu",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Tân Châu",
@@ -5620,7 +5620,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_tan_chau",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Tân",
@@ -5628,7 +5628,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_tan",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Phú",
@@ -5636,7 +5636,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_phu",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tịnh Biên",
@@ -5644,7 +5644,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tinh_bien",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tri Tôn",
@@ -5652,7 +5652,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tri_ton",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5660,7 +5660,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Chợ Mới",
@@ -5668,7 +5668,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cho_moi",
             "province_code": 89,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thoại Sơn",
@@ -5676,7 +5676,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thoai_son",
             "province_code": 89,
-            "wards": []
+       
          }
       ]
    },
@@ -5693,7 +5693,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_rach_gia",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Hà Tiên",
@@ -5701,7 +5701,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ha_tien",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kiên Lương",
@@ -5709,7 +5709,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kien_luong",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hòn Đất",
@@ -5717,7 +5717,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hon_dat",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Tân Hiệp",
@@ -5725,7 +5725,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tan_hiep",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5733,7 +5733,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Giồng Riềng",
@@ -5741,7 +5741,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_giong_rieng",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Gò Quao",
@@ -5749,7 +5749,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_go_quao",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện An Biên",
@@ -5757,7 +5757,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_bien",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện An Minh",
@@ -5765,7 +5765,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_an_minh",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Thuận",
@@ -5773,7 +5773,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_thuan",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Phú Quốc",
@@ -5781,7 +5781,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_phu_quoc",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kiên Hải",
@@ -5789,7 +5789,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_kien_hai",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện U Minh Thượng",
@@ -5797,7 +5797,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_u_minh_thuong",
             "province_code": 91,
-            "wards": []
+       
          },
          {
             "name": "Huyện Giang Thành",
@@ -5805,7 +5805,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_giang_thanh",
             "province_code": 91,
-            "wards": []
+       
          }
       ]
    },
@@ -5822,7 +5822,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_ninh_kieu",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Quận Ô Môn",
@@ -5830,7 +5830,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_o_mon",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Quận Bình Thuỷ",
@@ -5838,7 +5838,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_binh_thuy",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Quận Cái Răng",
@@ -5846,7 +5846,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_cai_rang",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Quận Thốt Nốt",
@@ -5854,7 +5854,7 @@ export const provices = [
             "division_type": "quận",
             "codename": "quan_thot_not",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Thạnh",
@@ -5862,7 +5862,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_thanh",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cờ Đỏ",
@@ -5870,7 +5870,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_co_do",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phong Điền",
@@ -5878,7 +5878,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phong_dien",
             "province_code": 92,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thới Lai",
@@ -5886,7 +5886,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thoi_lai",
             "province_code": 92,
-            "wards": []
+       
          }
       ]
    },
@@ -5903,7 +5903,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_vi_thanh",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Thành phố Ngã Bảy",
@@ -5911,7 +5911,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_nga_bay",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành A",
@@ -5919,7 +5919,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh_a",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5927,7 +5927,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phụng Hiệp",
@@ -5935,7 +5935,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phung_hiep",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vị Thuỷ",
@@ -5943,7 +5943,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vi_thuy",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Huyện Long Mỹ",
@@ -5951,7 +5951,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_long_my",
             "province_code": 93,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Long Mỹ",
@@ -5959,7 +5959,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_long_my",
             "province_code": 93,
-            "wards": []
+       
          }
       ]
    },
@@ -5976,7 +5976,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_soc_trang",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Châu Thành",
@@ -5984,7 +5984,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_chau_thanh",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Kế Sách",
@@ -5992,7 +5992,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ke_sach",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mỹ Tú",
@@ -6000,7 +6000,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_my_tu",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cù Lao Dung",
@@ -6008,7 +6008,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cu_lao_dung",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Long Phú",
@@ -6016,7 +6016,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_long_phu",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Mỹ Xuyên",
@@ -6024,7 +6024,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_my_xuyen",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Ngã Năm",
@@ -6032,7 +6032,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_nga_nam",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thạnh Trị",
@@ -6040,7 +6040,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thanh_tri",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Vĩnh Châu",
@@ -6048,7 +6048,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_vinh_chau",
             "province_code": 94,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trần Đề",
@@ -6056,7 +6056,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tran_de",
             "province_code": 94,
-            "wards": []
+       
          }
       ]
    },
@@ -6073,7 +6073,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_bac_lieu",
             "province_code": 95,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hồng Dân",
@@ -6081,7 +6081,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hong_dan",
             "province_code": 95,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phước Long",
@@ -6089,7 +6089,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phuoc_long",
             "province_code": 95,
-            "wards": []
+       
          },
          {
             "name": "Huyện Vĩnh Lợi",
@@ -6097,7 +6097,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_vinh_loi",
             "province_code": 95,
-            "wards": []
+       
          },
          {
             "name": "Thị xã Giá Rai",
@@ -6105,7 +6105,7 @@ export const provices = [
             "division_type": "thị xã",
             "codename": "thi_xa_gia_rai",
             "province_code": 95,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đông Hải",
@@ -6113,7 +6113,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dong_hai",
             "province_code": 95,
-            "wards": []
+       
          },
          {
             "name": "Huyện Hoà Bình",
@@ -6121,7 +6121,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_hoa_binh",
             "province_code": 95,
-            "wards": []
+       
          }
       ]
    },
@@ -6138,7 +6138,7 @@ export const provices = [
             "division_type": "thành phố",
             "codename": "thanh_pho_ca_mau",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện U Minh",
@@ -6146,7 +6146,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_u_minh",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Thới Bình",
@@ -6154,7 +6154,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_thoi_binh",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Trần Văn Thời",
@@ -6162,7 +6162,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_tran_van_thoi",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Cái Nước",
@@ -6170,7 +6170,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_cai_nuoc",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Đầm Dơi",
@@ -6178,7 +6178,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_dam_doi",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Năm Căn",
@@ -6186,7 +6186,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_nam_can",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Phú Tân",
@@ -6194,7 +6194,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_phu_tan",
             "province_code": 96,
-            "wards": []
+       
          },
          {
             "name": "Huyện Ngọc Hiển",
@@ -6202,7 +6202,7 @@ export const provices = [
             "division_type": "huyện",
             "codename": "huyen_ngoc_hien",
             "province_code": 96,
-            "wards": []
+       
          }
       ]
    }

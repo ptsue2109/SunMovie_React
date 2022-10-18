@@ -6,8 +6,10 @@ import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
 import { useAppDispatch } from "./redux/hook";
 import { getUsers } from "./redux/slice/userSlice";
-
 import { getMovieType } from "./redux/slice/movieTypeSlice";
+import { getRoom } from "./redux/slice/RoomSlice";
+import { getSeats } from "./redux/slice/SeatSlice"
+import { getSeatsType } from "./redux/slice/SeatType"
 
 function App() {
   const dispatch = useAppDispatch();
@@ -15,6 +17,9 @@ function App() {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getMovieType());
+    dispatch(getSeats());
+    dispatch(getSeatsType());
+    dispatch(getRoom())
   }, [dispatch]);
 
   return (

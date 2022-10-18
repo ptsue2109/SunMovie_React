@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SlideShow from "../../../components/client/SlideShow/SlideShow";
 import styles from "./Home.module.scss";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { useAppSelector } from "../../../redux/hook";
 type Props = {};
 
 const Home = (props: Props) => {

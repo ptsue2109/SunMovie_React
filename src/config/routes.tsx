@@ -15,6 +15,13 @@ const routes = {
   adminUserAdd: "/admin/users/add",
   adminUserUpdate: "/admin/users/:id",
   adminMovieTypeEdit: "/admin/movie-type/:id",
+  adminSeatList: "/admin/seats",
+  adminSeatCreate: "/admin/seats/create",
+  adminSeatEdit: "/admin/seats/edit/:id",
+
+  adminRoom: "/admin/rooms",
+  adminRoomCreate: "/admin/rooms/create",
+  adminRoomEdit: "/admin/rooms/:id"
 };
 
 export default routes;

@@ -7,16 +7,13 @@ import ImageUpload from "../../upload"
 interface UserFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
-   avatarList: any[];
-   setAvatarList: React.Dispatch<any>;
-   newPass: string;
-   setNewPass: React.Dispatch<any>;
+  
    onReset?: () => void;
    edit?: boolean;
-   editUser?: boolean;
+   editData?: boolean;
    loading?: boolean;
 }
-const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFinish, onReset, edit = false, loading = false, editUser = true }: UserFormProps) => {
+const RoomForm = ({ form, onFinish, onReset, edit = false, loading = false, editData = true }: UserFormProps) => {
    const roles = [
       { value: 0, name: "Khách hàng" },
       { value: 1, name: "Admin" }
@@ -28,13 +25,10 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFini
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
-            {editUser ? (
+            {editData ? (
                <>
                   <Card className="col-6">
-                     <Form.Item label="Avatar" >
-                        <ImageUpload imageList={avatarList} limit={2} key={1} />
-                        <small>(Tải lên ít nhất 1 ảnh và tối đa 2 ảnh)</small>
-                     </Form.Item>
+                     
                      <Form.Item label="Tên người dùng" name="username" rules={[{ required: true, min: 5, whitespace: true }]}>
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
@@ -98,4 +92,4 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFini
    )
 }
 
-export default UserForm;
+export default RoomForm;

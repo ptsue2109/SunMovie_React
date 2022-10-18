@@ -30,7 +30,8 @@ const DataTable = ({ data, column, scrollWidth, size = "small", loading }: DataT
                     locale={{
                         emptyText: (
                             <div style={{ padding: "16px 0 0" }}>
-                                <Empty description="Không tìm thấy dữ liệu" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                <Empty description="Không tìm thấy dữ liệu"
+                                 image={Empty.PRESENTED_IMAGE_SIMPLE} />
                             </div>
                         ),
                     }}
@@ -53,7 +54,6 @@ const TableWrapper = styled.div`
 
     & .ant-table-content {
         min-height: 465px;
-
         &::-webkit-scrollbar {
             height: 6px;
         }
@@ -63,6 +63,10 @@ const TableWrapper = styled.div`
 
         & .ant-table-thead > tr > th {
             background-color: #f2f2f2;
+            
+        }
+        td{
+            line-height: 0
         }
     }
 

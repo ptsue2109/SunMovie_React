@@ -11,6 +11,10 @@ type Props = {}
 const AdminUserList = (props: Props) => {
   const dispatch = useAppDispatch();
   const { users, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
+  console.log('usersa', users);
+
+
+
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data)).unwrap()
       .then(() => {

@@ -92,8 +92,8 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
             <h1>Header</h1>
             <Dropdown overlay={menu} placement="bottomRight">
               <div className="flex items-center">
-                <UserOutlined style={{ fontSize: 16, marginRight: 8 }} title="User" />
-                <span>SUE</span>
+                <UserOutlined style={{ fontSize: 16, marginRight: 8, cursor: 'pointer' }} title="User" />
+                <span className="cursor-pointer">SUE</span>
               </div>
             </Dropdown>
           </div>
