@@ -12,10 +12,7 @@ export const getUsers = createAsyncThunk<any, void, { rejectValue: string }>(
     }
   }
 );
-export const removeUser = createAsyncThunk<
-  any,
-  string | undefined,
-  { rejectValue: string }
+export const removeUser = createAsyncThunk<any,string | undefined,{ rejectValue: string }
 >("users/removeUser", async (id, { rejectWithValue }) => {
   try {
     const { data } = await UserApi.removeUser(id);
