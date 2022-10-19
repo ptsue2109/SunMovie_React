@@ -38,7 +38,7 @@ import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
 
 import AdminRoomList from "../pages/admin/Rooms/List";
-
+import AdminRoomCreate from "../pages/admin/Rooms/Create";
 
 type RoutesType = {
   path: string;
@@ -84,4 +84,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
 
   { path: configRoute.routes.adminRooms, component: AdminRoomList },
+  { path: configRoute.routes.adminRoomsCreate, component: AdminRoomCreate },
 ];
