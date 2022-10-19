@@ -40,7 +40,7 @@ export const getRooms = createAsyncThunk<any, void, { rejectValue: string }>(
        const { data } = await roomApi.create(user);
        return data;
      } catch (error: any) {
-       return rejectWithValue(error.response.data);
+       return rejectWithValue(error.response.data.message);
      }
    }
  );
