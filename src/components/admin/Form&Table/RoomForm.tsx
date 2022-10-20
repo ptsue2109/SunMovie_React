@@ -12,14 +12,19 @@ interface RoomFormProps {
   loading?: boolean;
   setSeatFile: any;
   seatFile: any;
-  screen:any
+  screen: any;
+  rowFile: any,
+  colFile: any;
+  setRowFile: any;
+  setColFile: any
 }
-const RoomForm = ({ form, onFinish, edit = false, loading = false, editData = true, setSeatFile, seatFile, screen }: RoomFormProps) => {
+const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile, screen }: RoomFormProps) => {
 
- 
-  const [seatDetails, setSeatDetails] = useState<any>({})
-  const [row, setRow] = useState<number>(1);
-  const [column, setColumn] = useState<number>(1);
+
+  const [seatDetails, setSeatDetails] = useState<any>({});
+
+  const [row, setRow] = useState<number>(rowFile);
+  const [column, setColumn] = useState<number>(colFile);
   useEffect(() => { clearSelectedSeats(); }, [])
   useEffect(() => {
     handleSubmit();
@@ -117,7 +122,7 @@ const RoomForm = ({ form, onFinish, edit = false, loading = false, editData = tr
 
   return (
 
-    <div className="grid grid-flow-col">
+    <div className="grid grid-flow-col gap-3">
       {editData ? (
         <>
           <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
@@ -127,10 +132,10 @@ const RoomForm = ({ form, onFinish, edit = false, loading = false, editData = tr
               </Form.Item>
               <Form.Item label="screen" name="screen" rules={[{ required: true }]}>
                 <Select >
-                  {screen.map((item:any) => <Select.Option key={item?.value} value={item?.value}>{item?.name}</Select.Option>)}
+                  {screen.map((item: any) => <Select.Option key={item?.value} value={item?.value}>{item?.name}</Select.Option>)}
                 </Select>
               </Form.Item>
-              
+
               <Form.Item label="rows" name="rows"  >
                 <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
               </Form.Item>
@@ -150,10 +155,9 @@ const RoomForm = ({ form, onFinish, edit = false, loading = false, editData = tr
               </div>
             </Card>
           </Form>
-          <Card className="col-9">
+          <Card className="col-9 p-5">
             {seatDetails && <RenderSeats />}
           </Card>
-
         </>
       ) : (<>
         <Skeleton />

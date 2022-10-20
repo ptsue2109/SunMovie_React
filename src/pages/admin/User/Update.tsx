@@ -17,7 +17,7 @@ const UserEdit = (props: Props) => {
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
-  const dataSelected = users.find((item) => item._id === id);
+  const dataSelected = users.find((item:any) => item._id === id);
 
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id}`;

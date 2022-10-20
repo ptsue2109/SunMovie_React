@@ -39,7 +39,7 @@ import CreateCategory from "../pages/admin/categories/Create";
 
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
-
+import AdminRoomEdit from "../pages/admin/Rooms/Edit";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -85,4 +85,5 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminRooms, component: AdminRoomList },
   { path: configRoute.routes.adminRoomsCreate, component: AdminRoomCreate },
+  { path: configRoute.routes.adminRoomEdit, component: AdminRoomEdit},
 ];
