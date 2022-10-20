@@ -12,7 +12,6 @@ type Props = {}
 const AdminRoomList = (props: Props) => {
   const dispatch = useAppDispatch();
   const { rooms, isFetching, isErr, errorMessage } = useAppSelector(state => state.roomReducer);
-  console.log('screenData', screenData)
   useEffect(() => { document.title = "Admin | Rooms" }, [])
 
   const deleteData = (data: string | undefined) => {
@@ -108,8 +107,6 @@ const AdminRoomList = (props: Props) => {
   ];
 
   const data: Props[] = rooms?.map((item: any, index: any) => {
-    console.log(rooms);
-
     return {
       key: index + 1,
       _id: item?._id,

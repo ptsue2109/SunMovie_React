@@ -5,11 +5,13 @@ import RoomForm from '../../../components/admin/Form&Table/RoomForm';
 import config from '../../../config';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { createRooms } from "../../../redux/slice/roomSlice"
-import {screenData} from "../../../ultils/data"
+import { screenData } from "../../../ultils/data"
 type Props = {}
 
 const AdminRoomCreate = (props: Props) => {
   const [seatFile, setSeatFile] = useState({});
+  const [rowFile, setRowFile] = useState();
+  const [colFile, setSColFile] = useState();
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -22,7 +24,7 @@ const AdminRoomCreate = (props: Props) => {
       .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
       .catch(() => message.error(`${errorMessage}`))
   }
-  useEffect(() => {document.title= "Admin | Create-Room"}, [])
+  useEffect(() => { document.title = "Admin | Create-Room" }, [])
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
@@ -33,7 +35,11 @@ const AdminRoomCreate = (props: Props) => {
         form={form}
         seatFile={seatFile}
         setSeatFile={setSeatFile}
-        screen = {screenData}
+        screen={screenData}
+        rowFile={rowFile}
+        colFile={colFile}
+        setRowFile={setRowFile}
+        setColFile={setSColFile}
       />
     </div>
   )
