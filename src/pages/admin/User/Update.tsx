@@ -13,7 +13,7 @@ const UserEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-  const [newPass, setNewPass] = useState<any>();
+  const [newPass, setNewPass] = useState<any>(null);
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
@@ -23,7 +23,7 @@ const UserEdit = (props: Props) => {
     document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id}`;
     if (dataSelected) {
       setAvatarList(dataSelected?.avatar as any[]);
-      form.setFieldsValue({
+       form.setFieldsValue({
         ...dataSelected,
       });
     }
@@ -40,7 +40,6 @@ const UserEdit = (props: Props) => {
     if (avatarList) data.avatar = avatarList;
     else data.avatar = dataSelected?.avatar;
     delete data?.avatarList;
-    console.log(data);
 
     dispatch(updateUser(data))
       .unwrap()

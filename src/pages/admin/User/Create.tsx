@@ -13,20 +13,20 @@ const UserCreate = (props: Props) => {
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const [newPass, setNewPass] = useState<string>('')
-  const { errorMessage, isSucess, isFetching, isErr } = useAppSelector((state) => state.userReducer);
+  const { errorMessage, isSucess, isErr } = useAppSelector((state) => state.userReducer);
   useEffect(() => {
     document.title = "Admin | Add Users";
     if (isSucess) {
-      navigate(config.routes.adminUserList);
       message.success({ content: "Thêm thành công", key: "handling" });
+      navigate(config.routes.adminUserList);
     }
     if (isErr) {
       message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
     }
-  }, [isSucess, isFetching, isErr]);
+  }, [isSucess, isErr]);
 
   const onFinish = (data: any) => {
-    data.avatar = data.avatarList.fileList;
+    data.avatar = data?.avatarList?.fileList;
     dispatch(createUser(data))
   };
 
