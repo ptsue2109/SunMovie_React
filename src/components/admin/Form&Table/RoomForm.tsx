@@ -4,6 +4,7 @@ import { Button, Card, Form, FormInstance, Input, Select, Skeleton, InputNumber 
 import { validateMessages } from "../../../ultils/FormMessage";
 
 import styles from "./room.module.scss"
+import { screenData } from '../../../ultils/data';
 interface RoomFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -129,16 +130,19 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, 
                 <Input placeholder="Nhập vào" />
               </Form.Item>
               <Form.Item label="screen" name="screen" rules={[{ required: true }]}>
-                <Select >
-                  {screen.map((item: any) => <Select.Option key={item?.value} value={item?.value}>{item?.name}</Select.Option>)}
+                <Select value={screen} >
+                  {screenData?.map((item: any) => (
+                    <Select.Option key={item?.value}>{item?.name}</Select.Option>
+                  ))}
                 </Select>
+
               </Form.Item>
 
               <Form.Item label="columns" name="rows"  >
-                <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow}/>
+                <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
               </Form.Item>
               <Form.Item label="rows" name="columns"  >
-                <InputNumberCs min={1} max={20} placeholder="tạo số hàng"  onChange={onChangeCols} />
+                <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
               </Form.Item>
             </Card>
             <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
