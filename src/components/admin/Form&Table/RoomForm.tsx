@@ -19,12 +19,10 @@ interface RoomFormProps {
   setColFile: any
 }
 const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile, screen }: RoomFormProps) => {
-
-
-  const [seatDetails, setSeatDetails] = useState<any>({});
-
+  const [seatDetails, setSeatDetails] = useState<any>(seatFile || {});
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
+
   useEffect(() => { clearSelectedSeats(); }, [])
   useEffect(() => {
     handleSubmit();
@@ -136,11 +134,11 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, 
                 </Select>
               </Form.Item>
 
-              <Form.Item label="rows" name="rows"  >
-                <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
+              <Form.Item label="columns" name="rows"  >
+                <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow}/>
               </Form.Item>
-              <Form.Item label="columns" name="columns"  >
-                <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
+              <Form.Item label="rows" name="columns"  >
+                <InputNumberCs min={1} max={20} placeholder="tạo số hàng"  onChange={onChangeCols} />
               </Form.Item>
             </Card>
             <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
