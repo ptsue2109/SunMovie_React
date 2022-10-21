@@ -32,6 +32,9 @@ import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
 import News from "../pages/client/News/News";
+import CreateMovie from "../pages/admin/Movie/CreateMovie";
+import ListMovie from "../pages/admin/Movie/ListMovie";
+import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -75,4 +78,8 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
+  { path: configRoute.routes.adminMovie, component: ListMovie },
+  { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies},
+
 ];

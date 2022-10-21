@@ -6,7 +6,7 @@ const News = (props: Props) => {
     return (
         <div className='bg-white my-3'>
             <main className="container">
-                <div className=" news-banner p-4 p-md-5 mb-4 text-white rounded bg-dark">
+                <div className=" news-banner p-4 p-md-5 mb-4 text-white rounded bg-dark" >
                     <div className="col-md-6 px-0">
                         <h1 className="display-4 fst-italic">"Ford v Ferrari" (2022)</h1>
                         <p className="lead my-3">Bale đóng tay đua nổi tiếng Ken Miles. Nhân vật có niềm đam mê bất tận với các loại
