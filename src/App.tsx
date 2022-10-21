@@ -14,8 +14,8 @@ import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 import {getMovie} from "./redux/slice/Movie";
 
-import { getRooms } from "./redux/slice/roomSlice"
-import { getAllData } from "./redux/slice/FilmFormatSlice"
+import { getRooms } from "./redux/slice/roomSlice";
+import { getAllData } from "./redux/slice/FilmFormatSlice";
 function App() {
   const dispatch = useAppDispatch();
 
