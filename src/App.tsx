@@ -15,9 +15,16 @@ import { getCategories } from "./redux/slice/CategorySlice";
 
 import {getMovie} from "./redux/slice/Movie";
 
+import { getRooms } from "./redux/slice/roomSlice";
+import { getAllData } from "./redux/slice/FilmFormatSlice";
+
+
+import {getMovie} from "./redux/slice/Movie";
+
 
 import { getRooms } from "./redux/slice/roomSlice"
 import { getAllData } from "./redux/slice/FilmFormatSlice"
+
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,6 +38,10 @@ function App() {
     dispatch(getCategories());
 
     dispatch(getMovie());
+
+
+    dispatch(getMovie());
+
 
     dispatch(getRooms());
     dispatch(getAllData())

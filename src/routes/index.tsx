@@ -36,6 +36,10 @@ import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
 import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
+import News from "../pages/client/News/News";
+import CreateMovie from "../pages/admin/Movie/CreateMovie";
+import ListMovie from "../pages/admin/Movie/ListMovie";
+import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 
 import News from "../pages/client/News/News";
 import CreateMovie from "../pages/admin/Movie/CreateMovie";
