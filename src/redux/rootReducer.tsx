@@ -8,15 +8,7 @@ import ticketReducer from "./slice/ticketSlice";
 import ticketPriceReducer from "./slice/ticketPriceSlice";
 import seatTypeReducer from "./slice/SeatTypeSlice";
 import categoriesReducer from "./slice/CategorySlice";
-
 import movie from "./slice/Movie";
-
-
-
-import movie from "./slice/Movie";
-
-
-
 import roomReducer from "./slice/roomSlice"
 import FormatReducer from "./slice/FilmFormatSlice"
 

@@ -41,12 +41,6 @@ import CreateMovie from "../pages/admin/Movie/CreateMovie";
 import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 
-import News from "../pages/client/News/News";
-import CreateMovie from "../pages/admin/Movie/CreateMovie";
-import ListMovie from "../pages/admin/Movie/ListMovie";
-import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
-
-
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
 import AdminRoomEdit from "../pages/admin/Rooms/Edit";
