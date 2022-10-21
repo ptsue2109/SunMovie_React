@@ -3,6 +3,7 @@ import {BiCategory} from 'react-icons/bi';
 import {HiOutlineTicket} from 'react-icons/hi';
 import {MdEventSeat} from 'react-icons/md';
 import {GiTheater} from "react-icons/gi"
+import {FcOvertime} from 'react-icons/fc'
 import { Menu } from "antd";
 import type { MenuProps } from "antd/es/menu";
 import React from "react";
@@ -52,6 +53,13 @@ const items: MenuItem[] = [
   getItem("Quản lí Phòng chiếu", "adminRooms", <GiTheater />, [
     getItem(<Link to={config.routes.adminRooms}> Danh sách rạp</Link>,"adminRooms1"),
     getItem(<Link to={config.routes.adminRoomsCreate}> Thêm rạp</Link>, "adminRooms2"),
+  ]),
+  getItem("Quản lí Giờ chiếu", "AdminShowTimes", <FcOvertime />, [
+    getItem(<Link to={config.routes.AdminShowTimes}> Xem Giờ chiếu</Link>,"AdminShowTimes1"),
+    getItem(<Link to={config.routes.AdminShowTimesCreate}> Thêm giờ chiếu</Link>, "AdminShowTimes2"),
+  ]),
+  getItem("Quản lí Format Film", "AdminFilmFormat", <FcOvertime />, [
+    getItem(<Link to={config.routes.AdminFilmFormat}> Xem tất cả</Link>,"AdminFilmFormat1")
   ]),
 ];
 const MenuAdminLayout = (props: Props) => {
