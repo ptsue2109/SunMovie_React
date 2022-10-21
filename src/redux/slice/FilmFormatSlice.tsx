@@ -37,10 +37,10 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
    "format/createfilmFormats",
    async (input, { rejectWithValue }) => {
       try {
-         const data = await filmFormatApi.create(input);
+         const {data} = await filmFormatApi.create(input);
          return data;
       } catch (error: any) {
-         return rejectWithValue(error.response.data.message);
+         return rejectWithValue(error.response.data);
       }
    }
 );

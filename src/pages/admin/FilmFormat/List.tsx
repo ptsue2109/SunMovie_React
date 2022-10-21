@@ -1,10 +1,11 @@
-import { Card, Select, Space, Table, Popconfirm, message } from 'antd'
+import { Button, Card, Form, FormInstance, Input, Select, Skeleton, InputNumber, message, Space, Popconfirm } from 'antd'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import { Form, Link } from 'react-router-dom'
-import { removeData, updateData } from '../../../redux/slice/FilmFormatSlice';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom'
+import { removeData, updateData, createData } from '../../../redux/slice/FilmFormatSlice';
 
 type Props = {}
 const { Option } = Select;
@@ -15,12 +16,22 @@ const FilmFormatList = (props: Props) => {
 
   //remove
   const removeFormat = (data: string | undefined) => {
+    dispatch(removeData(data)).unwrap()
+      .then(() => { message.success('Xóa thành công') })
    
-    console.log(data)
-   dispatch(removeData(data)).unwrap()
-   .then(()=> {message.success('Xóa thành công')})
-   .catch(() => message.error(errorMessage))
   }
+  //create
+  const onCreate = (val: any) => {
+    val.formData?.map((item:any) => {
+      dispatch(createData(item)).unwrap()
+      .then(() => { message.success('Thêm thành công') })
+      .catch(() => message.error(errorMessage))
+    })
+  }
+
+  //update
+
+
 
 
   const columns: any = [
@@ -86,9 +97,44 @@ const FilmFormatList = (props: Props) => {
       </div>
       <div className="col-8">
         <Card>
-            {/* <Form >
+          <Form name="dynamic_form_nest_item" onFinish={onCreate} autoComplete="off" >
+            <Form.List name="formData">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'name']}
+                        rules={[{ required: true }]}
+                      >
+                        <Input placeholder=" Name" />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'extraPrice']}
+                        rules={[{ required: true }]}
+                      >
+                        <Input placeholder="extraPrice" />
+                      </Form.Item>
+                      <MinusCircleOutlined onClick={() => remove(name)} />
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                      Add field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
 
-            </Form> */}
         </Card>
       </div>
 
