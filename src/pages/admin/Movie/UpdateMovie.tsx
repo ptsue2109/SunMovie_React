@@ -70,7 +70,16 @@ const UpdateMovies= (props: Props) => {
                     label="ageLimit"
                     rules={[{ required: true, message: "Không được để trống! " }]}
                 >
-                    <Input />
+                    <Select
+                         placeholder=""
+                        // onChange={onGenderChange}
+                        // allowClear
+                    >
+                        <Option value="true">Trên 18 +</Option>
+                        <Option value="false">Trên 22 +</Option>
+                        <Option value="false">Khác </Option>
+                        
+                    </Select>
                 </Form.Item>
 
 
@@ -119,12 +128,20 @@ const UpdateMovies= (props: Props) => {
                     label="status"
                     rules={[{ required: true, message: "Không được để trống! " }]}
                 >
-                    <Input />
+                    <Select
+                         placeholder=""
+                        // onChange={onGenderChange}
+                        // allowClear
+                    >
+                        <Option value="true">true</Option>
+                        <Option value="false">false</Option>
+                        
+                    </Select>
                 </Form.Item>
 
-                <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
+                <Form.Item name="isDelete" label="isDelete" rules={[{ required: true, message: "Không được để trống! "  }]}>
                     <Select
-                        // placeholder="Select a option and change input text above"
+                         placeholder=""
                         // onChange={onGenderChange}
                         // allowClear
                     >

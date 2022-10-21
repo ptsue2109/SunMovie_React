@@ -99,17 +99,19 @@ const CreateMovie = (props: Props) => {
                     label="status"
                     rules={[{ required: true, message: "Không được để trống! " }]}
                 >
-                    <Input />
+                    <Select
+                    >
+                        <Select.Option value="true">true</Select.Option>
+                        <Select.Option value="false">false</Select.Option>
+                    </Select>
                 </Form.Item>
 
                 <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
                     <Select
-                        // placeholder="Select a option and change input text above"
-                        // onChange={onGenderChange}
-                        // allowClear
+                    
                     >
-                        <Option value="true">true</Option>
-                        <Option value="false">false</Option>
+                        <Select.Option value="true">true</Select.Option>
+                        <Select.Option value="false">false</Select.Option>
                         
                     </Select>
                 </Form.Item>
