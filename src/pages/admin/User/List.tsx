@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Button, message, Popconfirm, Space, Tag, Pagination } from "antd";
+import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-import { removeUser } from '../../../redux/slice/userSlice';
+import { removeUser, updateUser } from '../../../redux/slice/userSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-
+import { userRole, userStatus } from "../../../ultils/data"
+import { provices } from "../../../redux/slice/Provider";
 type Props = {}
-
+const { Option } = Select;
 const AdminUserList = (props: Props) => {
   const dispatch = useAppDispatch();
+  useEffect(() => { document.title = "Admin | Users" }, [])
   const { users, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data)).unwrap()
@@ -20,6 +22,15 @@ const AdminUserList = (props: Props) => {
         message.error({ content: { errorMessage } })
       })
   };
+  const changeRole = (id: any, value: any) => {
+    dispatch(updateUser({ _id: id, role: value })).unwrap().then(() => message.success('Thay đổi quyền thành công'))
+  }
+  const changeStatus = (id: any, value: any) => {
+    dispatch(updateUser({ _id: id, status: value })).unwrap().then(() => message.success('Thay đổi trạng thái thành công'))
+  }
+  const changeAddress = (id: any, value: any) => {
+    dispatch(updateUser({ _id: id, address: value })).unwrap().then(() => message.success('Thay đổi điạ chỉ thành công'))
+  }
   const columnUserList: any = [
     {
       title: "IMAGE",
@@ -27,7 +38,6 @@ const AdminUserList = (props: Props) => {
       key: "image",
       render: (_: any, record: any) => (
         <Link to={`${record?._id}`}>
-
           <img width="40px" height="40px" src={record?.avatar} alt="" />
         </Link>
       ),
@@ -55,13 +65,13 @@ const AdminUserList = (props: Props) => {
       title: "STATUS",
       dataIndex: "status",
       key: "status",
-      render: (_: any, { status }: any) => (
-        <Tag
-          color={status == "active" ? "red" : "blue"}
-          key={status >= "active" ? "red" : "blue"}
-        >
-          {status == "active" ? "inactive" : "active"}
-        </Tag>
+      render: (_: any, { _id, status }: any) => (
+        <Select value={status === 0 ? 'active' : 'inActive'}
+          onChange={(value: any) => { changeStatus(_id, value) }}>
+          {userStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>{item?.name}</Option>
+          ))}
+        </Select>
       ),
       width: '30px',
 
@@ -70,8 +80,13 @@ const AdminUserList = (props: Props) => {
       title: "ROLE",
       dataIndex: "role",
       key: "role",
-      render: (_: any, { role }: any) => (
-        <p>{role === 0 ? 'admin' : 'user'}</p>
+      render: (_: any, { role, _id }: any) => (
+        <Select value={role === 0 ? 'user' : 'admin'}
+          onChange={(value: any) => { changeRole(_id, value) }}>
+          {userRole?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}  >{item?.name}</Option>
+          ))}
+        </Select>
       ),
       width: 30
     },
@@ -100,7 +115,16 @@ const AdminUserList = (props: Props) => {
     {
       title: "Address",
       dataIndex: "address",
-      key: "address"
+      key: "address",
+      render: (_: any, { address, _id }: any) => (
+        <Select value={address}
+          onChange={(value: any) => { changeAddress(_id, value) }}>
+          {provices?.map((item: any) => (
+            <Option value={item?.codename} key={item?.codename} >{item?.name}</Option>
+          ))}
+        </Select>
+      ),
+      width: 30
     },
     {
       title: "ACTION",
@@ -136,6 +160,7 @@ const AdminUserList = (props: Props) => {
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
+      status: item?.status
 
     }
   });

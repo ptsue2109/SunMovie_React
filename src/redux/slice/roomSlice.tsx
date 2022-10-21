@@ -1,31 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { UserApi } from "../../service/userApi";
+import { roomApi } from "../../service/roomApi";
 
-export const getUsers = createAsyncThunk<any, void, { rejectValue: string }>(
-  "users/getUsers",
+export const getRooms = createAsyncThunk<any, void, { rejectValue: string }>(
+  "rooms/getRooms",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await UserApi.getAll();
+      const { data } = await roomApi.getAll();
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
   }
 );
-export const removeUser = createAsyncThunk<any,string | undefined,{ rejectValue: string }
->("users/removeUser", async (id, { rejectWithValue }) => {
+export const removeRoom = createAsyncThunk<any, any, { rejectValue: string }
+>("rooms/removeRoom", async (id, { rejectWithValue }) => {
   try {
-    const { data } = await UserApi.removeUser(id);
-    return data;
+    const { data } = await roomApi.removeApi(id);
+    return data.room;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
   }
 });
-export const updateUser = createAsyncThunk<any, any, { rejectValue: string }>(
-  "users/updateUser",
+export const updateRoom = createAsyncThunk<any, any, { rejectValue: string }>(
+  "rooms/updateRoom",
   async (user, { rejectWithValue }) => {
     try {
-      const { data } = await UserApi.updateUser(user);
+      const { data } = await roomApi.updateApi(user);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -33,63 +33,64 @@ export const updateUser = createAsyncThunk<any, any, { rejectValue: string }>(
   }
 );
 
-export const createUser = createAsyncThunk<any, any, { rejectValue: string }>(
-  "users/createUser",
+export const createRooms = createAsyncThunk<any, any, { rejectValue: string }>(
+  "rooms/createRooms",
   async (user, { rejectWithValue }) => {
     try {
-      const { data } = await UserApi.create(user);
+      const { data } = await roomApi.create(user);
       return data;
     } catch (error: any) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
-type UserState = {
-  users: any[];
+type RoomState = {
+  rooms: any[];
   isFetching: boolean;
   isSucess: boolean;
   isErr: boolean;
   errorMessage: string | undefined;
 };
-const initialState: UserState = {
-  users: [],
+const initialState: RoomState = {
+  rooms: [],
   isFetching: false,
   isSucess: false,
   isErr: false,
   errorMessage: "",
 };
 
-const userSlice = createSlice({
-  name: "users",
+const roomSlice = createSlice({
+  name: "rooms",
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     //getAll
-    builder.addCase(getUsers.pending, (state) => {
+    builder.addCase(getRooms.pending, (state) => {
       state.isFetching = true;
     });
-    builder.addCase(getUsers.fulfilled, (state, { payload }) => {
-      state.users = payload;
+    builder.addCase(getRooms.fulfilled, (state, { payload }) => {
+      state.rooms = payload;
       state.isFetching = false;
     });
-    builder.addCase(getUsers.rejected, (state, { payload }) => {
+    builder.addCase(getRooms.rejected, (state, { payload }) => {
       state.isFetching = false;
       state.errorMessage = payload;
     });
 
     // delete
-    builder.addCase(removeUser.pending, (state) => {
+    builder.addCase(removeRoom.pending, (state) => {
       state.isFetching = true;
       state.isErr = false;
       state.isSucess = false;
     });
-    builder.addCase(removeUser.fulfilled, (state, { payload }) => {
+    builder.addCase(removeRoom.fulfilled, (state, { payload }) => {
       state.isFetching = false;
       state.isErr = false;
       state.isSucess = true;
-      state.users = state.users.filter((item) => item._id !== payload._id);
+      state.rooms = state.rooms.filter((item) => item._id !== payload._id);
     });
-    builder.addCase(removeUser.rejected, (state, { payload }) => {
+    builder.addCase(removeRoom.rejected, (state, { payload }) => {
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
@@ -97,18 +98,18 @@ const userSlice = createSlice({
     });
 
     //create
-    builder.addCase(createUser.pending, (state) => {
+    builder.addCase(createRooms.pending, (state) => {
       state.isFetching = true;
       state.isSucess = false;
       state.isErr = false;
     });
-    builder.addCase(createUser.fulfilled, (state, { payload }) => {
+    builder.addCase(createRooms.fulfilled, (state, { payload }) => {
       state.isFetching = false;
       state.isSucess = true;
       state.isErr = false;
-      state.users.push(payload);
+      state.rooms.push(payload);
     });
-    builder.addCase(createUser.rejected, (state, { payload }) => {
+    builder.addCase(createRooms.rejected, (state, { payload }) => {
       state.isFetching = false;
       state.isSucess = false;
       state.isErr = true;
@@ -116,20 +117,21 @@ const userSlice = createSlice({
     });
 
     //update
-    builder.addCase(updateUser.pending, (state) => {
+    builder.addCase(updateRoom.pending, (state) => {
       state.isFetching = true;
     });
-    builder.addCase(updateUser.fulfilled, (state, action) => {
+    builder.addCase(updateRoom.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
-      state.users = state.users.map((item) =>
+      state.rooms = state.rooms.map((item) =>
         item._id !== action.payload._id ? item : action.payload
       );
     });
-    builder.addCase(updateUser.rejected, (state, action) => {
+    builder.addCase(updateRoom.rejected, (state, action) => {
       state.isFetching = false;
       state.errorMessage = action.payload;
     });
   },
 });
-export default userSlice.reducer;
+
+export default roomSlice.reducer;

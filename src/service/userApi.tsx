@@ -1,6 +1,4 @@
-
 import axiosClient from "./instance";
-
 
 export const UserApi = {
   getAll(){
