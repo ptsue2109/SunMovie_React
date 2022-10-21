@@ -107,6 +107,7 @@ const AdminRoomList = (props: Props) => {
   ];
  
   const data: Props[] = rooms?.map((item: any, index: any) => {
+    console.log('item', item)
     return {
       key: index + 1,
       _id: item?._id,
@@ -116,8 +117,10 @@ const AdminRoomList = (props: Props) => {
       screen: item?.screen,
       seats: item?.seats,
       tongGhe: item?.rows * item?.columns,
-      gheKhaDung: ((item?.rows * item?.columns) - item?.blockSeat),
-      gheBiAn: item?.blockSeat
+      gheKhaDung: ((item?.rows * item?.columns) - item?.seatBlock),
+      gheBiAn: item?.seatBlock
+
+
     }
   });
 

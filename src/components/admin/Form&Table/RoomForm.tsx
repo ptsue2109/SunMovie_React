@@ -17,18 +17,20 @@ interface RoomFormProps {
   colFile: any;
   setRowFile: any;
   setColFile: any;
-  blockSeat:any;
-  setBlockSeat:any
+  blockSeat: any;
+  setBlockSeat: any
 }
 const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, setBlockSeat, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile }: RoomFormProps) => {
   const [seatDetails, setSeatDetails] = useState<any>(seatFile);
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
-  const [blockS, setBlockS] = useState<number>(parseInt(blockSeat));
-console.log('blockS', blockS)
+  const [blockS, setBlockS] = useState<number>(blockSeat);
 
-
-  useEffect(() => { clearSelectedSeats(); }, [])
+  useEffect(() => {
+    clearSelectedSeats();
+    setBlockSeat(blockS)
+  },
+    [blockS])
   useEffect(() => {
     handleSubmit();
   }, [row, column])
@@ -90,23 +92,18 @@ console.log('blockS', blockS)
   }
 
   const onSeatClick = (seatValue: number, rowIndex: number, key: string) => {
-
-   
     if (seatDetails) {
       if (seatValue === 1) {
         return;
       } else if (seatValue === 0) {
         seatDetails[key][rowIndex] = 3;
         setBlockS((blockSeat) => blockSeat + 1);
-       
       } else {
         seatDetails[key][rowIndex] = 0;
-        setBlockS((blockSeat ) => blockSeat  - 1);
-     
+        setBlockS((blockSeat) => blockSeat - 1);
       }
     }
     setSeatDetails({ ...seatDetails });
-    setBlockSeat(blockS)
   }
 
   const RenderSeats = () => {
@@ -119,8 +116,8 @@ console.log('blockS', blockS)
             {rowIndex + 1}
           </span>
           {seatDetails && rowIndex === seatDetails[key].length - 1 && <><br /><br /></>}
-        </span> 
-        ))
+        </span>
+      ))
       seatArray.push(colValue);
     }
     return (

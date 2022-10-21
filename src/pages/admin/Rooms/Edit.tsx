@@ -20,11 +20,10 @@ const AdminRoomEdit = (props: Props) => {
   const [seatFile, setSeatFile] = useState(dataSelected?.seats);
   const [rowFile, setRowFile] = useState(dataSelected?.rows);
   const [colFile, setSColFile] = useState(dataSelected?.columns);
-  const [blockSeat, setBlockSeat] = useState(dataSelected?.blockSeat)
+  const [blockSeat, setBlockSeat] = useState(dataSelected?.seatBlock)
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.name ?? dataSelected?._id}`;
     if (dataSelected) {
-      
       form.setFieldsValue({
         ...dataSelected,
       });
@@ -35,7 +34,8 @@ const AdminRoomEdit = (props: Props) => {
   const onFinish = (data: any) => {
     data.seats = seatFile;
     data._id = id;
-    data.blockSeat = blockSeat;
+    data.seatBlock = blockSeat;
+    console.log(data)
     dispatch(updateRoom(data)).unwrap()
       .then(() => { message.success('Update thành công'); navigate(config.routes.adminRooms) })
       .catch(() => message.error('Update thất bại'))

@@ -19,12 +19,12 @@ const AdminRoomCreate = (props: Props) => {
   const { errorMessage } = useAppSelector((state) => state.userReducer);
   const onFinish = (val: any) => {
     val.seats = seatFile;
-    val.blockSeat = blockSeat;
-
+    val.seatBlock = blockSeat;
+    console.log(val)
     
-    dispatch(createRooms(val)).unwrap()
-      .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
-      .catch(() => message.error(`${errorMessage}`))
+    // dispatch(createRooms(val)).unwrap()
+    //   .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
+    //   .catch(() => message.error(`${errorMessage}`))
   }
   useEffect(() => { document.title = "Admin | Create-Room" }, [])
   return (

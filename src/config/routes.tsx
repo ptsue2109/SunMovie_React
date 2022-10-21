@@ -29,7 +29,11 @@ const routes = {
 
   adminRooms: "/admin/rooms",
   adminRoomsCreate: "/admin/rooms/create",
-  adminRoomEdit: "/admin/rooms/:id"
+  adminRoomEdit: "/admin/rooms/:id",
+
+  AdminShowTimes: "/admin/showTimes",
+  AdminShowTimesCreate: "/admin/showTimes/create",
+  AdminShowTimesEdit: "/admin/showTimes/:id"
 };
 
 export default routes;
