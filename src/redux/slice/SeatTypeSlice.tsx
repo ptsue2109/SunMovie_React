@@ -3,7 +3,7 @@ import { SeatTypeApi } from "../../service/seatTypeApi";
 
 export const createSeatType = createAsyncThunk(
   "seatType/add",
-  async (item, { rejectWithValue }) => {
+  async (item:any, { rejectWithValue }) => {
     try {
       const { data } = await SeatTypeApi.createSeatType(item);
       return data;

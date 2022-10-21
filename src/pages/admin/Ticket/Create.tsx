@@ -22,10 +22,9 @@ const CreateTicket = (props: Props) => {
     }
   };
   const status = [
-    { value: true, name: "Active" },
-    { value: false, name: "Inactive" },
+    { id: 1, value: true, name: "Active" },
+    { id: 2, value: false, name: "Inactive" },
   ];
-
   return (
     <>
       <Form
@@ -81,7 +80,7 @@ const CreateTicket = (props: Props) => {
         <Form.Item label="Status" name="status">
           <Select>
             {status.map((item) => (
-              <Select.Option value={item.value}>{item.name}</Select.Option>
+              <Select.Option key={item.id} value={item.value}>{item.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>

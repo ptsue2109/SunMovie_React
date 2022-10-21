@@ -10,10 +10,12 @@ import seatTypeReducer from "./slice/SeatTypeSlice";
 import categoriesReducer from "./slice/CategorySlice";
 import movie from "./slice/Movie";
 
+import roomReducer from "./slice/roomSlice"
+import FormatReducer from "./slice/FilmFormatSlice"
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["authReducer"], // bất cứ reducer nào để trong whitelist => được up  và update lên localStorage
+  whitelist: ["authReducer"], 
 };
 const reducers = combineReducers({
   authReducer,
@@ -23,7 +25,9 @@ const reducers = combineReducers({
   ticketPriceReducer,
   seatTypeReducer,
   categoriesReducer,
-  movie
+  movie,
+  roomReducer,
+  FormatReducer
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

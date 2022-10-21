@@ -30,6 +30,16 @@ const routes = {
   adminMoviecCreat: "/admin/movies/create",
   adminMovie: "/admin/movies",
   adminMoviecUpdate: "/admin/movies/:id",
+
+  adminRooms: "/admin/rooms",
+  adminRoomsCreate: "/admin/rooms/create",
+  adminRoomEdit: "/admin/rooms/:id",
+
+  AdminShowTimes: "/admin/showTimes",
+  AdminShowTimesCreate: "/admin/showTimes/create",
+  AdminShowTimesEdit: "/admin/showTimes/:id",
+
+  AdminFilmFormat: "/admin/filmFormats",
 };
 
 export default routes;
