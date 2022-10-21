@@ -41,6 +41,12 @@ import CreateMovie from "../pages/admin/Movie/CreateMovie";
 import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 
+import News from "../pages/client/News/News";
+import CreateMovie from "../pages/admin/Movie/CreateMovie";
+import ListMovie from "../pages/admin/Movie/ListMovie";
+import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
+
+
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
 import AdminRoomEdit from "../pages/admin/Rooms/Edit";
@@ -48,6 +54,7 @@ import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
+
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -105,4 +112,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminShowTimesEdit, component: AdminShowTimesEdit},
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
+
 ];

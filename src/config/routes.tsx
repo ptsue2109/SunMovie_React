@@ -40,6 +40,7 @@ const routes = {
   AdminShowTimesEdit: "/admin/showTimes/:id",
 
   AdminFilmFormat: "/admin/filmFormats",
+
 };
 
 export default routes;
