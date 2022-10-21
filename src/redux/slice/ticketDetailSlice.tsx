@@ -106,6 +106,7 @@ const ticketDetailSlice = createSlice({
       state.ticketDetail = state.ticketDetail.filter(
         (item: any) => item._id !== action.payload._id
       );
+      console.log(action.payload._id);
     });
     builder.addCase(removeTicketDetail.rejected, (state, action) => {
       state.isErr = true;
