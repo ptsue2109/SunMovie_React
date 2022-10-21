@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import { Button, Card, Form, FormInstance, Input, Select, Skeleton, InputNumber } from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
-
 import styles from "./room.module.scss"
+import { screenData } from '../../../ultils/data';
 interface RoomFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -12,19 +12,22 @@ interface RoomFormProps {
   loading?: boolean;
   setSeatFile: any;
   seatFile: any;
-  screen: any;
+
   rowFile: any,
   colFile: any;
   setRowFile: any;
-  setColFile: any
+  setColFile: any;
+  blockSeat:any;
+  setBlockSeat:any
 }
-const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile, screen }: RoomFormProps) => {
-
-
-  const [seatDetails, setSeatDetails] = useState<any>({});
-
+const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, setBlockSeat, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile }: RoomFormProps) => {
+  const [seatDetails, setSeatDetails] = useState<any>(seatFile);
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
+  const [blockS, setBlockS] = useState<number>(parseInt(blockSeat));
+console.log('blockS', blockS)
+
+
   useEffect(() => { clearSelectedSeats(); }, [])
   useEffect(() => {
     handleSubmit();
@@ -63,7 +66,6 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, 
         }
       });
     }
-
     setSeatDetails(newSeatObject);
     setSeatFile(newSeatObject)
   }
@@ -87,18 +89,24 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, 
     return `${styles.seats} ${dynamicClass}`
   }
 
-  //render seat
   const onSeatClick = (seatValue: number, rowIndex: number, key: string) => {
+
+   
     if (seatDetails) {
       if (seatValue === 1) {
         return;
       } else if (seatValue === 0) {
         seatDetails[key][rowIndex] = 3;
+        setBlockS((blockSeat) => blockSeat + 1);
+       
       } else {
         seatDetails[key][rowIndex] = 0;
+        setBlockS((blockSeat ) => blockSeat  - 1);
+     
       }
     }
     setSeatDetails({ ...seatDetails });
+    setBlockSeat(blockS)
   }
 
   const RenderSeats = () => {
@@ -111,8 +119,8 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, 
             {rowIndex + 1}
           </span>
           {seatDetails && rowIndex === seatDetails[key].length - 1 && <><br /><br /></>}
-        </span>
-      ))
+        </span> 
+        ))
       seatArray.push(colValue);
     }
     return (
@@ -131,15 +139,18 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, setRowFile, 
                 <Input placeholder="Nhập vào" />
               </Form.Item>
               <Form.Item label="screen" name="screen" rules={[{ required: true }]}>
-                <Select >
-                  {screen.map((item: any) => <Select.Option key={item?.value} value={item?.value}>{item?.name}</Select.Option>)}
+                <Select value={screen} >
+                  {screenData?.map((item: any) => (
+                    <Select.Option key={item?.value}>{item?.name}</Select.Option>
+                  ))}
                 </Select>
+
               </Form.Item>
 
-              <Form.Item label="rows" name="rows"  >
+              <Form.Item label="columns" name="rows"  >
                 <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
               </Form.Item>
-              <Form.Item label="columns" name="columns"  >
+              <Form.Item label="rows" name="columns"  >
                 <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
               </Form.Item>
             </Card>

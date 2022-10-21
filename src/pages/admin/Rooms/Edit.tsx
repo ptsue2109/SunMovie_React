@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateRoom } from "../../../redux/slice/roomSlice";
 import RoomForm from '../../../components/admin/Form&Table/RoomForm';
 import config from "../../../config";
-import { screenData } from "../../../ultils/data"
+
 type Props = {}
 
 const AdminRoomEdit = (props: Props) => {
@@ -16,15 +16,15 @@ const AdminRoomEdit = (props: Props) => {
 
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const dataSelected = rooms.find((item) => item._id === id);
+  console.log(dataSelected)
   const [seatFile, setSeatFile] = useState(dataSelected?.seats);
   const [rowFile, setRowFile] = useState(dataSelected?.rows);
   const [colFile, setSColFile] = useState(dataSelected?.columns);
-  console.log('dataSelected', dataSelected)
-  console.log('seatFile', seatFile)
+  const [blockSeat, setBlockSeat] = useState(dataSelected?.blockSeat)
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.name ?? dataSelected?._id}`;
     if (dataSelected) {
-      setSeatFile(dataSelected?.seats as any)
+      
       form.setFieldsValue({
         ...dataSelected,
       });
@@ -35,6 +35,7 @@ const AdminRoomEdit = (props: Props) => {
   const onFinish = (data: any) => {
     data.seats = seatFile;
     data._id = id;
+    data.blockSeat = blockSeat;
     dispatch(updateRoom(data)).unwrap()
       .then(() => { message.success('Update thành công'); navigate(config.routes.adminRooms) })
       .catch(() => message.error('Update thất bại'))
@@ -49,12 +50,13 @@ const AdminRoomEdit = (props: Props) => {
         form={form}
         seatFile={seatFile}
         setSeatFile={setSeatFile}
-        screen={screenData}
         edit={true}
         rowFile={rowFile}
         colFile={colFile}
         setRowFile={setRowFile}
-        setColFile={setSColFile} />
+        setColFile={setSColFile} 
+        blockSeat={blockSeat} 
+        setBlockSeat={setBlockSeat} />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-import { removeRoom, updateRoom } from '../../../redux/slice/roomSlice';
+import {  removeRoom, updateRoom } from '../../../redux/slice/roomSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { screenData } from "../../../ultils/data"
@@ -105,7 +105,7 @@ const AdminRoomList = (props: Props) => {
       width: 30
     },
   ];
-
+ 
   const data: Props[] = rooms?.map((item: any, index: any) => {
     return {
       key: index + 1,
@@ -115,11 +115,13 @@ const AdminRoomList = (props: Props) => {
       rows: item?.rows,
       screen: item?.screen,
       seats: item?.seats,
-      tongGhe: (item?.columns) * (item?.rows),
-      gheKhaDung: ((item?.columns) * (item?.rows) - 1),
-      gheBiAn: 1
+      tongGhe: item?.rows * item?.columns,
+      gheKhaDung: ((item?.rows * item?.columns) - item?.blockSeat),
+      gheBiAn: item?.blockSeat
     }
   });
+
+
 
   useEffect(() => {
     if (isErr) {
