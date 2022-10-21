@@ -37,6 +37,12 @@ import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
 
+import News from "../pages/client/News/News";
+import CreateMovie from "../pages/admin/Movie/CreateMovie";
+import ListMovie from "../pages/admin/Movie/ListMovie";
+import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
+
+
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
 import AdminRoomEdit from "../pages/admin/Rooms/Edit";
@@ -44,6 +50,7 @@ import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
+
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -58,6 +65,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.detail, component: MovieDetail },
   { path: configRoute.routes.bookChair, component: BookChair },
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
+  { path: configRoute.routes.news, component: News },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -86,6 +94,10 @@ export const privateRoutes: RoutesType[] = [
   
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
+  { path: configRoute.routes.adminMovie, component: ListMovie },
+  { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies},
+
 
   { path: configRoute.routes.adminRooms, component: AdminRoomList },
   { path: configRoute.routes.adminRoomsCreate, component: AdminRoomCreate },
@@ -96,4 +108,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminShowTimesEdit, component: AdminShowTimesEdit},
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
+
 ];

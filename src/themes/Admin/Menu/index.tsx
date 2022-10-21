@@ -61,6 +61,14 @@ const items: MenuItem[] = [
   getItem("Quản lí Format Film", "AdminFilmFormat", <FcOvertime />, [
     getItem(<Link to={config.routes.AdminFilmFormat}> Xem tất cả</Link>,"AdminFilmFormat1")
   ]),
+
+  getItem("Quản lí phim ", "sub7", <UserOutlined />, [
+    getItem(
+      <Link to={config.routes.adminMovie}> Danh sách phim</Link>,
+      "13"
+    ),
+    getItem(<Link to={config.routes.adminMoviecCreat}> Thêm phim</Link>, "14"),
+  ]),
 ];
 const MenuAdminLayout = (props: Props) => {
   return (
