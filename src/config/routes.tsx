@@ -33,7 +33,9 @@ const routes = {
 
   AdminShowTimes: "/admin/showTimes",
   AdminShowTimesCreate: "/admin/showTimes/create",
-  AdminShowTimesEdit: "/admin/showTimes/:id"
+  AdminShowTimesEdit: "/admin/showTimes/:id",
+
+  AdminFilmFormat: "/admin/filmFormats",
 };
 
 export default routes;

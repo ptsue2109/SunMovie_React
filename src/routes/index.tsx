@@ -43,6 +43,7 @@ import AdminRoomEdit from "../pages/admin/Rooms/Edit";
 import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
+import FilmFormatList from "../pages/admin/FilmFormat/List";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -93,4 +94,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminShowTimes, component: AdminShowTimeList },
   { path: configRoute.routes.AdminShowTimesCreate, component:AdminShowTimesCreate  },
   { path: configRoute.routes.AdminShowTimesEdit, component: AdminShowTimesEdit},
+
+  { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 ];
