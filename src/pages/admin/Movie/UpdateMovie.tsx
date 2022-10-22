@@ -47,110 +47,7 @@ const UpdateMovies = (props: Props) => {
         onFinish={onFinish}
         autoComplete="off"
       >
-
         <Form.Item
-<<<<<<< SUNC-37-crud-edit-movie
-                    name="name"
-                    label="Name"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="runTime"
-                    label="runTime"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="ageLimit"
-                    label="ageLimit"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Select
-                         placeholder=""
-                        // onChange={onGenderChange}
-                        // allowClear
-                    >
-                        <Option value="true">Trên 18 +</Option>
-                        <Option value="false">Trên 22 +</Option>
-                        <Option value="false">Khác </Option>
-                        
-                    </Select>
-                </Form.Item>
-
-
-                <Form.Item
-                    name="language"
-                    label="language"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="country"
-                    label="country"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="actor"
-                    label="actor"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="director"
-                    label="director"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="description"
-                    label="description"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="status"
-                    label="status"
-                    rules={[{ required: true, message: "Không được để trống! " }]}
-                >
-                    <Select
-                         placeholder=""
-                        // onChange={onGenderChange}
-                        // allowClear
-                    >
-                        <Option value="true">true</Option>
-                        <Option value="false">false</Option>
-                        
-                    </Select>
-                </Form.Item>
-
-                <Form.Item name="isDelete" label="isDelete" rules={[{ required: true, message: "Không được để trống! "  }]}>
-                    <Select
-                         placeholder=""
-                        // onChange={onGenderChange}
-                        // allowClear
-                    >
-                        <Option value="true">true</Option>
-                        <Option value="false">false</Option>
-                        
-                    </Select>
-                </Form.Item>
-=======
           name="name"
           label="Name"
           rules={[{ required: true, message: "Không được để trống! " }]}
@@ -173,16 +70,14 @@ const UpdateMovies = (props: Props) => {
         >
           <Select
             placeholder=""
-          // onChange={onGenderChange}
-          // allowClear
+            // onChange={onGenderChange}
+            // allowClear
           >
             <Option value="true">Trên 18 +</Option>
             <Option value="false">Trên 22 +</Option>
             <Option value="false">Khác </Option>
-
           </Select>
         </Form.Item>
-
 
         <Form.Item
           name="languages"
@@ -231,27 +126,36 @@ const UpdateMovies = (props: Props) => {
         >
           <Select
             placeholder=""
-          // onChange={onGenderChange}
-          // allowClear
+            // onChange={onGenderChange}
+            // allowClear
           >
-            <Select.Option key="true" value="true">true</Select.Option>
-            <Select.Option key="false" value="false">false</Select.Option>
-
+            <Select.Option key="true" value="true">
+              true
+            </Select.Option>
+            <Select.Option key="false" value="false">
+              false
+            </Select.Option>
           </Select>
         </Form.Item>
 
-        <Form.Item name="isDelete" label="isDelete" rules={[{ required: true, message: "Không được để trống! " }]}>
+        <Form.Item
+          name="isDelete"
+          label="isDelete"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
           <Select
             placeholder=""
-          // onChange={onGenderChange}
-          // allowClear
+            // onChange={onGenderChange}
+            // allowClear
           >
-            <Select.Option key="true" value="true">true</Select.Option>
-            <Select.Option key="false" value="false">false</Select.Option>
-
+            <Select.Option key="true" value="true">
+              true
+            </Select.Option>
+            <Select.Option key="false" value="false">
+              false
+            </Select.Option>
           </Select>
         </Form.Item>
->>>>>>> dev
 
         <Form.Item>
           <Button type="primary" htmlType="submit">

@@ -1,5 +1,5 @@
 .headerWap{
-    @apply fixed h-[70px] top-0 left-0 right-0 z-[10000] bg-[#151f32]
+    @apply  h-[70px] top-0 left-0 right-0 z-[10000] bg-[#151f32]
 }
 .header{
     @apply flex justify-between mx-auto w-[1200px] 

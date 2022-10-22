@@ -13,11 +13,10 @@ import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 
-import { getRooms } from "./redux/slice/roomSlice"
-import { getAllData } from "./redux/slice/FilmFormatSlice"
+import { getRooms } from "./redux/slice/roomSlice";
+import { getAllData } from "./redux/slice/FilmFormatSlice";
 import { getMovie } from "./redux/slice/Movie";
-
-
+import { getAlSt } from "./redux/slice/ShowTimeSlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,8 +31,7 @@ function App() {
     dispatch(getMovie());
     dispatch(getRooms());
     dispatch(getAllData());
-    dispatch(getAlSt())
-
+    dispatch(getAlSt());
   }, [dispatch]);
 
   return (

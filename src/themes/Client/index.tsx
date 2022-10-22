@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/client/Footer/Footer";
-import  ClientHeader  from "../../components/client/Header";
+import ClientHeader from "../../components/client/Header";
 
 type ClientLayoutProps = {
-  children: any
+  children: any;
 };
 
-const ClientLayout = ({children}: ClientLayoutProps) => {
+const ClientLayout = ({ children }: ClientLayoutProps) => {
   const [offsetTop, setOffsetTop] = useState(0);
 
   useEffect(() => {
@@ -16,11 +16,11 @@ const ClientLayout = ({children}: ClientLayoutProps) => {
   }, []);
   return (
     <div className="bg-[#151f32] min-h-screen">
-      <div className="mb-[70px]">
+      <div className="">
         <ClientHeader />
       </div>
       <main>{children}</main>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
