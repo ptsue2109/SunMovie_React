@@ -153,7 +153,6 @@ const UpdateMovies = (props: Props) => {
 =======
           name="name"
           label="Name"
-          
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
@@ -172,7 +171,16 @@ const UpdateMovies = (props: Props) => {
           label="ageLimit"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select
+            placeholder=""
+          // onChange={onGenderChange}
+          // allowClear
+          >
+            <Option value="true">Trên 18 +</Option>
+            <Option value="false">Trên 22 +</Option>
+            <Option value="false">Khác </Option>
+
+          </Select>
         </Form.Item>
 
 
@@ -183,13 +191,7 @@ const UpdateMovies = (props: Props) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name="releaseDate"
-          label="releaseDate"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
+
         <Form.Item
           name="country"
           label="country"
@@ -227,13 +229,26 @@ const UpdateMovies = (props: Props) => {
           label="status"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select
+            placeholder=""
+          // onChange={onGenderChange}
+          // allowClear
+          >
+            <Select.Option key="true" value="true">true</Select.Option>
+            <Select.Option key="false" value="false">false</Select.Option>
+
+          </Select>
         </Form.Item>
 
-        <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
-          <Select>
-            <Select.Option value="true" key="true">true</Select.Option>
-            <Select.Option value="false" key="false">false</Select.Option>
+        <Form.Item name="isDelete" label="isDelete" rules={[{ required: true, message: "Không được để trống! " }]}>
+          <Select
+            placeholder=""
+          // onChange={onGenderChange}
+          // allowClear
+          >
+            <Select.Option key="true" value="true">true</Select.Option>
+            <Select.Option key="false" value="false">false</Select.Option>
+
           </Select>
         </Form.Item>
 >>>>>>> dev

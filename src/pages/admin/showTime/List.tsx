@@ -1,23 +1,29 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { Popconfirm, Tooltip } from 'antd';
+import { message, Popconfirm, Tooltip } from 'antd';
 import { Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../../../ultils'
 import configRoute from '../../../config';
 import DataTable from '../../../components/admin/Form&Table/Table';
+import { removeData } from '../../../redux/slice/ShowTimeSlice'
 type Props = {}
 
 const AdminShowTimeList = (props: Props) => {
-  const { stList } = useAppSelector(state => state.ShowTimeSlice);
-  const deleteData = (val:any) => {
-    console.log(val);
-    
-  }
+  const { stList, errorMessage } = useAppSelector(state => state.ShowTimeSlice);
+  const dispatch = useAppDispatch();
+
+  const deleteData = (val: any) => {
+    dispatch(removeData(val)).unwrap()
+      .then(() => { message.success('Xóa thành công') })
+      .catch(() => message.error(errorMessage))
+  };
+
+
   const columns = [
-    { title: 'Ngày ', dataIndex: 'date', key: 'date', fixed: 'left' },
-    { title: 'MovieName', dataIndex: 'name', key: 'name', fixed: 'left' },
+    { title: 'Ngày ', dataIndex: 'date', key: 'date' },
+    { title: 'MovieName', dataIndex: 'name', key: 'name' },
     { title: 'Phòng ', dataIndex: 'room', key: 'room' },
     { title: 'Format ', dataIndex: 'format', key: 'format' },
     { title: 'StartAt ', dataIndex: 'startAt', key: 'startAt' },
@@ -43,7 +49,7 @@ const AdminShowTimeList = (props: Props) => {
               title={`Xem ${record?.username ?? record?._id}?`}
               okText="OK"
               cancelText="Cancel"
-            onConfirm={() => deleteData(record?._id)}
+              onConfirm={() => deleteData(record?._id)}
             >
               <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
             </Popconfirm>
