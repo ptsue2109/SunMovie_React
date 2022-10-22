@@ -26,13 +26,18 @@ interface ShowTimeFormProps {
    extraPrice: any;
    setExtraprice: any
 }
+const { Option } = Select;
 const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, startAt, setStartAt, endAt, setEndAt, edit = false, loading = false, editUser = true, stDate, setStDate }: ShowTimeFormProps) => {
    const { movie } = useAppSelector(state => state.movie);
    const { rooms } = useAppSelector(state => state.roomReducer);
    const { filmFormats } = useAppSelector(state => state.FormatReducer);
-   const [hour, setHour] = useState<any>()
+   const [hour, setHour] = useState<any>();
 
    console.log('hour', hour);
+   const handleChange = (value: string[]) => {
+      console.log(`selected ${value}`);
+   };
+
 
 
    const onChangeStartAt = (value: DatePickerProps['value'] | RangePickerProps['value'], dateString: [string, string] | string,) => {
@@ -63,8 +68,8 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
 
                   <Card className="col-6 w-full">
                      <Form.Item label="Chọn Phim" name="movieId" rules={[{ required: true }]}>
-                        <Select>
-                           {movie.map((item: any) => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
+                     <Select mode='multiple'>
+                           {movie.map((item:any) => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chọn ngày phát sóng" name="date" rules={[{ required: true }]}>
@@ -72,7 +77,7 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
                      </Form.Item>
 
                      <Form.Item label="Chọn phòng chiếu" name="roomId" rules={[{ required: true }]}>
-                        <Select>
+                        <Select mode='multiple'>
                            {rooms.map(item => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
@@ -112,7 +117,7 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
                      </Form.Item>
                      <Form.Item label="extraPrice" name="extraPrice"
 
-                        rules={[{type: 'number', required: true, min: 10000, max: 200000, whitespace: true }]}
+                        rules={[{ type: 'number', required: true, min: 10000, max: 200000, whitespace: true }]}
                      >
                         <InputNumber
                            min={10000}
@@ -122,13 +127,15 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
                         />
                      </Form.Item>
                      <Form.Item label="Chọn trạng thái" name="status" rules={[{ required: true }]}>
-                           <Select>
-                              {showTimeStatus && showTimeStatus?.map((item: any) => (
-                                 <Select.Option value={item.value} key={item.value} >{item.name}</Select.Option>
-                              ))}
-                           </Select>
-                        </Form.Item> 
-                    
+                        <Select>
+                           {showTimeStatus && showTimeStatus?.map((item: any) => (
+                              <Select.Option value={item.value} key={item.value} >{item.name}</Select.Option>
+                           ))}
+                        </Select>
+                     </Form.Item>
+                     {/* <Form.Item label="Chọn trạng thái" name="dđ" rules={[{ required: true }]}>
+                        
+                     </Form.Item> */}
                   </Card>
 
 

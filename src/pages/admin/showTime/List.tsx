@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { message, Popconfirm, Tooltip } from 'antd';
+import { message, Popconfirm, Tag, Tooltip } from 'antd';
 import { Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ type Props = {}
 const AdminShowTimeList = (props: Props) => {
   const { stList, errorMessage } = useAppSelector(state => state.ShowTimeSlice);
   const dispatch = useAppDispatch();
+  console.log(stList);
 
   const deleteData = (val: any) => {
     dispatch(removeData(val)).unwrap()
@@ -22,9 +23,33 @@ const AdminShowTimeList = (props: Props) => {
 
 
   const columns = [
-    { title: 'Ngày ', dataIndex: 'date', key: 'date' },
-    { title: 'MovieName', dataIndex: 'name', key: 'name' },
-    { title: 'Phòng ', dataIndex: 'room', key: 'room' },
+    {
+      title: 'Ngày ', dataIndex: 'date', key: 'date', render: (_: any, { _id, date }: any) => (
+        <Link to={`${_id}`}>{date} </Link>)
+    },
+    {
+      title: 'MovieName', dataIndex: 'name', key: 'name', render: (_: any, { name }: any) => (
+        <>
+          {name && name?.map((item: any, index: any) => (
+            <div className="grid p-1" key={index} >
+              <Tag style={{ width: '100%' }}>{item}</Tag>
+            </div>
+          ))}
+        </>
+
+      )
+    },
+    {
+      title: 'Phòng ', dataIndex: 'room', key: 'room', render: (_: any, { room }: any) => (
+        <>
+          {room && room?.map((item: any, index: any) => (
+            <div className='grid p-1' key={index} >
+              <Tag style={{ width: '100%' }}>{item}</Tag>
+            </div>
+          ))}
+        </>
+      )
+    },
     { title: 'Format ', dataIndex: 'format', key: 'format' },
     { title: 'StartAt ', dataIndex: 'startAt', key: 'startAt' },
     { title: 'EndtAt ', dataIndex: 'endAt', key: 'endAt' },
@@ -67,12 +92,14 @@ const AdminShowTimeList = (props: Props) => {
 
   const data: Props[] = stList?.map((item: any, index: any) => {
     let temPrice = 40000 + item?.extraPrice; //default tisiscket + extra
+    var roomName = item?.roomId.map((item: any) => item?.name)
+    var movieNam = item?.movieId.map((item: any) => item?.name)
     return {
       key: index + 1,
       _id: item?._id,
-      name: item?.movieId?.name,
+      name: movieNam,
       date: item?.date,
-      room: item?.roomId?.name,
+      room: roomName,
       format: item?.filmFormatId?.name,
       startAt: item?.startAt,
       endAt: item?.endAt,
