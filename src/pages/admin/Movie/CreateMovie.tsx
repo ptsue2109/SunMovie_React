@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, message, Select, Space } from "antd";
-import { useAppDispatch } from "../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { createMovie } from "../../../redux/slice/Movie"
 import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import { Option } from "antd/lib/mentions";
-type Props = {};
+type Props = {
+};
 
 const CreateMovie = (props: Props) => {
     const [form] = Form.useForm();
+    const { movieType, isErr } = useAppSelector(
+        (state) => state.movieTypeReducer
+    );
+
+    // const data = movieType?.map((item: any) => {
+    //     return {
+    //         _id: item._id,
+    //         movieName: item.movieName,
+    //     };
+    // });
+    // console.log(data); // 
+
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const onFinish = async (values: any) => {
@@ -43,6 +56,14 @@ const CreateMovie = (props: Props) => {
                     rules={[{ required: true, message: "Không được để trống! " }]}
                 >
                     <Input />
+                </Form.Item>
+
+                <Form.Item label="movieTypeID" name="movieTypeID">
+                    <Select>
+                        {movieType && movieType?.map((item: any, index: any) => (
+                            <Select.Option value={item._id} key={index}>{item.movieName}</Select.Option>
+                        ))}
+                    </Select>
                 </Form.Item>
 
                 <Form.Item
@@ -108,11 +129,11 @@ const CreateMovie = (props: Props) => {
 
                 <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
                     <Select
-                    
+
                     >
                         <Select.Option value="true">true</Select.Option>
                         <Select.Option value="false">false</Select.Option>
-                        
+
                     </Select>
                 </Form.Item>
 
@@ -125,6 +146,8 @@ const CreateMovie = (props: Props) => {
             </Form>
         </>
     );
+
+
 };
 
 export default CreateMovie;
