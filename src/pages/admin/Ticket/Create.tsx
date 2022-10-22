@@ -6,9 +6,17 @@ import { config } from "dotenv";
 import { createTicket } from "../../../redux/slice/ticketSlice";
 import UserForm from "../../../components/admin/Form&Table/UserForm";
 import configRoute from "../../../config";
+import { validateMessages } from "../../../ultils/FormMessage";
 type Props = {};
 
 const CreateTicket = (props: Props) => {
+  const { stList, errorMessage } = useAppSelector(
+    (state) => state.ShowTimeSlice
+  );
+  const { ticketPrice } = useAppSelector((state) => state.ticketPriceReducer);
+  const { users } = useAppSelector((state) => state.userReducer);
+  console.log(users);
+
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -48,12 +56,23 @@ const CreateTicket = (props: Props) => {
         >
           <Input />
         </Form.Item>
+
         <Form.Item
-          name="showtimeId"
           label="showtimeId"
+          name="showtimeId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {stList.map((item) => (
+              <Select.Option
+                key={item._id}
+                value={item.date}
+                rules={[{ required: true, message: "Không được để trống! " }]}
+              >
+                {item.date}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item
           name="seatId"
@@ -63,24 +82,38 @@ const CreateTicket = (props: Props) => {
           <Input />
         </Form.Item>
         <Form.Item
-          name="ticketPriceId"
           label="ticketPriceId"
+          name="ticketPriceId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {ticketPrice.map((item) => (
+              <Select.Option key={item._id} value={item.price}>
+                {item.price}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item
-          name="userId"
           label="userId"
+          name="userId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {users.map((item) => (
+              <Select.Option key={item._id} value={item.username}>
+                {item.username}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item label="Status" name="status">
           <Select>
             {status.map((item) => (
-              <Select.Option key={item.id} value={item.value}>{item.name}</Select.Option>
+              <Select.Option key={item.id} value={item.value}>
+                {item.name}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>

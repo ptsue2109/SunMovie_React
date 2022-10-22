@@ -9,6 +9,11 @@ import { updateTiket } from "../../../redux/slice/ticketSlice";
 type Props = {};
 
 const UploadTicket = (props: Props) => {
+  const { stList, errorMessage } = useAppSelector(
+    (state) => state.ShowTimeSlice
+  );
+  const { ticketPrice } = useAppSelector((state) => state.ticketPriceReducer);
+  const { users } = useAppSelector((state) => state.userReducer);
   const { id } = useParams();
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
@@ -64,13 +69,15 @@ const UploadTicket = (props: Props) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name="showtimeId"
-          label="showtimeId"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>{" "}
+        <Form.Item label="showtimeId" name="showtimeId">
+          <Select>
+            {stList.map((item) => (
+              <Select.Option key={item._id} value={item.date}>
+                {item.date}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
         <Form.Item
           name="seatId"
           label="seatId"
@@ -78,24 +85,34 @@ const UploadTicket = (props: Props) => {
         >
           <Input />
         </Form.Item>
+        <Form.Item label="ticketPriceId" name="ticketPriceId">
+          <Select>
+            {ticketPrice.map((item) => (
+              <Select.Option key={item._id} value={item.price}>
+                {item.price}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
         <Form.Item
-          name="ticketPriceId"
-          label="ticketPriceId"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>{" "}
-        <Form.Item
-          name="userId"
           label="userId"
+          name="userId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
-        </Form.Item>{" "}
+          <Select>
+            {users.map((item) => (
+              <Select.Option key={item._id} value={item.username}>
+                {item.username}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
         <Form.Item label="Status" name="status">
           <Select>
             {status.map((item) => (
-              <Select.Option key={item.id} value={item.value}>{item.name}</Select.Option>
+              <Select.Option key={item.id} value={item.value}>
+                {item.name}
+              </Select.Option>
             ))}
           </Select>
         </Form.Item>

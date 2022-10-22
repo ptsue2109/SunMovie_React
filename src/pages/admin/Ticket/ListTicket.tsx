@@ -9,15 +9,18 @@ type Props = {};
 
 const AdminListTiket = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { tickets, isErr, isFetching, isSucess } = useAppSelector(
+  const { tickets, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.ticketReducer
   );
 
-  const deleteTicket = (id: any) => {
-    dispatch(removeTicket(id))
-      .unwrap()
-      .then(() => message.success({ content: "Xóa thành công" }))
-      .catch(() => message.error({ content: "lỗi" }));
+  const deleteTiket = (data: string | undefined) => {
+    dispatch(removeTicket(data))
+      .then(() => {
+        message.success({ content: "Xoá thành công", key: "handling" });
+      })
+      .catch(() => {
+        message.error({ content: { errorMessage } }); //
+      });
   };
 
   const columnUserList: any = [
@@ -137,18 +140,18 @@ const AdminListTiket = (props: Props) => {
     {
       title: "ACTION",
       key: "action",
-      render: (_: any, item: any) => (
+      render: (_: any, record: any) => (
         <Space size="middle">
-          <Link to={`${item._id}`}>
+          <Link to={`${record._id}`}>
             <EditOutlined
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
           <Popconfirm
-            title={`Delete ${item?.totalPrice ?? item?._id}?`}
+            title={`Delete ${record?.username ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
-            onConfirm={() => deleteTicket(item?._id)}
+            onConfirm={() => deleteTiket(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
@@ -158,23 +161,25 @@ const AdminListTiket = (props: Props) => {
     },
   ];
   const data: Props[] = tickets.map((item: any, index: any) => {
+    console.log(tickets);
+
     return {
       key: index + 1,
-      _id: item._id,
+      _id: item?._id,
       totalPrice: item?.totalPrice,
       showtimeId: item?.showtimeId,
-      seatId: item.seatId,
+      seatId: item?.seatId,
       ticketPriceId: item?.ticketPriceId,
-      userId: item.userId,
-      role: item.role,
-      date: item.date,
+      userId: item?.userId,
+      role: item?.role,
+      date: item?.date,
     };
   });
 
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Add Ticket</Link>
+        <Link to="add">Add Users</Link>
       </Button>
       <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>
