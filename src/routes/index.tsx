@@ -36,10 +36,7 @@ import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
 import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
-import News from "../pages/client/News/News";
-import CreateMovie from "../pages/admin/Movie/CreateMovie";
-import ListMovie from "../pages/admin/Movie/ListMovie";
-import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
+
 
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
@@ -48,6 +45,7 @@ import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
+import ShowTimeSeat from "../pages/admin/showTime/ShowTimeSeat";
 
 type RoutesType = {
   path: string;
@@ -104,6 +102,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminShowTimes, component: AdminShowTimeList },
   { path: configRoute.routes.AdminShowTimesCreate, component:AdminShowTimesCreate  },
   { path: configRoute.routes.AdminShowTimesEdit, component: AdminShowTimesEdit},
+  { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat},
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 

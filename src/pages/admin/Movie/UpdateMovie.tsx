@@ -1,15 +1,15 @@
-import { Button, Form, Input, message, Select } from "antd";
+import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import { Option } from "antd/lib/mentions";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovie } from "../../../redux/slice/Movie";
-
+import moment from "moment";
 
 type Props = {};
 
-const UpdateMovies = (props: Props) => {
+const UpdateMovies= (props: Props) => {
   const { id } = useParams();
   const [form] = Form.useForm();
   const { movieType, isErr } = useAppSelector(
@@ -18,10 +18,9 @@ const UpdateMovies = (props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { movie, errMess } = useAppSelector((state) => state.movie);
-
-
-  const data = movie.find((item: any) => item._id === id);
+  const { movie ,errMess} = useAppSelector((state) => state.movie);
+  const data = movie.find((item : any) => item._id === id);
+  console.log(id, data);
 
   useEffect(() => {
     if (data) {
@@ -54,12 +53,12 @@ const UpdateMovies = (props: Props) => {
       >
 
         <Form.Item
-          name="name"
-          label="Name"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
+                    name="name"
+                    label="Name"
+                    rules={[{ required: true, message: "Không được để trống! " }]}
+                >
+                    <Input />
+                </Form.Item>
 
         <Form.Item
           name="runTime"
@@ -142,17 +141,17 @@ const UpdateMovies = (props: Props) => {
           </Select>
         </Form.Item>
 
-        <Form.Item name="isDelete" label="isDelete" rules={[{ required: true, message: "Không được để trống! " }]}>
-          <Select
-            placeholder=""
-          // onChange={onGenderChange}
-          // allowClear
-          >
-            <Option value="true">true</Option>
-            <Option value="false">false</Option>
-
-          </Select>
-        </Form.Item>
+                <Form.Item name="isDelete" label="isDelete" rules={[{ required: true, message: "Không được để trống! "  }]}>
+                    <Select
+                         placeholder=""
+                        // onChange={onGenderChange}
+                        // allowClear
+                    >
+                        <Option value="true">true</Option>
+                        <Option value="false">false</Option>
+                        
+                    </Select>
+                </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
