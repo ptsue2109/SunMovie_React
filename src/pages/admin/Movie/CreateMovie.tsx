@@ -110,13 +110,19 @@ const CreateMovie = (props: Props) => {
                     label="status"
                     rules={[{ required: true, message: "Không được để trống! " }]}
                 >
-                    <Input />
+                    <Select
+                    >
+                        <Select.Option value="true">true</Select.Option>
+                        <Select.Option value="false">false</Select.Option>
+                    </Select>
                 </Form.Item>
 
                 <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
+
                     <Select>
                         <Select.Option value="true" key="true">true</Select.Option>
                         <Select.Option value="false" key="false">false</Select.Option>
+
                     </Select>
                 </Form.Item>
 
