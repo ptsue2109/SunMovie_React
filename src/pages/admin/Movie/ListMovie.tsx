@@ -49,11 +49,11 @@ const ListMovie = (props: Props) => {
     },
 
     {
-      title: "language",
-      key: "language",
+      title: "languages",
+      key: "languages",
       render: (_: any, record: any) => (
         <div>
-           <p>{record?.language}</p>
+           <p>{record?.languages}</p>
         </div>
       )
     },
@@ -159,7 +159,7 @@ const ListMovie = (props: Props) => {
       actor: item?.actor,
       runTime: item?.runTime,
       ageLimit: item?.ageLimit,
-      language: item?.language,
+      languages: item?.languages,
       country: item?.country,
       director: item?.director,
       description: item?.description,
