@@ -1,22 +1,21 @@
-import { Button, Form, Input, message, Select } from "antd";
+import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import { Option } from "antd/lib/mentions";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovie } from "../../../redux/slice/Movie";
-
+import moment from "moment";
 
 type Props = {};
 
-const UpdateMovies= (props: Props) => {
+const UpdateMovies = (props: Props) => {
   const { id } = useParams();
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const { movie ,errMess} = useAppSelector((state) => state.movie);
-  const data = movie.find((item : any) => item._id === id);
+  const { movie, errMess } = useAppSelector((state) => state.movie);
+  const data = movie.find((item: any) => item._id === id);
   console.log(id, data);
 
   useEffect(() => {
@@ -50,6 +49,7 @@ const UpdateMovies= (props: Props) => {
       >
 
         <Form.Item
+<<<<<<< SUNC-37-crud-edit-movie
                     name="name"
                     label="Name"
                     rules={[{ required: true, message: "Không được để trống! " }]}
@@ -150,6 +150,93 @@ const UpdateMovies= (props: Props) => {
                         
                     </Select>
                 </Form.Item>
+=======
+          name="name"
+          label="Name"
+          
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="runTime"
+          label="runTime"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="ageLimit"
+          label="ageLimit"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+
+        <Form.Item
+          name="languages"
+          label="languages"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="releaseDate"
+          label="releaseDate"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="country"
+          label="country"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="actor"
+          label="actor"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="director"
+          label="director"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="description"
+          label="description"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="status"
+          label="status"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
+          <Select>
+            <Select.Option value="true" key="true">true</Select.Option>
+            <Select.Option value="false" key="false">false</Select.Option>
+          </Select>
+        </Form.Item>
+>>>>>>> dev
 
         <Form.Item>
           <Button type="primary" htmlType="submit">

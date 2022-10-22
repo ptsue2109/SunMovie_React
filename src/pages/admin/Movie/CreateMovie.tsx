@@ -1,10 +1,11 @@
 import React from "react";
-import { Button, Form, Input, message, Select, Space } from "antd";
+import { Button, Form, Input, message, Select, Space, DatePicker } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { createMovie } from "../../../redux/slice/Movie"
 import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import { Option } from "antd/lib/mentions";
+import moment from "moment";
 type Props = {};
 
 const CreateMovie = (props: Props) => {
@@ -12,6 +13,8 @@ const CreateMovie = (props: Props) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const onFinish = async (values: any) => {
+        console.log(values);
+        values.releaseDate = moment(values.releaseDate).format('DD-MM-YYYY')
         const { meta, payload } = await dispatch(createMovie(values));
         if (meta.requestStatus == "fulfilled") {
             message.success("Thêm thành công");
@@ -20,7 +23,9 @@ const CreateMovie = (props: Props) => {
             message.error(`${payload}`);
         }
     };
-
+    const config = {
+        rules: [{ type: 'object' as const, required: true, message: 'Please select time!' }],
+    };
     return (
         <>
             <Form
@@ -55,13 +60,19 @@ const CreateMovie = (props: Props) => {
 
 
                 <Form.Item
-                    name="language"
-                    label="language"
+                    name="languages"
+                    label="languages"
                     rules={[{ required: true, message: "Không được để trống! " }]}
                 >
                     <Input />
                 </Form.Item>
-
+                <Form.Item
+                    name="releaseDate"
+                    label="releaseDate"
+                    rules={[{ required: true, message: "Không được để trống! " }]}
+                >
+                    <DatePicker format="DD-MM-YYYY" />
+                </Form.Item>
                 <Form.Item
                     name="country"
                     label="country"
@@ -107,12 +118,11 @@ const CreateMovie = (props: Props) => {
                 </Form.Item>
 
                 <Form.Item name="isDelete" label="isDelete" rules={[{ required: true }]}>
-                    <Select
-                    
-                    >
-                        <Select.Option value="true">true</Select.Option>
-                        <Select.Option value="false">false</Select.Option>
-                        
+
+                    <Select>
+                        <Select.Option value="true" key="true">true</Select.Option>
+                        <Select.Option value="false" key="false">false</Select.Option>
+
                     </Select>
                 </Form.Item>
 
