@@ -61,7 +61,7 @@ const TableWrapper = styled.div`
   width: 100%;
 
   & .ant-table-content {
-    min-height: 465px;
+    min-height: 165px;
 
     &::-webkit-scrollbar {
       height: 6px;
@@ -95,14 +95,14 @@ const TableWrapper = styled.div`
 
   & .ant-table.ant-table-small .ant-table-thead > tr > th,
   .ant-table.ant-table-small .ant-table-tbody > tr > td {
-    padding: 8px 16px;
+    /* padding: 8px 16px; */
   }
 
   & .ant-pagination.mini .ant-pagination-item,
   & .ant-pagination.mini .ant-pagination-prev,
   & .ant-pagination.mini .ant-pagination-next {
-    min-width: 32px;
-    height: 32px;
-    line-height: 30px;
+    min-width: 0;
+    height: 0px;
+    line-height: 0px;
   }
 `;

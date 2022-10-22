@@ -2,20 +2,20 @@
 import axiosClient from "./instance";
 
 
-export const filmFormatApi = {
+export const showTimetApi = {
   getAll(){
-    let url = "/filmFormat";
+    let url = "/showTime";
     return axiosClient.get(url);
   },
   removeApi(data?: string) {
-    let url = `filmFormat/${data}`
+    let url = `showTime/${data}`
     return axiosClient.delete(url);
   },
   updateApi(payload: any) {
-    const url = `/filmFormat/${payload._id}`
+    const url = `/showTime/${payload._id}`
     return axiosClient.patch(url, payload)
   },
   create(data: any): Promise<any> {
-    return axiosClient.post("/filmFormat", data);
+    return axiosClient.post("/showTime", data);
   }
 };

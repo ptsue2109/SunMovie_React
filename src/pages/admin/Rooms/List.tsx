@@ -11,7 +11,7 @@ type Props = {}
 
 const AdminRoomList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { rooms, isFetching, isErr, errorMessage } = useAppSelector(state => state.roomReducer);
+  const { rooms, isFetching, isErr, errorMessage } = useAppSelector((state: { roomReducer: any; }) => state.roomReducer);
   useEffect(() => { document.title = "Admin | Rooms" }, [])
 
   const deleteData = (data: string | undefined) => {

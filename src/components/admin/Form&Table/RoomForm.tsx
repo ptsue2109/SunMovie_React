@@ -127,11 +127,11 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
 
   return (
 
-    <div className="grid grid-flow-col gap-3">
+    <div className="">
       {editData ? (
         <>
-          <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
-            <Card className="col-3">
+          <Form layout="vertical" className='flex' form={form} onFinish={onFinish} validateMessages={validateMessages}>
+            <Card className="col-2">
               <Form.Item label="Tên rạp" name="name" rules={[{ type: 'string', required: true, min: 5, max: 20, whitespace: true }]}>
                 <Input placeholder="Nhập vào" />
               </Form.Item>
@@ -150,8 +150,7 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
               <Form.Item label="rows" name="columns"  >
                 <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
               </Form.Item>
-            </Card>
-            <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
+              <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
               <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
                 <Button
                   htmlType="submit"
@@ -161,11 +160,12 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
                   Lưu
                 </Button>
               </div>
+            </Card> 
+            </Card>
+            <Card className="col-10 ">
+              {seatDetails && <RenderSeats />}
             </Card>
           </Form>
-          <Card className="col-9 p-5">
-            {seatDetails && <RenderSeats />}
-          </Card>
         </>
       ) : (<>
         <Skeleton />
