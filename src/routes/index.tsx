@@ -55,7 +55,7 @@ import AdminVoucherCreate from "../pages/admin/voucher/Create";
 import AdminVoucherEdit from "../pages/admin/voucher/Edit";
 
 import AdminPosts from "../pages/admin/Post/index"
-
+import AdminPostsCreate from "../pages/admin/Post/Create"
 
 type RoutesType = {
   path: string;
@@ -131,5 +131,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminVouchersCreate, component: AdminVoucherCreate },
   { path: configRoute.routes.AdminVouchersEdit, component: AdminVoucherEdit },
 
+  { path: configRoute.routes.AdminPosts, component: AdminPosts },
+  { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
 ];
