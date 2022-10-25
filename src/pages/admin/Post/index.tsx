@@ -18,7 +18,9 @@ const AdminPosts = (props: Props) => {
 
 
   const deleteData = (data: string | undefined) => {
-    console.log(data);
+    dispatch(removeData(data)).unwrap()
+    .then(() =>  message.success('Xóa thành công'))
+    .catch(() => message.error(errorMessage))
   };
 
   const changeStatus = (id: any, value: any) => {
