@@ -2,21 +2,27 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthApi } from "../../service/authApi";
 
 // thunk :
-export const authAsyncRegister = createAsyncThunk<any, any, { rejectValue: string }
+export const authAsyncRegister = createAsyncThunk<
+  any,
+  any,
+  { rejectValue: string }
 >("auth/authAsyncRegister", async (registerData, { rejectWithValue }) => {
   try {
-    const {data} = await AuthApi.register(registerData);
+    const { data } = await AuthApi.register(registerData);
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
   }
 });
 
-export const authAsyncLogin = createAsyncThunk<{user:any, accessToken:any}, any, { rejectValue: string }
+export const authAsyncLogin = createAsyncThunk<
+  { user: any; accessToken: any },
+  any,
+  { rejectValue: string }
 >("auth/authAsyncLogin", async (loginData, { rejectWithValue }) => {
   try {
-    const {data}  = await AuthApi.login(loginData);
-    console.log(data)
+    const { data } = await AuthApi.login(loginData);
+    console.log(data);
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -27,24 +33,24 @@ export const authAsyncLogin = createAsyncThunk<{user:any, accessToken:any}, any,
 type AuthState = {
   isLogged: boolean;
   currentUser: any | {};
-  accessToken: string
+  accessToken: string;
 };
 
 const initialState: AuthState = {
   currentUser: {},
   isLogged: false,
-  accessToken: ''
+  accessToken: "",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    signOut(state) {
-      state.currentUser = {},
-      state.accessToken = "",
-      state.isLogged = false;
-    }
+    LogOut(state) {
+      (state.currentUser = {}),
+        (state.accessToken = ""),
+        (state.isLogged = false);
+    },
   },
   extraReducers(builder) {
     builder.addCase(authAsyncLogin.fulfilled, (state, action) => {
@@ -52,8 +58,8 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       state.currentUser = action.payload.user;
     });
-  }
-})
+  },
+});
 
-
-export default authSlice.reducer
+export default authSlice.reducer;
+export const { LogOut } = authSlice.actions;

@@ -10,7 +10,7 @@ const TickitPrice = (props: Props) => {
       </h2>
       <div className="border-b-[3px] border-orange-600 mx-auto w-16 mt-2"></div>
       <div className="text-center text-[#949494] mt-5 text-2xl">
-        <h3 className="uppercase">Giá vé xem phim </h3>
+        <h3 className="uppercase text-[#e7e7e7]">Giá vé xem phim </h3>
         <p>(Áp dụng từ ngày 01/01/2022)</p>
       </div>
       <table className={styles.tick_price}>

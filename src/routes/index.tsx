@@ -37,13 +37,6 @@ import ListCategories from "../pages/admin/categories/List";
 import EditMovieType from "../pages/admin/MovieType/EditMovieType";
 import CreateCategory from "../pages/admin/categories/Create";
 
-
-import News from "../pages/client/News/News";
-import CreateMovie from "../pages/admin/Movie/CreateMovie";
-import ListMovie from "../pages/admin/Movie/ListMovie";
-import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
-
-
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
 import AdminRoomEdit from "../pages/admin/Rooms/Edit";
@@ -52,6 +45,10 @@ import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
 import ShowTimeSeat from "../pages/admin/showTime/ShowTimeSeat";
+import CreateMovie from "../pages/admin/Movie/CreateMovie";
+import ListMovie from "../pages/admin/Movie/ListMovie";
+import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
+import News from "../pages/client/News/News";
 
 import AdminVoucherList from "../pages/admin/voucher/List";
 import AdminVoucherCreate from "../pages/admin/voucher/Create";
@@ -82,7 +79,7 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminUserList, component: AdminUserList },
   { path: configRoute.routes.adminUserAdd, component: UserCreate },
-  { path: configRoute.routes.adminUserUpdate, component: UserEdit },  
+  { path: configRoute.routes.adminUserUpdate, component: UserEdit },
 
   { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
   { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
@@ -93,34 +90,44 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
 
   { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
-  {path: configRoute.routes.adminTicketPriceUpdate,component: UploadTicketPrice},
-  {path: configRoute.routes.adminTicketPriceAdd,component: CreateTicketPrice},
+  {
+    path: configRoute.routes.adminTicketPriceUpdate,
+    component: UploadTicketPrice,
+  },
+  {
+    path: configRoute.routes.adminTicketPriceAdd,
+    component: CreateTicketPrice,
+  },
 
   { path: configRoute.routes.adminSeatType, component: ListSeatType },
   { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
   { path: configRoute.routes.adminSeatTypeUpdate, component: UploadSeatType },
-  
+
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
   { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
   { path: configRoute.routes.adminMovie, component: ListMovie },
-  { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies},
-
+  { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies },
 
   { path: configRoute.routes.adminRooms, component: AdminRoomList },
   { path: configRoute.routes.adminRoomsCreate, component: AdminRoomCreate },
-  { path: configRoute.routes.adminRoomEdit, component: AdminRoomEdit},
+  { path: configRoute.routes.adminRoomEdit, component: AdminRoomEdit },
 
   { path: configRoute.routes.AdminShowTimes, component: AdminShowTimeList },
-  { path: configRoute.routes.AdminShowTimesCreate, component:AdminShowTimesCreate  },
-  { path: configRoute.routes.AdminShowTimesEdit, component: AdminShowTimesEdit},
-  { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat},
+  {
+    path: configRoute.routes.AdminShowTimesCreate,
+    component: AdminShowTimesCreate,
+  },
+  {
+    path: configRoute.routes.AdminShowTimesEdit,
+    component: AdminShowTimesEdit,
+  },
+  { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat },
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 
   { path: configRoute.routes.AdminVouchers, component: AdminVoucherList },
   { path: configRoute.routes.AdminVouchersCreate, component: AdminVoucherCreate },
   { path: configRoute.routes.AdminVouchersEdit, component: AdminVoucherEdit },
-
 
 ];
