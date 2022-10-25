@@ -53,6 +53,12 @@ import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
 import ShowTimeSeat from "../pages/admin/showTime/ShowTimeSeat";
 
+import AdminVoucherList from "../pages/admin/voucher/List";
+import AdminVoucherCreate from "../pages/admin/voucher/Create";
+import AdminVoucherEdit from "../pages/admin/voucher/Edit";
+
+
+
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -111,5 +117,10 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat},
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
+
+  { path: configRoute.routes.AdminVouchers, component: AdminVoucherList },
+  { path: configRoute.routes.AdminVouchersCreate, component: AdminVoucherCreate },
+  { path: configRoute.routes.AdminVouchersEdit, component: AdminVoucherEdit },
+
 
 ];

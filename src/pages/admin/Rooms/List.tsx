@@ -130,7 +130,8 @@ const AdminRoomList = (props: Props) => {
     if (isErr) {
       message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
     }
-  }, [isErr])
+  }, []);
+  
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
-import { Button, Card, DatePicker, Form, FormInstance, Input, message, Modal, Select, Skeleton, InputNumber } from "antd";
+import { Button, Card, DatePicker, Form, FormInstance, Input, message, Modal, Select, Skeleton, InputNumber, TimePicker } from "antd";
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { MdChair } from 'react-icons/md'
 import { validateMessages } from "../../../ultils/FormMessage";
@@ -34,11 +34,10 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
    const [hour, setHour] = useState<any>();
 
    console.log('hour', hour);
-   const handleChange = (value: string[]) => {
-      console.log(`selected ${value}`);
+   // eslint-disable-next-line arrow-body-style
+   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+      return current && current <= moment().endOf('day');
    };
-
-
 
    const onChangeStartAt = (value: DatePickerProps['value'] | RangePickerProps['value'], dateString: [string, string] | string,) => {
       setStartAt(dateString);
@@ -47,8 +46,6 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
 
    const onChangeEndAt = (value: DatePickerProps['value'] | RangePickerProps['value'], dateString: [string, string] | string,) => {
       setEndAt(dateString);
-
-
    };
    const onChangeDate = (value: DatePickerProps['value'] | RangePickerProps['value'], dateString: [string, string] | string,) => {
       setStDate(dateString)
@@ -68,12 +65,12 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
 
                   <Card className="col-6 w-full">
                      <Form.Item label="Chọn Phim" name="movieId" rules={[{ required: true }]}>
-                     <Select mode='multiple'>
-                           {movie.map((item:any) => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
+                        <Select mode='multiple'>
+                           {movie.map((item: any) => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chọn ngày phát sóng" name="date" rules={[{ required: true }]}>
-                        <DatePicker onChange={onChangeDate} />
+                        <DatePicker onChange={onChangeDate} format="YYYY-MM-DD"  disabledDate={disabledDate}   />
                      </Form.Item>
 
                      <Form.Item label="Chọn phòng chiếu" name="roomId" rules={[{ required: true }]}>
@@ -110,10 +107,10 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
                   </Card>
                   <Card className="col-6 w-full">
                      <Form.Item label="Chọn giờ bắt đầu " name="startAt" rules={[{ required: true }]}>
-                        <DatePicker showTime onChange={onChangeStartAt} />
+                        <TimePicker onChange={onChangeStartAt} format="HH:mm" />
                      </Form.Item>
                      <Form.Item label="Chọn giờ bắt đầu " name="endAt" rules={[{ required: true }]}>
-                        <DatePicker showTime onChange={onChangeEndAt} />
+                        <TimePicker onChange={onChangeEndAt}   format="HH:mm" />
                      </Form.Item>
                      <Form.Item label="extraPrice" name="extraPrice"
 
@@ -133,9 +130,7 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
                            ))}
                         </Select>
                      </Form.Item>
-                     {/* <Form.Item label="Chọn trạng thái" name="dđ" rules={[{ required: true }]}>
-                        
-                     </Form.Item> */}
+                     
                   </Card>
 
 
