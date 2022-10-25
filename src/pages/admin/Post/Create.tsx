@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
-import { Form, message } from "antd";
-import { useDispatch } from "react-redux";
+import { Button, Form, message } from "antd";
 import { createData } from "../../../redux/slice/PostSlice";
-import { useAppSelector } from "../../../redux/hook";
+import { useAppSelector, useAppDispatch } from "../../../redux/hook";
 import PostForm from "../../../components/admin/Form&Table/PostForm";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import config from "../../../config";
 type Props = {};
 
 const AddPost = (props: Props) => {
    const [form] = Form.useForm();
-   const dispatch = useDispatch<any>();
+   const dispatch = useAppDispatch();
    const navigate = useNavigate();
    const currentUser = useAppSelector(state => state.authReducer.currentUser)
    const [avatarList, setAvatarList] = useState<any[]>([]);
    const { errorMessage } = useAppSelector(state => state.FormatReducer);
 
-   useEffect(() => {document.title = "Admin | Create Post"}, []);
+   useEffect(() => { document.title = "Admin | Create Post" }, []);
 
    const onFinish = async (values: any) => {
       values.imagesFile = values?.avatarList?.fileList;
@@ -32,14 +31,18 @@ const AddPost = (props: Props) => {
    };
 
    return (
-      <PostForm
-         form={form}
-         onFinish={onFinish}
-         avatarList={avatarList}
-         setAvatarList={setAvatarList}
-         onReset={onReset}
-      />
-
+      <>
+         <Button type="primary" style={{ marginBottom: "20px" }}>
+            <Link to={config.routes.AdminPosts}>List Post</Link>
+         </Button>
+         <PostForm
+            form={form}
+            onFinish={onFinish}
+            avatarList={avatarList}
+            setAvatarList={setAvatarList}
+            onReset={onReset}
+         />
+      </>
    );
 };
 

@@ -29,6 +29,8 @@ interface ShowTimeFormProps {
 const { Option } = Select;
 const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, startAt, setStartAt, endAt, setEndAt, edit = false, loading = false, editUser = true, stDate, setStDate }: ShowTimeFormProps) => {
    const { movie } = useAppSelector(state => state.movie);
+   console.log('movie',movie);
+   
    const { rooms } = useAppSelector(state => state.roomReducer);
    const { filmFormats } = useAppSelector(state => state.FormatReducer);
    const [hour, setHour] = useState<any>();
@@ -51,22 +53,16 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
       setStDate(dateString)
    };
 
-   const price = () => {
-      if (hour >= 1 && hour <= 10) { return 10000 }
-      else if (hour >= 11 && hour <= 17) { return 150000 }
-      else if (hour >= 18 && hour <= 22) { return 20000 }
 
-   }
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages} className="">
          <div className="grid grid-flow-col">
             {editUser ? (
                <>
-
                   <Card className="col-6 w-full">
                      <Form.Item label="Chọn Phim" name="movieId" rules={[{ required: true }]}>
                         <Select mode='multiple'>
-                           {movie.map((item: any) => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
+                           {movie.map((item: any, index:any) => <Select.Option key={item._id} value={item[index]}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chọn ngày phát sóng" name="date" rules={[{ required: true }]}>
@@ -75,7 +71,7 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
 
                      <Form.Item label="Chọn phòng chiếu" name="roomId" rules={[{ required: true }]}>
                         <Select mode='multiple'>
-                           {rooms.map(item => <Select.Option key={item._id} value={item._id}>{item.name}</Select.Option>)}
+                           {rooms.map((item:any, index:any) => <Select.Option key={item._id} value={item[index]}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chọn filmFormatId" name="filmFormatId" rules={[{ required: true }]}>

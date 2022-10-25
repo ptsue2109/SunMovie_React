@@ -15,9 +15,10 @@ const AdminPostsEdit = (props: Props) => {
    const dispatch = useAppDispatch();
    const [avatarList, setAvatarList] = useState<any[]>([]);
    const { id } = useParams();
-   const { posts, errorMessage } = useAppSelector((state) => state.PostSlice);
+   const { posts, errorMessage } = useAppSelector((state) => state.PostReducer);
+
    const dataSelected = posts.find((item: any) => item._id === id);
-   console.log(dataSelected);
+   console.log('dataSelected', dataSelected);
 
    useEffect(() => {
       document.title = `Admin | Edit ${dataSelected?.title ?? dataSelected?._id}`;

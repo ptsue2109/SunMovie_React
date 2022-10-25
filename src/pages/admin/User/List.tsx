@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-import { removeUser, updateUser } from '../../../redux/slice/userSlice';
+import { removeUser, updateUser,getUsers } from '../../../redux/slice/userSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { userRole, defaultStatus } from "../../../ultils/data"
@@ -11,7 +11,11 @@ type Props = {}
 const { Option } = Select;
 const AdminUserList = (props: Props) => {
   const dispatch = useAppDispatch();
-  useEffect(() => { document.title = "Admin | Users" }, [])
+  useEffect(() => { 
+    document.title = "Admin | Users";
+    dispatch(getUsers())
+  }, [dispatch]);
+  
   const { users, isFetching, isErr, errorMessage } = useAppSelector(state => state.userReducer);
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data)).unwrap()

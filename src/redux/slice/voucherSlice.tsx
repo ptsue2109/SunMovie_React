@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { showTimetApi } from "../../service/showTime";
+import { voucherApi } from "../../service/voucherApi";
 
-export const getAlSt = createAsyncThunk<any, void, { rejectValue: string }>(
-   "st/getAlSt",
+export const getAlVc = createAsyncThunk<any, void, { rejectValue: string }>(
+   "vc/getAlVc",
    async (_, { rejectWithValue }) => {
       try {
-         const { data } = await showTimetApi.getAll();
+         const { data } = await voucherApi.getAll();
          return data;
       } catch (error: any) {
          return rejectWithValue(error.response.data);
@@ -13,19 +13,19 @@ export const getAlSt = createAsyncThunk<any, void, { rejectValue: string }>(
    }
 );
 export const removeData = createAsyncThunk<any, any, { rejectValue: string }
->("st/removeData", async (id, { rejectWithValue }) => {
+>("vc/removeData", async (id, { rejectWithValue }) => {
    try {
-      const { data } = await showTimetApi.removeApi(id);
+      const { data } = await voucherApi.removeApi(id);
       return data.room;
    } catch (error: any) {
       return rejectWithValue(error.response.data);
    }
 });
 export const updateData = createAsyncThunk<any, any, { rejectValue: string }>(
-   "st/updateData",
+   "vc/updateData",
    async (input, { rejectWithValue }) => {
       try {
-         const { data } = await showTimetApi.updateApi(input);
+         const { data } = await voucherApi.updateApi(input);
          return data;
       } catch (error: any) {
          return rejectWithValue(error.response.data);
@@ -34,37 +34,37 @@ export const updateData = createAsyncThunk<any, any, { rejectValue: string }>(
 );
 
 export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
-   "st/create",
+   "vc/create",
    async (input, { rejectWithValue }) => {
       try {
-         const {data} = await showTimetApi.create(input);
+         const { data } = await voucherApi.create(input);
          return data;
       } catch (error: any) {
          return rejectWithValue(error.response.data.message);
       }
    }
 );
-type showTimeState = {
-   stList: any[];
+type VoucherSliceState = {
+   vouchers: any[];
    errorMessage: string | undefined;
 };
-const initialState: showTimeState = {
-   stList: [],
+const initialState: VoucherSliceState = {
+   vouchers: [],
    errorMessage: "",
 };
 
-const ShowTimeSlice = createSlice({
-   name: "st",
+const VoucherSlice = createSlice({
+   name: "vouchers",
    initialState,
    reducers: {
    },
    extraReducers: (builder) => {
       //getAll
-     
-      builder.addCase(getAlSt.fulfilled, (state, { payload }) => {
-         state.stList = payload;
+
+      builder.addCase(getAlVc.fulfilled, (state, { payload }) => {
+         state.vouchers = payload;
       });
-      builder.addCase(getAlSt.rejected, (state, { payload }) => {
+      builder.addCase(getAlVc.rejected, (state, { payload }) => {
          state.errorMessage = payload;
       });
 
@@ -72,7 +72,7 @@ const ShowTimeSlice = createSlice({
 
       builder.addCase(removeData.fulfilled, (state, action) => {
 
-         state.stList = state.stList.filter((item) => item._id !== action.meta.arg);
+         state.vouchers = state.vouchers.filter((item) => item._id !== action.meta.arg);
       });
       builder.addCase(removeData.rejected, (state, { payload }) => {
          state.errorMessage = payload;
@@ -81,7 +81,7 @@ const ShowTimeSlice = createSlice({
       //create
 
       builder.addCase(createData.fulfilled, (state, { payload }) => {
-         state.stList.push(payload);
+         state.vouchers.push(payload);
       });
       builder.addCase(createData.rejected, (state, { payload }) => {
          state.errorMessage = payload;
@@ -91,7 +91,7 @@ const ShowTimeSlice = createSlice({
 
       builder.addCase(updateData.fulfilled, (state, action) => {
 
-         state.stList = state.stList.map((item) =>
+         state.vouchers = state.vouchers.map((item) =>
             item._id !== action.payload._id ? item : action.payload
          );
       });
@@ -101,4 +101,4 @@ const ShowTimeSlice = createSlice({
    },
 });
 
-export default ShowTimeSlice.reducer;
+export default VoucherSlice.reducer;

@@ -1,26 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { message, Popconfirm, Tag, Tooltip } from 'antd';
+import { message, Popconfirm, Table, Tag, Tooltip } from 'antd';
 import { Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../../../ultils'
 import configRoute from '../../../config';
 import DataTable from '../../../components/admin/Form&Table/Table';
-import { removeData } from '../../../redux/slice/ShowTimeSlice'
+import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
 type Props = {}
 
 const AdminShowTimeList = (props: Props) => {
-  const { stList, errorMessage } = useAppSelector(state => state.ShowTimeSlice);
   const dispatch = useAppDispatch();
-  console.log(stList);
+
+  useEffect(() => {
+    document.title = "Admin | Show"
+    dispatch(getAlSt())
+  }, [dispatch]);
+
+  const { stList, errorMessage } = useAppSelector((state: any) => state.ShowTimeReducer);
 
   const deleteData = (val: any) => {
     dispatch(removeData(val)).unwrap()
       .then(() => { message.success('Xóa thành công') })
       .catch(() => message.error(errorMessage))
   };
-
 
   const columns = [
     {
@@ -92,8 +96,8 @@ const AdminShowTimeList = (props: Props) => {
 
   const data: Props[] = stList?.map((item: any, index: any) => {
     let temPrice = 40000 + item?.extraPrice; //default tisiscket + extra
-    var roomName = item?.roomId.map((item: any) => item?.name)
-    var movieNam = item?.movieId.map((item: any) => item?.name)
+    var roomName = item?.roomId?.map((item: any) => item?.name)
+    var movieNam = item?.movieId?.map((item: any) => item?.name)
     return {
       key: index + 1,
       _id: item?._id,
@@ -113,7 +117,7 @@ const AdminShowTimeList = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to={configRoute.routes.AdminShowTimesCreate} style={{ color: '#ffff' }}>Create ShowTime</Link>
       </Button>
-      <DataTable column={columns} data={data} scrollWidth={550} />
+      <Table columns={columns} dataSource={data} />
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
-import {  removeRoom, updateRoom } from '../../../redux/slice/roomSlice';
+import {  removeRoom, updateRoom, getRooms } from '../../../redux/slice/roomSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { screenData } from "../../../ultils/data"
@@ -12,7 +12,10 @@ type Props = {}
 const AdminRoomList = (props: Props) => {
   const dispatch = useAppDispatch();
   const { rooms, isFetching, isErr, errorMessage } = useAppSelector((state: { roomReducer: any; }) => state.roomReducer);
-  useEffect(() => { document.title = "Admin | Rooms" }, [])
+  useEffect(() => { 
+    document.title = "Admin | Rooms"
+    dispatch(getRooms())
+   }, [dispatch])
 
   const deleteData = (data: string | undefined) => {
     dispatch(removeRoom(data)).unwrap()
