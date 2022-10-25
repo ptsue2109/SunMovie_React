@@ -44,6 +44,7 @@ const ListFoodDetail = (props: Props) => {
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteFoodDetail(item?._id)}
+            //////
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
