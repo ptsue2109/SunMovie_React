@@ -54,9 +54,9 @@ import AdminVoucherList from "../pages/admin/voucher/List";
 import AdminVoucherCreate from "../pages/admin/voucher/Create";
 import AdminVoucherEdit from "../pages/admin/voucher/Edit";
 
-import AdminPosts from "../pages/admin/Post/index"
-import AdminPostsCreate from "../pages/admin/Post/Create"
-
+import AdminPosts from "../pages/admin/Post/index";
+import AdminPostsCreate from "../pages/admin/Post/Create";
+import AdminPostsEdit from "../pages/admin/Post/Edit";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -133,5 +133,5 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
-  { path: configRoute.routes.AdminPosts, component: AdminPosts },
+  { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
 ];
