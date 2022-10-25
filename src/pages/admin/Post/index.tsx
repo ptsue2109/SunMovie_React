@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { Space, Typography, message, Tooltip, Button, Select, Popconfirm } from "antd";
@@ -6,7 +6,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
 import { defaultStatus } from '../../../ultils/data';
 import { removeData, updateData } from "../../../redux/slice/PostSlice"
-import moment from 'moment';
+
 import { formatDate } from '../../../ultils';
 type Props = {}
 const { Text } = Typography;
@@ -15,12 +15,14 @@ const { Option } = Select;
 const AdminPosts = (props: Props) => {
   const { posts, errorMessage } = useAppSelector(state => state.PostSlice);
   const dispatch = useAppDispatch();
-
+  useEffect(() => {
+    document.title = "Admin | List Post";
+  }, []);
 
   const deleteData = (data: string | undefined) => {
     dispatch(removeData(data)).unwrap()
-    .then(() =>  message.success('Xóa thành công'))
-    .catch(() => message.error(errorMessage))
+      .then(() => message.success('Xóa thành công'))
+      .catch(() => message.error(errorMessage))
   };
 
   const changeStatus = (id: any, value: any) => {
@@ -52,7 +54,7 @@ const AdminPosts = (props: Props) => {
       title: "Desc",
       key: "desc",
       dataIndex: "desc",
-      render: (_: any, {desc}: any) => (
+      render: (_: any, { desc }: any) => (
         <Text className="text-[#1890ff]">{desc.length >= 30 ? `${desc.substring(0, 30)}...` : desc}</Text>
       ),
       width: 220
@@ -61,7 +63,7 @@ const AdminPosts = (props: Props) => {
       title: "Author",
       key: "author",
       dataIndex: "author",
-      render: (_: any, {author}: any) => (
+      render: (_: any, { author }: any) => (
         <Tooltip title={author?.email}>{author?.username}</Tooltip>
       ),
       width: 220
@@ -115,7 +117,6 @@ const AdminPosts = (props: Props) => {
   ];
 
   const data: Props[] = posts?.map((item: any, index: any) => {
-    console.log(formatDate(item?.createdAt))
     return {
       key: index + 1,
       _id: item?._id,
