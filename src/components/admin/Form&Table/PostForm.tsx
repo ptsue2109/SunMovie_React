@@ -41,12 +41,13 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                      <Form.Item
                         label="Description"
                         name="desc"
+                        valuePropName="desc"
                         getValueFromEvent={(event, editor) => {
                            const data = editor.getData();
                            return data;
                         }}
                         rules={[{ required: true }]}>
-                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập mô tả bài viết" }} />
+                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập mô tả bài viết" }}   data={form.getFieldValue("desc")} />
                      </Form.Item>
 
                      <Form.Item
@@ -58,7 +59,7 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                            return data;
                         }}
                         rules={[{ required: true }]} >
-                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập nội dung bài viết" }} />
+                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập nội dung bài viết" }}  data={form.getFieldValue("content")}/>
                      </Form.Item>
 
                      <div className="col-12">
