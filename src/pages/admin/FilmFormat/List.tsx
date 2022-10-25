@@ -48,7 +48,6 @@ const FilmFormatList = (props: Props) => {
       form.setFieldsValue({ ...dataA });
       console.log('valF', valF);
       if (flag) {
-
         dispatch(updateData(valF)).unwrap()
           .then(() => {
             form.resetFields();

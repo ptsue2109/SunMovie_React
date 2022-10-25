@@ -41,6 +41,9 @@ const routes = {
   AdminShowTimeSeat: "/admin/showTimes/seat/:id",
   AdminFilmFormat: "/admin/filmFormats",
 
+  AdminVouchers: "/admin/showTimes",
+  AdminVouchersCreate: "/admin/showTimes/create",
+  AdminVouchersEdit: "/admin/showTimes/:id",
 };
 
 export default routes;

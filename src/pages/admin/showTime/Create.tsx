@@ -16,7 +16,6 @@ const AdminShowTimesCreate = (props: Props) => {
 
   const { errorMessage } = useAppSelector(state => state.ShowTimeSlice)
   const dateFormat = 'YYYY-MM-DD';
-  const timeFormat = 'YYYY-MM-DD HH:mm:ss';
   const [form] = Form.useForm();
   const [stDate, setStDate] = useState<any>()
   const [startAt, setStartAt] = useState<any>()
@@ -24,11 +23,11 @@ const AdminShowTimesCreate = (props: Props) => {
   const [extraPrice, setExtraprice] = useState()
 
   const onFinish = (val: any) => {
-    console.log(val);
+   
     
     val.date = moment(stDate).format(dateFormat)
-    val.startAt = moment(startAt).format(timeFormat)
-    val.endAt = moment(endAt).format(timeFormat);
+    val.startAt = startAt
+    val.endAt = endAt ;console.log(val);
     dispatch(createData(val)).unwrap()
       .then(() => { message.success('Tạo thành công'); navigate(config.routes.AdminShowTimes) })
       .catch(() => message.error(errorMessage))
