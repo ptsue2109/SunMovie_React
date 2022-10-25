@@ -1,7 +1,7 @@
 const routes = {
   home: "/",
   movie: "/movie",
-  news:"/news",
+  news: "/news",
   signin: "/auth/signin",
   signup: "/auth/signup",
   detail: "/d",
@@ -40,7 +40,7 @@ const routes = {
   AdminShowTimesEdit: "/admin/showTimes/:id",
   AdminShowTimeSeat: "/admin/showTimes/seat/:id",
   AdminFilmFormat: "/admin/filmFormats",
-
+  AdminFoodDetail: "/admin/foodDetail",
 };
 
 export default routes;

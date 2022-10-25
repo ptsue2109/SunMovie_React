@@ -49,6 +49,7 @@ import CreateMovie from "../pages/admin/Movie/CreateMovie";
 import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 import News from "../pages/client/News/News";
+import ListFoodDetail from "../pages/admin/FoodDetail/ListFoodDetail";
 
 type RoutesType = {
   path: string;
@@ -119,4 +120,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat },
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
+  { path: configRoute.routes.AdminFoodDetail, component: ListFoodDetail },
 ];
