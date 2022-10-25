@@ -5,35 +5,25 @@ import { ClientTheme, AdminTheme } from "./themes";
 import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
 import { useAppDispatch } from "./redux/hook";
-import { getUsers } from "./redux/slice/userSlice";
-
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getTicket } from "./redux/slice/ticketSlice";
 import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
-
-import { getRooms } from "./redux/slice/roomSlice";
-import { getAllData } from "./redux/slice/FilmFormatSlice";
 import { getMovie } from "./redux/slice/Movie";
-import { getAlSt } from "./redux/slice/ShowTimeSlice";
-import {getAlPost} from "./redux/slice/PostSlice"
+
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUsers());
     dispatch(getMovieType());
     dispatch(getTicket());
     dispatch(getTicketPrice());
     dispatch(getSeatType());
     dispatch(getCategories());
     dispatch(getMovie());
-    dispatch(getRooms());
-    dispatch(getAllData());
-    dispatch(getAlSt());
-    dispatch(getAlPost())
+
   }, [dispatch]);
 
   return (

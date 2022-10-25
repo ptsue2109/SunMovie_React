@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import config from "../../../config";
 type Props = {};
 
 const Navbar = (props: Props) => {
@@ -8,19 +9,19 @@ const Navbar = (props: Props) => {
       <nav>
         <ul>
           <li>
-            <Link to={`/`}>Trang chủ</Link>
+            <Link to={config.routes.home}>Trang chủ</Link>
           </li>
           <li>
             <Link to={`#`}>Phim</Link>
           </li>
           <li>
-            <Link to={`#`}>Mua vé</Link>
+            <Link to={config.routes.bookChair}>Mua vé</Link>
           </li>
           <li>
-            <Link to={`/tickit-price`}>Giá vé</Link>
+            <Link to={config.routes.tickitPrice}>Giá vé</Link>
           </li>
           <li>
-            <Link to={`#`}>Tin tức</Link>
+            <Link to={config.routes.news}>Tin tức</Link>
           </li>
           <li>
             <Link to={`#`}>Hỗ trợ</Link>

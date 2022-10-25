@@ -5,7 +5,7 @@ import { Space, Typography, message, Tooltip, Button, Select, Popconfirm } from 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
 import { defaultStatus } from '../../../ultils/data';
-import { removeData, updateData } from "../../../redux/slice/PostSlice"
+import { removeData, updateData, getAlPost } from "../../../redux/slice/PostSlice"
 
 import { formatDate } from '../../../ultils';
 type Props = {}
@@ -13,11 +13,14 @@ const { Text } = Typography;
 const { Option } = Select;
 
 const AdminPosts = (props: Props) => {
-  const { posts, errorMessage } = useAppSelector(state => state.PostSlice);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     document.title = "Admin | List Post";
-  }, []);
+    dispatch(getAlPost())
+  }, [dispatch]);
+  
+  const { posts, errorMessage } = useAppSelector(state => state.PostReducer);
 
   const deleteData = (data: string | undefined) => {
     dispatch(removeData(data)).unwrap()
@@ -44,7 +47,7 @@ const AdminPosts = (props: Props) => {
       key: "title",
       dataIndex: "title",
       render: (item: any, record: any) => (
-        <Link to={`${record._id}`} target="_blank">
+        <Link to={`${record._id}`}>
           <Text className="text-[#1890ff]">{item.length >= 30 ? `${item.substring(0, 30)}...` : item}</Text>
         </Link>
       ),

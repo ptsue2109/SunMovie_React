@@ -1,10 +1,159 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import DataTable from "../../../components/admin/Form&Table/Table"
+import { Space, Typography, message, Tooltip, Button, Select, Popconfirm, Tag } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
+import { Link } from 'react-router-dom';
+import { defaultStatus } from '../../../ultils/data';
+import { removeData, updateData, getAlVc } from "../../../redux/slice/voucherSlice"
+import moment from 'moment';
+import { formatCurrency } from '../../../ultils';
 
 type Props = {}
+const { Text } = Typography;
+const { Option } = Select;
 
 const AdminVoucherList = (props: Props) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    document.title = "Admin | List Voucher";
+    dispatch(getAlVc())
+  }, [dispatch])
+
+  const { vouchers, errorMessage } = useAppSelector((state: any) => state.voucherReducer)
+  const deleteData = (data: string | undefined) => {
+    dispatch(removeData(data)).unwrap()
+      .then(() => message.success('Xóa thành công'))
+      .catch(() => message.error(errorMessage))
+  };
+
+  const changeStatus = (id: any, value: any) => {
+    dispatch(updateData({ _id: id, status: value })).unwrap().then(() => message.success('Thay đổi trạng thái thành công'))
+  }
+
+  const columns: any[] = [
+    {
+      title: "Thumbnail",
+      key: "thumbnail",
+      dataIndex: "thumbnail",
+      render: (_: any, record: any) => (
+        <img width="40px" height="40px" src={record?.thumbnail} alt="" className="object-cover" />
+      ),
+      width: 50
+    },
+    {
+      title: "code",
+      key: "code",
+      dataIndex: "code",
+      render: (item: any, record: any) => (
+        <Link to={`${record._id}`}>
+          <Text className="text-[#1890ff]">{item.length >= 30 ? `${item.substring(0, 30)}...` : item}</Text>
+        </Link>
+      ),
+      width: 50
+    },
+    {
+      title: "quantity",
+      key: "quantity",
+      dataIndex: "quantity",
+      width: 50
+    },
+    {
+      title: "Instock Status",
+      key: "activeQuantity",
+      dataIndex: "activeQuantity",
+      render: (_:any, record:any) => (
+        <Tag color={record.activeQuantity ? "red" : "blue"}>
+          {record.activeQuantity <= 5
+            ? `Còn  ${record.activeQuantity} voucher`
+            : `Còn  ${record.activeQuantity} voucher`}
+        </Tag>
+      ),
+      width: 150
+    },
+    {
+      title: "Condition",
+      key: "condition",
+      render: (_:any, record:any) => (
+        <Tag color={record.condition ? "green" : "blue"}>
+          {record.condition === 1
+            ? `Giảm ${formatCurrency(record.conditionNumber)}`
+            : `Giảm ${record.conditionNumber}%`}
+        </Tag>
+      ),
+      width: 150
+    },
+    {
+      title: "Status",
+      key: "status",
+      dataIndex: "status",
+      render: (_: any, { _id, status }: any) => (
+        <Select value={status === 0 ? 'active' : 'inActive'}
+          onChange={(value: any) => { changeStatus(_id, value) }}>
+          {defaultStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>{item?.name}</Option>
+          ))}
+        </Select>
+      ),
+    },
+    {
+      title: "Time",
+      key: "time",
+      render: (_:any, record:any) => (
+        <Text>
+          {moment(record.timeStart).format("DD/MM/YYYY HH:mm:ss")} -{" "}
+          {moment(record.timeEnd).format("DD/MM/YYYY HH:mm:ss")}
+        </Text>
+      ),
+    },
+    {
+      title: "ACTION",
+      key: "action",
+      render: (_: any, record: any) => (
+        <Space size="middle">
+          <Link to={`${record._id}`}>
+            <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
+          </Link>
+          <Popconfirm
+            title={`Delete ${record?.name ?? record?._id}?`}
+            okText="OK"
+            cancelText="Cancel"
+            onConfirm={() => deleteData(record?._id)}
+          >
+            <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
+          </Popconfirm>
+        </Space>
+      ),
+      width: 30
+    },
+
+  ];
+
+  const data: Props[] = vouchers?.map((item: any, index: any) => {
+    return {
+      key: index + 1,
+      _id: item?._id,
+      code: item?.code,
+      thumbnail: item?.imagesFile[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      quantity: item?.quantity,
+      status: item?.status,
+      condition: item?.condition,
+      content: item?.content,
+      timeStart: item?.timeStart,
+      timeEnd: item?.timeEnd,
+      conditionNumber: item?.conditionNumber,
+      activeQuantity: item?.quantity, // số lượng còn (sau khi trừ của user đã dùng)
+    }
+  });
+
   return (
-    <div></div>
+    <div>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to="add">Add New Voucher</Link>
+      </Button>
+      <DataTable column={columns} data={data} />
+
+    </div>
   )
 }
 

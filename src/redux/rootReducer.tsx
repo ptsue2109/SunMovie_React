@@ -9,10 +9,11 @@ import ticketPriceReducer from "./slice/ticketPriceSlice";
 import seatTypeReducer from "./slice/SeatTypeSlice";
 import categoriesReducer from "./slice/CategorySlice";
 import movie from "./slice/Movie";
-import roomReducer from "./slice/roomSlice"
-import FormatReducer from "./slice/FilmFormatSlice"
-import ShowTimeSlice from "./slice/ShowTimeSlice"
-import PostSlice from "./slice/PostSlice"
+import roomReducer from "./slice/roomSlice";
+import FormatReducer from "./slice/FilmFormatSlice";
+import ShowTimeReducer from "./slice/ShowTimeSlice";
+import PostReducer from "./slice/PostSlice";
+import voucherReducer from "./slice/voucherSlice";
 const persistConfig = {
   key: "root",
   storage,
@@ -29,8 +30,9 @@ const reducers = combineReducers({
   movie,
   roomReducer,
   FormatReducer,
-  ShowTimeSlice,
-  PostSlice
+  ShowTimeReducer,
+  voucherReducer,
+  PostReducer
 
 });
 const rootReducer = persistReducer(persistConfig, reducers);

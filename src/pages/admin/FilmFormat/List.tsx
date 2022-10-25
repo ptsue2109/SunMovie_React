@@ -5,7 +5,7 @@ import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { formatCurrency } from '../../../ultils'
 import { Link } from 'react-router-dom'
-import { removeData, updateData, createData } from '../../../redux/slice/FilmFormatSlice';
+import { removeData, updateData, createData, getAllData } from '../../../redux/slice/FilmFormatSlice';
 import { validateMessages } from '../../../ultils/FormMessage'
 
 type Props = {}
@@ -24,9 +24,14 @@ const FilmFormatList = (props: Props) => {
 
   }
   useEffect(() => {
-    setFlag(flag)
+    setFlag(flag);
   }, [flag])
-  // }
+
+  useEffect(() => {
+    document.title = "Admin | FilmFormat Manager";
+    dispatch(getAllData())
+  }, [dispatch])
+
   const onFinish = (valF: any) => {
     console.log('valF', valF);
 
@@ -79,8 +84,8 @@ const FilmFormatList = (props: Props) => {
     {
       title: "extraPrice",
       dataIndex: "extraPrice",
-      key: "extraPrice", 
-    
+      key: "extraPrice",
+
     },
     {
       title: "ACTION",
@@ -126,10 +131,10 @@ const FilmFormatList = (props: Props) => {
             </Form.Item>
             <Form.Item label="extraPrice" name="extraPrice" rules={[{ type: 'number', required: true, min: 10000, max: 200000, whitespace: true }]}  >
               <InputNumber
-                 min={10000}
+                min={10000}
                 formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                 style={{width: '100%'}}
-                 onChange={watchData}
+                style={{ width: '100%' }}
+                onChange={watchData}
               />
             </Form.Item>
             <Button
