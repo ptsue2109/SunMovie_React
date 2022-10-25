@@ -5,7 +5,7 @@ import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { MdChair } from 'react-icons/md'
 import { validateMessages } from "../../../ultils/FormMessage";
 import moment from 'moment';
-import { showTimeStatus } from "../../../ultils/data"
+import { defaultStatus } from "../../../ultils/data"
 import { useAppSelector } from '../../../redux/hook';
 import "antd/dist/antd.css";
 import { Link } from 'react-router-dom';
@@ -125,7 +125,7 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, star
                      </Form.Item>
                      <Form.Item label="Chọn trạng thái" name="status" rules={[{ required: true }]}>
                         <Select>
-                           {showTimeStatus && showTimeStatus?.map((item: any) => (
+                           {defaultStatus && defaultStatus?.map((item: any) => (
                               <Select.Option value={item.value} key={item.value} >{item.name}</Select.Option>
                            ))}
                         </Select>

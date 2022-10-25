@@ -44,6 +44,8 @@ const routes = {
   AdminVouchers: "/admin/showTimes",
   AdminVouchersCreate: "/admin/showTimes/create",
   AdminVouchersEdit: "/admin/showTimes/:id",
+
+  AdminPosts: "/admin/posts",
 };
 
 export default routes;

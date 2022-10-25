@@ -67,12 +67,19 @@ const items: MenuItem[] = [
   getItem("Quản lí phim ", "sub7", <UserOutlined />, [getItem(<Link to={config.routes.adminMovie}> Danh sách phim</Link>,    ),
     getItem(<Link to={config.routes.adminMoviecCreat}> Thêm phim</Link>, "14"),
   ]),
+
   getItem("Quản lí Voucher", "AdminVouchers", <FcOvertime />, [
     getItem(<Link to={config.routes.AdminVouchers}> Xem tất cả</Link>,"AdminVouchers1"),
     getItem(<Link to={config.routes.AdminVouchersCreate}> Thêm voucher</Link>,"AdminVouchers2")
   ]),
 
+  getItem("Quản lí bài viết", "AdminPosts", <FcOvertime />, [
+    getItem(<Link to={config.routes.AdminPosts}> Xem tất cả</Link>,"AdminPosts1"),
+    getItem(<Link to={config.routes.AdminPosts}> Thêm bài viết</Link>,"AdminPosts2")
+  ]),
+
 ];
+
 const MenuAdminLayout = (props: Props) => {
   return (
     <Menu

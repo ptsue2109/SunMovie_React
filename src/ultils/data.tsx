@@ -12,12 +12,18 @@ export const userRole = [
 ]
 
 
-export const userStatus = [
+export const defaultStatus = [
   { value: 0, name: "Active" },
   { value: 1, name: "Inactive" }
 ]
 
-export const showTimeStatus = [
-  { value: 0, name: "Active" },
-  { value: 1, name: "Inactive" }
-];
+// export const showTimeStatus = [
+//   { value: 0, name: "Active" },
+//   { value: 1, name: "Inactive" }
+// ];
+
+
+// export const postStatus = [
+//   { value: 0, name: "Hiển thị" },
+//   { value: 1, name: "Ẩn" }
+// ]

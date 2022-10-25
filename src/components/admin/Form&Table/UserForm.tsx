@@ -4,7 +4,7 @@ import { Button, Card, DatePicker, Form, FormInstance, Input, message, Modal, Se
 import { validateMessages } from "../../../ultils/FormMessage";
 import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload"
-import { userRole, userStatus } from "../../../ultils/data"
+import { userRole, defaultStatus } from "../../../ultils/data"
 interface UserFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -47,7 +47,7 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFini
                   <Card className="col-6">
                      <Form.Item label="Status" name="status">
                         <Select>
-                           {userStatus.map(item => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
+                           {defaultStatus.map((item:any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chức vụ" name="role">
