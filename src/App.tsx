@@ -17,6 +17,7 @@ import { getRooms } from "./redux/slice/roomSlice";
 import { getAllData } from "./redux/slice/FilmFormatSlice";
 import { getMovie } from "./redux/slice/Movie";
 import { getAlSt } from "./redux/slice/ShowTimeSlice";
+import {getAlPost} from "./redux/slice/PostSlice"
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ function App() {
     dispatch(getRooms());
     dispatch(getAllData());
     dispatch(getAlSt());
+    dispatch(getAlPost())
   }, [dispatch]);
 
   return (

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { removeUser, updateUser } from '../../../redux/slice/userSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import { userRole, userStatus } from "../../../ultils/data"
+import { userRole, defaultStatus } from "../../../ultils/data"
 import { provices } from "../../../redux/slice/Provider";
 type Props = {}
 const { Option } = Select;
@@ -68,7 +68,7 @@ const AdminUserList = (props: Props) => {
       render: (_: any, { _id, status }: any) => (
         <Select value={status === 0 ? 'active' : 'inActive'}
           onChange={(value: any) => { changeStatus(_id, value) }}>
-          {userStatus?.map((item: any) => (
+          {defaultStatus?.map((item: any) => (
             <Option value={item?.value} key={item?.value}>{item?.name}</Option>
           ))}
         </Select>
