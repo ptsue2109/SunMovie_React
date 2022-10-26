@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { createMovie } from "../../../redux/slice/Movie";
 import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
-
 import moment from "moment";
-import TextArea from "antd/lib/input/TextArea";
+import ImageUpload from "../../../components/upload";
 type Props = {};
 
 const CreateMovie = (props: Props) => {
+  const [image, setImage] = useState<any[]>([]);
   const [form] = Form.useForm();
   const { movieType, isErr } = useAppSelector(
     (state) => state.movieTypeReducer
@@ -18,6 +18,8 @@ const CreateMovie = (props: Props) => {
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
     values.releaseDate = new Date(moment(values.releaseDate).format());
+    values.image = values.avatarList?.fileList;
+    delete values?.avatarList;
     const { meta, payload } = await dispatch(createMovie(values));
     if (meta.requestStatus == "fulfilled") {
       message.success("Thêm thành công");
@@ -43,6 +45,9 @@ const CreateMovie = (props: Props) => {
         onFinish={onFinish}
         autoComplete="off"
       >
+        <Form.Item label="Image">
+          <ImageUpload imageList={image} limit={1} key={1} />
+        </Form.Item>
         <Form.Item
           name="name"
           label="Name"

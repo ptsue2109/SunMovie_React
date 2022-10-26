@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, message, Popconfirm, Space, Tag, Pagination } from "antd";
+import {
+  Button,
+  message,
+  Popconfirm,
+  Space,
+  Tag,
+  Pagination,
+  Image,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeMovieItem } from "../../../redux/slice/Movie";
@@ -23,9 +31,17 @@ const ListMovie = (props: Props) => {
   };
   const columnUserList: any = [
     {
+      title: "Image",
+      dataIndex: "image",
+      fixed: "left",
+      // key: "image",
+      render: (_: any, record: any) => (
+        <img width="150px" src={record?.image} alt="" />
+      ),
+    },
+    {
       title: "Name",
       dataIndex: "name",
-      fixed: "left",
       // key: "image",
       render: (_: any, record: any) => <p>{record?.name}</p>,
     },
@@ -153,6 +169,7 @@ const ListMovie = (props: Props) => {
     return {
       key: index + 1,
       _id: item?._id,
+      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       name: item?.name,
       actor: item?.actor,
       runTime: item?.runTime,
