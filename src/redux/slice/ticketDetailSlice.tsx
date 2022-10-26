@@ -104,7 +104,7 @@ const ticketDetailSlice = createSlice({
       state.isFetching = false;
       state.isSucess = true;
       state.ticketDetail = state.ticketDetail.filter(
-        (item: any) => item._id !== action.payload.ticketDetail._id
+        (item: any) => item._id !== action.payload._id
       );
       console.log(action.payload._id);
     });

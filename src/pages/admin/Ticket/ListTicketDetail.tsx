@@ -13,6 +13,7 @@ const ListTicketDetail = (props: Props) => {
   const { ticketDetail, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.ticketDetailReducer
   );
+  const { tickets } = useAppSelector((state) => state.ticketReducer);
   const deleteTicketDetail = (id: any) => {
     dispatch(removeTicketDetail(id))
       .unwrap()
