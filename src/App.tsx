@@ -4,18 +4,18 @@ import { publicRoutes, privateRoutes } from "./routes";
 import { ClientTheme, AdminTheme } from "./themes";
 import "antd/dist/antd.css";
 import ScrollToTop from "./ultils/ScrollToTop";
-import { useAppDispatch } from "./redux/hook";
+import { useAppDispatch, useAppSelector } from "./redux/hook";
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getTicket } from "./redux/slice/ticketSlice";
 import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 import { getMovie } from "./redux/slice/Movie";
-
+import { getUsers } from "./redux/slice/userSlice";
 
 function App() {
   const dispatch = useAppDispatch();
-
+  const { currentUser } = useAppSelector((state) => state.authReducer);
   useEffect(() => {
     dispatch(getMovieType());
     dispatch(getTicket());
@@ -23,6 +23,7 @@ function App() {
     dispatch(getSeatType());
     dispatch(getCategories());
     dispatch(getMovie());
+    dispatch(getUsers())
 
   }, [dispatch]);
 

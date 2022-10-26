@@ -19,7 +19,7 @@ const AdminPosts = (props: Props) => {
     document.title = "Admin | List Post";
     dispatch(getAlPost())
   }, [dispatch]);
-  
+
   const { posts, errorMessage } = useAppSelector(state => state.PostReducer);
 
   const deleteData = (data: string | undefined) => {
@@ -38,7 +38,7 @@ const AdminPosts = (props: Props) => {
       key: "thumbnail",
       dataIndex: "thumbnail",
       render: (_: any, record: any) => (
-        <img width="40px" height="40px" src={record?.thumbnail} alt="" className="object-cover" />
+        <Link to={`${record._id}`}><img width="40px" height="40px" src={record?.thumbnail} alt="" className="object-cover" /></Link>
       ),
       width: 50
     },
@@ -69,6 +69,12 @@ const AdminPosts = (props: Props) => {
       render: (_: any, { author }: any) => (
         <Tooltip title={author?.email}>{author?.username}</Tooltip>
       ),
+      width: 220
+    },
+    {
+      title: "Category",
+      key: "category",
+      dataIndex: "category",
       width: 220
     },
     {
@@ -120,6 +126,8 @@ const AdminPosts = (props: Props) => {
   ];
 
   const data: Props[] = posts?.map((item: any, index: any) => {
+    console.log('item', item);
+
     return {
       key: index + 1,
       _id: item?._id,
@@ -129,7 +137,8 @@ const AdminPosts = (props: Props) => {
       status: item?.status,
       desc: item?.desc,
       create: formatDate(item?.createdAt),
-      update: formatDate(item?.updatedAt)
+      update: formatDate(item?.updatedAt),
+      category: item?.categoryId?.title
     }
   });
 

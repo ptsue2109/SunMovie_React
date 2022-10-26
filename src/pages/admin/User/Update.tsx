@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateUser } from "../../../redux/slice/userSlice";
 import UserForm from "../../../components/admin/Form&Table/UserForm";
 import config from "../../../config";
+import moment from "moment";
 interface Props { }
 
 const UserEdit = (props: Props) => {
@@ -13,7 +14,7 @@ const UserEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-  const [newPass, setNewPass] = useState<any>(null);
+  const [newPass, setNewPass] = useState<any>('');
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
@@ -25,6 +26,8 @@ const UserEdit = (props: Props) => {
       setAvatarList(dataSelected?.avatar as any[]);
        form.setFieldsValue({
         ...dataSelected,
+        dob: moment(dataSelected?.dob),
+        
       });
     }
   }, [dataSelected]);
@@ -39,9 +42,9 @@ const UserEdit = (props: Props) => {
     let avatarList = data?.avatarList?.fileList;
     if (avatarList) data.avatar = avatarList;
     else data.avatar = dataSelected?.avatar;
-    delete data?.avatarList;
+    const dob = new Date(moment(data.dob).format());
 
-    dispatch(updateUser(data))
+    dispatch(updateUser({...data, dob}))
       .unwrap()
       .then(() => {
         navigate(config.routes.adminUserList);

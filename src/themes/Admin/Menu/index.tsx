@@ -77,7 +77,10 @@ const items: MenuItem[] = [
     getItem(<Link to={config.routes.AdminPosts}> Xem tất cả</Link>,"AdminPosts1"),
     getItem(<Link to={config.routes.AdminPosts}> Thêm bài viết</Link>,"AdminPosts2")
   ]),
-
+  getItem("Quản lí danh muc", "adminCategories", <FcOvertime />, [
+    getItem(<Link to={config.routes.adminCategories}> Xem tất cả</Link>,"adminCategories1"),
+    getItem(<Link to={config.routes.adminCategoriesCreate}> Thêm danh mục</Link>,"adminCategories2")
+  ]),
 ];
 
 const MenuAdminLayout = (props: Props) => {

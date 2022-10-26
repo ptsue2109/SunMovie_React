@@ -17,6 +17,11 @@ export const defaultStatus = [
   { value: 1, name: "Inactive" }
 ]
 
+export const CatePostMenu = [
+  { value: 0, name: "Active" },
+  { value: 1, name: "Inactive" }
+]
+
 
 
 // export const postStatus = [

@@ -11,7 +11,9 @@ const AddPost = (props: Props) => {
    const [form] = Form.useForm();
    const dispatch = useAppDispatch();
    const navigate = useNavigate();
-   const currentUser = useAppSelector(state => state.authReducer.currentUser)
+   const currentUser = useAppSelector(state => state.authReducer.currentUser);
+   console.log('currentUser', currentUser);
+   
    const [avatarList, setAvatarList] = useState<any[]>([]);
    const { errorMessage } = useAppSelector(state => state.FormatReducer);
 
@@ -20,6 +22,8 @@ const AddPost = (props: Props) => {
    const onFinish = async (values: any) => {
       values.imagesFile = values?.avatarList?.fileList;
       values.userId = currentUser._id
+      console.log('values',values);
+       
       dispatch(createData(values)).unwrap()
          .then(() => { message.success('Tạo thành công'); navigate(config.routes.AdminPosts) })
          .catch(() => message.error(errorMessage))

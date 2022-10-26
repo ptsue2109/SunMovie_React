@@ -106,6 +106,8 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  
   { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
   { path: configRoute.routes.adminMovie, component: ListMovie },
   { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies },

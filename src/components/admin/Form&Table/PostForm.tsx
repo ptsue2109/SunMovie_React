@@ -5,6 +5,7 @@ import ImageUpload from "../../upload"
 import { defaultStatus } from "../../../ultils/data"
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useAppSelector } from '../../../redux/hook';
 
 interface PostFormProps {
    form: FormInstance<any>;
@@ -17,6 +18,7 @@ interface PostFormProps {
    loading?: boolean;
 }
 const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = false, loading = false, editData = true }: PostFormProps) => {
+   const { categories, isFetching } = useAppSelector((state:any) => state.categoriesReducer);   
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
@@ -30,6 +32,15 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                      <Form.Item label="Tiêu đề" name="title" rules={[{ required: true, min: 5, whitespace: true }]}>
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
+                     <Form.Item label="Danh mục" name="categoryId" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
+                        <Select placeholder="Lựa chọn" allowClear showSearch optionFilterProp="children">
+                            {categories?.map((item:any) => (
+                                <Select.Option key={item._id} value={item._id}>
+                                    {item.title}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
 
                      <Form.Item label="Status" name="status">
                         <Select>

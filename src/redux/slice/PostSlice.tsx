@@ -40,7 +40,7 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
          const { data } = await PostApi.create(input);
          return data;
       } catch (error: any) {
-         return rejectWithValue(error.response.data);
+         return rejectWithValue(error.response.data.message);
       }
    }
 );

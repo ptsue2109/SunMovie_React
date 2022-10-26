@@ -1,4 +1,5 @@
 import { Form, Button, message } from "antd";
+import moment from "moment";
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserForm from '../../../components/admin/Form&Table/UserForm';
@@ -26,8 +27,9 @@ const UserCreate = (props: Props) => {
   }, [isSucess, isErr]);
 
   const onFinish = (data: any) => {
-    data.avatar = data?.avatarList?.fileList;
-    dispatch(createUser(data))
+     const dob = new Date(moment(data.dob).format());
+     data.avatar = data?.avatarList?.fileList;  
+     dispatch(createUser({...data,dob }))
   };
 
   const onReset = () => {
