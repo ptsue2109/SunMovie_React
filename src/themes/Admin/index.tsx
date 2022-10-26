@@ -13,7 +13,7 @@ import {
   message,
 } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { useAppDispatch } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import configRoute from "../../config";
 import { LogOut } from "../../redux/slice/AuthSlice";
 
@@ -26,6 +26,9 @@ type AdminLayoutProps = {
 };
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {
+  const { currentUser, isLogged } = useAppSelector(
+    (state) => state.authReducer
+  );
   const [iscollapse, setIsCollapse] = useState<boolean>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -34,7 +37,15 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
     dispatch(LogOut());
     navigate(configRoute.routes.signin);
   };
-
+  useEffect(() => {
+    if (isLogged == true) {
+      if (currentUser.role == 0) {
+        navigate(configRoute.routes.home);
+      }
+    } else {
+      navigate(configRoute.routes.home);
+    }
+  }, []);
   const menu = (
     <Menu
       items={[
@@ -112,7 +123,7 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
                   style={{ fontSize: 16, marginRight: 8 }}
                   title="User"
                 />
-                <span>SUE</span>
+                <span>{currentUser.username}</span>
               </div>
             </Dropdown>
           </div>
