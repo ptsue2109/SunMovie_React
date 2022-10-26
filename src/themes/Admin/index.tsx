@@ -1,8 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MenuAdminLayout from "./Menu";
-import { Divider, Layout, Breadcrumb, Col, Row, Typography, Dropdown, Menu, message } from "antd";
+import {
+  Divider,
+  Layout,
+  Breadcrumb,
+  Col,
+  Row,
+  Typography,
+  Dropdown,
+  Menu,
+  message,
+} from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useAppDispatch } from "../../redux/hook";
+import configRoute from "../../config";
+import { LogOut } from "../../redux/slice/AuthSlice";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -15,8 +28,11 @@ type AdminLayoutProps = {
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {
   const [iscollapse, setIsCollapse] = useState<boolean>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleSignout = () => {
-    
+    message.success({ content: "Đã đăng xuất" });
+    dispatch(LogOut());
+    navigate(configRoute.routes.signin);
   };
 
   const menu = (
@@ -91,8 +107,11 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           <div className="flex justify-between">
             <h1>Header</h1>
             <Dropdown overlay={menu} placement="bottomRight">
-              <div className="flex items-center">
-                <UserOutlined style={{ fontSize: 16, marginRight: 8 }} title="User" />
+              <div className="flex items-center cursor-pointer">
+                <UserOutlined
+                  style={{ fontSize: 16, marginRight: 8 }}
+                  title="User"
+                />
                 <span>SUE</span>
               </div>
             </Dropdown>
