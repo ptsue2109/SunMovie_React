@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
@@ -12,7 +12,7 @@ const UploadTicketDetail = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const { tickets } = useAppSelector((state) => state.ticketReducer);
   const { ticketDetail, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.ticketDetailReducer
   );
@@ -53,7 +53,13 @@ const UploadTicketDetail = (props: Props) => {
           label="Name"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {tickets.map((item) => (
+              <Select.Option key={item._id} value={item.totalPrice}>
+                {item.price}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item
           name="quantity"
