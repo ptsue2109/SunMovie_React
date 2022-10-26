@@ -1,5 +1,4 @@
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
-import { Option } from "antd/lib/mentions";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
@@ -12,23 +11,26 @@ type Props = {};
 const UpdateMovies = (props: Props) => {
   const { id } = useParams();
   const [form] = Form.useForm();
+  const { movieType, isErr } = useAppSelector(
+    (state) => state.movieTypeReducer
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const { movie, errMess } = useAppSelector((state) => state.movie);
   const data = movie.find((item: any) => item._id === id);
-  console.log(id, data);
-
   useEffect(() => {
     if (data) {
       form.setFieldsValue({
         ...data,
+        releaseDate: moment(data.releaseDate),
       });
     }
   }, [data]);
 
   const onFinish = async (values: any) => {
     values._id = id;
-
+    values.releaseDate = new Date(moment(values.releaseDate).format());
     dispatch(UpdateMovie(values))
       .unwrap()
       .then(() => {
@@ -57,39 +59,52 @@ const UpdateMovies = (props: Props) => {
 
         <Form.Item
           name="runTime"
-          label="runTime"
+          label="Run Time"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          name="ageLimit"
-          label="ageLimit"
+          label="Movie Type"
+          name="movieTypeID"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Select
-            placeholder=""
-            // onChange={onGenderChange}
-            // allowClear
-          >
-            <Option value="true">Trên 18 +</Option>
-            <Option value="false">Trên 22 +</Option>
-            <Option value="false">Khác </Option>
+          <Select>
+            {movieType &&
+              movieType?.map((item: any, index: any) => (
+                <Select.Option value={item._id} key={index}>
+                  {item.movieName}
+                </Select.Option>
+              ))}
           </Select>
         </Form.Item>
 
         <Form.Item
-          name="languages"
-          label="languages"
+          name="ageLimit"
+          label="Age Limit"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
+          name="languages"
+          label="Languages"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="releaseDate"
+          label="Release Date"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <DatePicker format="DD-MM-YYYY" />
+        </Form.Item>
+        <Form.Item
           name="country"
-          label="country"
+          label="Country"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
@@ -97,7 +112,7 @@ const UpdateMovies = (props: Props) => {
 
         <Form.Item
           name="actor"
-          label="actor"
+          label="Actor"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
@@ -105,56 +120,22 @@ const UpdateMovies = (props: Props) => {
 
         <Form.Item
           name="director"
-          label="director"
+          label="Director"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
+          <Input />
+        </Form.Item>
+
+        <Form.Item name="trailerUrl" label="Trailer URL">
           <Input />
         </Form.Item>
 
         <Form.Item
           name="description"
-          label="description"
+          label="Description"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="status"
-          label="status"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Select
-            placeholder=""
-            // onChange={onGenderChange}
-            // allowClear
-          >
-            <Select.Option key="true" value="true">
-              true
-            </Select.Option>
-            <Select.Option key="false" value="false">
-              false
-            </Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          name="isDelete"
-          label="isDelete"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Select
-            placeholder=""
-            // onChange={onGenderChange}
-            // allowClear
-          >
-            <Select.Option key="true" value="true">
-              true
-            </Select.Option>
-            <Select.Option key="false" value="false">
-              false
-            </Select.Option>
-          </Select>
+          <Input.TextArea />
         </Form.Item>
 
         <Form.Item>
