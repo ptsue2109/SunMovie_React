@@ -1,101 +1,97 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Button, message, Popconfirm, Space, Tag, Pagination } from "antd";
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import { removeMovieItem } from '../../../redux/slice/Movie';
-import DataTable from "../../../components/admin/Form&Table/Table"
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-type Props = {}
+import { removeMovieItem } from "../../../redux/slice/Movie";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { formatDate } from "../../../ultils";
+type Props = {};
 
 const ListMovie = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { movie ,errMess} = useAppSelector((state) => state.movie);
+  const { movie, errMess } = useAppSelector((state) => state.movie);
   const deleteUser = (data: string | undefined) => {
-    dispatch(removeMovieItem(data)).unwrap()
+    dispatch(removeMovieItem(data))
+      .unwrap()
       .then(() => {
         message.success({ content: "Xoá thành công", key: "handling" });
       })
       .catch(() => {
-        message.error({ content: { errMess } })
-      })
+        message.error({ content: { errMess } });
+      });
   };
   const columnUserList: any = [
     {
       title: "Name",
       dataIndex: "name",
+      fixed: "left",
       // key: "image",
-      render: (_: any, record: any) => (
-        <p>{record?.name}</p>
-      ),
+      render: (_: any, record: any) => <p>{record?.name}</p>,
     },
 
     {
-      title: "RunTime",
+      title: "Run Time",
       dataIndex: "runTime",
-      render: (_: any, record: any) => (
-        <p>{record?.runTime}</p>
-      ),
+      render: (_: any, record: any) => <p>{record?.runTime}</p>,
     },
 
     {
-      title: "AgeLimit",
+      title: "Age Limit",
       key: "ageLimit",
       render: (_: any, record: any) => (
-        <div >
-           <p>{record?.ageLimit}</p>
+        <div>
+          <p>{record?.ageLimit}+</p>
         </div>
       ),
-
     },
-
     {
-      title: "languages",
+      title: "Release Date",
+      key: "releaseDate",
+      render: (_: any, record: any) => (
+        <div>
+          <p>{formatDate(record?.releaseDate)}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Languages",
       key: "languages",
       render: (_: any, record: any) => (
         <div>
-           <p>{record?.languages}</p>
+          <p>{record?.languages}</p>
         </div>
-      )
+      ),
     },
 
     {
-      title: "country",
+      title: "Country",
       key: "country",
       render: (_: any, record: any) => (
         <div>
-           <p>{record?.country}</p>
+          <p>{record?.country}</p>
         </div>
-      )
+      ),
     },
 
     {
-      title: "actor",
+      title: "Actor",
       key: "actor",
       render: (_: any, record: any) => (
         <div>
-           <p>{record?.actor}</p>
+          <p>{record?.actor}</p>
         </div>
-      )
+      ),
     },
 
     {
-      title: "actor",
-      key: "actor",
-      render: (_: any, record: any) => (
-        <div>
-           <p>{record?.actor}</p>
-        </div>
-      )
-    },
-
-    {
-      title: "director",
+      title: "Director",
       key: "director",
       render: (_: any, record: any) => (
         <div>
-           <p>{record?.director}</p>
+          <p>{record?.director}</p>
         </div>
-      )
+      ),
     },
 
     // {
@@ -127,14 +123,18 @@ const ListMovie = (props: Props) => {
     //     </div>
     //   )
     // },
-    
+
     {
       title: "ACTION",
       key: "action",
+      fixed: "right",
+      width: "100px",
       render: (_: any, record: any) => (
         <Space size="middle">
           <Link to={`${record._id}`}>
-            <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
+            <EditOutlined
+              style={{ color: "var(--primary)", fontSize: "18px" }}
+            />
           </Link>
           <Popconfirm
             title={`Delete ${record?.name ?? record?._id}?`}
@@ -142,41 +142,42 @@ const ListMovie = (props: Props) => {
             cancelText="Cancel"
             onConfirm={() => deleteUser(record?._id)}
           >
-            <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
+            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
         </Space>
       ),
-     
     },
   ];
 
   const data: Props[] = movie?.map((item: any, index: any) => {
-    console.log(movie)
     return {
       key: index + 1,
       _id: item?._id,
       name: item?.name,
       actor: item?.actor,
       runTime: item?.runTime,
+      releaseDate: item?.releaseDate,
       ageLimit: item?.ageLimit,
       languages: item?.languages,
       country: item?.country,
       director: item?.director,
       description: item?.description,
-      status: item?.status
-    }
+      status: item?.status,
+    };
   });
-
 
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/movies/create">Create Movies</Link>
       </Button>
-      <DataTable column={columnUserList} data={data}  />
-
+      <DataTable
+        column={columnUserList}
+        data={data}
+        scrollWidth={{ x: 2000 }}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default ListMovie
+export default ListMovie;

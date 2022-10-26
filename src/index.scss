@@ -12,26 +12,26 @@
   box-sizing: border-box;
 }
 
-::-webkit-scrollbar-track {
-  border-radius: 4px;
-  max-height: 5px;
-  height: 5px;
-  margin-top: 40px;
-  height: 3px;
-}
+// ::-webkit-scrollbar-track {
+//   border-radius: 4px;
+//   max-height: 5px;
+//   height: 5px;
+//   margin-top: 40px;
+//   height: 3px;
+// }
 
-::-webkit-scrollbar {
-  width: 8px;
-  max-height: 5px;
-  height: 3px;
-}
+// ::-webkit-scrollbar {
+//   width: 8px;
+//   max-height: 5px;
+//   height: 3px;
+// }
 
-::-webkit-scrollbar-thumb {
-  width: 8px;
-  height: 3px;
-  border-radius: 4px;
-  background: #d9d9d9;
-}
+// ::-webkit-scrollbar-thumb {
+//   width: 8px;
+//   height: 3px;
+//   border-radius: 4px;
+//   background: #d9d9d9;
+// }
 
 :root {
   --font-family: "Noto Sans", sans-serif;

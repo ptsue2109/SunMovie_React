@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface DataTableProps {
   column: any[];
   data?: any[];
-  scrollWidth?: number;
+  scrollWidth?: any;
   size?: "small" | "middle" | "large";
   loading?: boolean;
 }
@@ -27,11 +27,12 @@ const DataTable = ({
             {
               title: "#",
               dataIndex: "key",
-              width: 20,
+              width: 30,
+              fixed: "left",
             },
             ...column,
           ]}
-          scroll={scrollWidth ? { x: scrollWidth } : {}}
+          scroll={scrollWidth ? scrollWidth : {}}
           size={size}
           locale={{
             emptyText: (
