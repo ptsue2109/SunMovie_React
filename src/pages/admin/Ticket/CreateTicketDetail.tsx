@@ -41,6 +41,7 @@ const CreateTicketDetail = (props: Props) => {
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
+          {/* sdasd */}
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
