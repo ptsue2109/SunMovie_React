@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import SlideShow from "../../../components/client/SlideShow/SlideShow";
 import styles from "./Home.module.scss";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { useAppSelector } from "../../../redux/hook";
+import { formatDate } from "../../../ultils";
+import moment from "moment";
 type Props = {};
 
 const Home = (props: Props) => {
@@ -10,6 +13,11 @@ const Home = (props: Props) => {
   const Toggle = (number: number) => {
     setActive(number);
   };
+  const { movie } = useAppSelector((state) => state.movie);
+  // var dateToday = new Date(moment().format());
+  // const data1 = movie.filter((item: any) => item.releaseDate <= dateToday);
+  // console.log(data1, dateToday);
+
   return (
     <>
       <SlideShow />
@@ -31,78 +39,21 @@ const Home = (props: Props) => {
         {/* Home Page 1 */}
         <div className={isAcive == 1 ? styles.content_btn1 : "hidden"}>
           <div className={styles.content_list}>
-            <div className={styles.content_list_item}>
-              <Link to={`/d`}>
-                <div className={styles.content_list_item_img}>
-                  <img
-                    src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
-                    alt=""
-                  />
-                </div>
-                <div className={styles.content_list_item_info}>
-                  <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                  <p>Thể loại: Kinh dị</p>
-                  <p>Khởi chiếu: 23/09/2022</p>
-                  <button>Đặt vé</button>
-                </div>
-              </Link>
-            </div>
-            <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img
-                  src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
-                  alt=""
-                />
+            {movie?.map((item: any) => (
+              <div className={styles.content_list_item} key={item._id}>
+                <Link to={item.slug}>
+                  <div className={styles.content_list_item_img}>
+                    <img src={item.image[0].url} alt="" />
+                  </div>
+                  <div className={styles.content_list_item_info}>
+                    <h3>{item.name}</h3>
+                    <p>Thể loại: Kinh dị</p>
+                    <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
+                    <button>Đặt vé</button>
+                  </div>
+                </Link>
               </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
-            </div>
-            <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img
-                  src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
-                  alt=""
-                />
-              </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
-            </div>
-            <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img
-                  src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
-                  alt=""
-                />
-              </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
-            </div>
-            <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img
-                  src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
-                  alt=""
-                />
-              </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         {/* End Home Page 1 */}
@@ -114,34 +65,6 @@ const Home = (props: Props) => {
               <div className={styles.content_list_item_img}>
                 <img
                   src="https://chieuphimquocgia.com.vn/Content/Images/0016585_0.jpeg"
-                  alt=""
-                />
-              </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
-            </div>
-            <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img
-                  src="https://chieuphimquocgia.com.vn/Content/Images/0016585_0.jpeg"
-                  alt=""
-                />
-              </div>
-              <div className={styles.content_list_item_info}>
-                <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
-                <p>Thể loại: Kinh dị</p>
-                <p>Khởi chiếu: 23/09/2022</p>
-                <button>Đặt vé</button>
-              </div>
-            </div>
-            <div className={styles.content_list_item}>
-              <div className={styles.content_list_item_img}>
-                <img
-                  src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
                   alt=""
                 />
               </div>
