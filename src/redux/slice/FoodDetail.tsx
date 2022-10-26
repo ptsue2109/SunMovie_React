@@ -78,7 +78,7 @@ const foodDetailSlice = createSlice({
       state.isFetching = false;
     });
 
-    // delete
+    // RemoveFood
     builder.addCase(removeFoodDetail.fulfilled, (state, action) => {
       state.isErr = false;
       state.isFetching = false;
