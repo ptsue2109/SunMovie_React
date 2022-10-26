@@ -1,13 +1,14 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
-import { useAppDispatch } from "../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { createTicketDetail } from "../../../redux/slice/ticketDetailSlice";
 
 type Props = {};
 
 const CreateTicketDetail = (props: Props) => {
+  const { tickets } = useAppSelector((state) => state.ticketReducer);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -33,7 +34,17 @@ const CreateTicketDetail = (props: Props) => {
           label="TicketId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {tickets.map((item) => (
+              <Select.Option
+                key={item._id}
+                value={item.totalPrice}
+                rules={[{ required: true, message: "Không được để trống! " }]}
+              >
+                {item.totalPrice}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>{" "}
         <Form.Item
           name="quantity"
