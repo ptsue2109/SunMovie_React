@@ -69,7 +69,7 @@ const foodDetailSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    //getAll
+    //ListFoood
     builder.addCase(getFoodDetail.pending, (state) => {
       state.isFetching = true;
     });
