@@ -4,7 +4,7 @@ const routes = {
   news: "/news",
   signin: "/auth/signin",
   signup: "/auth/signup",
-  detail: "/:name",
+  detail: "/:slug",
   bookChair: "/book-chair",
   tickitPrice: "/tickit-price",
 
