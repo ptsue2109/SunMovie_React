@@ -80,7 +80,7 @@ const UpdateMovies = (props: Props) => {
           name="movieTypeID"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Select>
+          <Select mode="multiple">
             {movieType &&
               movieType?.map((item: any, index: any) => (
                 <Select.Option value={item._id} key={index}>

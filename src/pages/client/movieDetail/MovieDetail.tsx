@@ -1,9 +1,12 @@
 import { Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.css";
 import { BsCalendar } from "react-icons/bs";
 import { GiFilmSpool } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { getOneMovie } from "../../../redux/slice/Movie";
+import { formatDate } from "../../../ultils";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -23,7 +26,16 @@ const MovieDetail = (props: Props) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  const { slug } = useParams();
+  const { oneMovie: data } = useAppSelector((state) => state.movie);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    (() => {
+      dispatch(getOneMovie(slug));
+    })();
+  }, []);
+  console.log(data);
+  if (data == "") return <div>Loading...</div>;
   return (
     <>
       <Modal
@@ -38,7 +50,7 @@ const MovieDetail = (props: Props) => {
         <iframe
           width="900"
           height="500"
-          src="https://www.youtube.com/embed/3xccmeAsy8g"
+          src="https://www.youtube.com/embed/fkvTTmqjn3Q"
           title="YouTube video player"
           frameBorder={0}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -51,49 +63,34 @@ const MovieDetail = (props: Props) => {
         </div>
         <div className={styles.content}>
           <div className={styles.content_img}>
-            <img
-              src="https://chieuphimquocgia.com.vn/Content/Images/0016610_0.jpeg"
-              alt=""
-            />
+            <img src={data?.image[0]?.url} alt="" />
           </div>
           <div className={styles.content_info}>
-            <h3>KẺ SĂN LÙNG SỢ HÃI: TÁI SINH</h3>
+            <h3>{data?.name}</h3>
             <div className={styles.content_info_items}>
               <div className={styles.content_info_item}>
                 <p>
                   <span>Loại phim:</span> Kinh dị
                 </p>
                 <p>
-                  <span>Thời lượng:</span> 90 phút
+                  <span>Thời lượng:</span> {data?.runTime}
                 </p>
                 <p>
-                  <span>Diễn viên:</span> Sydney Craven, Imran Adams, Jarreau
-                  Benjamin,…
+                  <span>Diễn viên:</span> {data?.actor}
                 </p>
                 <p>
-                  <span>Đạo diễn:</span> Timo Vuorensola
+                  <span>Đạo diễn:</span> {data?.director}
                 </p>
                 <p>
-                  <span>Xuất xứ:</span> Mỹ
+                  <span>Xuất xứ:</span> {data?.country}
                 </p>
                 <p>
-                  <span>Khởi chiếu:</span> 23/09/2022
+                  <span>Khởi chiếu:</span> {formatDate(data?.releaseDate)}
                 </p>
                 <button onClick={() => showModal()}>Xem trailer</button>
               </div>
               <div className={styles.content_info_item_desc}>
-                Kẻ Săn Lùng Sợ Hãi: Tái Sinh mở ra câu chuyện về Horror Hound
-                Festival (Lễ hội Chó săn kinh dị) diễn ra lần đầu tiên tại
-                Louisiana, lễ hội này thu hút hàng trăm người hâm mộ quái đản,
-                có sở thích với những điều kinh dị từ khắp nơi tụ họp về. Trong
-                số đó có fanboy Chase và bạn gái Laine - cô bị ép buộc đi vì
-                phải chở bạn trai đến Louisiana. Khi sự kiện càng đến gần, Laine
-                bắt đầu trải qua những linh cảm không thể giải thích được và
-                trong tiềm thức cô thấy những viễn cảnh ghê rợn từng diễn ra tại
-                thị trấn này, đặc biệt là về huyền thoại quỷ săn thịt người
-                Creeper. Trong lúc diễn ra lễ hội, Laine cảm nhận được nhiều
-                điều kì lạ, rùng rợn tại lễ hội này đang tập trung vào cô. Và cô
-                chính là nhân vật được tế trong sự kiện đẫm máu lần này.
+                {data?.description}
               </div>
             </div>
           </div>
