@@ -57,7 +57,7 @@ const items: MenuItem[] = [
       "adminListTicket7"
     ),
     getItem(
-      <Link to={config.routes.adminTicketAdd}> Thêm Vé</Link>,
+      <Link to={config.routes.AdminFoodDetailCreate}> Thêm Vé</Link>,
       "adminListTicket8"
     ),
   ]),

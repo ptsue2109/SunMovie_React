@@ -50,6 +50,7 @@ import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 import News from "../pages/client/News/News";
 import ListFoodDetail from "../pages/admin/FoodDetail/ListFoodDetail";
+import CreateFoodDetail from "../pages/admin/FoodDetail/CreateFoodDetail";
 
 type RoutesType = {
   path: string;
@@ -121,4 +122,8 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
   { path: configRoute.routes.AdminFoodDetail, component: ListFoodDetail },
+  {
+    path: configRoute.routes.AdminFoodDetailCreate,
+    component: CreateFoodDetail,
+  },
 ];
