@@ -50,7 +50,7 @@ const MovieDetail = (props: Props) => {
         <iframe
           width="900"
           height="500"
-          src="https://www.youtube.com/embed/fkvTTmqjn3Q"
+          src={`https://www.youtube.com/embed/${data?.trailerUrl}`}
           title="YouTube video player"
           frameBorder={0}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -70,7 +70,8 @@ const MovieDetail = (props: Props) => {
             <div className={styles.content_info_items}>
               <div className={styles.content_info_item}>
                 <p>
-                  <span>Loại phim:</span> Kinh dị
+                  <span>Loại phim:</span>{" "}
+                  {data?.movieTypeID.map((item: any) => item)}
                 </p>
                 <p>
                   <span>Thời lượng:</span> {data?.runTime}
@@ -87,7 +88,8 @@ const MovieDetail = (props: Props) => {
                 <p>
                   <span>Khởi chiếu:</span> {formatDate(data?.releaseDate)}
                 </p>
-                <button onClick={() => showModal()}>Xem trailer</button>
+                {data?.trailerUrl && <button onClick={() => showModal()}>Xem trailer</button>}
+                
               </div>
               <div className={styles.content_info_item_desc}>
                 {data?.description}
