@@ -92,7 +92,7 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           }}
         >
           <Link to="/" style={{ color: "#fff" }}>
-            {iscollapse ? "S" : "SunMovie"}
+            {iscollapse ? "S" : "SunCinema"}
           </Link>
         </div>
         <Divider style={{ margin: 0 }} />
