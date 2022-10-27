@@ -51,7 +51,7 @@ const Home = (props: Props) => {
                   <div className={styles.content_list_item_img}>
                     <img
                       src={
-                        item?.image[0].url ??
+                        item?.image[0]?.url ??
                         `${import.meta.env.VITE_HIDDEN_SRC}`
                       }
                       alt=""
@@ -79,7 +79,7 @@ const Home = (props: Props) => {
                   <div className={styles.content_list_item_img}>
                     <img
                       src={
-                        item?.image[0].url ??
+                        item?.image[0]?.url ??
                         `${import.meta.env.VITE_HIDDEN_SRC}`
                       }
                       alt=""
