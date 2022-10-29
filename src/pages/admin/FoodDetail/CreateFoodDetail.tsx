@@ -1,12 +1,33 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import configRoute from "../../../config";
+import { useAppDispatch } from "../../../redux/hook";
+import { createFoodDetail } from "../../../redux/slice/FoodDetail";
 
 type Props = {};
 
 const CreateFoodDetail = (props: Props) => {
+  const [form] = Form.useForm();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const onFinish = async (values: any) => {
+    const { meta, payload } = await dispatch(createFoodDetail(values));
+    if (meta.requestStatus == "fulfilled") {
+      message.success("Thêm thành công");
+      navigate(configRoute.routes.adminSeatType);
+    } else {
+      message.error(`${payload}`);
+    }
+  };
   return (
     <>
-      <Form layout="vertical" autoComplete="off">
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={onFinish}
+        autoComplete="off"
+      >
         <Form.Item
           name="total"
           label="total"
