@@ -17,5 +17,15 @@ export const PostApi = {
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/post", data);
-  }
+  },
+  getListPostByCate(slug?: string | undefined) {
+    return axiosClient.get(`post/get-post-by-cate/${slug}`)
+  },
+  getTop10() {
+    let url = "/post/top-10";
+    return axiosClient.get(url);
+  },
+  getDetailBySlug(slug?: string | undefined) {
+    return axiosClient.get(`post/get-by-slug/${slug}`)
+  },
 };

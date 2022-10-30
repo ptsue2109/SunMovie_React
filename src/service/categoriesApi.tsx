@@ -13,4 +13,7 @@ export const CategoriesApi = {
   edit(data: any) {
     return AxiosRequest.patch(`/categories/${data._id}`, data);
   },
+  // getPostByCate(slug?: string | undefined){
+  //   return AxiosRequest.get(`/categories/get-post-by-cate/${slug}`)
+  // }
 };

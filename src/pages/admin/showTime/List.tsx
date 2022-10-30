@@ -4,7 +4,7 @@ import { message, Popconfirm, Table, Tag, Tooltip } from 'antd';
 import { Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
-import { formatCurrency } from '../../../ultils'
+import { formatCurrency, formatDate } from '../../../ultils'
 import configRoute from '../../../config';
 import DataTable from '../../../components/admin/Form&Table/Table';
 import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
@@ -102,7 +102,7 @@ const AdminShowTimeList = (props: Props) => {
       key: index + 1,
       _id: item?._id,
       name: movieNam,
-      date: item?.date,
+      date: formatDate(item?.date),
       room: roomName,
       format: item?.filmFormatId?.name,
       startAt: item?.startAt,

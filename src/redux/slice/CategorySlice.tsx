@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CategoriesApi } from "../../service/categoriesApi";
+import { RootState } from "../store";
 
 export const getCategories = createAsyncThunk(
   "categories/list",
@@ -35,17 +36,33 @@ export const removeCategory = createAsyncThunk(
     }
   }
 );
+
+// export const getPostListByCate = createAsyncThunk<any, any, { rejectValue: string }>(
+//    "categories/getPostListByCate",
+//    async (input, { rejectWithValue }) => {
+//       try {
+//          const { data } = await CategoriesApi.getPostByCate(input);
+//          return data;
+//       } catch (error: any) {
+//          return rejectWithValue(error.response.data.message);
+//       }
+//    }
+// );
 type categoriesState = {
   categories: any[];
+  category:any | {};
   isFetching: boolean;
   isSucess: boolean;
   isErr: boolean;
+  errorMessage: string| undefined
 };
 const initialState: categoriesState = {
   categories: [],
+  category: {},
   isFetching: false,
   isSucess: false,
   isErr: false,
+  errorMessage: ""
 };
 
 const categoriesSlice = createSlice({
@@ -102,7 +119,23 @@ const categoriesSlice = createSlice({
       state.isFetching = false;
       state.isSucess = false;
     });
+
+    //getPostByCate
+    // builder.addCase(getPostListByCate.pending, (state, action) => {
+    //   state.isFetching = true
+    // });
+    // builder.addCase(getPostListByCate.fulfilled, (state, action) => {
+    //   state.category = action.payload
+    //   state.isFetching = false
+    // });
+    // builder.addCase(getPostListByCate.rejected, (state, action) => {
+    //   state.isErr = true
+    //   state.errorMessage = action.payload
+    //   state.isFetching = false
+    // });
   },
 });
-
+export const selectCatePostList = (state: any) => state.categories.categories;
+export const selectCatePost = (state: any) => state.categories.category;
+export const selectSttCatePost = (state: any) => state.categories.loading;
 export default categoriesSlice.reducer;
