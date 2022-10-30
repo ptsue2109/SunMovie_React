@@ -18,7 +18,7 @@ const AdminPostsEdit = (props: Props) => {
    const { posts, errorMessage } = useAppSelector((state) => state.PostReducer);
 
    const dataSelected = posts.find((item: any) => item._id === id);
-   console.log('dataSelected', dataSelected);
+   const currentUser = useAppSelector(state => state.authReducer.currentUser);
 
    useEffect(() => {
       document.title = `Admin | Edit ${dataSelected?.title ?? dataSelected?._id}`;
@@ -26,6 +26,7 @@ const AdminPostsEdit = (props: Props) => {
          setAvatarList(dataSelected?.imagesFile as any[]);
          form.setFieldsValue({
             ...dataSelected,
+            categoryId: dataSelected.categoryId && dataSelected.categoryId._id,
          });
       }
    }, [dataSelected]);
@@ -39,6 +40,7 @@ const AdminPostsEdit = (props: Props) => {
       let avatarList = data?.avatarList?.fileList;
       if (avatarList) data.imagesFile = avatarList;
       else data.imagesFile = dataSelected?.avatar;
+      data.userId = currentUser._id
       dispatch(updateData(data))
          .unwrap()
          .then(() => {

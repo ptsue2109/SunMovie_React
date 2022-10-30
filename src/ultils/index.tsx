@@ -10,7 +10,12 @@ export const formatCurrency = (money?: number) => {
 
 export const formatDate = (dateString: Date) => {
   const date = new Date(dateString || "");
-  return `${date.getDate()} / ${date.getMonth() + 1} / ${date.getFullYear()}`;
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+};
+
+export const formatDateString = (dateString: Date) => {
+  const date = new Date(dateString || "");
+  return `${date.getDate()} Tháng ${date.getMonth() + 1}, ${date.getFullYear()}`;
 };
 
 export const convertDateToNumber = (date: Date) => {

@@ -57,6 +57,7 @@ import AdminVoucherEdit from "../pages/admin/voucher/Edit";
 import AdminPosts from "../pages/admin/Post/index";
 import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
+import NewsDetail from "../pages/client/NewsDetail";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -72,6 +73,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.bookChair, component: BookChair },
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
   { path: configRoute.routes.news, component: News },
+  { path: configRoute.routes.newsCate2, component: News },
+  {path: configRoute.routes.newsDetail, component: NewsDetail},
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -106,6 +109,8 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  
   { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
   { path: configRoute.routes.adminMovie, component: ListMovie },
   { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies },
@@ -134,4 +139,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
+
 ];

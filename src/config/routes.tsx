@@ -7,7 +7,9 @@ const routes = {
   detail: "/:slug",
   bookChair: "/book-chair",
   tickitPrice: "/tickit-price",
-
+  newsCate1: "/categories",
+  newsCate2: "/categories/:slug",
+  newsDetail: "/post/:slug",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",

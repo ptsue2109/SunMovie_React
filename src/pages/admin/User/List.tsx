@@ -7,6 +7,7 @@ import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { userRole, defaultStatus } from "../../../ultils/data"
 import { provices } from "../../../redux/slice/Provider";
+import { formatDate } from '../../../ultils';
 type Props = {}
 const { Option } = Select;
 const AdminUserList = (props: Props) => {
@@ -153,7 +154,6 @@ const AdminUserList = (props: Props) => {
   ];
 
   const data: Props[] = users?.map((item: any, index: any) => {
-    console.log(users)
     return {
       key: index + 1,
       _id: item?._id,
@@ -164,8 +164,7 @@ const AdminUserList = (props: Props) => {
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
-      status: item?.status
-
+      status: item?.status,
     }
   });
 
