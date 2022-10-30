@@ -1,8 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MenuAdminLayout from "./Menu";
-import { Divider, Layout, Breadcrumb, Col, Row, Typography, Dropdown, Menu, message } from "antd";
+import {
+  Divider,
+  Layout,
+  Breadcrumb,
+  Col,
+  Row,
+  Typography,
+  Dropdown,
+  Menu,
+  message,
+} from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import configRoute from "../../config";
+import { LogOut } from "../../redux/slice/AuthSlice";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -13,12 +26,26 @@ type AdminLayoutProps = {
 };
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {
+  const { currentUser, isLogged } = useAppSelector(
+    (state) => state.authReducer
+  );
   const [iscollapse, setIsCollapse] = useState<boolean>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleSignout = () => {
-    
+    message.success({ content: "Đã đăng xuất" });
+    dispatch(LogOut());
+    navigate(configRoute.routes.signin);
   };
-
+  useEffect(() => {
+    if (isLogged == true) {
+      if (currentUser.role == 0) {
+        navigate(configRoute.routes.home);
+      }
+    } else {
+      navigate(configRoute.routes.home);
+    }
+  }, []);
   const menu = (
     <Menu
       items={[
@@ -65,7 +92,7 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           }}
         >
           <Link to="/" style={{ color: "#fff" }}>
-            {iscollapse ? "S" : "SunMovie"}
+            {iscollapse ? "S" : "SunCinema"}
           </Link>
         </div>
         <Divider style={{ margin: 0 }} />
@@ -91,9 +118,12 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           <div className="flex justify-between">
             <h1>Header</h1>
             <Dropdown overlay={menu} placement="bottomRight">
-              <div className="flex items-center">
-                <UserOutlined style={{ fontSize: 16, marginRight: 8 }} title="User" />
-                <span>SUE</span>
+              <div className="flex items-center cursor-pointer">
+                <UserOutlined
+                  style={{ fontSize: 16, marginRight: 8 }}
+                  title="User"
+                />
+                <span>{currentUser.username}</span>
               </div>
             </Dropdown>
           </div>

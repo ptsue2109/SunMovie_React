@@ -12,7 +12,7 @@ const CreateMovie = (props: Props) => {
   const [image, setImage] = useState<any[]>([]);
   const [form] = Form.useForm();
   const { movieType, isErr } = useAppSelector(
-    (state) => state.movieTypeReducer
+    (state: any) => state.movieTypeReducer
   );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const CreateMovie = (props: Props) => {
           name="movieTypeID"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Select>
+          <Select mode="multiple">
             {movieType &&
               movieType?.map((item: any, index: any) => (
                 <Select.Option value={item._id} key={index}>
