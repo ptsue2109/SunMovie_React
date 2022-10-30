@@ -51,6 +51,7 @@ import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 import News from "../pages/client/News/News";
 import ListFoodDetail from "../pages/admin/FoodDetail/ListFoodDetail";
 import CreateFoodDetail from "../pages/admin/FoodDetail/CreateFoodDetail";
+import UploadFoodDetail from "../pages/admin/FoodDetail/UploadFoodDetail";
 
 type RoutesType = {
   path: string;
@@ -125,5 +126,9 @@ export const privateRoutes: RoutesType[] = [
   {
     path: configRoute.routes.AdminFoodDetailCreate,
     component: CreateFoodDetail,
+  },
+  {
+    path: configRoute.routes.AdminFoodDetailEdit,
+    component: UploadFoodDetail,
   },
 ];
