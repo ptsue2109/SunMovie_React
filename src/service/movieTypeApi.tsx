@@ -14,4 +14,7 @@ export const MovieTypeApi = {
   edit(data: any) {
     return AxiosRequest.patch(`/movieType/${data._id}`, data);
   },
+  getMovieTypeName(id: any) {
+    return AxiosRequest.get(`/movieType/nameById/${id}`);
+  },
 };

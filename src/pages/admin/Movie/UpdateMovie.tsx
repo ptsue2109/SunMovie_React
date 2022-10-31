@@ -77,7 +77,7 @@ const UpdateMovies = (props: Props) => {
 
         <Form.Item
           label="Movie Type"
-          name="movieTypeID"
+          name="movieTypeId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Select mode="multiple">
