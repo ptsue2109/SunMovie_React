@@ -47,21 +47,9 @@ export const UpdateMovieType = createAsyncThunk(
     }
   }
 );
-export const getNameMovieType = createAsyncThunk(
-  "movieType/getName",
-  async (id: any, { rejectWithValue }) => {
-    try {
-      const { data } = await MovieTypeApi.getMovieTypeName(id);
-      return data.name;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
 
 const initialState: any = {
   movieType: [],
-  name: [],
   isFetching: false,
   isSucess: false,
   isErr: false,
@@ -130,12 +118,6 @@ const movieTypeSlice = createSlice({
         }
         return action.payload;
       });
-    });
-    builder.addCase(getNameMovieType.fulfilled, (state, action) => {
-      state.isErr = false;
-      state.isFetching = false;
-      state.isSucess = true;
-      state.name = action.payload;
     });
   },
 });
