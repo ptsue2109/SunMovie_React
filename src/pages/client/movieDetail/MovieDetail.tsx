@@ -7,8 +7,6 @@ import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
 import { formatDate } from "../../../ultils";
-import { getNameMovieType } from "../../../redux/slice/movieTypeSlice";
-import { MovieTypeApi } from "../../../service/movieTypeApi";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -30,26 +28,13 @@ const MovieDetail = (props: Props) => {
   };
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state) => state.movie);
-  const { name } = useAppSelector((state) => state.movieTypeReducer);
   const dispatch = useAppDispatch();
-  const getName = async (id: any) => {
-    // return dispatch(getNameMovieType(id));
-    const movieTypename = await MovieTypeApi.getMovieTypeName(id);
-    return movieTypename.data;
-  };
   useEffect(() => {
     (() => {
       dispatch(getOneMovie(slug));
     })();
   }, []);
   if (data == "") return <div>Loading...</div>;
-  if (data != "") {
-    data?.movieTypeId.map((item: any) => {
-      console.log("hi", getName(item));
-    });
-  }
-  // if (name == "") return <div>Loading...</div>;
-  // console.log(name);
   return (
     <>
       <Modal
