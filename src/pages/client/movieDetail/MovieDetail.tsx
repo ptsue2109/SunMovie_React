@@ -7,6 +7,8 @@ import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
 import { formatDate } from "../../../ultils";
+import { getNameMovieType } from "../../../redux/slice/movieTypeSlice";
+import { MovieTypeApi } from "../../../service/movieTypeApi";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -28,14 +30,26 @@ const MovieDetail = (props: Props) => {
   };
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state) => state.movie);
+  const { name } = useAppSelector((state) => state.movieTypeReducer);
   const dispatch = useAppDispatch();
+  const getName = async (id: any) => {
+    // return dispatch(getNameMovieType(id));
+    const movieTypename = await MovieTypeApi.getMovieTypeName(id);
+    return movieTypename.data;
+  };
   useEffect(() => {
     (() => {
       dispatch(getOneMovie(slug));
     })();
   }, []);
-  console.log(data);
   if (data == "") return <div>Loading...</div>;
+  if (data != "") {
+    data?.movieTypeId.map((item: any) => {
+      console.log("hi", getName(item));
+    });
+  }
+  // if (name == "") return <div>Loading...</div>;
+  // console.log(name);
   return (
     <>
       <Modal
@@ -70,8 +84,7 @@ const MovieDetail = (props: Props) => {
             <div className={styles.content_info_items}>
               <div className={styles.content_info_item}>
                 <p>
-                  <span>Loại phim:</span>{" "}
-                  {data?.movieTypeID.map((item: any) => item)}
+                  <span>Loại phim:</span> {}
                 </p>
                 <p>
                   <span>Thời lượng:</span> {data?.runTime}
@@ -88,8 +101,9 @@ const MovieDetail = (props: Props) => {
                 <p>
                   <span>Khởi chiếu:</span> {formatDate(data?.releaseDate)}
                 </p>
-                {data?.trailerUrl && <button onClick={() => showModal()}>Xem trailer</button>}
-                
+                {data?.trailerUrl && (
+                  <button onClick={() => showModal()}>Xem trailer</button>
+                )}
               </div>
               <div className={styles.content_info_item_desc}>
                 {data?.description}
