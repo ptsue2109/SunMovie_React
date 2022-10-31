@@ -62,7 +62,9 @@ const ListFoodDetail = (props: Props) => {
   return (
     <>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
+        <Link to={configRoute.routes.AdminFoodDetailCreate}>
+          Add Food Detail
+        </Link>
       </Button>
       <DataTable column={columnList} data={data} loading={isFetching} />
     </>

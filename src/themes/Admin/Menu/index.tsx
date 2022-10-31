@@ -77,7 +77,10 @@ const items: MenuItem[] = [
       "AdminFoodDetail1"
     ),
     getItem(
-      <Link to={config.routes.AdminShowTimesCreate}> Thêm Chi Tiết Đồ Ăn</Link>,
+      <Link to={config.routes.AdminFoodDetailCreate}>
+        {" "}
+        Thêm Chi Tiết Đồ Ăn
+      </Link>,
       "AdminFoodDetail2"
     ),
   ]),

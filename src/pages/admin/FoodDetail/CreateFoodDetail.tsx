@@ -8,6 +8,8 @@ import { createFoodDetail } from "../../../redux/slice/FoodDetail";
 type Props = {};
 
 const CreateFoodDetail = (props: Props) => {
+  const number = (value: any) =>
+    value && isNaN(Number(value)) ? "Dien so vao be a number" : undefined;
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ const CreateFoodDetail = (props: Props) => {
     const { meta, payload } = await dispatch(createFoodDetail(values));
     if (meta.requestStatus == "fulfilled") {
       message.success("Thêm thành công");
-      navigate(configRoute.routes.adminSeatType);
+      navigate(configRoute.routes.AdminFoodDetail);
     } else {
       message.error(`${payload}`);
     }
@@ -31,11 +33,9 @@ const CreateFoodDetail = (props: Props) => {
         <Form.Item
           name="total"
           label="total"
-          rules={[
-            { required: true, message: "Không được để trống! ", min: 10 },
-          ]}
+          rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Input placeholder="Nhập vào Số" />
         </Form.Item>
         <Form.Item
           name="extfoodIdraPrice"
