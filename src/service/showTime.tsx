@@ -13,7 +13,7 @@ export const showTimetApi = {
   },
   updateApi(payload: any) {
     const url = `/showTime/${payload._id}`
-    return axiosClient.patch(url, payload)
+    return axiosClient.put(url, payload)
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/showTime", data);

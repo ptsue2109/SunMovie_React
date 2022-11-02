@@ -58,7 +58,8 @@ const AdminPosts = (props: Props) => {
       key: "desc",
       dataIndex: "desc",
       render: (_: any, { desc }: any) => (
-        <Text className="text-[#1890ff]">{desc.length >= 30 ? `${desc.substring(0, 30)}...` : desc}</Text>
+        <div dangerouslySetInnerHTML={{ __html: desc.length >= 50 ? `${desc.substring(0, 50)}...` : desc }} className="leading-5">
+        </div>
       ),
       width: 220
     },
