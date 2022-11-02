@@ -59,6 +59,7 @@ import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
+import Profile from "../pages/client/profile";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -77,6 +78,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.newsCate2, component: News },
   { path: configRoute.routes.newsDetail, component: NewsDetail },
   { path: configRoute.routes.search, component: Search },
+  { path: configRoute.routes.profile, component: Profile },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -96,6 +98,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
 
   { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
+
   {
     path: configRoute.routes.adminTicketPriceUpdate,
     component: UploadTicketPrice,

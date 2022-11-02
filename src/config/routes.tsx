@@ -11,6 +11,8 @@ const routes = {
   newsCate2: "/categories/:slug",
   newsDetail: "/post/:slug",
   search: "/search",
+  profile: "/profile",
+
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",
