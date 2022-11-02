@@ -4,9 +4,8 @@ import { message, Popconfirm, Table, Tag, Tooltip } from 'antd';
 import { Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
-import { formatCurrency, formatDate } from '../../../ultils'
+import { formatCurrency, formatDate, formatTime } from '../../../ultils'
 import configRoute from '../../../config';
-import DataTable from '../../../components/admin/Form&Table/Table';
 import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
 type Props = {}
 
@@ -98,6 +97,7 @@ const AdminShowTimeList = (props: Props) => {
     let temPrice = 40000 + item?.extraPrice; //default tisiscket + extra
     var roomName = item?.roomId?.map((item: any) => item?.name)
     var movieNam = item?.movieId?.map((item: any) => item?.name)
+    
     return {
       key: index + 1,
       _id: item?._id,
@@ -105,8 +105,8 @@ const AdminShowTimeList = (props: Props) => {
       date: formatDate(item?.date),
       room: roomName,
       format: item?.filmFormatId?.name,
-      startAt: item?.startAt,
-      endAt: item?.endAt,
+      startAt: formatTime(item?.startAt),
+      endAt: formatTime(item?.endAt),
       status: item?.status,
       extraPrice: formatCurrency(temPrice)
     }

@@ -1,3 +1,4 @@
+import moment from "moment";
 export const formatCurrency = (money?: number) => {
   let newMoney;
   if (!money || money < 0) {
@@ -22,3 +23,10 @@ export const convertDateToNumber = (date: Date) => {
   const dateConvert = new Date(date);
   return dateConvert.getTime();
 };
+
+
+export const formatTime = (dateString: Date) => {
+  const date = moment(new Date(dateString || "")).format("HH:mm");
+  return date
+};
+

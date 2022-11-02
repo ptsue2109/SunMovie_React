@@ -51,8 +51,8 @@ const items: MenuItem[] = [
     getItem(<Link to={config.routes.adminSeatTypeAdd}> Thêm ghế</Link>, "adminSeatType2"),
   ]),
   getItem("Quản lí Phòng chiếu", "adminRooms", <GiTheater />, [
-    getItem(<Link to={config.routes.adminRooms}> Danh sách rạp</Link>,"adminRooms1"),
-    getItem(<Link to={config.routes.adminRoomsCreate}> Thêm rạp</Link>, "adminRooms2"),
+    getItem(<Link to={config.routes.adminRooms}> Danh sách phòng chiếu</Link>,"adminRooms1"),
+    getItem(<Link to={config.routes.adminRoomsCreate}> Thêm phòng chiếu</Link>, "adminRooms2"),
   ]),
   getItem("Quản lí Giờ chiếu", "AdminShowTimes", <FcOvertime />, [
     getItem(<Link to={config.routes.AdminShowTimes}> Xem Giờ chiếu</Link>,"AdminShowTimes1"),

@@ -12,7 +12,8 @@ import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 import { getMovie } from "./redux/slice/Movie";
 import { getUsers } from "./redux/slice/userSlice";
-
+import {getAllData} from "./redux/slice/FilmFormatSlice"
+import {getRooms} from "./redux/slice/roomSlice"
 function App() {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.authReducer);
@@ -23,7 +24,9 @@ function App() {
     dispatch(getSeatType());
     dispatch(getCategories());
     dispatch(getMovie());
-    dispatch(getUsers())
+    dispatch(getUsers());
+    dispatch(getAllData());
+    dispatch(getRooms())
 
   }, [dispatch]);
 

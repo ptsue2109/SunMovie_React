@@ -65,6 +65,9 @@ const FilmFormatList = (props: Props) => {
       } else { return }
     }
   }
+  const onReset = () => {
+    form.resetFields();
+  };
 
   const watchData = (val: any) => { setFlag(true) }
   const watchName = (val: any) => { setFlag(true) }
@@ -144,6 +147,10 @@ const FilmFormatList = (props: Props) => {
               style={{ minWidth: '250px' }}
             >
               Lưu
+            </Button>
+
+            <Button htmlType="button" onClick={onReset} className="ml-5">
+              Reset
             </Button>
           </Form>
         </Card>

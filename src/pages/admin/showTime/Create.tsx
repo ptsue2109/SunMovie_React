@@ -14,20 +14,19 @@ const AdminShowTimesCreate = (_props: Props) => {
   const navigate = useNavigate();
 
   const { errorMessage } = useAppSelector(state => state.ShowTimeReducer)
-  const dateFormat = 'YYYY-MM-DD';
   const [form] = Form.useForm();
-  const [stDate, setStDate] = useState<any>()
-  const [startAt, setStartAt] = useState<any>()
-  const [endAt, setEndAt] = useState<any>()
   const [extraPrice, setExtraprice] = useState()
-
   useEffect(() => { document.title = "Admin | Create - ShowTimes"}, [])
 
-  const onFinish = (val: any) => {
-    val.date = moment(stDate).format(dateFormat)
-    val.startAt = startAt
-    val.endAt = endAt;
-    dispatch(createData(val)).unwrap()
+  const onFinish =async ({timeValid, ...values}: any ) => {
+    console.log(values);
+    console.log(timeValid);
+    const [x, y] = timeValid
+    values.startAt = new Date(moment(x).format());
+    values.endAt = new Date(moment(y).format());
+    values.date =  values.startAt
+
+    dispatch(createData(values)).unwrap()
       .then(() => { message.success('Tạo thành công'); navigate(config.routes.AdminShowTimes) })
       .catch(() => message.error(errorMessage))
   }
@@ -44,12 +43,6 @@ const AdminShowTimesCreate = (_props: Props) => {
         onFinish={onFinish}
         edit={true}
         onReset={onReset}
-        stDate={stDate}
-        setStDate={setStDate}
-        startAt={startAt}
-        setStartAt={setStartAt}
-        endAt={endAt}
-        setEndAt={setEndAt}
         extraPrice={extraPrice}
         setExtraprice={setExtraprice}
       />
