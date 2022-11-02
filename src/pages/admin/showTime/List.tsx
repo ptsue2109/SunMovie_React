@@ -82,8 +82,8 @@ const AdminShowTimeList = (props: Props) => {
               <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
             </Popconfirm>
           </Tooltip>
-          <Tooltip title="Xem tổng quan ghế">
-            <Link to={`${record._id}`}>
+          <Tooltip title="Xem ghế ">
+            <Link to={`/admin/showTimes/seat/${record._id}`}>
               <EyeOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
             </Link>
           </Tooltip>

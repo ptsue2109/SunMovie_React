@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShowTimeForm from "../../../components/admin/Form&Table/ShowTimeForm";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { createData, getAlSt, selectAllSt, updateData } from "../../../redux/slice/ShowTimeSlice";
+import { createData, getAlSt, updateData } from "../../../redux/slice/ShowTimeSlice";
 import { Button, Form, message } from "antd";
 import moment from "moment";
 import config from "../../../config";
@@ -19,9 +19,6 @@ const AdminShowTimesEdit = (props: Props) => {
 
   const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);
   const dataSelected = stList.find((item: any) => item?._id === id);
-
-  
-  console.log('dataSelected', dataSelected);
   let movie = dataSelected.movieId.map((item:any) => item._id);
   let room = dataSelected.roomId.map((item:any) => item._id);
 

@@ -90,7 +90,6 @@ const ShowTimeSlice = createSlice({
       //update
 
       builder.addCase(updateData.fulfilled, (state, action) => {
-
          state.stList = state.stList.map((item) =>
             item._id !== action.payload._id ? item : action.payload
          );
@@ -100,5 +99,4 @@ const ShowTimeSlice = createSlice({
       });
    },
 });
-export const selectAllSt= (state: any) => state.st.stList;
 export default ShowTimeSlice.reducer;
