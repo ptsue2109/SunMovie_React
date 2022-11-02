@@ -100,5 +100,5 @@ const ShowTimeSlice = createSlice({
       });
    },
 });
-
+export const selectAllSt= (state: any) => state.st.stList;
 export default ShowTimeSlice.reducer;

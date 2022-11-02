@@ -41,6 +41,7 @@ const routes = {
   AdminShowTimesCreate: "/admin/showTimes/create",
   AdminShowTimesEdit: "/admin/showTimes/:id",
   AdminShowTimeSeat: "/admin/showTimes/seat/:id",
+  
   AdminFilmFormat: "/admin/filmFormats",
 
   AdminVouchers: "/admin/vouchers",

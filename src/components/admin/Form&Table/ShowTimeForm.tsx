@@ -8,6 +8,7 @@ import { useAppSelector } from '../../../redux/hook';
 import "antd/dist/antd.css";
 import { RangeValue } from 'rc-picker/lib/interface';
 import { formatTime, convertDateToNumber } from '../../../ultils';
+
 interface ShowTimeFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -36,21 +37,6 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, edit
    const validRange = (value: any, dateString: any) => {
       console.log('value', value);
       console.log('dateString', dateString);
-   }
-
-
-   const RangeDate = () => {
-      return (
-         <>
-            <RangePicker
-               disabledDate={disabledDate}
-               showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
-               format="YYYY-MM-DD HH:mm"
-               onChange={validRange}
-            /> <br />
-            <span className='text-danger rangeErr' dangerouslySetInnerHTML={{ __html: `${errMess}` }}></span>
-         </>
-      )
    }
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages} className="">
