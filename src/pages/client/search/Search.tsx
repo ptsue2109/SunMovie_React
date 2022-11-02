@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Search.module.css";
 import { Button, Form, Input } from "antd";
 import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { searchMovie } from "../../../redux/slice/Movie";
+import { formatDate } from "../../../ultils";
 type Props = {};
 
 const Search = (props: Props) => {
   const [form] = Form.useForm();
+  const [key, setKey] = useState("");
+  const { movieSearch } = useAppSelector((state) => state.movie);
+  const dispath = useAppDispatch();
   const onFinish = ({ value }: any) => {
-    console.log("Success:", value);
+    setKey(value);
+    dispath(searchMovie(value));
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -38,31 +45,38 @@ const Search = (props: Props) => {
             </Button>
           </Form.Item>
         </Form>
-
-        <div className={styles.product}>
-          <h2>Phim được tìm kiếm với từ khóa "hi"</h2>
-
-          <div className={styles.content_list}>
-            <div className={styles.content_list_item}>
-              <Link to="{item.slug}">
-                <div className={styles.content_list_item_img}>
-                  <img
-                    src={
-                      "https://th.bing.com/th/id/OIP.BU9oJYt8PtDPdsyz-XLNeQHaKe?pid=ImgDet"
-                    }
-                    alt=""
-                  />
+        {key == "" ? (
+          ""
+        ) : movieSearch == "" ? (
+          <h2>Không có phim phù hợp với từ khóa "{key}" </h2>
+        ) : (
+          <div className={styles.product}>
+            <h2>Phim được tìm kiếm với từ khóa "{key}"</h2>
+            <div className={styles.content_list}>
+              {movieSearch?.map((item: any) => (
+                <div className={styles.content_list_item} key={item._id}>
+                  <Link to={`/${item.slug}`}>
+                    <div className={styles.content_list_item_img}>
+                      <img
+                        src={
+                          item?.image[0]?.url ??
+                          `${import.meta.env.VITE_HIDDEN_SRC}`
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.content_list_item_info}>
+                      <h3>{item.name}</h3>
+                      <p>Thể loại: Kinh dị</p>
+                      <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
+                      <button>Đặt vé</button>
+                    </div>
+                  </Link>
                 </div>
-                <div className={styles.content_list_item_info}>
-                  <h3>{"Tên phim"}</h3>
-                  <p>Thể loại: Kinh dị</p>
-                  <p>Khởi chiếu: {"formatDate(item.releaseDate)"}</p>
-                  <button>Đặt vé</button>
-                </div>
-              </Link>
+              ))}
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );
