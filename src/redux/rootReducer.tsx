@@ -14,6 +14,7 @@ import FormatReducer from "./slice/FilmFormatSlice";
 import ShowTimeReducer from "./slice/ShowTimeSlice";
 import PostReducer from "./slice/PostSlice";
 import voucherReducer from "./slice/voucherSlice";
+import SeatBySTReducer from "./slice/SeatBySTSlice";
 const persistConfig = {
   key: "root",
   storage,
@@ -32,7 +33,8 @@ const reducers = combineReducers({
   FormatReducer,
   ShowTimeReducer,
   voucherReducer,
-  PostReducer
+  PostReducer,
+  SeatBySTReducer
 
 });
 const rootReducer = persistReducer(persistConfig, reducers);
