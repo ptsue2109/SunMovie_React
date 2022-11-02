@@ -42,10 +42,12 @@
     margin-top: 20px;
 }
 .header_right_btn{
-    color: white;
     padding: 0px 20px;
     font-size: 30px;
     cursor: pointer;
+}
+.header_right_btn a{
+    color: white;
 }
 .login a{
     color: white;

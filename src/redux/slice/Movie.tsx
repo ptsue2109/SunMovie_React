@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MovieApi } from "../../service/MovieIpa";
+import { MovieApi } from "../../service/MovieApi";
 
 export const createMovie = createAsyncThunk(
   "movie/MovieCreate",
@@ -58,6 +58,17 @@ export const getOneMovie = createAsyncThunk(
     }
   }
 );
+export const searchMovie = createAsyncThunk(
+  "movie/searchMovie",
+  async (key: any, { rejectWithValue }) => {
+    try {
+      const { data } = await MovieApi.search(key);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 //  const movieState = {
 //   movie: any[];
 //   isFetching: boolean;
@@ -68,6 +79,7 @@ const initialState: any = {
   movie: [],
   oneMovie: [],
   errMess: false,
+  movieSearch: [],
 };
 const movieSlice = createSlice({
   name: "movie",
@@ -146,6 +158,9 @@ const movieSlice = createSlice({
       state.errMess = true;
       //   state.isFetching = false;
       //   state.isSucess = false;
+    });
+    builder.addCase(searchMovie.fulfilled, (state, action) => {
+      state.movieSearch = action.payload;
     });
   },
 });

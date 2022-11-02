@@ -85,7 +85,9 @@ const ClientHeader = (props: Props) => {
           <div className={styles.header_right}>
             <form>
               <div className={styles.header_right_btn}>
-                <BiSearch />
+                <Link to="/search">
+                  <BiSearch />
+                </Link>
               </div>
             </form>
             {isLogged == true ? (

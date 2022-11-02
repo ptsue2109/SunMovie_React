@@ -58,6 +58,7 @@ import AdminPosts from "../pages/admin/Post/index";
 import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
+import Search from "../pages/client/search/Search";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -74,7 +75,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
   { path: configRoute.routes.news, component: News },
   { path: configRoute.routes.newsCate2, component: News },
-  {path: configRoute.routes.newsDetail, component: NewsDetail},
+  { path: configRoute.routes.newsDetail, component: NewsDetail },
+  { path: configRoute.routes.search, component: Search },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -110,7 +112,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
-  
+
   { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
   { path: configRoute.routes.adminMovie, component: ListMovie },
   { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies },
@@ -133,11 +135,13 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 
   { path: configRoute.routes.AdminVouchers, component: AdminVoucherList },
-  { path: configRoute.routes.AdminVouchersCreate, component: AdminVoucherCreate },
+  {
+    path: configRoute.routes.AdminVouchersCreate,
+    component: AdminVoucherCreate,
+  },
   { path: configRoute.routes.AdminVouchersEdit, component: AdminVoucherEdit },
 
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
-
 ];

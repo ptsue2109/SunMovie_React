@@ -14,6 +14,9 @@ export const MovieApi = {
     return AxiosRequest.patch(`/movie/${data._id}`, data);
   },
   getOne(slug: any) {
-    return AxiosRequest.get(`movies/${slug}`);
+    return AxiosRequest.get(`/movies/${slug}`);
+  },
+  search(key: any) {
+    return AxiosRequest.get(`/searchByMovieName?q=${key}`);
   },
 };
