@@ -23,6 +23,7 @@ export const getAllSBST = createAsyncThunk<any, void, { rejectValue: string }>(
       }
    }
 );
+
 type seatByShowTimeState = {
    seatsByST: any[];
    errorMessage: string | undefined;
@@ -53,8 +54,7 @@ const seatByShowTimeSlice = createSlice({
       builder.addCase(getAllSBST.rejected, (state, { payload }) => {
          state.errorMessage = payload;
       });
-
-
+     
    },
 });
 export default seatByShowTimeSlice.reducer;
