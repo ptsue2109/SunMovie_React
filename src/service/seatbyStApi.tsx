@@ -7,6 +7,7 @@ export const seatByShowTime = {
     return axiosClient.post("/setByShowTime", data);
   },
   getAll(): Promise<any> {
-   return axiosClient.get("/setByShowTime");
- }
+    return axiosClient.get("/setByShowTime");
+  },
+
 };

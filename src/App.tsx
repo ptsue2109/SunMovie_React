@@ -14,6 +14,7 @@ import { getMovie } from "./redux/slice/Movie";
 import { getUsers } from "./redux/slice/userSlice";
 import { getAllData } from "./redux/slice/FilmFormatSlice"
 import { getRooms } from "./redux/slice/roomSlice"
+import { getAllSBST } from "./redux/slice/SeatBySTSlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,7 +28,8 @@ function App() {
     dispatch(getMovie());
     dispatch(getUsers());
     dispatch(getAllData());
-    dispatch(getRooms())
+    dispatch(getRooms());
+    dispatch(getAllSBST());
   }, [dispatch]);
 
   return (
