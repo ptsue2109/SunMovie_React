@@ -6,6 +6,7 @@ import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { removeMovieTypeItem } from "../../../redux/slice/movieTypeSlice";
+import swal from "sweetalert";
 type Props = {};
 
 const ListMovieType = (props: Props) => {
@@ -14,10 +15,23 @@ const ListMovieType = (props: Props) => {
     (state) => state.movieTypeReducer
   );
   const deleteUser = (id: any) => {
-    dispatch(removeMovieTypeItem(id))
-      .unwrap()
-      .then(() => message.success({ content: "Xóa thành công" }))
-      .catch(() => message.error({ content: "lỗi" }));
+    swal({
+      title: "Bạn có muốn xóa không?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(removeMovieTypeItem(id))
+          .unwrap()
+          .then(() => {
+            swal("Xóa thành công", {
+              icon: "success",
+            });
+          })
+          .catch((err: any) => swal("Lỗi", `${err}`, "error"));
+      }
+    });
   };
   const columnList: any = [
     {
@@ -36,14 +50,10 @@ const ListMovieType = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
-            title={`Delete ${item?.movieName ?? item?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteUser(item?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          <DeleteOutlined
+            onClick={() => deleteUser(item?._id)}
+            style={{ color: "red", fontSize: "18px" }}
+          />
         </Space>
       ),
       width: 30,
