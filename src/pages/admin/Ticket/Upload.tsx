@@ -1,4 +1,5 @@
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
+import moment from "moment";
 import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import UserForm from "../../../components/admin/Form&Table/UserForm";
@@ -27,6 +28,7 @@ const UploadTicket = (props: Props) => {
     if (data) {
       form.setFieldsValue({
         ...data,
+        date: moment(data.date),
       });
     }
   }, [data]);

@@ -1,10 +1,16 @@
-import { Button, message, Popconfirm, Space, Tag } from "antd";
+import { Button, message, Popconfirm, Select, Space, Tag } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { removeTicket, getTicket } from "../../../redux/slice/ticketSlice";
+import {
+  removeTicket,
+  getTicket,
+  updateTiket,
+} from "../../../redux/slice/ticketSlice";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { tickKetStatus } from "../../../ultils/data";
+import { Option } from "antd/lib/mentions";
 type Props = {};
 
 const AdminListTiket = (props: Props) => {
@@ -12,6 +18,11 @@ const AdminListTiket = (props: Props) => {
   const { tickets, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.ticketReducer
   );
+  const changeStatus = (id: any, value: any) => {
+    dispatch(updateTiket({ _id: id, status: value }))
+      .unwrap()
+      .then(() => message.success("Thay đổi trạng thái thành công"));
+  };
 
   const deleteTiket = (data: string | undefined) => {
     dispatch(removeTicket(data))
@@ -59,18 +70,23 @@ const AdminListTiket = (props: Props) => {
       ),
     },
     {
-      title: "STATUS",
-      dataIndex: "status",
+      title: "Status",
       key: "status",
-      render: (_: any, { status }: any) => (
-        <Tag
-          color={status == "active" ? "red" : "blue"}
-          key={status >= "active" ? "red" : "blue"}
+      dataIndex: "status",
+      render: (_: any, { _id, status }: any) => (
+        <Select
+          value={status === true ? "Active" : "Inactive"}
+          onChange={(value: any) => {
+            changeStatus(_id, value);
+          }}
         >
-          {status == true ? "inactive" : "active"}
-        </Tag>
+          {tickKetStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
       ),
-      width: "30px",
     },
 
     {
