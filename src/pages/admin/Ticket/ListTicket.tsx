@@ -173,6 +173,7 @@ const AdminListTiket = (props: Props) => {
       userId: item?.userId,
       role: item?.role,
       date: item?.date,
+      status: item?.status,
     };
   });
 

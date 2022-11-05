@@ -60,7 +60,7 @@ const UploadTicket = (props: Props) => {
           label="date"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <DatePicker format="DD-MM-YYYY" />
         </Form.Item>
         <Form.Item
           name="totalPrice"

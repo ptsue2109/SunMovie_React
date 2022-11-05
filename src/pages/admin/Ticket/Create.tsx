@@ -46,7 +46,7 @@ const CreateTicket = (props: Props) => {
           label="date"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <DatePicker name="totalPrice" />
+          <DatePicker format="DD-MM-YYYY" />
         </Form.Item>
 
         <Form.Item
