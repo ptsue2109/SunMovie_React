@@ -64,10 +64,18 @@ const items: MenuItem[] = [
   getItem("Quản lí Format Film", "AdminFilmFormat", <FcOvertime />, [
     getItem(<Link to={config.routes.AdminFilmFormat}> Xem tất cả</Link>, "AdminFilmFormat1")
   ]),
-
-
-  getItem("Quản lí phim ", "sub7", <UserOutlined />, [getItem(<Link to={config.routes.adminMovie}> Danh sách phim</Link>,),
+  getItem("Quản lí phim ", "sub7", <UserOutlined />,[
+  getItem(<Link to={config.routes.adminMovie}> Danh sách phim</Link>,),
   getItem(<Link to={config.routes.adminMoviecCreat}> Thêm phim</Link>, "14"),
+  ]),
+  getItem("Quản lí Đồ ăn","", <UserOutlined />,[
+  getItem(<Link to={config.routes.adminFood}> Danh sách Food</Link>,),
+  getItem(<Link to={config.routes.adminFoodCreate}> Thêm Food</Link>,),
+  ]),
+  ,
+  getItem("Quản lí Slider","12", <UserOutlined />,[
+  getItem(<Link to={config.routes.adminSlider}> Danh sách Slider</Link>,),
+  getItem(<Link to={config.routes.adminSliderCreate}> Thêm Slider</Link>,),
   ]),
 
   getItem("Quản lí Voucher", "AdminVouchers", <FcOvertime />, [
@@ -82,7 +90,7 @@ const items: MenuItem[] = [
   getItem("Quản lí danh muc", "adminCategories", <FcOvertime />, [
     getItem(<Link to={config.routes.adminCategories}> Xem tất cả</Link>, "adminCategories1"),
     getItem(<Link to={config.routes.adminCategoriesCreate}> Thêm danh mục</Link>, "adminCategories2")
-  ]),
+  ])
 ];
 
 const MenuAdminLayout = (props: Props) => {

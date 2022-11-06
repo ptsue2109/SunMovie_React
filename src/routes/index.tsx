@@ -60,6 +60,12 @@ import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
 import Profile from "../pages/client/profile";
+import FoodList from "../pages/admin/Food/FoodList";
+import CreateFood from "../pages/admin/Food/CreateFood";
+import UpdateFood from "../pages/admin/Food/UpdateFood";
+import AdminSlider from "../pages/admin/Slider/AdminSlider";
+import CreateSlider from "../pages/admin/Slider/CreateSlider";
+import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -92,6 +98,14 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminMovieTypeEdit, component: EditMovieType },
   { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
+
+  { path: configRoute.routes.adminFood, component:  FoodList},
+  { path: configRoute.routes.adminFoodCreate, component: CreateFood },
+  { path: configRoute.routes.adminFoodUpdate, component: UpdateFood},
+
+  { path: configRoute.routes.adminSlider, component:  AdminSlider},
+  { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
+  { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider},
 
   { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
   { path: configRoute.routes.adminTicketAdd, component: CreateTicket },

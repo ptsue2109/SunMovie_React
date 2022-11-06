@@ -9,6 +9,8 @@ import ticketPriceReducer from "./slice/ticketPriceSlice";
 import seatTypeReducer from "./slice/SeatTypeSlice";
 import categoriesReducer from "./slice/CategorySlice";
 import movie from "./slice/Movie";
+import food from "./slice/FoodSlice";
+import slider from "./slice/Slider";
 import roomReducer from "./slice/roomSlice";
 import FormatReducer from "./slice/FilmFormatSlice";
 import ShowTimeReducer from "./slice/ShowTimeSlice";
@@ -29,6 +31,8 @@ const reducers = combineReducers({
   seatTypeReducer,
   categoriesReducer,
   movie,
+  food,
+  slider,
   roomReducer,
   FormatReducer,
   ShowTimeReducer,
