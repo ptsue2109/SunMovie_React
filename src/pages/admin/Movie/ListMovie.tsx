@@ -36,7 +36,7 @@ const ListMovie = (props: Props) => {
       fixed: "left",
       // key: "image",
       render: (_: any, record: any) => (
-        <img width="150px" src={record?.image} alt="" />
+        <img width="50px" src={record?.image} alt="" />
       ),
     },
     {
@@ -166,6 +166,8 @@ const ListMovie = (props: Props) => {
   ];
 
   const data: Props[] = movie?.map((item: any, index: any) => {
+
+    
     return {
       key: index + 1,
       _id: item?._id,

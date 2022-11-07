@@ -72,12 +72,14 @@ body {
 .newStyle .ant-modal-header{
   text-align: center;
 }
-
 td{
-  line-height: 10px !important;
-  height: 0 !important;
-
-} 
+  height: 10px !important;
+  max-height: 10px !important;
+}
  .ant-picker-cell{
     height:10px !important
+}
+td.ant-table-cell {
+  height: 20px !important;
+  line-height: 20px !important;
 }

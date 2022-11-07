@@ -22,14 +22,26 @@ export const getAllSBST = createAsyncThunk<any, void, { rejectValue: string }>(
          return rejectWithValue(error.response.data.message);
       }
    }
+);export const getOneSBSTById = createAsyncThunk<any, any, { rejectValue: string }>(
+    "sbst/getOneById",
+    async (input: any, { rejectWithValue }) => {
+       try {
+          const { data } = await seatByShowTime.getOneByid(input);
+          return data;
+       } catch (error: any) {
+          return rejectWithValue(error.response.data.message);
+       }
+    }
 );
 
 type seatByShowTimeState = {
    seatsByST: any[];
+   seat:any
    errorMessage: string | undefined;
 };
 const initialState: seatByShowTimeState = {
    seatsByST: [],
+   seat:{},
    errorMessage: "",
 };
 
@@ -54,7 +66,14 @@ const seatByShowTimeSlice = createSlice({
       builder.addCase(getAllSBST.rejected, (state, { payload }) => {
          state.errorMessage = payload;
       });
-     
+      //getOneByID
+      builder.addCase(getOneSBSTById.fulfilled, (state, { payload }) => {
+         state.seat = payload
+      });
+      builder.addCase(getOneSBSTById.rejected, (state, { payload }) => {
+         state.errorMessage = payload;
+      });
+
    },
 });
 export default seatByShowTimeSlice.reducer;

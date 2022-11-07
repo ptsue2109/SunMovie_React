@@ -3,13 +3,14 @@ import React, { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-import { getAllSBST } from "../../../redux/slice/SeatBySTSlice";
 import config from "../../../config";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { formatTime, formatDateString, formatCurrency } from "../../../ultils";
 import { createData } from "../../../redux/slice/SeatBySTSlice";
 import styled from "styled-components";
-import { async } from "@firebase/util";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
+import Popconfirm from "antd/es/popconfirm";
+
 type Props = {};
 const { Text } = Typography;
 const { Panel } = Collapse;
@@ -24,10 +25,13 @@ const ShowTimeSeat = (props: Props) => {
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
   const { seatsByST } = useAppSelector((state) => state.SeatBySTReducer);
   const newSeatByST = seatsByST.filter((item: any) => item?.showTimeId?._id === id);
+  console.log(newSeatByST)
+
   const dataSelected = stList.find((item: any) => item._id === id);
   const [form] = Form.useForm();
   const onFinish = (val: any) => {
     val.showTimeId = id;
+    console.log('val', val)
     dispatch(createData(val)).unwrap()
       .then(() => { onReset(); message.success("Tạo ghế thành công"); setTimeout(() => { navigate(config.routes.AdminShowTimeSeat) }, 2000) })
       .catch(() => message.error("Tạo thất bại"));
@@ -35,6 +39,9 @@ const ShowTimeSeat = (props: Props) => {
   const onReset = () => {
     form.resetFields();
   };
+  const deleteData = (id: string | undefined) => {
+    console.log('id', id);
+  }
   const arrangeSeat = () => {
     return (
       <>
@@ -43,17 +50,18 @@ const ShowTimeSeat = (props: Props) => {
             <Select>
               {dataSelected?.movieId &&
                 dataSelected?.movieId?.map((item: any) => (
-                  <Select.Option value={item._id} key={item._id}>  {item.name} </Select.Option>
+                  <Select.Option value={item._id} key={item._id} >  {item.name} </Select.Option>
                 ))}
             </Select>
           </Form.Item>
           <Form.Item label="Chọn phòng" name="roomId" rules={[{ required: true }]} >
-            <Select mode="multiple">
+            <Select  mode={"multiple"} >
               {dataSelected?.roomId &&
                 dataSelected?.roomId?.map((item: any) => (
-                  <Select.Option value={item._id} key={item._id}> {item.name}  </Select.Option>
+                  <Select.Option value={item._id} key={item._id}>{item.name}</Select.Option>
                 ))}
             </Select>
+
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">  Tạo ghế  </Button>
@@ -70,10 +78,12 @@ const ShowTimeSeat = (props: Props) => {
           newSeatByST.map((item: any) => (
             <Space key={item?._id} className="flex flex-wrap">
               <Card>
-                <p>ID : {item?._id} </p>
                 <p>Tên phòng : {item?.roomId?.name ?? "Đang cập nhật"}</p>
+                <p>ID phòng : {item?.roomId?._id ?? "Đang cập nhật"}</p>
                 <p>Tên phim : {item?.movieId?.name ?? "Đang cập nhật"}</p>
-                <Link to={`/seats/${item?._id}`}>Chi tiết ghế </Link>
+                <Button size="middle" type="link">
+                  <Link to={`/admin/seats/_v=${item?._id}`}> Xem chi tiết </Link>
+                </Button>
               </Card>
             </Space>
           )) : (<Text className="text-danger"> Có lỗi, vui lòng thử lại sau</Text>)}

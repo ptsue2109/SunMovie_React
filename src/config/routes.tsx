@@ -11,6 +11,7 @@ const routes = {
   newsCate2: "/categories/:slug",
   newsDetail: "/post/:slug",
   search: "/search",
+
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",
@@ -52,6 +53,7 @@ const routes = {
   AdminPosts: "/admin/posts",
   AdminPostsCreate: "/admin/posts/add",
   AdminPostsEdit: "/admin/posts/:id",
+  renderSeatAdmin: "/admin/seats/_v=:id"
 };
 
 export default routes;

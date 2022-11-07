@@ -17,5 +17,10 @@ export const showTimetApi = {
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/showTime", data);
+  },
+  //seatOnShowTime
+  getOneByid(data:any):Promise<any> {
+    const url = `setByShowTime/${data?._id}`;
+    return axiosClient.get(url)
   }
 };

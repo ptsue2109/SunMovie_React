@@ -59,6 +59,9 @@ import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
+import AdminSeatRenderDetail from "../pages/admin/showTime/SeatDetailAdmin";
+
+
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -144,4 +147,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
+  { path: configRoute.routes.renderSeatAdmin, component: AdminSeatRenderDetail },
 ];
