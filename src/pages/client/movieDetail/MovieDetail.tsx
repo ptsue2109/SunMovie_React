@@ -39,7 +39,7 @@ const MovieDetail = (props: Props) => {
     <>
       <Modal
         className="newStyle"
-        title="Tên phim"
+        title={data?.name}
         width={950}
         footer={null}
         open={isModalOpen}
@@ -49,7 +49,7 @@ const MovieDetail = (props: Props) => {
         <iframe
           width="900"
           height="500"
-          src={`https://www.youtube.com/embed/${data?.trailerUrl}`}
+          src={`https://www.youtube.com/embed/${data?.movie?.trailerUrl}`}
           title="YouTube video player"
           frameBorder={0}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -62,36 +62,38 @@ const MovieDetail = (props: Props) => {
         </div>
         <div className={styles.content}>
           <div className={styles.content_img}>
-            <img src={data?.image[0]?.url} alt="" />
+            <img src={data?.movie?.image[0]?.url} alt="" />
           </div>
           <div className={styles.content_info}>
-            <h3>{data?.name}</h3>
+            <h3>{data?.movie?.name}</h3>
             <div className={styles.content_info_items}>
               <div className={styles.content_info_item}>
                 <p>
-                  <span>Loại phim:</span> {}
+                  <span>Loại phim:</span>{" "}
+                  {data.nameMovieType.map((x: any) => x + ", ")}
                 </p>
                 <p>
-                  <span>Thời lượng:</span> {data?.runTime}
+                  <span>Thời lượng:</span> {data?.movie?.runTime}
                 </p>
                 <p>
-                  <span>Diễn viên:</span> {data?.actor}
+                  <span>Diễn viên:</span> {data?.movie?.actor}
                 </p>
                 <p>
-                  <span>Đạo diễn:</span> {data?.director}
+                  <span>Đạo diễn:</span> {data?.movie?.director}
                 </p>
                 <p>
-                  <span>Xuất xứ:</span> {data?.country}
+                  <span>Xuất xứ:</span> {data?.movie?.country}
                 </p>
                 <p>
-                  <span>Khởi chiếu:</span> {formatDate(data?.releaseDate)}
+                  <span>Khởi chiếu:</span>{" "}
+                  {formatDate(data?.movie?.releaseDate)}
                 </p>
-                {data?.trailerUrl && (
+                {data?.movie?.trailerUrl && (
                   <button onClick={() => showModal()}>Xem trailer</button>
                 )}
               </div>
               <div className={styles.content_info_item_desc}>
-                {data?.description}
+                {data?.movie?.description}
               </div>
             </div>
           </div>

@@ -11,6 +11,7 @@ const routes = {
   newsCate2: "/categories/:slug",
   newsDetail: "/post/:slug",
   search: "/search",
+  profile: "/profile",
 
   // admin
   dashboard: "/admin",
@@ -35,15 +36,24 @@ const routes = {
   adminMovie: "/admin/movies",
   adminMoviecUpdate: "/admin/movies/:id",
 
+  adminFood: "/admin/food",
+  adminFoodCreate: "/admin/food/create",
+  adminFoodUpdate: "/admin/food/:id",
+
+  adminSlider: "/admin/slider",
+  adminSliderCreate: "/admin/slider/create",
+  adminSliderUpdate: "/admin/slider/:id",
+
   adminRooms: "/admin/rooms",
   adminRoomsCreate: "/admin/rooms/create",
   adminRoomEdit: "/admin/rooms/:id",
+
 
   AdminShowTimes: "/admin/showTimes",
   AdminShowTimesCreate: "/admin/showTimes/create",
   AdminShowTimesEdit: "/admin/showTimes/:id",
   AdminShowTimeSeat: "/admin/showTimes/seat/:id",
-  
+
   AdminFilmFormat: "/admin/filmFormats",
 
   AdminVouchers: "/admin/vouchers",

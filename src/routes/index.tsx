@@ -60,8 +60,13 @@ import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
 import AdminSeatRenderDetail from "../pages/admin/showTime/SeatDetailAdmin";
-
-
+import FoodList from "../pages/admin/Food/FoodList";
+import CreateFood from "../pages/admin/Food/CreateFood";
+import UpdateFood from "../pages/admin/Food/UpdateFood";
+import CreateSlider from "../pages/admin/Slider/CreateSlider";
+import AdminSlider from "../pages/admin/Slider/AdminSlider";
+import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
+import Profile from "../pages/client/profile";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -80,6 +85,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.newsCate2, component: News },
   { path: configRoute.routes.newsDetail, component: NewsDetail },
   { path: configRoute.routes.search, component: Search },
+  { path: configRoute.routes.profile, component: Profile },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -94,11 +100,20 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
 
+  { path: configRoute.routes.adminFood, component:  FoodList},
+  { path: configRoute.routes.adminFoodCreate, component: CreateFood },
+  { path: configRoute.routes.adminFoodUpdate, component: UpdateFood},
+
+  { path: configRoute.routes.adminSlider, component:  AdminSlider},
+  { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
+  { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider},
+
   { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
   { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
   { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
 
   { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
+
   {
     path: configRoute.routes.adminTicketPriceUpdate,
     component: UploadTicketPrice,
