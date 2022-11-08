@@ -1,3 +1,5 @@
+import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
+
 const routes = {
   home: "/",
   movie: "/movie",
@@ -63,7 +65,8 @@ const routes = {
   AdminPosts: "/admin/posts",
   AdminPostsCreate: "/admin/posts/add",
   AdminPostsEdit: "/admin/posts/:id",
-  renderSeatAdmin: "/admin/seats/_v=:id"
+  renderSeatAdmin: "/admin/seats/_v=:id",
+  chooseCombo: "/admin/choose-combo"
 };
 
 export default routes;

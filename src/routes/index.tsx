@@ -67,6 +67,7 @@ import CreateSlider from "../pages/admin/Slider/CreateSlider";
 import AdminSlider from "../pages/admin/Slider/AdminSlider";
 import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
 import Profile from "../pages/client/profile";
+import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
 type RoutesType = {
   path: string;
   component: (args: PropsWithChildren) => JSX.Element;
@@ -163,4 +164,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
   { path: configRoute.routes.renderSeatAdmin, component: AdminSeatRenderDetail },
+  { path: configRoute.routes.chooseCombo, component: ChooseCombo },
 ];

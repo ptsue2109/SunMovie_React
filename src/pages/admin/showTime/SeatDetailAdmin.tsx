@@ -136,7 +136,8 @@ const AdminSeatRenderDetail = (props: Props) => {
                             style={{ minWidth: 150 }}
                             onClick={nextStepChooseCombo}
                         >
-                            Tiếp theo
+                            <Link to={configRoute.routes.chooseCombo}> Tiếp theo</Link>
+                           
                         </Button>
                     </div>
                 </Card>
