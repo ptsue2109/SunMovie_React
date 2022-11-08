@@ -9,7 +9,7 @@ export const webConfigApi = {
   },
   updateApi(payload: any) {
     const url = `/config/${payload._id}`
-    return axiosClient.patch(url, payload)
+    return axiosClient.put(url, payload)
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/config", data);
