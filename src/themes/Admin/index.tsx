@@ -64,7 +64,7 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
   return (
     <Layout
       style={{
-        minHeight: "100vh",
+        minHeight: "120vh",
       }}
     >
       <Sider

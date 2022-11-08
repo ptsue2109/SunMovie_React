@@ -23,6 +23,7 @@ const Home = (props: Props) => {
     });
   });
   const data1 = data.filter((item: any) => item.releaseDate <= dateToday);
+  console.log('data1', data1)
   const data2 = data.filter((item: any) => item.releaseDate > dateToday);
   return (
     <>

@@ -27,7 +27,7 @@ const MovieDetail = (props: Props) => {
     setIsModalOpen(false);
   };
   const { slug } = useParams();
-  const { oneMovie: data } = useAppSelector((state) => state.movie);
+  const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const dispatch = useAppDispatch();
   useEffect(() => {
     (() => {
@@ -70,7 +70,7 @@ const MovieDetail = (props: Props) => {
               <div className={styles.content_info_item}>
                 <p>
                   <span>Loại phim:</span>{" "}
-                  {data.nameMovieType.map((x: any) => x + ", ")}
+                  {data.movieTypeId.map((x: any) => x + ", ")}
                 </p>
                 <p>
                   <span>Thời lượng:</span> {data?.movie?.runTime}

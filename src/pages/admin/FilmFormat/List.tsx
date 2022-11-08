@@ -4,12 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { formatCurrency } from '../../../ultils'
-import { Link } from 'react-router-dom'
 import { removeData, updateData, createData, getAllData } from '../../../redux/slice/FilmFormatSlice';
 import { validateMessages } from '../../../ultils/FormMessage'
 
 type Props = {}
-const { Option } = Select;
 
 const FilmFormatList = (props: Props) => {
   const { filmFormats, isFetching, errorMessage } = useAppSelector(state => state.FormatReducer);
@@ -33,8 +31,6 @@ const FilmFormatList = (props: Props) => {
   }, [dispatch])
 
   const onFinish = (valF: any) => {
-    console.log('valF', valF);
-
     if (typeof valF === 'object' && (valF._id === null || valF._id === undefined || !valF._id)) {
       setFlag(false)
       dispatch(createData(valF)).unwrap()
@@ -51,7 +47,6 @@ const FilmFormatList = (props: Props) => {
       setFlag(false)
       const dataA = filmFormats?.find((item: any) => item._id === valF);
       form.setFieldsValue({ ...dataA });
-      console.log('valF', valF);
       if (flag) {
         dispatch(updateData(valF)).unwrap()
           .then(() => {
