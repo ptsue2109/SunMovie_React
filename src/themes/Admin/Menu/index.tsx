@@ -1,4 +1,4 @@
-import { UserOutlined, PieChartOutlined } from "@ant-design/icons";
+import { UserOutlined, PieChartOutlined ,SettingOutlined} from "@ant-design/icons";
 import { BiCategory } from 'react-icons/bi';
 import { HiOutlineTicket } from 'react-icons/hi';
 import { MdEventSeat } from 'react-icons/md';
@@ -90,7 +90,9 @@ const items: any[] = [
   getItem("Quản lí danh muc", "adminCategories", <FcOvertime />, [
     getItem(<Link to={config.routes.adminCategories}> Xem tất cả</Link>, "adminCategories1"),
     getItem(<Link to={config.routes.adminCategoriesCreate}> Thêm danh mục</Link>, "adminCategories2")
-  ])
+  ]),
+  getItem(<Link to={config.routes.webConfig}>Thống kê</Link>, "webConfig", <SettingOutlined />, )
+
 ];
 
 const MenuAdminLayout = (props: Props) => {

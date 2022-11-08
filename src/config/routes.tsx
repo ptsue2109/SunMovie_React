@@ -66,7 +66,10 @@ const routes = {
   AdminPostsCreate: "/admin/posts/add",
   AdminPostsEdit: "/admin/posts/:id",
   renderSeatAdmin: "/admin/seats/_v=:id",
-  chooseCombo: "/admin/choose-combo"
+  chooseCombo: "/admin/choose-combo",
+  webConfig: "/admin/webConfig",
+  webConfigAdd: "/admin/webConfig/create",
+  webConfigEdit: "/admin/webConfig/edit"
 };
 
 export default routes;

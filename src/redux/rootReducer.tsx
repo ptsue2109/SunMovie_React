@@ -17,6 +17,7 @@ import ShowTimeReducer from "./slice/ShowTimeSlice";
 import PostReducer from "./slice/PostSlice";
 import voucherReducer from "./slice/voucherSlice";
 import SeatBySTReducer from "./slice/SeatBySTSlice";
+import WebConfigReducer from "./slice/webConfig"
 const persistConfig = {
   key: "root",
   storage,
@@ -38,7 +39,8 @@ const reducers = combineReducers({
   ShowTimeReducer,
   voucherReducer,
   PostReducer,
-  SeatBySTReducer
+  SeatBySTReducer,
+  WebConfigReducer
 
 });
 const rootReducer = persistReducer(persistConfig, reducers);
