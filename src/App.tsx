@@ -17,7 +17,7 @@ import { getAllData } from "./redux/slice/FilmFormatSlice"
 import { getRooms } from "./redux/slice/roomSlice"
 import { getAllSBST } from "./redux/slice/SeatBySTSlice";
 import { getSlider } from "./redux/slice/Slider";
-
+import { getConfigs } from "./redux/slice/webConfig";
 function App() {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.authReducer);
@@ -34,6 +34,7 @@ function App() {
     dispatch(getAllData());
     dispatch(getRooms());
     dispatch(getAllSBST());
+    dispatch(getConfigs())
   }, [dispatch]);
 
   return (
