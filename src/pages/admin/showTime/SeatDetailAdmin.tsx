@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { Button, Card, Divider } from "antd";
+import { Button, Card, Divider, Form, Input } from "antd";
 import { Link, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { getOneSBSTById, getAllSBST } from "../../../redux/slice/SeatBySTSlice";
 import styles from "./Seats.module.scss";
 import { formatCurrency, formatDate, formatTime } from "../../../ultils";
+import { getAlVc } from "../../../redux/slice/voucherSlice";
+import ApplyVoucher from "../../../components/client/ApplyVoucher";
 type Props = {};
 
 const AdminSeatRenderDetail = (props: Props) => {
     const dispatch = useAppDispatch();
     const { id } = useParams();
+    const [tempPrice, setTempPrice] = useState<any>(1200000)
 
     useEffect(() => {
         document.title = "Admin | Detail Seat ";
         (async () => {
             dispatch(getAllSBST());
+            dispatch(getAlVc())
         })();
     }, [dispatch]);
 
@@ -23,18 +27,18 @@ const AdminSeatRenderDetail = (props: Props) => {
         clearSelectedSeats();
     }, []);
 
-    const { seatsByST } = useAppSelector((state) => state.SeatBySTReducer);
-    const seat = seatsByST?.find((item:any) => item?._id === id);
+    const { seatsByST } = useAppSelector((state: any) => state.SeatBySTReducer);
+    const seat = seatsByST?.find((item: any) => item?._id === id);
     useEffect(() => {
-        if(seat) {
+        if (seat) {
             setSeatDetails(seat?.seats)
         }
     }, [seat])
-    
+
     const movie = seat?.movieId;
     let selectedSeats: string[] = [];
     const [seatDetails, setSeatDetails] = useState(seat?.seats);
-   
+
     const nextStepChooseCombo = () => {
         console.log(JSON.stringify(seatDetails));
     }
@@ -116,9 +120,10 @@ const AdminSeatRenderDetail = (props: Props) => {
         }
         return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
     };
+
     const RenderMovie = () => {
         return (
-            <div className="">
+            < >
                 <div className="img_thumnail">
                     <img src={movie?.image[0]?.url} style={{ width: '140px' }} />
                 </div>
@@ -130,7 +135,11 @@ const AdminSeatRenderDetail = (props: Props) => {
                 <div className="uppercase text-[12px]"><span className="font-bold">Rạp:</span>  Galaxy Mipec Long Biên  |  {seat?.roomId?.name}</div>
                 <div className="uppercase text-[12px]"><span className="font-bold">Suất chiếu:</span> {formatTime(seat?.showTimeId?.startAt)}  |  {formatDate(seat?.showTimeId?.startAt)}</div>
                 <div className="max-w-[300px]"><span className="font-bold">Ghế : </span><RenderSeatSelected /></div>
-                <div className=""><span className="font-bold">Tạm Tính : </span><span className="text-orange-600 font-bold">{formatCurrency(1200000)} </span></div>
+                <div className="">
+                    <span className="font-bold">Voucher</span>
+                    <ApplyVoucher tempPrice={tempPrice} />
+                </div>
+                <div className=""><span className="font-bold">Tạm Tính : </span><span className="text-orange-600 font-bold">{formatCurrency(tempPrice)} </span></div>
                 <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
                     <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
                         <Button htmlType="button" >
@@ -142,12 +151,12 @@ const AdminSeatRenderDetail = (props: Props) => {
                             style={{ minWidth: 150 }}
                             onClick={nextStepChooseCombo}
                         >
-                            <Link to={configRoute.routes.chooseCombo}> Tiếp theo</Link>
+                            {/* <Link to={configRoute.routes.chooseCombo}> Tiếp theo</Link> */}
 
                         </Button>
                     </div>
                 </Card>
-            </div>)
+            </>)
     };
     const RenderSeatSelected = () => {
         selectedSeats = [];
@@ -178,6 +187,7 @@ const AdminSeatRenderDetail = (props: Props) => {
                     <Card style={{ width: '30%', height: '450px' }}> <RenderMovie /> </Card>
                 </div>}
             </div>
+
 
         </div>
     );
