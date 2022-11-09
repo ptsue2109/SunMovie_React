@@ -48,7 +48,9 @@ const VoucherForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit 
                      <Form.Item label="Condition Number" name="conditionNumber" className='w-full' rules={[{ required: true }]} >
                         <InputNumber style={{ width: '100%' }} placeholder="Nhập số lượng giảm theo điều kiện" />
                      </Form.Item>
-
+                     <Form.Item label="Conditon with voucher value" name="voucherValue" rules={[{ required: true}]}>
+                        <InputNumber placeholder="Nhập vào" style={{ width: '100%' }} />
+                     </Form.Item>
                      <Form.Item
                         label="Thời gian hiệu lực"
                         name="timeValid"

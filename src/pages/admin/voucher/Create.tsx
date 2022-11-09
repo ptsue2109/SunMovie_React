@@ -19,13 +19,16 @@ const AdminVoucherCreate = (props: Props) => {
     document.title = "Admin | Create Post";
   }, []);
   const { errorMessage } = useAppSelector((state) => state.voucherReducer);
-
+  const upperText = (text: any) => {
+    return text.toUpperCase();
+ };
   const onFinish = async ({ timeValid, ...values }: any) => {
     try {
       const [x, y] = timeValid;
       const timeStart = new Date(moment(x).format());
       const timeEnd = new Date(moment(y).format());
       values.imagesFile = values?.avatarList?.fileList;
+      values.code = upperText(values.code)
       await dispatch(createData({ ...values, timeStart, timeEnd })).unwrap();
       message.success("Thêm Voucher thành công");
       navigate(config.routes.AdminVouchers);

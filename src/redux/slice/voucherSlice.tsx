@@ -47,16 +47,21 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
 type VoucherSliceState = {
    vouchers: any[];
    errorMessage: string | undefined;
+   discountVoucher:any
 };
 const initialState: VoucherSliceState = {
    vouchers: [],
    errorMessage: "",
+   discountVoucher: 0
 };
 
 const VoucherSlice = createSlice({
    name: "vouchers",
    initialState,
    reducers: {
+      saveVoucherDiscount(state, payload) {
+         state.discountVoucher = payload
+       },
    },
    extraReducers: (builder) => {
       //getAll
@@ -100,5 +105,5 @@ const VoucherSlice = createSlice({
       });
    },
 });
-
+export const { saveVoucherDiscount } = VoucherSlice.actions
 export default VoucherSlice.reducer;

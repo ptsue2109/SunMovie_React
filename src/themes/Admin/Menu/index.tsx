@@ -56,9 +56,7 @@ const items: any[] = [
   ]),
   getItem("Quản lí Giờ chiếu", "AdminShowTimes", <FcOvertime />, [
     getItem(<Link to={config.routes.AdminShowTimes}> Xem Giờ chiếu</Link>, "AdminShowTimes1"),
-    getItem(<Link to={config.routes.AdminShowTimesCreate}>Thêm giờ chiếu</Link>, "AdminShowTimes2"),
-    getItem(<Link to={config.routes.AdminShowTimeSeat}> Tạo ghế theo showTime</Link>, "AdminShowTimes3"),
-    getItem(<Link to={config.routes.AdminShowTimeSeat}>  Quản lí ghế theo showTime</Link>, "AdminShowTimes4"),
+    getItem(<Link to={config.routes.AdminShowTimesCreate}>Thêm giờ chiếu</Link>, "AdminShowTimes2")
 
   ]),
   getItem("Quản lí Format Film", "AdminFilmFormat", <FcOvertime />, [

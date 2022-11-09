@@ -18,7 +18,9 @@ const AdminVoucherEdit = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
   const { vouchers, errorMessage } = useAppSelector((state) => state.voucherReducer);
-
+  const upperText = (text: any) => {
+    return text.toUpperCase();
+ };
   const dataSelected = vouchers.find((item: any) => item._id === id);
   console.log('dataSelected', dataSelected);
 
@@ -43,6 +45,7 @@ const AdminVoucherEdit = (props: Props) => {
       const [x, y] = timeValid;
       const timeStart = new Date(moment(x).format());
       const timeEnd = new Date(moment(y).format());
+      values.code = upperText(values.code)
       await dispatch(updateData({ ...values, _id: id, timeStart, timeEnd })).unwrap();
       message.success("Cập nhật Voucher thành công");
       navigate(config.routes.AdminVouchers);
@@ -54,7 +57,7 @@ const AdminVoucherEdit = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={config.routes.AdminPosts}>List post</Link>
+        <Link to={config.routes.AdminVouchers}>List Voucher</Link>
       </Button>
       <VoucherForm
         form={form}
