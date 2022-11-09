@@ -14,7 +14,7 @@ const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/`,
   timeout: 90000,
   headers: {
-    "Authorization": `Bearer ${accessToken}`,
+    Authorization: `Bearer ${accessToken}`,
   },
 });
 
@@ -45,7 +45,6 @@ const axiosClient = axios.create({
 //   });
 // };
 
-
 // axiosClient.interceptors.request.use(
 //   async function (config) {
 //     const token = await getFirebaseToken();
@@ -75,12 +74,5 @@ const axiosClient = axios.create({
 //     return Promise.reject(error);
 //   },
 // );
-
-
-
-
-
-
-
 
 export default axiosClient;
