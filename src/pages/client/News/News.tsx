@@ -8,9 +8,11 @@ import "./News.module.scss"
 import { useAppSelector } from "../../../redux/hook";
 import { getAlPost, getListPostByCate } from "../../../redux/slice/PostSlice";
 
-type Props = {};
+type Props = {
+  activeNav: boolean
+};
 
-const News = (props: Props) => {
+const News = ({activeNav}: Props) => {
   const { posts } = useAppSelector((state: any) => state.PostReducer);
   console.log('posts', posts);
 
@@ -47,7 +49,7 @@ const News = (props: Props) => {
   }, [slug]);
   return (
     <>
-      <NavNews />
+     { !activeNav && <NavNews />}
       {!slug && <NewsContent newsList={posts} path={path} />}
       {slug && <NewsContent newsList={data} path={path} />}
     </>

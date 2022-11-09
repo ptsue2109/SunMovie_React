@@ -14,6 +14,8 @@ const ClientHeader = (props: Props) => {
   const { currentUser, isLogged } = useAppSelector(
     (state) => state.authReducer
   );
+  const { webConfigs } = useAppSelector( (state:any) => state.WebConfigReducer);
+  const logo  = webConfigs[0]?.logo?.url
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = () => {
@@ -73,7 +75,7 @@ const ClientHeader = (props: Props) => {
           <div className={styles.logo}>
             <Link to={config.routes.home}>
               <img
-                src="https://res.cloudinary.com/hungtv/image/upload/v1664432336/logo1_f9bumt.png"
+                src={logo ?? "https://res.cloudinary.com/hungtv/image/upload/v1664432336/logo1_f9bumt.png"}
                 alt=""
               />
             </Link>

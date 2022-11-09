@@ -26,6 +26,6 @@ export const PostApi = {
     return axiosClient.get(url);
   },
   getDetailBySlug(slug?: string | undefined) {
-    return axiosClient.get(`post/get-by-slug/${slug}`)
+    return axiosClient.get(`posts/${slug}`)
   },
 };

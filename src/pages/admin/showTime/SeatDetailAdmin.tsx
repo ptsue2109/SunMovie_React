@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Button, Card, Divider } from "antd";
 import { Link, useParams } from "react-router-dom";
 import configRoute from "../../../config";
-import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
+import { getOneSBSTById, getAllSBST } from "../../../redux/slice/SeatBySTSlice";
 import styles from "./Seats.module.scss";
 import { formatCurrency, formatDate, formatTime } from "../../../ultils";
 type Props = {};
@@ -14,24 +14,30 @@ const AdminSeatRenderDetail = (props: Props) => {
 
     useEffect(() => {
         document.title = "Admin | Detail Seat ";
-        dispatch(getOneSBSTById(id));
+        (async () => {
+            dispatch(getAllSBST());
+        })();
     }, [dispatch]);
 
     useEffect(() => {
         clearSelectedSeats();
     }, []);
 
-    const { seat } = useAppSelector((state) => state.SeatBySTReducer);
+    const { seatsByST } = useAppSelector((state) => state.SeatBySTReducer);
+    const seat = seatsByST?.find((item:any) => item?._id === id);
+    useEffect(() => {
+        if(seat) {
+            setSeatDetails(seat?.seats)
+        }
+    }, [seat])
+    
     const movie = seat?.movieId;
     let selectedSeats: string[] = [];
-    const [seatDetails, setSeatDetails] = useState<any>(seat?.seats || {});
-
+    const [seatDetails, setSeatDetails] = useState(seat?.seats);
+   
     const nextStepChooseCombo = () => {
         console.log(JSON.stringify(seatDetails));
     }
-
-    useEffect(() => {}, [seatDetails])
-    
 
     const clearSelectedSeats = () => {
         let newMovieSeatDetails = { ...seatDetails };
@@ -137,7 +143,7 @@ const AdminSeatRenderDetail = (props: Props) => {
                             onClick={nextStepChooseCombo}
                         >
                             <Link to={configRoute.routes.chooseCombo}> Tiếp theo</Link>
-                           
+
                         </Button>
                     </div>
                 </Card>
@@ -148,7 +154,7 @@ const AdminSeatRenderDetail = (props: Props) => {
         for (let key in seatDetails) {
             seatDetails[key].forEach((seatValue: any, seatIndex: any) => {
                 if (seatValue === 2) {
-                    selectedSeats.push(`${key}${seatIndex + 1},` )
+                    selectedSeats.push(`${key}${seatIndex + 1},`)
                 }
             })
         }

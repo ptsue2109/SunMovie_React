@@ -20,20 +20,20 @@ const ShowTimeSeat = (props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  useEffect(() => { dispatch(getAlSt()) }, [dispatch]);
-  // useEffect(() => { dispatch(getAllSBST()) }, [dispatch]);
-  const { stList } = useAppSelector((state) => state.ShowTimeReducer);
-  const { seatsByST } = useAppSelector((state) => state.SeatBySTReducer);
+  useEffect(() => { 
+    (async() => {
+      dispatch(getAlSt()) 
+    })();
+  }, [dispatch]);
+  const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);
+  const { seatsByST } = useAppSelector((state:any) => state.SeatBySTReducer);
   const newSeatByST = seatsByST.filter((item: any) => item?.showTimeId?._id === id);
-  console.log(newSeatByST)
-
   const dataSelected = stList.find((item: any) => item._id === id);
   const [form] = Form.useForm();
   const onFinish = (val: any) => {
     val.showTimeId = id;
-    console.log('val', val)
     dispatch(createData(val)).unwrap()
-      .then(() => { onReset(); message.success("Tạo ghế thành công"); setTimeout(() => { navigate(config.routes.AdminShowTimeSeat) }, 2000) })
+      .then(() => { onReset(); message.success("Tạo ghế thành công"); setTimeout(() => { navigate(config.routes.AdminShowTimes) }, 2000) })
       .catch(() => message.error("Tạo thất bại"));
   };
   const onReset = () => {

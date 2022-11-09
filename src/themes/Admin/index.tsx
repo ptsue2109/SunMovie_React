@@ -29,6 +29,8 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
   const { currentUser, isLogged } = useAppSelector(
     (state) => state.authReducer
   );
+  const { webConfigs } = useAppSelector( (state:any) => state.WebConfigReducer);
+
   const [iscollapse, setIsCollapse] = useState<boolean>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -92,7 +94,7 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           }}
         >
           <Link to="/" style={{ color: "#fff" }}>
-            {iscollapse ? "S" : "SunCinema"}
+            {iscollapse ? `${webConfigs[0]?.storeName?.slice(0,1)}` :`${webConfigs[0]?.storeName}`}
           </Link>
         </div>
         <Divider style={{ margin: 0 }} />

@@ -11,16 +11,20 @@ import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 import { getMovie } from "./redux/slice/Movie";
-import { getFood} from "./redux/slice/FoodSlice";
+import { getFood } from "./redux/slice/FoodSlice";
 import { getUsers } from "./redux/slice/userSlice";
 import { getAllData } from "./redux/slice/FilmFormatSlice"
 import { getRooms } from "./redux/slice/roomSlice"
 import { getAllSBST } from "./redux/slice/SeatBySTSlice";
 import { getSlider } from "./redux/slice/Slider";
 import { getConfigs } from "./redux/slice/webConfig";
+import { getAlVc } from "./redux/slice/voucherSlice";
+import Maintain from "./components/client/Maintain";
 function App() {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.authReducer);
+  const { loading, webConfigs } = useAppSelector((state) => state.WebConfigReducer)
+  const isMaintain = webConfigs[0]?.isMaintaince
   useEffect(() => {
     dispatch(getMovieType());
     dispatch(getTicket());
@@ -34,7 +38,8 @@ function App() {
     dispatch(getAllData());
     dispatch(getRooms());
     dispatch(getAllSBST());
-    dispatch(getConfigs())
+    dispatch(getConfigs());
+    dispatch(getAlVc());
   }, [dispatch]);
 
   return (
@@ -55,9 +60,11 @@ function App() {
               key={index}
               path={route.path}
               element={
-                <Layout>
-                  <Page />
-                </Layout>
+                <Maintain isMaintain={ isMaintain } >
+                  <Layout>
+                    <Page />
+                  </Layout>
+                </Maintain>
               }
             />
           );
@@ -78,6 +85,7 @@ function App() {
               key={index}
               path={route.path}
               element={
+
                 <Layout>
                   <Page />
                 </Layout>
