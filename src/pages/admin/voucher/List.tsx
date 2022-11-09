@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import DataTable from "../../../components/admin/Form&Table/Table"
 import { Space, Typography, message, Tooltip, Button, Select, Popconfirm, Tag } from "antd";
@@ -8,12 +8,19 @@ import { defaultStatus } from '../../../ultils/data';
 import { removeData, updateData, getAlVc } from "../../../redux/slice/voucherSlice"
 import moment from 'moment';
 import { formatCurrency } from '../../../ultils';
-
+import { formatDistance, isEqual, parseISO } from "date-fns";
+import isFuture from 'date-fns/isFuture'
+import isPast from 'date-fns/isPast'
 type Props = {}
 const { Text } = Typography;
 const { Option } = Select;
 
 const AdminVoucherList = (props: Props) => {
+  const [timeFuture, setTimeFuture] = useState();
+
+
+
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "Admin | List Voucher";
@@ -30,7 +37,9 @@ const AdminVoucherList = (props: Props) => {
   const changeStatus = (id: any, value: any) => {
     dispatch(updateData({ _id: id, status: value })).unwrap().then(() => message.success('Thay đổi trạng thái thành công'))
   }
+  useEffect(() => {
 
+  }, [])
   const columns: any[] = [
     {
       title: "Thumbnail",
@@ -62,7 +71,7 @@ const AdminVoucherList = (props: Props) => {
       title: "Instock Status",
       key: "activeQuantity",
       dataIndex: "activeQuantity",
-      render: (_:any, record:any) => (
+      render: (_: any, record: any) => (
         <Tag color={record.activeQuantity ? "red" : "blue"}>
           {record.activeQuantity <= 5
             ? `Còn  ${record.activeQuantity} voucher`
@@ -74,7 +83,7 @@ const AdminVoucherList = (props: Props) => {
     {
       title: "Condition",
       key: "condition",
-      render: (_:any, record:any) => (
+      render: (_: any, record: any) => (
         <Tag color={record.condition ? "green" : "blue"}>
           {record.condition === 1
             ? `Giảm ${formatCurrency(record.conditionNumber)}`
@@ -99,13 +108,23 @@ const AdminVoucherList = (props: Props) => {
     {
       title: "Time",
       key: "time",
-      render: (_:any, record:any) => (
+      render: (_: any, record: any) => (
         <Text>
           {moment(record.timeStart).format("DD/MM/YYYY HH:mm:ss")} -{" "}
           {moment(record.timeEnd).format("DD/MM/YYYY HH:mm:ss")}
         </Text>
       ),
     },
+    {
+      title: "Thời hạn ",
+      key: "distance",
+      render: (_: any, record: any) => (
+        <Text>
+          {record.distance}
+        </Text>
+      ),
+    },
+
     {
       title: "ACTION",
       key: "action",
@@ -130,6 +149,7 @@ const AdminVoucherList = (props: Props) => {
   ];
 
   const data: Props[] = vouchers?.map((item: any, index: any) => {
+    let distanceV = formatDistance(parseISO(item?.timeStart), parseISO(item?.timeEnd))
     return {
       key: index + 1,
       _id: item?._id,
@@ -143,6 +163,7 @@ const AdminVoucherList = (props: Props) => {
       timeEnd: item?.timeEnd,
       conditionNumber: item?.conditionNumber,
       activeQuantity: item?.quantity, // số lượng còn (sau khi trừ của user đã dùng)
+      distance: distanceV,
     }
   });
 
