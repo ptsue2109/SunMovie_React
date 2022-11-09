@@ -70,7 +70,7 @@ const MovieDetail = (props: Props) => {
               <div className={styles.content_info_item}>
                 <p>
                   <span>Loại phim:</span>{" "}
-                  {data.movieTypeId.map((x: any) => x + ", ")}
+                  {data.nameMovieType.map((x: any) => x + ", ")}
                 </p>
                 <p>
                   <span>Thời lượng:</span> {data?.movie?.runTime}

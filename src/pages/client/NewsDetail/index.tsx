@@ -13,10 +13,9 @@ const NewsDetail = () => {
   const { slug } = useParams();
   const dispatch = useAppDispatch();
   const { posts } = useAppSelector((state: any) => state.PostReducer);
-  console.log('lisst',posts);
-  
+
   const dataSelected = posts?.find((item: any) => item?.slug === slug);
-  
+
   console.log('dataSelected', dataSelected);
 
   useEffect(() => {
@@ -30,8 +29,10 @@ const NewsDetail = () => {
   }, [slug]);
 
   const { loading, post } = useAppSelector((state: any) => state.PostReducer);
-  const [images, setImages] = useState<any>(import.meta.env.VITE_DEFAULT_IMG || post?.imagesFile[0]?.url)
-
+  const [images, setImages] = useState("")
+  useEffect(() => {
+    setImages(post?.imagesFile[0]?.url)
+  }, [images])
   return (
     <>
       {!loading && (
@@ -62,7 +63,7 @@ const NewsDetail = () => {
           {!loading && (
             <div className="leading-relaxed text-justify">
               <div className="" >
-                <img src={images} alt="" className="w-full bg-center bg-cover bg-no-repeat mb-4 max-h-[350px]" />
+                <img src={images ? images : `${import.meta.env.VITE_DEFAULT_IMG}`} alt="" className="w-full bg-center bg-cover bg-no-repeat mb-4 max-h-[350px]" />
               </div>
               <div className="" >
                 <div dangerouslySetInnerHTML={{ __html: post?.desc }} className="news__desc text-gray-400"></div>

@@ -15,7 +15,12 @@ const AdminShowTimesEdit = (props: Props) => {
   const { id } = useParams();
   const [form] = Form.useForm();
   const [extraPrice, setExtraprice] = useState();
-  useEffect(() => { dispatch(getAlSt()) }, []);
+  useEffect(() => { 
+    (async() => {
+      dispatch(getAlSt())
+    })();
+  
+  }, []);
 
   const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);
   const dataSelected = stList.find((item: any) => item?._id === id);
