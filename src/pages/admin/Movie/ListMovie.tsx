@@ -36,7 +36,10 @@ const ListMovie = (props: Props) => {
       fixed: "left",
       // key: "image",
       render: (_: any, record: any) => (
-        <img width="50px" src={record?.image} alt="" />
+        <Space size={120}>
+          {/* <Image width={100} src={record?.image} /> */}
+          <img width="100px" src={record?.image} alt="" />
+        </Space>
       ),
     },
     {
@@ -166,12 +169,10 @@ const ListMovie = (props: Props) => {
   ];
 
   const data: Props[] = movie?.map((item: any, index: any) => {
-
-    
     return {
       key: index + 1,
       _id: item?._id,
-      // image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       name: item?.name,
       actor: item?.actor,
       runTime: item?.runTime,

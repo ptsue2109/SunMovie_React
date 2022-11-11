@@ -31,7 +31,7 @@
     "sass": "^1.54.9",
     "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.6",
-    "sweetalert": "^2.1.2"
+    "sweetalert2": "^11.6.8"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-react": "^5.0.2",
