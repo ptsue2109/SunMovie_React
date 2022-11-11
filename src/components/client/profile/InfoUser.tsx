@@ -13,12 +13,12 @@ const InfoUser = (props: Props) => {
   const [form] = Form.useForm();
   const { currentUser } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
+  const id = currentUser._id;
+  const data = users?.find((item: any) => item._id === id);
   const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 16 },
   };
-  const id = currentUser._id;
-  const data = users?.find((item: any) => item._id === id);
   const dispatch = useAppDispatch();
   const onFinish = (values: any) => {
     values._id = id;

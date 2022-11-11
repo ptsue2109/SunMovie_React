@@ -4,22 +4,26 @@ import { useAppSelector } from "../../../redux/hook";
 import styles from "./profile.module.scss";
 import { Table } from "antd";
 import InfoUser from "../../../components/client/profile/InfoUser";
+import Avatar from "../../../components/client/profile/Avatar";
 type Props = {};
 
 const Profile = (props: Props) => {
   const { currentUser, isLogged } = useAppSelector(
     (state) => state.authReducer
   );
+  const { users } = useAppSelector((state) => state.userReducer);
+  const id = currentUser._id;
+  const user = users?.find((item: any) => item._id === id);
   const [isActive, setActive] = useState(1);
   const isToggle = (number: number) => {
     setActive(number);
   };
   const navigate = useNavigate();
   useEffect(() => {
-    if (isLogged == false) {
+    if (!user) {
       return navigate("/");
     }
-  }, [currentUser]);
+  }, [user]);
 
   const columns: any[] = [
     {
@@ -78,7 +82,7 @@ const Profile = (props: Props) => {
             />
           </div>
           <div className={styles.avatar}>
-            <img src="https://th.bing.com/th/id/R.71c4453ad27286d6fd431c271f737cf7?rik=kKxKeEyNDatElA&pid=ImgRaw&r=0&sres=1&sresct=1" />
+            <Avatar />
           </div>
         </div>
         <div className={styles.main}>
