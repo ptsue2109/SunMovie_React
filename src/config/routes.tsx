@@ -14,6 +14,7 @@ const routes = {
   newsDetail: "/post/:slug",
   search: "/search",
   profile: "/profile",
+  verify: "/verify",
 
   // admin
   dashboard: "/admin",

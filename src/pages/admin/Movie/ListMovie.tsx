@@ -171,7 +171,7 @@ const ListMovie = (props: Props) => {
     return {
       key: index + 1,
       _id: item?._id,
-      // image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       name: item?.name,
       actor: item?.actor,
       runTime: item?.runTime,

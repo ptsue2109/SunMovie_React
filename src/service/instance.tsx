@@ -17,7 +17,20 @@ const axiosClient = axios.create({
     "Authorization": `Bearer ${accessToken}`,
   },
 });
-
+export const AxiosRequest = {
+  post(path: string, data: {}, options = {}): Promise<any> {
+    return axiosClient.post(path, data, options);
+  },
+  get(path: string, options = {}): Promise<any> {
+    return axiosClient.get(path, options);
+  },
+  put(path: string, data: {}, options = {}): Promise<any> {
+    return axiosClient.put(path, data, options);
+  },
+  delete(path: string, options = {}): Promise<any> {
+    return axiosClient.delete(path, options);
+  },
+};
 //rftk with firebase
 // const getFirebaseToken: () => any = async () => {
 //   // từ request t2 sẽ có token
