@@ -1,7 +1,7 @@
 import axiosClient from "./instance";
 
 export const UserApi = {
-  getAll(){
+  getAll() {
     let url = "/users";
     return axiosClient.get(url);
   },

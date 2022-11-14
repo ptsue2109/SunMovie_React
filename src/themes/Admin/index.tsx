@@ -19,7 +19,7 @@ import { LogOut } from "../../redux/slice/AuthSlice";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
-
+// import { io, Socket } from "socket.io-client";
 type AdminLayoutProps = {
   children: JSX.Element;
   title: string;
@@ -48,6 +48,18 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
       navigate(configRoute.routes.home);
     }
   }, []);
+  // const socketRef = useRef<Socket>();
+
+  // useEffect(() => {
+  //   socketRef.current = io(import.meta.env.VITE_API_URL);
+  //   socketRef.current.on("newOrder", (data) => {
+  //     message.success(`Đơn hàng mới từ ${data}`);
+  //   });
+  //   return () => {
+  //     socketRef.current?.disconnect();
+  //   };
+  // }, []);
+
   const menu = (
     <Menu
       items={[
