@@ -26,10 +26,11 @@ type AdminLayoutProps = {
 };
 
 const AdminLayout = ({ children, title }: AdminLayoutProps) => {
-  const { currentUser, isLogged } = useAppSelector(
-    (state) => state.authReducer
-  );
-  const { webConfigs } = useAppSelector( (state:any) => state.WebConfigReducer);
+  const { currentUser } = useAppSelector((state) => state.authReducer);
+  const id = currentUser._id;
+  const { users } = useAppSelector((state) => state.userReducer);
+  const user = users?.find((item: any) => item._id === id);
+  const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
 
   const [iscollapse, setIsCollapse] = useState<boolean>();
   const navigate = useNavigate();
@@ -40,8 +41,8 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
     navigate(configRoute.routes.signin);
   };
   useEffect(() => {
-    if (isLogged == true) {
-      if (currentUser.role == 0) {
+    if (user) {
+      if (user.role == 0) {
         navigate(configRoute.routes.home);
       }
     } else {
@@ -94,7 +95,9 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
           }}
         >
           <Link to="/" style={{ color: "#fff" }}>
-            {iscollapse ? `${webConfigs[0]?.storeName?.slice(0,1)}` :`${webConfigs[0]?.storeName}`}
+            {iscollapse
+              ? `${webConfigs[0]?.storeName?.slice(0, 1)}`
+              : `${webConfigs[0]?.storeName}`}
           </Link>
         </div>
         <Divider style={{ margin: 0 }} />
