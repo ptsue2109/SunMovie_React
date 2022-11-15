@@ -15,7 +15,7 @@ const SlideShow = (props: Props) => {
         <div className="each-slide">
           {slider.map((item: any) => {
             <div>
-              <img src={item.image} alt="" />
+              <img src={item.images} alt="" />
             </div>;
           })}
         </div>
