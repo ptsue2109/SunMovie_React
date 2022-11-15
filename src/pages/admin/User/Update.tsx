@@ -15,19 +15,19 @@ const UserEdit = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
   const [newPass, setNewPass] = useState<any>('');
+  const [showPass, setShowPass] = useState<any>(false);
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
-  const dataSelected = users.find((item:any) => item._id === id);
-
-  useEffect(() => {
+  const dataSelected = users.find((item: any) => item._id === id);
++  useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id}`;
     if (dataSelected) {
       setAvatarList(dataSelected?.avatar as any[]);
-       form.setFieldsValue({
+      form.setFieldsValue({
         ...dataSelected,
         dob: moment(dataSelected?.dob),
-        
+
       });
     }
   }, [dataSelected]);
@@ -44,7 +44,7 @@ const UserEdit = (props: Props) => {
     else data.avatar = dataSelected?.avatar;
     const dob = new Date(moment(data.dob).format());
 
-    dispatch(updateUser({...data, dob}))
+    dispatch(updateUser({ ...data, dob }))
       .unwrap()
       .then(() => {
         navigate(config.routes.adminUserList);
@@ -66,6 +66,7 @@ const UserEdit = (props: Props) => {
         setAvatarList={setAvatarList}
         onReset={onReset}
         edit={true}
+        showPass={showPass}
       />
     </div>
   );

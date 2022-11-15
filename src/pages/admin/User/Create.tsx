@@ -15,6 +15,7 @@ const UserCreate = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const [newPass, setNewPass] = useState<string>('')
   const { errorMessage, isSucess, isErr } = useAppSelector((state) => state.userReducer);
+  const [showPass, setShowPass] = useState<any>(true);
   useEffect(() => {
     document.title = "Admin | Add Users";
     if (isSucess) {
@@ -49,6 +50,7 @@ const UserCreate = (props: Props) => {
         onReset={onReset}
         newPass={newPass}
         setNewPass={setNewPass}
+        showPass={showPass}
       />
     </div>
   )

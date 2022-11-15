@@ -11,6 +11,12 @@ export const userRole = [
   { value: 1, name: "Admin" }
 ]
 
+export const userStatus = [
+  { value: 0, name: "Chưa xác thực" },
+  { value: 1, name: "Đang hoạt động" },
+  { value: 2, name: "Dừng hoạt động" }
+]
+
 
 export const defaultStatus = [
   { value: 0, name: "Active" },
