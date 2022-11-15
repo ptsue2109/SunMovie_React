@@ -9,27 +9,35 @@ import { formatCurrency, formatDate, formatTime } from "../../../ultils";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
 import ApplyVoucher from "../../../components/client/ApplyVoucher";
 import Swal from "sweetalert2";
+import { getAllData } from "../../../redux/slice/FilmFormatSlice";
 type Props = {};
 
 const AdminSeatRenderDetail = (props: Props) => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const [tempPrice, setTempPrice] = useState<any>(100000);
-
+  const [count, setCount] = useState(0);
+  const { seatsByST } = useAppSelector((state: any) => state.SeatBySTReducer);
+  const { filmFormats } = useAppSelector((state: any) => state.FormatReducer);
+  const seat = seatsByST?.find((item: any) => item?._id === id);
+  const extraPrice = filmFormats.find(
+    (item: any) => item._id === seat?.showTimeId?.filmFormatId
+  );
+  const [tempPrice, setTempPrice] = useState<any>(
+    40000 + seat?.showTimeId?.extraPrice + extraPrice?.extraPrice
+  );
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     document.title = "Admin | Detail Seat ";
     (async () => {
       dispatch(getAllSBST());
       dispatch(getAlVc());
+      dispatch(getAllData());
     })();
   }, [dispatch]);
 
   useEffect(() => {
     clearSelectedSeats();
   }, []);
-
-  const { seatsByST } = useAppSelector((state: any) => state.SeatBySTReducer);
-  const seat = seatsByST?.find((item: any) => item?._id === id);
   useEffect(() => {
     if (seat) {
       setSeatDetails(seat?.seats);
@@ -51,7 +59,6 @@ const AdminSeatRenderDetail = (props: Props) => {
         setSeatDetails({ ...seatClone });
       });
     }
-    console.log(selectedSeats);
     seatArray = { seats: seatClone, _id: id };
 
     /** update seatByShowtime */
@@ -88,11 +95,17 @@ const AdminSeatRenderDetail = (props: Props) => {
       if (seatValue === 1 || seatValue === 3) {
         return;
       } else if (seatValue === 0) {
+        if (count >= 8) return alert("Chọn tối đa 8 ghế");
         seatClone[key][rowIndex] = 2;
+        setCount(count + 1);
+        setTotal(count * tempPrice);
       } else {
         seatClone[key][rowIndex] = 0;
+        setCount(count - 1);
+        setTotal(count * tempPrice);
       }
     }
+
     setSeatDetails({ ...seatClone });
   };
 
@@ -186,7 +199,7 @@ const AdminSeatRenderDetail = (props: Props) => {
         <div className="">
           <span className="font-bold">Tạm Tính : </span>
           <span className="text-orange-600 font-bold">
-            {formatCurrency(tempPrice)}
+            {formatCurrency(total)}
           </span>
         </div>
         <p>Tiền sau giảm : </p>
