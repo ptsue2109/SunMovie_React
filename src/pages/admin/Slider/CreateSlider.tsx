@@ -15,7 +15,7 @@ const CreateSlider = (props: Props) => {
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
     values.releaseDate = new Date(moment(values.releaseDate).format());
-    values.image = values.avatarList?.fileList;
+    values.images = values.avatarList?.fileList;
     delete values?.avatarList;
     const { meta, payload } = await dispatch(createSlider(values));
     if (meta.requestStatus == "fulfilled") {

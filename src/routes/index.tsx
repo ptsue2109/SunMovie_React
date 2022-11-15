@@ -71,6 +71,7 @@ import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
 import WebConfig from "../pages/admin/Config";
 import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
+import VoucherContent from "../components/client/VoucherContent";
 type RoutesType = {
   path: string;
   component: any;
@@ -91,6 +92,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.search, component: Search },
   { path: configRoute.routes.profile, component: Profile },
   {path: configRoute.routes.verify, component: Complete},
+  {path: configRoute.routes.voucherDetail, component: VoucherContent},
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

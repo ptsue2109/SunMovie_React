@@ -90,7 +90,7 @@ const AdminSlider = (props: Props) => {
     return {
       key: index + 1,
       _id: item?._id,
-      //image: item?.avatar[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      image: item?.images[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       title: item?.title,
       content: item?.content,
       url: item?.url,
