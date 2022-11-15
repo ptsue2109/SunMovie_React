@@ -14,13 +14,10 @@ type Props = {
 
 const News = ({activeNav}: Props) => {
   const { posts } = useAppSelector((state: any) => state.PostReducer);
-  console.log('posts', posts);
-
   const dispatch = useDispatch<any>();
   const { slug } = useParams();
   const [path, setPath] = useState<string>("");
   const [data, setData] = useState<any>([]);
-  console.log('data', data);
   
   useEffect(() => {
     if (!slug) {
@@ -38,9 +35,7 @@ const News = ({activeNav}: Props) => {
       (async () => {
         try {
           const res = await dispatch(getListPostByCate(slug)).unwrap();
-          console.log('res', res?.posts);
-          setData(res?.posts)
-       
+          setData(res?.post)
         } catch (error) {
           console.log(error);
         }

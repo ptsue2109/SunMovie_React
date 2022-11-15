@@ -27,16 +27,16 @@ const NewsContent = ({ newsList, path }: NewsContentProps) => {
                 </div>
               </Link>
               <div className="bg-white rounded-b-xl shadow px-3 py-1">
-                <p className="text-sm text-gray-500">{formatDateString(item.createdAt)}</p>
+                <p className="text-sm text-gray-500">{formatDateString(item?.createdAt)}</p>
                 <h1>
-                  <Link to={`/post/${item.slug}`}>
+                  <Link to={`/post/${item?.slug}`}>
                     <span className="limit-line-2 block my-1 font-semibold text-justify leading-tight transition duration-300 text-gray-600 hover:text-black uppercase">
-                      {item.title}
+                      {item?.title}
                     </span>
                   </Link>
                 </h1>
                 <div className="limit-line-3 text-gray-500 text-sm text-justify" dangerouslySetInnerHTML={{ __html: `${item?.desc}` }}></div>
-                <Link to={`/post/${item.slug}`}>
+                <Link to={`/post/${item?.slug}`}>
                   <button className="block mx-auto w-9 h-9 rounded-full border-2 border-[#D9A953] text-[#D9A953] transition duration-300 hover:bg-[#D9A953] hover:text-white mt-2 mb-2 text-center">
                     <AiOutlineArrowRight style={{ textAlign: 'center', margin: '0 auto' }} />
                   </button>

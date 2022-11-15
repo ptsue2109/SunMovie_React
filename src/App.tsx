@@ -20,6 +20,7 @@ import { getSlider } from "./redux/slice/Slider";
 import { getConfigs } from "./redux/slice/webConfig";
 import { getAlVc } from "./redux/slice/voucherSlice";
 import Maintain from "./components/client/Maintain";
+import { getAlPost } from "./redux/slice/PostSlice";
 function App() {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state) => state.authReducer);
@@ -40,6 +41,7 @@ function App() {
     dispatch(getAllSBST());
     dispatch(getConfigs());
     dispatch(getAlVc());
+    dispatch(getAlPost())
   }, [dispatch]);
 
   return (
