@@ -58,7 +58,7 @@ export const getOneSlider = createAsyncThunk(
     }
   }
 );
-export const searchSlider= createAsyncThunk(
+export const searchSlider = createAsyncThunk(
   "slider/searchslider",
   async (key: any, { rejectWithValue }) => {
     try {
