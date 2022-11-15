@@ -4,24 +4,22 @@ import { useParams } from "react-router-dom";
 import NavNews from "../../../components/client/NavNews";
 import NewsContent from "../../../components/client/NewsContent";
 import config from "../../../config";
-import "./News.module.scss"
+import "./News.module.scss";
 import { useAppSelector } from "../../../redux/hook";
 import { getAlPost, getListPostByCate } from "../../../redux/slice/PostSlice";
 
 type Props = {
-  activeNav: boolean
+  activeNav: boolean;
 };
 
-const News = ({activeNav}: Props) => {
+const News = ({ activeNav }: Props) => {
   const { posts } = useAppSelector((state: any) => state.PostReducer);
-  console.log('posts', posts);
 
   const dispatch = useDispatch<any>();
   const { slug } = useParams();
   const [path, setPath] = useState<string>("");
   const [data, setData] = useState<any>([]);
-  console.log('data', data);
-  
+
   useEffect(() => {
     if (!slug) {
       setPath(config.routes.news);
@@ -38,9 +36,8 @@ const News = ({activeNav}: Props) => {
       (async () => {
         try {
           const res = await dispatch(getListPostByCate(slug)).unwrap();
-          console.log('res', res?.posts);
-          setData(res?.posts)
-       
+          console.log("res", res?.posts);
+          setData(res?.posts);
         } catch (error) {
           console.log(error);
         }
@@ -49,7 +46,7 @@ const News = ({activeNav}: Props) => {
   }, [slug]);
   return (
     <>
-     { !activeNav && <NavNews />}
+      {!activeNav && <NavNews />}
       {!slug && <NewsContent newsList={posts} path={path} />}
       {slug && <NewsContent newsList={data} path={path} />}
     </>

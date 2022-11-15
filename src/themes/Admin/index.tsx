@@ -41,14 +41,14 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
     navigate(configRoute.routes.signin);
   };
   useEffect(() => {
-    if (user) {
-      if (user.role == 0) {
-        navigate(configRoute.routes.home);
-      }
-    } else {
-      navigate(configRoute.routes.home);
-    }
-  }, []);
+    // if (user) {
+    //   if (user.role == 0) {
+    //     navigate(configRoute.routes.home);
+    //   }
+    // } else {
+    //   navigate(configRoute.routes.home);
+    // }
+  }, [user]);
   const menu = (
     <Menu
       items={[
