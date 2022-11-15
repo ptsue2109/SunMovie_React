@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import styles from "./voucher.module.scss";
 
 import { getAlVc } from "../../../redux/slice/voucherSlice";
+import { Link } from 'react-router-dom';
 type Props = {}
 
 const Voucher = (props: any) => {
@@ -15,8 +16,8 @@ const Voucher = (props: any) => {
     <>
       <div className={styles.discountNewsItems}>
         {vouchers && vouchers.map((item: any) => (
-         <div key={item?._id}>
-          <div style={{ backgroundImage: `url(${item?.imagesFile[0]?.url}) ` }} className={styles.discountNewsItem}>
+         <div key={item?._id} >
+          <div  style={{ backgroundImage: `url(${item?.imagesFile[0]?.url}) ` }} className={styles.discountNewsItem}>
             <div className={styles.discountNewsItemInfo}>
               <h4>{item?.content}</h4>
               <p>

@@ -17,14 +17,16 @@ const SignUp = (props: Props) => {
   const onFinish = async (values: any) => {
     const { meta, payload } = await dispatch((authAsyncRegister(values)));
     if (meta.requestStatus == "fulfilled") {
-      console.log(payload)
-      notification.open({
+      notification.info({
         message: 'Đăng ký thành công',
         description:
-          `Chào ${payload?.email}, vui lòng vào email để xác nhận!`,
+          `Chào ${payload?.username}, vui lòng vào email để xác nhận tài khoản!`,
       });
+      setTimeout(() => {
+        form.resetFields()
+      }, 2000);
     } else {
-      notification.open({
+      notification.error({
         message: 'Đăng ký thất bại',
         description:
           ` ${payload}`,

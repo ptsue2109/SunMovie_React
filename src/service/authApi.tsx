@@ -10,8 +10,6 @@ export const AuthApi = {
     return AxiosRequest.post("/login", data);
   },
   async createOrUpdateUser(authtoken: string, data: any): Promise<any> {
-    console.log('fe', authtoken);
-    
     const url = "userVerify"
     return AxiosRequest.put(url, data,
       {
