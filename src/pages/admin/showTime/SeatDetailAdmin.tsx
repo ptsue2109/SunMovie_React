@@ -3,11 +3,12 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Button, Card, Divider, Form, Input } from "antd";
 import { Link, useParams } from "react-router-dom";
 import configRoute from "../../../config";
-import { getOneSBSTById, getAllSBST } from "../../../redux/slice/SeatBySTSlice";
+import { getAllSBST, updateSBST } from "../../../redux/slice/SeatBySTSlice";
 import styles from "./Seats.module.scss";
 import { formatCurrency, formatDate, formatTime } from "../../../ultils";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
 import ApplyVoucher from "../../../components/client/ApplyVoucher";
+import Swal from "sweetalert2";
 type Props = {};
 
 const AdminSeatRenderDetail = (props: Props) => {
@@ -40,7 +41,31 @@ const AdminSeatRenderDetail = (props: Props) => {
   const [seatDetails, setSeatDetails] = useState(seat?.seats);
 
   const nextStepChooseCombo = () => {
-    console.log(JSON.stringify(seatDetails));
+    const seatClone = JSON.parse(JSON.stringify(seatDetails));
+    let seatArray: any = [];
+    for (let key in seatDetails) {
+      seatDetails[key].map((seatValue: any, rowIndex: any) => {
+        if (seatValue === 2) {
+          seatClone[key][rowIndex] = 1;
+        }
+        setSeatDetails({ ...seatClone });
+      });
+    }
+    console.log(selectedSeats);
+    seatArray = { seats: seatClone, _id: id };
+
+    /** update seatByShowtime */
+    // dispatch(updateSBST(seatArray))
+    //   .unwrap()
+    //   .then(() => {
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Thành công",
+    //       showConfirmButton: false,
+    //       timer: 1000,
+    //     });
+    //   })
+    //   .catch((err: any) => alert(err));
   };
 
   const clearSelectedSeats = () => {
@@ -125,7 +150,6 @@ const AdminSeatRenderDetail = (props: Props) => {
     return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
   };
 
-
   const RenderMovie = () => {
     return (
       <>
@@ -144,12 +168,11 @@ const AdminSeatRenderDetail = (props: Props) => {
           </div>
         </div>
         <div className="uppercase text-[12px]">
-          <span className="font-bold">Rạp:</span> Galaxy Mipec Long Biên |
-          {seat?.roomId?.name}
+          <span className="font-bold"> {seat?.roomId?.name}</span>
         </div>
         <div className="uppercase text-[12px]">
           <span className="font-bold">Suất chiếu:</span>
-          {formatTime(seat?.showTimeId?.startAt)} |
+          {formatTime(seat?.showTimeId?.startAt)} --
           {formatDate(seat?.showTimeId?.startAt)}
         </div>
         <div className="max-w-[300px]">
@@ -185,8 +208,7 @@ const AdminSeatRenderDetail = (props: Props) => {
               style={{ minWidth: 150 }}
               onClick={nextStepChooseCombo}
             >
-                
-              {/* <Link to={configRoute.routes.chooseCombo}> Tiếp theo</Link> */}
+              <Link to="#"> Tiếp theo</Link>
             </Button>
           </div>
         </Card>
