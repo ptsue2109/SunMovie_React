@@ -10,6 +10,7 @@ import { getAlVc } from "../../../redux/slice/voucherSlice";
 import ApplyVoucher from "../../../components/client/ApplyVoucher";
 import Swal from "sweetalert2";
 import { getAllData } from "../../../redux/slice/FilmFormatSlice";
+import { createTicket } from "../../../redux/slice/ticketSlice";
 type Props = {};
 
 const AdminSeatRenderDetail = (props: Props) => {
@@ -22,9 +23,7 @@ const AdminSeatRenderDetail = (props: Props) => {
   const extraPrice = filmFormats.find(
     (item: any) => item._id === seat?.showTimeId?.filmFormatId
   );
-  const [tempPrice, setTempPrice] = useState<any>(
-    40000 + seat?.showTimeId?.extraPrice + extraPrice?.extraPrice
-  );
+  const [tempPrice, setTempPrice] = useState<any>(40000);
   const [total, setTotal] = useState(0);
   useEffect(() => {
     document.title = "Admin | Detail Seat ";
@@ -56,24 +55,33 @@ const AdminSeatRenderDetail = (props: Props) => {
         if (seatValue === 2) {
           seatClone[key][rowIndex] = 1;
         }
-        setSeatDetails({ ...seatClone });
+        // setSeatDetails({ ...seatClone });
       });
     }
     seatArray = { seats: seatClone, _id: id };
-
+    const tickit = {
+      totalPrice: total,
+      setByShowTimeId: id,
+      chosenSeats: selectedSeats,
+    };
     /** update seatByShowtime */
-    // dispatch(updateSBST(seatArray))
-    //   .unwrap()
-    //   .then(() => {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Thành công",
-    //       showConfirmButton: false,
-    //       timer: 1000,
-    //     });
-    //   })
-    //   .catch((err: any) => alert(err));
+    console.log(tickit);
+
+    dispatch(createTicket(tickit))
+      .unwrap()
+      .then(() => {
+        dispatch(updateSBST(seatArray));
+        Swal.fire({
+          icon: "success",
+          title: "Thành công",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      })
+      .catch((err: any) => alert(err));
   };
+
+  // console.log(selectedSeats);
 
   const clearSelectedSeats = () => {
     let newMovieSeatDetails = { ...seatDetails };
