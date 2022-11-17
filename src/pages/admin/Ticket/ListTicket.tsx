@@ -36,38 +36,15 @@ const AdminListTiket = (props: Props) => {
 
   const columnUserList: any = [
     {
-      title: "DATE",
-      dataIndex: "date",
-      key: "date",
-      render: (_: any, record: any) => (
-        <div className="overflow-auto surface-overlay">
-          <Link
-            to={`${record?._id}`}
-            style={{ color: "#262626", height: "10px" }}
-            className="hover:text-red-700"
-          >
-            {record?.date}
-          </Link>
-        </div>
-      ),
-      width: 30,
+      title: "totalPrice",
+      render: (item: any, index: any) => <p>{item.totalPrice}</p>,
+      height: "10",
     },
     {
-      title: "totalPrice",
-      dataIndex: "totalPrice",
-      key: "totalPrice",
-
-      render: (_: any, record: any) => (
-        <div className="overflow-auto surface-overlay">
-          <Link
-            to={`${record?._id}`}
-            style={{ color: "#262626", height: "10px" }}
-            className="hover:text-red-700"
-          >
-            {record?.totalPrice}
-          </Link>
-        </div>
-      ),
+      title: "setByShowTimeId",
+      key: "setByShowTimeId",
+      render: (item: any, index: any) => <p>{item.setByShowTimeId}</p>,
+      height: "10",
     },
     {
       title: "Status",
@@ -90,9 +67,9 @@ const AdminListTiket = (props: Props) => {
     },
 
     {
-      title: "showtimeId",
-      dataIndex: "showtimeId",
-      key: "showtimeId",
+      title: "chosenSeats",
+      dataIndex: "chosenSeats",
+      key: "chosenSeats",
       render: (_: any, record: any) => (
         <div className="overflow-auto surface-overlay">
           <Link
@@ -100,59 +77,12 @@ const AdminListTiket = (props: Props) => {
             style={{ color: "#262626", height: "10px" }}
             className="hover:text-red-700"
           >
-            {record?.showtimeId}
+            {record?.chosenSeats}
           </Link>
         </div>
       ),
     },
-    {
-      title: "seatId",
-      dataIndex: "seatId",
-      key: "seatId",
-      render: (_: any, record: any) => (
-        <div className="overflow-auto surface-overlay">
-          <Link
-            to={`${record?._id}`}
-            style={{ color: "#262626", height: "10px" }}
-            className="hover:text-red-700"
-          >
-            {record?.seatId}
-          </Link>
-        </div>
-      ),
-    },
-    {
-      title: "ticketPriceId",
-      dataIndex: "ticketPriceId",
-      key: "address",
-      render: (_: any, record: any) => (
-        <div className="overflow-auto surface-overlay">
-          <Link
-            to={`${record?._id}`}
-            style={{ color: "#262626", height: "10px" }}
-            className="hover:text-red-700"
-          >
-            {record?.ticketPriceId}
-          </Link>
-        </div>
-      ),
-    },
-    {
-      title: "userId",
-      dataIndex: "userId",
-      key: "userId",
-      render: (_: any, record: any) => (
-        <div className="overflow-auto surface-overlay">
-          <Link
-            to={`${record?._id}`}
-            style={{ color: "#262626", height: "10px" }}
-            className="hover:text-red-700"
-          >
-            {record?.userId}
-          </Link>
-        </div>
-      ),
-    },
+
     {
       title: "ACTION",
       key: "action",
@@ -183,12 +113,8 @@ const AdminListTiket = (props: Props) => {
       key: index + 1,
       _id: item?._id,
       totalPrice: item?.totalPrice,
-      showtimeId: item?.showtimeId,
-      seatId: item?.seatId,
-      ticketPriceId: item?.ticketPriceId,
-      userId: item?.userId,
-      role: item?.role,
-      date: item?.date,
+      setByShowTimeId: item?.setByShowTimeId,
+      chosenSeats: item?.chosenSeats,
       status: item?.status,
     };
   });
