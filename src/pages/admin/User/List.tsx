@@ -64,6 +64,7 @@ const AdminUserList = (props: Props) => {
           </Link>
         </div>
       ),
+      sorter: (a: any, b:any) => a.email - b.email,
 
     },
     {
@@ -79,7 +80,7 @@ const AdminUserList = (props: Props) => {
         </Select>
       ),
       width: '30px',
-
+      sorter: (a: any, b:any) => a.status - b.status,
     },
     {
       title: "ROLE",
@@ -93,6 +94,7 @@ const AdminUserList = (props: Props) => {
           ))}
         </Select>
       ),
+      sorter: (a: any, b:any) => a.role - b.role,
       width: 30
     },
     {
@@ -110,12 +112,14 @@ const AdminUserList = (props: Props) => {
           </Link>
         </div>
       ),
+      sorter: (a: any, b:any) => a.username - b.username,
 
     },
     {
       title: "Phone",
       dataIndex: "phone",
-      key: "phone"
+      key: "phone",
+      sorter: (a: any, b:any) => a.phone - b.phone,
     },
     {
       title: "Address",
@@ -129,6 +133,8 @@ const AdminUserList = (props: Props) => {
           ))}
         </Select>
       ),
+      sorter: (a: any, b:any) => a.address - b.address,
+
       width: 30
     },
     {

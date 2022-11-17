@@ -17,15 +17,15 @@ const AdminShowTimesEdit = (props: Props) => {
   const [extraPrice, setExtraprice] = useState();
   useEffect(() => { 
     (async() => {
-      dispatch(getAlSt())
+      dispatch(getAlSt({}))
     })();
   
   }, []);
 
   const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);
-  const dataSelected = stList.find((item: any) => item?._id === id);
-  let movie = dataSelected.movieId.map((item:any) => item._id);
-  let room = dataSelected.roomId.map((item:any) => item._id);
+  const dataSelected = stList?.find((item: any) => item?._id === id);
+  let movie = dataSelected?.movieId?.map((item:any) => item?._id);
+  let room = dataSelected?.roomId?.map((item:any) => item?._id);
 
   useEffect(() => {
     document.title = `Admin | ST Edit ${dataSelected?._id}`;
@@ -34,8 +34,8 @@ const AdminShowTimesEdit = (props: Props) => {
         ...dataSelected,
         movieId: movie,
         roomId: room,
-        filmFormatId: dataSelected.filmFormatId._id,
-        timeValid: [moment(dataSelected.startAt), moment(dataSelected.endAt)],
+        filmFormatId: dataSelected?.filmFormatId?._id,
+        timeValid: [moment(dataSelected?.startAt), moment(dataSelected?.endAt)],
 
       });
     }

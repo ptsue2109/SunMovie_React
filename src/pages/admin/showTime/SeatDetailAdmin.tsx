@@ -18,7 +18,7 @@ const AdminSeatRenderDetail = (props: Props) => {
   useEffect(() => {
     document.title = "Admin | Detail Seat ";
     (async () => {
-      dispatch(getAllSBST());
+      dispatch(getAllSBST({}));
       dispatch(getAlVc());
     })();
   }, [dispatch]);
@@ -38,7 +38,8 @@ const AdminSeatRenderDetail = (props: Props) => {
   const movie = seat?.movieId;
   let selectedSeats: string[] = [];
   const [seatDetails, setSeatDetails] = useState(seat?.seats);
-
+  console.log(seatDetails);
+  
   const nextStepChooseCombo = () => {
     console.log(JSON.stringify(seatDetails));
   };
@@ -99,7 +100,7 @@ const AdminSeatRenderDetail = (props: Props) => {
   const RenderSeats = () => {
     let seatArray = [];
     for (let key in seatDetails) {
-      let colValue = seatDetails[key].map((seatValue: any, rowIndex: any) => (
+      let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && (
             <span className="text-gray-500 font-bold mr-[20px] pl-[20px]">

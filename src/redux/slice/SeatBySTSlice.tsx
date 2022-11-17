@@ -12,11 +12,11 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
       }
    }
 );
-export const getAllSBST = createAsyncThunk<any, void, { rejectValue: string }>(
+export const getAllSBST = createAsyncThunk<any, any, { rejectValue: string }>(
    "sbst/getAll",
-   async (_: any, { rejectWithValue }) => {
+   async (options: any, { rejectWithValue }) => {
       try {
-         const { data } = await seatByShowTime.getAll();
+         const { data } = await seatByShowTime.getAll(options);
          return data;
       } catch (error: any) {
          return rejectWithValue(error.response.data.message);

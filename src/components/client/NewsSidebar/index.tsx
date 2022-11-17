@@ -14,8 +14,6 @@ const NewsSidebar = (props: Props) => {
 
    const { categories, isFetching } = useAppSelector((state: any) => state.categoriesReducer)
    const { loading, top10 } = useAppSelector((state: any) => state.PostReducer);
-   console.log('categories', categories);
-   console.log('top10', top10);
    return (
       <div className="">
          <aside className="hidden lg:block lg:col-span-3 pl-6 border-l bg-[#182b47] w-full p-3">

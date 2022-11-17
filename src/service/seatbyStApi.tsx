@@ -1,16 +1,18 @@
 
-import axiosClient from "./instance";
+import { AxiosRequestConfig } from "axios";
+import axiosClient, { AxiosRequest } from "./instance";
 
 
 export const seatByShowTime = {
   create(data: any): Promise<any> {
-    return axiosClient.post("/setByShowTime", data);
+    return axiosClient.post("/seats", data);
   },
-  getAll(): Promise<any> {
-    return axiosClient.get("/setByShowTime");
+
+  getAll(options: AxiosRequestConfig = {}): Promise<any> {
+    return AxiosRequest.get("/setByShowTime", options);
   },
-  getOneByid(id: any): Promise<any> {
-    const url = `setByShowTime/${id}`
+  getOneByid(roomId: any): Promise<any> {
+    const url = `seatsByRoom/${roomId}`
     return axiosClient.get(url)
   }
 

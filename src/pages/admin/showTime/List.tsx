@@ -14,7 +14,7 @@ const AdminShowTimeList = (props: Props) => {
 
   useEffect(() => {
     document.title = "Admin | Show"
-    dispatch(getAlSt())
+    dispatch(getAlSt({}))
   }, [dispatch]);
 
   const { stList, errorMessage } = useAppSelector((state: any) => state.ShowTimeReducer);
@@ -68,7 +68,7 @@ const AdminShowTimeList = (props: Props) => {
       render: (_: any, record: any) => (
         <Space size="middle">
           <Tooltip title="Chỉnh sửa ">
-            <Link to={`${record._id}`}>
+            <Link to={`${record?._id}`}>
               <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
             </Link>
           </Tooltip>
@@ -83,7 +83,7 @@ const AdminShowTimeList = (props: Props) => {
             </Popconfirm>
           </Tooltip>
           <Tooltip title="Xem ghế ">
-            <Link to={`/admin/showTimes/seat/${record._id}`}>
+            <Link to={`/admin/showTimes/seat/${record?._id}`}>
               <EyeOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
             </Link>
           </Tooltip>

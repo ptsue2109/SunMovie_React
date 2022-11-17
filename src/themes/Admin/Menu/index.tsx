@@ -89,8 +89,7 @@ const items: any[] = [
     getItem(<Link to={config.routes.adminCategories}> Xem tất cả</Link>, "adminCategories1"),
     getItem(<Link to={config.routes.adminCategoriesCreate}> Thêm danh mục</Link>, "adminCategories2")
   ]),
-  getItem(<Link to={config.routes.webConfig}>Thống kê</Link>, "webConfig", <SettingOutlined />, )
-
+  getItem(<Link to={config.routes.webConfig}>Cài đặt</Link>, "webConfig", <SettingOutlined />, )
 ];
 
 const MenuAdminLayout = (props: Props) => {

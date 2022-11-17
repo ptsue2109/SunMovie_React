@@ -4,6 +4,8 @@ import { Button, Card, Form, FormInstance, Input, Select, Skeleton, InputNumber 
 import { validateMessages } from "../../../ultils/FormMessage";
 import styles from "./room.module.scss"
 import { screenData } from '../../../ultils/data';
+import { useAppSelector } from '../../../redux/hook';
+import MenuContext from "./MenuContext";
 interface RoomFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -12,7 +14,9 @@ interface RoomFormProps {
   loading?: boolean;
   setSeatFile: any;
   seatFile: any;
-
+  seats:any;
+  setSeats:any;
+  showSeatTye:any;
   rowFile: any,
   colFile: any;
   setRowFile: any;
@@ -21,16 +25,26 @@ interface RoomFormProps {
   setBlockSeat: any
 }
 const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, setBlockSeat, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile }: RoomFormProps) => {
-  const [seatDetails, setSeatDetails] = useState<any>(seatFile);
+  const [seatDetails, setSeatDetails] = useState<any>();
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
-  const [blockS, setBlockS] = useState<number>(blockSeat);
+  // const [blockS, setBlockS] = useState<number>(blockSeat);
+  const { seatType } = useAppSelector((state:any) => state?.seatTypeReducer);
+  const [appSeatType, setAppSeatType] = useState([]);
+  const [popup, setPopup] = useState({
+      popup: {
+        visible: true,
+        x: 0,
+        y: 0
+    }
 
+  })
+  
   useEffect(() => {
     clearSelectedSeats();
-    setBlockSeat(blockS)
+    // setBlockSeat(blockS)
   },
-    [blockS])
+    [])
   useEffect(() => {
     handleSubmit();
   }, [row, column])
@@ -41,6 +55,7 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
   const clearSelectedSeats = () => {
     let newMovieSeatDetails = { ...seatDetails };
     for (let key in seatDetails) {
+
       seatDetails[key].forEach((seatValue: any, seatIndex: any) => {
         if (seatValue === 2) {
           seatDetails[key][seatIndex] = 0;
@@ -97,23 +112,49 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
         return;
       } else if (seatValue === 0) {
         seatDetails[key][rowIndex] = 3;
-        setBlockS((blockSeat) => blockSeat + 1);
+        // setBlockS((blockSeat) => blockSeat + 1);
       } else {
         seatDetails[key][rowIndex] = 0;
-        setBlockS((blockSeat) => blockSeat - 1);
+        // setBlockS((blockSeat) => blockSeat - 1);
       }
     }
     setSeatDetails({ ...seatDetails });
   }
-
+const onRow = (record:any) => {
+  return ({
+    onContextMenu: (event: { preventDefault: () => void; clientX: any; clientY: any; }) => {
+      event.preventDefault()
+      if (popup.popup.visible) {
+      } else {
+        const that = this
+        document.addEventListener(`click`, function onClickOutside() {
+          // @ts-ignore
+          setPopup({popup: {visible: false}})
+          document.removeEventListener(`click`, onClickOutside)
+        })
+      }
+      // @ts-ignore
+      setPopup({
+        popup: {
+          record,
+          visible: true,
+          x: event.clientX,
+          y: event.clientY
+        }
+      })
+    }
+  });
+}
   const RenderSeats = () => {
     let seatArray = [];
     for (let key in seatDetails) {
-      let colValue = seatDetails[key].map((seatValue: any, rowIndex: any) => (
+
+      let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
-          <span className={getClassNameForSeats(seatValue)} onClick={() => onSeatClick(seatValue, rowIndex, key)}>
+          <span className={getClassNameForSeats(seatValue)} onClick={() => onSeatClick(seatValue, rowIndex, key)} onRow={onRow}>
             {rowIndex + 1}
+            <MenuContext {...popup} />
           </span>
           {seatDetails && rowIndex === seatDetails[key].length - 1 && <><br /><br /></>}
         </span>
@@ -143,7 +184,14 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
                 </Select>
 
               </Form.Item>
+              <Form.Item label="seatTypeId" name="seatTypeId" rules={[{ required: true }]}>
+                <Select>
+                {seatType && seatType?.map((item: any) => (
+                  <Select.Option value={item._id} key={item._id} >{item.name}</Select.Option>
+                ))}
+            </Select>
 
+              </Form.Item>
               <Form.Item label="columns" name="rows"  >
                 <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
               </Form.Item>
@@ -151,16 +199,16 @@ const RoomForm = ({ form, onFinish, edit = false, rowFile, colFile, blockSeat, s
                 <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
               </Form.Item>
               <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
-              <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  style={{ minWidth: 150 }}
-                >
-                  Lưu
-                </Button>
-              </div>
-            </Card> 
+                <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
+                  <Button
+                    htmlType="submit"
+                    type="primary"
+                    style={{ minWidth: 150 }}
+                  >
+                    Lưu
+                  </Button>
+                </div>
+              </Card>
             </Card>
             <Card className="col-10 ">
               {seatDetails && <RenderSeats />}
