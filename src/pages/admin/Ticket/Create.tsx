@@ -41,6 +41,13 @@ const CreateTicket = (props: Props) => {
         autoComplete="off"
       >
         <Form.Item
+          name="date"
+          label="date"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <DatePicker format="DD-MM-YYYY" />
+        </Form.Item>
+        <Form.Item
           name="totalPrice"
           label="totalPrice"
           rules={[{ required: true, message: "Không được để trống! " }]}
@@ -49,7 +56,7 @@ const CreateTicket = (props: Props) => {
         </Form.Item>
 
         <Form.Item
-          label="setByShowTimeId"
+          label="setByShowTimeId "
           name="setByShowTimeId"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
