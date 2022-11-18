@@ -13,18 +13,19 @@ const AdminRoomCreate = (props: Props) => {
   const [rowFile, setRowFile] = useState(0);
   const [colFile, setSColFile] = useState(0);
   const [blockSeat, setBlockSeat] = useState(0)
-  const [showSeatTye, setShowSeatTye] = useState(false)
+  const [showSeatTye, setShowSeatTye] = useState(true)
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { errorMessage } = useAppSelector((state) => state.userReducer);
   const [seats, setSeats] = useState();
-
+  const [adminRenderSeat, setAdminRenderSeat] = useState(true)
   
   const onFinish = (val: any) => {
-    dispatch(createRooms(val)).unwrap()
-      .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
-      .catch(() => message.error(`${errorMessage}`))
+    console.log(seatFile)
+    // dispatch(createRooms(val)).unwrap()
+    //   .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
+    //   .catch(() => message.error(`${errorMessage}`))
   }
   useEffect(() => { document.title = "Admin | Create-Room" }, [])
   return (
@@ -46,6 +47,7 @@ const AdminRoomCreate = (props: Props) => {
         seats={seats}
         setSeats={setSeats}
         showSeatTye={showSeatTye}
+        adminRenderSeat= {adminRenderSeat}
       />
     </div>
   )

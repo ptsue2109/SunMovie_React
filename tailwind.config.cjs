@@ -11,6 +11,9 @@ module.exports = {
            nunito: ["Nunito", "sans-serif"],
            roboto: ["Roboto", "sans-serif"],
          },
+         animation: {
+          wiggle: 'wiggle 1s ease-in-out infinite',
+        }
        },
    },
    plugins: [],

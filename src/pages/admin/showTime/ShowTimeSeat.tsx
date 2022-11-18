@@ -22,7 +22,7 @@ const ShowTimeSeat = (props: Props) => {
   const { id } = useParams();
   useEffect(() => { 
     (async() => {
-      dispatch(getAlSt()) 
+      dispatch(getAlSt({})) 
     })();
   }, [dispatch]);
   const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);

@@ -132,7 +132,7 @@ const MovieDetail = (props: Props) => {
         <iframe
           width="900"
           height="500"
-          src={`https://www.youtube.com/embed/${data?.movie?.trailerUrl}`}
+          src={`${data?.movie?.trailerUrl}`}
           title="YouTube video player"
           frameBorder={0}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

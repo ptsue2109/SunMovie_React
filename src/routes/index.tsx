@@ -72,6 +72,7 @@ import WebConfig from "../pages/admin/Config";
 import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
 import VoucherContent from "../components/client/VoucherContent";
+import SeatByRoom from "../pages/admin/Seats/seatByRoom";
 type RoutesType = {
   path: string;
   component: any;
@@ -175,4 +176,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.webConfig, component: WebConfig },
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
+  { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
+
 ];

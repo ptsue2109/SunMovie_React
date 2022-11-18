@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
+import { Button, message, Popconfirm, Space, Tag, Pagination, Select, Tooltip } from "antd";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link } from "react-router-dom";
 import {  removeRoom, updateRoom, getRooms } from '../../../redux/slice/roomSlice';
 import DataTable from "../../../components/admin/Form&Table/Table"
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import { screenData } from "../../../ultils/data"
+import { DeleteOutlined, EditOutlined , EyeOutlined} from "@ant-design/icons"
 const { Option } = Select;
 type Props = {}
 
@@ -48,21 +47,6 @@ const AdminRoomList = (props: Props) => {
       ),
     },
     {
-      title: "Screen",
-      dataIndex: "screen",
-      key: "screen",
-      render: (_: any, { screen, _id }: any) => (
-        <div>
-          <Select value={screen == 0 ? 'Imax' : screen == 1 ? 'ScreenX' : screen == 2 ? 'Curved Screen' : 'Normal'} style={{ width: 120 }}
-            onChange={(value: any) => { changeScreen(_id, value) }}>
-            {screenData?.map((item: any) => (
-              <Option value={item?.value} key={item?.value}  >{item?.name}</Option>
-            ))}
-          </Select>
-        </div>
-      ),
-    },
-    {
       title: "QuantitySeat",
       dataIndex: "tongGhe",
       key: "tongGhe",
@@ -78,34 +62,33 @@ const AdminRoomList = (props: Props) => {
       key: "rows",
     },
     {
-      title: "gheKhaDung",
-      dataIndex: "gheKhaDung",
-      key: "gheKhaDung",
-    },
-    {
-      title: "gheBiAn",
-      dataIndex: "gheBiAn",
-      key: "gheBiAn",
-    },
-    {
       title: "ACTION",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Link to={`${record._id}`}>
+        <Tooltip title="Chỉnh sửa ">
+          <Link to={`${record?._id}`}>
             <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
           </Link>
+        </Tooltip>
+        <Tooltip title="Xóa" >
           <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
+            title={`Xem ${record?.username ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteData(record?._id)}
           >
             <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
           </Popconfirm>
-        </Space>
+        </Tooltip>
+        <Tooltip title="Xem ghế ">
+          <Link to={`/admin/seatsByRoom/${record?._id}`}>
+            <EyeOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
+          </Link>
+        </Tooltip>
+      </Space>
       ),
-      width: 30
+      width: 130
     },
   ];
  
@@ -117,13 +100,8 @@ const AdminRoomList = (props: Props) => {
       name: item?.name,
       columns: item?.columns,
       rows: item?.rows,
-      screen: item?.screen,
       seats: item?.seats,
       tongGhe: item?.rows * item?.columns,
-      gheKhaDung: ((item?.rows * item?.columns) - item?.seatBlock),
-      gheBiAn: item?.seatBlock
-
-
     }
   });
 

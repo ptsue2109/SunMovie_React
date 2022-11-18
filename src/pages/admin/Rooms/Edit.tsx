@@ -15,20 +15,16 @@ const AdminRoomEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
-  const { rooms } = useAppSelector((state) => state.roomReducer);
-  const dataSelected = rooms.find((item) => item._id === id);
-  // let rowKey = seats.filter((v: any, i: any, a: any) => a.findIndex((v2: any) => (v2.row === v.row)) === i);
-  //   let rowName = (rowKey.map((item: any) => item?.row)).length;
-  //   let colKey = seats.filter((v: any, i: any, a: any) => a.findIndex((v2: any) => (v2.column === v.column)) === i);
-  //   let colName = (colKey.map((item: any) => item?.column)).length;
-  //   setRowFile(rowName);
-  //   setSColFile(colName);
+  const { rooms } = useAppSelector((state:any) => state.roomReducer);
+  const dataSelected = rooms.find((item:any) => item._id === id);
   const [seatFile, setSeatFile] = useState();
   const [rowFile, setRowFile] = useState<any>(dataSelected?.rows);
   const [colFile, setSColFile] = useState<any>(dataSelected?.columns);
   const [blockSeat, setBlockSeat] = useState(dataSelected?.seatBlock)
   const [seats, setSeats] = useState<any>([])
   const [showSeatTye, setShowSeatTye] = useState(false)
+  const [adminRenderSeat, setAdminRenderSeat] = useState(false)
+
   useEffect(() => {
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(id));
@@ -36,23 +32,6 @@ const AdminRoomEdit = (props: Props) => {
     })();
 
   }, [id]);
-
-  console.log('seats', seats)
-  useEffect(() => {
-    let rowKey = seats.filter((v: any, i: any, a: any) => a.findIndex((v2: any) => (v2.row === v.row)) === i);
-    let rowName = (rowKey.map((item: any) => item?.row)).length;
-    let colKey = seats.filter((v: any, i: any, a: any) => a.findIndex((v2: any) => (v2.column === v.column)) === i);
-    let colName = (colKey.map((item: any) => item?.column)).length;
-    setRowFile(rowName);
-    setSColFile(colName);
-  }, [rowFile, colFile])
-
-  const renderSeats = () => {
-    return (
-      <>dddd</>
-    )
-  }
-
 
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.name ?? dataSelected?._id}`;
@@ -98,8 +77,8 @@ const AdminRoomEdit = (props: Props) => {
         seats={seats}
         setSeats={setSeats}
         showSeatTye={showSeatTye}
+        adminRenderSeat= {adminRenderSeat}
       />
-      {renderSeats() }
     </div>
   )
 }
