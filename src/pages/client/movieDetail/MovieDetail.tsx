@@ -48,75 +48,17 @@ const MovieDetail = (props: Props) => {
     })();
   }, []);
 
-  // thảo
+
   useEffect(() => {
     dispatch(getAlSt({}));
   }, []);
 
   let movieSelectId = data?.movie?._id;
-  console.log(movieSelectId);
-
-  const { seatsByST } = useAppSelector((state: any) => state.SeatBySTReducer);
   const { stList } = useAppSelector((state) => state?.ShowTimeReducer);
-  let showtimes = seatsByST?.filter(
-    (item: any) => item?.movieId?._id === movieSelectId
-  );
-  console.log("tất cả giờ chiếu", showtimes);
-  let timeUnique = unique_arr(
-    showtimes?.map((item: any) => item?.showTimeId?._id)
-  );
-  console.log('timeUnique', timeUnique);
-  
-  const renderDate = () => {
-    let itemSelectTime: any[] = [];
-    for (let key in stList) {
-      for (let item in timeUnique) {
-        if (stList[key]?._id === timeUnique[item]) {
-          itemSelectTime.push(stList[key]);
-        }
-      }
-    }
-    return (
-      <>
-        {itemSelectTime &&
-          itemSelectTime?.map((item: any, index: any) => (
-            <div className={styles.showTimesListItem} key={index}>
-              <p > {formatDate(item?.date)}</p>
-              
-            </div>
-          ))}
-      </>
-    );
-  };
+  let showTimeList = stList?.filter((item:any) => item?.movieId?._id === movieSelectId && item?.status === 0)
+ 
 
-  // lấy thông tin suất chiếu , tương tác vs showTimes
-  const renderShowTimes = () => {
-    let showTimes = [];
-    for (let itemkey in showtimes) {
-      for (let itemUniq in timeUnique) {
-        let days = timeUnique[itemUniq];
-        if (timeUnique[itemUniq] == showtimes[itemkey]?.showTimeId?._id) {
-          showTimes = [days, showtimes[itemkey]?.showTimeId?.startAt];
-          console.log("showTimes", showTimes);
 
-          // console.log('date', date);
-          // let groupByAge = date.reduce(
-          //   (acc: any, it: any) => ({ ...acc[0], [it.date]: (acc[it.date] || 0) + date[1] }),
-          //   {}
-          // );
-          // console.log('groupByAge0', groupByAge);
-        }
-      }
-    }
-    return (
-      <>
-
-      </>
-    );
-  };
-  const onChange = (date: any, dateString: any) => {
-    console.log(date, dateString);
-  }
   if (data == "") return <div>Loading...</div>;
   return (
     <>
@@ -202,8 +144,7 @@ const MovieDetail = (props: Props) => {
 
           <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
 
-            {renderDate()}
-            {renderShowTimes()}
+       
             {/* <div className={styles.showTimesListItem}>
               <span>
                 <Link to={`#`}>19:30</Link>

@@ -24,7 +24,7 @@ const AdminShowTimeList = (props: Props) => {
   const { movie } = useAppSelector((state) => state.movie);
   const [searchParams, setSearchParams] = useSearchParams();
   let movieId = searchParams.get("movieId");
-  let movieSelect = movie?.find((item: any) => item?._id === movieId);
+  let movieSelect = movie?.find((item: any) => item?._id === movieId && item?.status === 0 && item?.status === 0);
   const [showTimeByDate, setShowTimeByDate] = useState<any>()
   const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId));
 
