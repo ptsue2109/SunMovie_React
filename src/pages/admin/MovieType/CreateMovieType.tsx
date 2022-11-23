@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Form, Input, message, Space } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { createMovieType } from "../../../redux/slice/movieTypeSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 type Props = {};
 
@@ -22,6 +22,14 @@ const CreateMovieType = (props: Props) => {
 
   return (
     <>
+    <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminMovieType}>List Movie Type</Link>
+        </Button>
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminMovie}>List Film</Link>
+        </Button>
+      </div>
       <Form
         form={form}
         layout="vertical"

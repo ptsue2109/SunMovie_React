@@ -76,9 +76,10 @@ const RoomForm = ({ form, onFinish, adminRenderSeat, showSeatTye, edit = false, 
                     row={row}
                     column={column}
                     seatDetails={seatDetails}
-                    setSeatDetails={setSeatDetails} 
-                    seats={undefined} 
-                    setSeats={undefined} />
+                    setSeatDetails={setSeatDetails}
+                    seats={undefined}
+                    setSeats={undefined} 
+                    roomId={undefined} />
                 </Card>
               </>
             ) : (

@@ -23,10 +23,10 @@ export const removeRoom = createAsyncThunk<any, any, { rejectValue: string }
 });
 export const updateRoom = createAsyncThunk<any, any, { rejectValue: string }>(
   "rooms/updateRoom",
-  async (user, { rejectWithValue }) => {
+  async (input, { rejectWithValue }) => {
     try {
-      const { data } = await roomApi.updateApi(user);
-      return data;
+      const { data } = await roomApi.updateApi(input);
+      return data.room;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }

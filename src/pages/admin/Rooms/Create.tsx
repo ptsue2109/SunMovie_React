@@ -23,9 +23,9 @@ const AdminRoomCreate = (props: Props) => {
   
   const onFinish = (val: any) => {
     console.log(seatFile)
-    // dispatch(createRooms(val)).unwrap()
-    //   .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
-    //   .catch(() => message.error(`${errorMessage}`))
+    dispatch(createRooms(val)).unwrap()
+      .then(() => { message.success('tạo thành công'); navigate(config.routes.adminRooms) })
+      .catch(() => message.error(`${errorMessage}`))
   }
   useEffect(() => { document.title = "Admin | Create-Room" }, [])
   return (

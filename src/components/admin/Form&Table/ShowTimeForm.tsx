@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, DatePicker, Form, FormInstance, Select, Skeleton, InputNumber } from "antd";
+import { Button, Card, DatePicker, FormInstance, Select, Skeleton, InputNumber, Form } from "antd";
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { validateMessages } from "../../../ultils/FormMessage";
 import moment from 'moment';
@@ -7,7 +7,8 @@ import { defaultStatus } from "../../../ultils/data"
 import { useAppSelector } from '../../../redux/hook';
 import "antd/dist/antd.css";
 import { RangeValue } from 'rc-picker/lib/interface';
-import { formatTime, convertDateToNumber } from '../../../ultils';
+import { formatTime, convertDateToNumber, convertMovieTime } from '../../../ultils';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 interface ShowTimeFormProps {
    form: FormInstance<any>;
@@ -18,25 +19,40 @@ interface ShowTimeFormProps {
    loading?: boolean;
    extraPrice: any;
    setExtraprice: any
+   movieId:any;
+   setTimeEnd:any;
+   timeEnd:any
 }
 const { RangePicker } = DatePicker;
-const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, edit = false, loading = false, editUser = true }: ShowTimeFormProps) => {
+const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading = false, editUser = true }: ShowTimeFormProps) => {
    const { movie } = useAppSelector(state => state.movie);
    const { rooms } = useAppSelector(state => state.roomReducer);
-   const { filmFormats } = useAppSelector(state => state.FormatReducer);
-   const [errMess, setErrMess] = useState<string>('');
-   const MESS: any = {
-      SAMETIME: "Không được chọn thời gian giống nhau",
-      UNDER: "thời gian kết thúc không được nhỏ hơn thời gian bắt đầu",
-   }
+  
+   let movieSelect = movie?.find((item: any) => item?._id === movieId);
+   let movieTime = convertMovieTime(movieSelect?.runTime);
+
+   const [timeEnd, setTimeEnd] = useState<any>()
+   useEffect(() => {
+      if (movieId) {
+         form.setFieldsValue({
+            movieId: movieId,
+         });
+      }
+   }, [movieId]);
+   useEffect(() => {
+      if (timeEnd) {
+         form.setFieldsValue({
+            timeEnd: moment(timeEnd),
+         });
+      }
+   }, [timeEnd]);
    // eslint-disable-next-line arrow-body-style
    const disabledDate: RangePickerProps['disabledDate'] = (current) => {
       return current && current <= moment().endOf('day');
    };
 
    const validRange = (value: any, dateString: any) => {
-      console.log('value', value);
-      console.log('dateString', dateString);
+      setTimeEnd(moment(value).add(movieTime));
    }
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages} className="">
@@ -45,35 +61,42 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, edit
                <>
                   <Card className="col-6 w-full">
                      <Form.Item label="Chọn Phim" name="movieId" rules={[{ required: true }]}>
-                        <Select mode='multiple'>
+                        <Select disabled>
                            {movie.map((item: any, index: any) => <Select.Option key={item._id} value={item[index]}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
-                     <Form.Item
-                        label="Chọn thời gian phát sóng"
-                        name="timeValid"
-                        rules={[{ required: true }]} >
-                        <RangePicker
-                           disabledDate={disabledDate}
-                           showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
-                           format="YYYY-MM-DD HH:mm"
-                           onChange={validRange}
-                        />
-                     </Form.Item>
+                     <div className="flex justify-between">
+                        <Form.Item
+                           label="Chọn thời gian phát sóng"
+                           name="timeStart"
+                           rules={[{ required: true }]} >
+                           <DatePicker
+                              disabledDate={disabledDate}
+                              showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
+                              format="YYYY-MM-DD HH:mm"
+                              onChange={validRange}
+                           />
+                        </Form.Item>
+
+                        <Form.Item
+                           label="Thời gian kết thúc"
+                           name="timeEnd"
+                           rules={[{ required: true }]}
+                        >
+                           <DatePicker
+                              disabled
+                              showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
+                              format="YYYY-MM-DD HH:mm"
+                              onChange={validRange}
+                           />
+                        </Form.Item>
+                     </div>
 
                      <Form.Item label="Chọn phòng chiếu" name="roomId" rules={[{ required: true }]}>
                         <Select mode='multiple'>
                            {rooms.map((item: any, index: any) => <Select.Option key={item._id} value={item[index]}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
-                     <Form.Item label="Chọn filmFormatId" name="filmFormatId" rules={[{ required: true }]}>
-                        <Select>
-                           {filmFormats && filmFormats?.map((item: any) => (
-                              <Select.Option value={item._id} key={item._id} >{item.name}</Select.Option>
-                           ))}
-                        </Select>
-                     </Form.Item>
-
                      <div className="col-12">
                         <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
                            <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
@@ -95,7 +118,7 @@ const ShowTimeForm = ({ form, onFinish, onReset, extraPrice, setExtraprice, edit
                   </Card>
                   <Card className="col-6 w-full">
 
-                     <Form.Item label="extraPrice" name="extraPrice"
+                     <Form.Item label="price" name="price"
                         rules={[{ type: 'number', required: true, min: 10000, max: 200000, whitespace: true }]}
                      >
                         <InputNumber

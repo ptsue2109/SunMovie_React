@@ -6,6 +6,7 @@ import { updateRoom } from "../../../redux/slice/roomSlice";
 import RoomForm from '../../../components/admin/Form&Table/RoomForm';
 import config from "../../../config";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
+import configRoute from "../../../config";
 
 type Props = {}
 

@@ -61,9 +61,14 @@ const ListSeatType = (props: Props) => {
   });
   return (
     <>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
-      </Button>
+      <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
+        </Button>
+        <Button >
+          <Link to={configRoute.routes.adminRooms}>Quản lí phòng chiếu</Link>
+        </Button>
+      </div>
       <DataTable column={columnList} data={data} loading={isFetching} />
     </>
   );

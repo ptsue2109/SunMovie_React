@@ -13,6 +13,8 @@ type Props = {
 }
 
 const MenuContext = ({ anchorPoint, data, setAnchorPoint, visible }: Props) => {
+    // console.log('data', data)
+  
     return (
         <div>
             <Popup style={{ left: `${anchorPoint?.x}px`, top: `${anchorPoint?.y}px` }} className={`active ?? ${visible}`}>

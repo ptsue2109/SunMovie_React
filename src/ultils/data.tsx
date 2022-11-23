@@ -19,8 +19,8 @@ export const userStatus = [
 
 
 export const defaultStatus = [
-  { value: 0, name: "Active" },
-  { value: 1, name: "Inactive" }
+  { value: 0, name: "Hoạt động" },
+  { value: 1, name: "Dừng hoạt động" }
 ]
 
 export const CatePostMenu = [
