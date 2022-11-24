@@ -10,15 +10,10 @@ type NewsContentProps = {
 };
 
 const NewsContent = ({ newsList, path }: NewsContentProps) => {
-<<<<<<< HEAD
   const { loading } = useAppSelector((state: any) => state.PostReducer);
   const { isFetching } = useAppSelector(
     (state: any) => state.categoriesReducer
   );
-=======
-  const { loading } = useAppSelector((state: any) => state.PostReducer)
-  const { isFetching } = useAppSelector((state: any) => state.categoriesReducer)
->>>>>>> 9f7ae592e33e43d230abd1390415525479d63e8a
 
   return (
     <section className="pb-16 min-h-[500px]">
@@ -26,18 +21,13 @@ const NewsContent = ({ newsList, path }: NewsContentProps) => {
         {!isFetching && !loading && newsList?.length !== 0 ? (
           newsList?.map((item: any, index: any) => (
             <div key={index}>
-<<<<<<< HEAD
-              <Link to={`/post/${item.slug}`}>
+              <Link to={`/post/${item.slug ?? item?._id}`}>
                 <div
                   style={{
                     backgroundImage: `url(${item?.imagesFile[0]?.url})`,
                   }}
                   className="block bg-cover bg-center pt-[70%] rounded-t-xl relative"
                 >
-=======
-              <Link to={`/post/${item.slug ?? item?._id}`}>
-                <div style={{ backgroundImage: `url(${item?.imagesFile[0]?.url})` }} className="block bg-cover bg-center pt-[70%] rounded-t-xl relative" >
->>>>>>> 9f7ae592e33e43d230abd1390415525479d63e8a
                   <button className="absolute top-2 left-2 bg-[#D9A953] rounded-full w-10 h-10 text-white text-lg">
                     <ImNewspaper
                       style={{ textAlign: "center", margin: "0 auto" }}
