@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovieType } from "../../../redux/slice/movieTypeSlice";
@@ -39,6 +39,14 @@ const EditMovieType = (props: Props) => {
   };
   return (
     <>
+      <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminMovieType}>List Movie Type</Link>
+        </Button>
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminMovie}>List Film</Link>
+        </Button>
+      </div>
       <Form
         form={form}
         layout="vertical"

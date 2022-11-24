@@ -19,7 +19,8 @@ export const formatDate = (dateString: Date) => {
 
 export const formatDateString = (dateString: Date) => {
   const date = new Date(dateString || "");
-  return `${date.getDate()} Tháng ${date.getMonth() + 1}, ${date.getFullYear()}`;
+  return `${date.getDate()} Tháng ${date.getMonth() + 1
+    }, ${date.getFullYear()}`;
 };
 
 export const convertDateToNumber = (date: Date) => {
@@ -27,15 +28,31 @@ export const convertDateToNumber = (date: Date) => {
   return dateConvert.getTime();
 };
 
-
 export const formatTime = (dateString: Date) => {
   const date = moment(new Date(dateString || "")).format("HH:mm");
-  return date
+  return date;
 };
 
-
-export const discountPercent = (money?: any, discount?:any) => {
-  let moneyPrice  = (money * discount)/100;
-  let newMoney = money - moneyPrice
+export const discountPercent = (money?: any, discount?: any) => {
+  let moneyPrice = (money * discount) / 100;
+  let newMoney = money - moneyPrice;
   return newMoney?.toLocaleString("it-IT") + " đ";
 };
+
+export const convertMovieTime = (seconds: any) => {
+  var h, m, s, result = '';
+  // HOURs
+  h = Math.floor(seconds / 3600);
+  seconds -= h * 3600;
+  if (h) {
+    result = h < 10 ? '0' + h + ':' : h + ':';
+  }
+  // MINUTEs
+  m = Math.floor(seconds / 60);
+  seconds -= m * 60;
+  result += m < 10 ? '0' + m + ':' : m + ':';
+  // SECONDs
+  s = seconds % 60;
+  result += s < 10 ? '0' + s : s;
+  return result;
+}

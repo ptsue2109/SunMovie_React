@@ -10,7 +10,7 @@ type Props = {};
 const WebConfig = (props: Props) => {
   const { loading, webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const quantity = webConfigs?.length
-
+  document.title = "Cài đặt trang web"
   const confirm = () => {
     message.info('Chỉ có thể update, không cho phép xóa')
   }
@@ -20,13 +20,14 @@ const WebConfig = (props: Props) => {
       key: "logo",
       dataIndex: "logo",
       render: (_: any, record: any) => (
-        <img
-          width="50px"
-          height="50px"
-          src={record?.logo}
-          alt=""
-          className="object-cover"
-        />
+        <Link to={record?._id}>
+          <img
+            width="50px"
+            height="50px"
+            src={record?.logo}
+            alt=""
+            className="object-cover"
+          /></Link>
       ),
       width: 100,
     },
@@ -45,9 +46,9 @@ const WebConfig = (props: Props) => {
       title: "Status",
       key: "status",
       dataIndex: "status",
-      render: (_: any, record: any) => (
-        <Tag color={record.status === false ? "red" : "blue"}>
-          {record.status === false ? ` Đang bảo trì` : `Đang hoạt động`}
+      render: (_: any, {isMaintaince}: any) => (
+        <Tag color={isMaintaince === false ? "blue" : "red"}>
+          {isMaintaince === false ? `Đang hoạt động` : ` Đang bảo trì` }
         </Tag>
       ),
       width: 150,
@@ -97,6 +98,7 @@ const WebConfig = (props: Props) => {
       address: item?.address[0]?.text,
       storeName: item?.storeName,
       social: (item?.social?.map((item: any) => item?.name)).join('-'),
+
     };
   });
   return (

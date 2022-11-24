@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { showTimetApi } from "../../service/showTime";
 
-export const getAlSt = createAsyncThunk<any, void, { rejectValue: string }>(
+export const getAlSt = createAsyncThunk<any, any, { rejectValue: string }>(
    "st/getAlSt",
-   async (_, { rejectWithValue }) => {
+   async (options, { rejectWithValue }) => {
       try {
-         const { data } = await showTimetApi.getAll();
+         const { data } = await showTimetApi.getAll(options);
          return data;
       } catch (error: any) {
          return rejectWithValue(error.response.data);

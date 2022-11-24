@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { createSeatType } from "../../../redux/slice/SeatTypeSlice";
@@ -23,6 +23,11 @@ const CeateSeatType = (props: Props) => {
 
   return (
     <>
+   
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
+        </Button>
+      
       <Form
         form={form}
         layout="vertical"

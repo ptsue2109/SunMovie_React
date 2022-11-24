@@ -4,7 +4,7 @@ import { Button, Card, DatePicker, Form, FormInstance, Input, message, Modal, Se
 import { validateMessages } from "../../../ultils/FormMessage";
 import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload"
-import { userRole, defaultStatus } from "../../../ultils/data"
+import { userRole, userStatus } from "../../../ultils/data"
 interface UserFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -16,8 +16,9 @@ interface UserFormProps {
    edit?: boolean;
    editUser?: boolean;
    loading?: boolean;
+   showPass: boolean
 }
-const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFinish, onReset, edit = false, loading = false, editUser = true }: UserFormProps) => {
+const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, showPass, form, onFinish, onReset, edit = false, loading = false, editUser = true }: UserFormProps) => {
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
@@ -34,9 +35,9 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFini
                      <Form.Item label="Họ và tên" name="fullname" rules={[{ required: true, min: 5 }]}>
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
-                     <Form.Item label="Password" name="password" rules={[{ required: true, min: 5 }]}>
-                        <Input.Password placeholder="Nhập vào"  type="hidden" />
-                     </Form.Item>
+                     {showPass && <Form.Item label="Password" name="password" rules={[{ required: true, min: 5 }]}>
+                        <Input.Password placeholder="Nhập vào" type="hidden" />
+                     </Form.Item>}
                      <Form.Item label="SDT" name="phone" rules={[{ required: true, type: 'string', whitespace: true, len: 10 }]} >
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
@@ -46,12 +47,12 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, form, onFini
                      <Form.Item label="email" name="email" rules={[{ required: true, type: 'email' }]}>
                         <Input placeholder="Nhập vào" />
                      </Form.Item>
-                     <Form.Item label="Ngày sinh" name="dob" rules={[{ required: true}]} >
+                     <Form.Item label="Ngày sinh" name="dob" rules={[{ required: true }]} >
                         <DatePicker placeholder="Nhập vào" />
                      </Form.Item>
                      <Form.Item label="Status" name="status">
                         <Select>
-                           {defaultStatus.map((item: any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
+                           {userStatus.map((item: any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
                      <Form.Item label="Chức vụ" name="role">

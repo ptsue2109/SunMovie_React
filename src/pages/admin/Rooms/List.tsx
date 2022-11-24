@@ -7,6 +7,7 @@ import {
   Tag,
   Pagination,
   Select,
+  Tooltip,
 } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
@@ -16,8 +17,9 @@ import {
   getRooms,
 } from "../../../redux/slice/roomSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { screenData } from "../../../ultils/data";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { defaultStatus } from "../../../ultils/data";
+import configRoute from "../../../config";
 const { Option } = Select;
 type Props = {};
 
@@ -42,10 +44,10 @@ const AdminRoomList = (props: Props) => {
       });
   };
 
-  const changeScreen = (id: any, val: any) => {
-    dispatch(updateRoom({ _id: id, screen: val }))
+  const changeStatus = (id: any, val: any) => {
+    dispatch(updateRoom({ _id: id, status: val }))
       .unwrap()
-      .then(() => message.success("Thay đổi màn chiếu thành công"));
+      .then(() => message.success("Thay đổi trạng thái thành công"));
   };
   const columns: any = [
     {
@@ -65,36 +67,6 @@ const AdminRoomList = (props: Props) => {
       ),
     },
     {
-      title: "Screen",
-      dataIndex: "screen",
-      key: "screen",
-      render: (_: any, { screen, _id }: any) => (
-        <div>
-          <Select
-            value={
-              screen == 0
-                ? "Imax"
-                : screen == 1
-                ? "ScreenX"
-                : screen == 2
-                ? "Curved Screen"
-                : "Normal"
-            }
-            style={{ width: 120 }}
-            onChange={(value: any) => {
-              changeScreen(_id, value);
-            }}
-          >
-            {screenData?.map((item: any) => (
-              <Option value={item?.value} key={item?.value}>
-                {item?.name}
-              </Option>
-            ))}
-          </Select>
-        </div>
-      ),
-    },
-    {
       title: "QuantitySeat",
       dataIndex: "tongGhe",
       key: "tongGhe",
@@ -110,36 +82,56 @@ const AdminRoomList = (props: Props) => {
       key: "rows",
     },
     {
-      title: "gheKhaDung",
-      dataIndex: "gheKhaDung",
-      key: "gheKhaDung",
-    },
-    {
-      title: "gheBiAn",
-      dataIndex: "gheBiAn",
-      key: "gheBiAn",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_: any, record: any) => (
+        <Select
+          value={record?.status === 0 ? "Hoạt động" : "Dừng hoạt động"}
+          onChange={(value: any) => {
+            changeStatus(record?._id, value);
+          }}
+        >
+          {defaultStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
+      ),
     },
     {
       title: "ACTION",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Link to={`${record._id}`}>
-            <EditOutlined
-              style={{ color: "var(--primary)", fontSize: "18px" }}
-            />
-          </Link>
-          <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteData(record?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          <Tooltip title="Chỉnh sửa ">
+            <Link to={`${record?._id}`}>
+              <EditOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
+            </Link>
+          </Tooltip>
+          <Tooltip title="Xóa">
+            <Popconfirm
+              title={`Xem ${record?.username ?? record?._id}?`}
+              okText="OK"
+              cancelText="Cancel"
+              onConfirm={() => deleteData(record?._id)}
+            >
+              <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
+            </Popconfirm>
+          </Tooltip>
+          <Tooltip title="Xem ghế ">
+            <Link to={`/admin/seatsByRoom/${record?._id}`}>
+              <EyeOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
+            </Link>
+          </Tooltip>
         </Space>
       ),
-      width: 30,
+      width: 130,
     },
   ];
 
@@ -150,11 +142,9 @@ const AdminRoomList = (props: Props) => {
       name: item?.name,
       columns: item?.columns,
       rows: item?.rows,
-      screen: item?.screen,
       seats: item?.seats,
+      status: item?.status,
       tongGhe: item?.rows * item?.columns,
-      gheKhaDung: item?.rows * item?.columns - item?.seatBlock,
-      gheBiAn: item?.seatBlock,
     };
   });
 
@@ -166,9 +156,14 @@ const AdminRoomList = (props: Props) => {
 
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="create">Add Rooms</Link>
-      </Button>
+      <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to="create">Add Rooms</Link>
+        </Button>
+        <Button>
+          <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
+        </Button>
+      </div>
       <DataTable column={columns} data={data} loading={isFetching} />
     </div>
   );

@@ -71,7 +71,9 @@ const routes = {
   chooseCombo: "/admin/choose-combo",
   webConfig: "/admin/webConfig",
   webConfigAdd: "/admin/webConfig/create",
-  webConfigEdit: "/admin/webConfig/:id"
+  webConfigEdit: "/admin/webConfig/:id",
+  AdminSeatByRoom: "/admin/seatsByRoom/:id",
+  
 };
 
 export default routes;

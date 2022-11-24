@@ -12,8 +12,9 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeMovieItem } from "../../../redux/slice/Movie";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { formatDate } from "../../../ultils";
+import configRoute from "../../../config";
 type Props = {};
 
 const ListMovie = (props: Props) => {
@@ -29,6 +30,7 @@ const ListMovie = (props: Props) => {
         message.error({ content: { errMess } });
       });
   };
+
   const columnUserList: any = [
     {
       title: "Image",
@@ -36,11 +38,9 @@ const ListMovie = (props: Props) => {
       fixed: "left",
       // key: "image",
       render: (_: any, record: any) => (
-        <Space size={120}>
-          {/* <Image width={100} src={record?.image} /> */}
-          <img width="100px" src={record?.image} alt="" />
-        </Space>
+        <img width="50px" src={record?.image} height="50px" alt="" />
       ),
+      width: 120,
     },
     {
       title: "Name",
@@ -74,80 +74,9 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "Languages",
-      key: "languages",
-      render: (_: any, record: any) => (
-        <div>
-          <p>{record?.languages}</p>
-        </div>
-      ),
-    },
-
-    {
-      title: "Country",
-      key: "country",
-      render: (_: any, record: any) => (
-        <div>
-          <p>{record?.country}</p>
-        </div>
-      ),
-    },
-
-    {
-      title: "Actor",
-      key: "actor",
-      render: (_: any, record: any) => (
-        <div>
-          <p>{record?.actor}</p>
-        </div>
-      ),
-    },
-
-    {
-      title: "Director",
-      key: "director",
-      render: (_: any, record: any) => (
-        <div>
-          <p>{record?.director}</p>
-        </div>
-      ),
-    },
-
-    // {
-    //   title: "description",
-    //   key: "description",
-    //   render: (_: any, record: any) => (
-    //     <div>
-    //        <p>{record?.description}</p>
-    //     </div>
-    //   )
-    // },
-
-    // {
-    //   title: "status",
-    //   key: "status",
-    //   render: (_: any, record: any) => (
-    //     <div>
-    //        <p>{record?.status}</p>
-    //     </div>
-    //   )
-    // },
-
-    // {
-    //   title: "isDelete",
-    //   key: "isDelete",
-    //   render: (_: any, record: any) => (
-    //     <div>
-    //        <p>{record?.isDelete}</p>
-    //     </div>
-    //   )
-    // },
-
-    {
       title: "ACTION",
       key: "action",
       fixed: "right",
-      width: "100px",
       render: (_: any, record: any) => (
         <Space size="middle">
           <Link to={`${record._id}`}>
@@ -163,8 +92,22 @@ const ListMovie = (props: Props) => {
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
+          <Button type="dashed" block>
+            <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
+              <PlusOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
+              showtime
+            </Link>
+          </Button>
+          <Button type="dashed" block>
+            <Link to={`/admin/showTimes?movieId=${record?._id}`}>
+              Danh sách giờ chiếu
+            </Link>
+          </Button>
         </Space>
       ),
+      width: 250,
     },
   ];
 
@@ -188,14 +131,22 @@ const ListMovie = (props: Props) => {
 
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/movies/create">Create Movies</Link>
-      </Button>
-      <DataTable
-        column={columnUserList}
-        data={data}
-        scrollWidth={{ x: 2000 }}
-      />
+      <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to="/admin/movies/create">Create Movies</Link>
+        </Button>
+        <Button>
+          <Link to={configRoute.routes.adminMovieType}>
+            Quản lí thể loại phim
+          </Link>
+        </Button>
+        <Button className="mb-5">
+          <Link to={configRoute.routes.AdminFilmFormat}>
+            Quản lí format film
+          </Link>
+        </Button>
+      </div>
+      <DataTable column={columnUserList} data={data} />
     </div>
   );
 };

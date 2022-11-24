@@ -7,11 +7,24 @@ import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
 import { formatDate } from "../../../ultils";
+import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
+import type { DatePickerProps } from 'antd';
+import { DatePicker, Space } from 'antd';
+import styled from "styled-components";
 type Props = {};
+
+let unique_arr = (arr: any[]) => {
+  var newArr: any[] = [];
+  newArr = arr.filter(function (item: any) {
+    return newArr.includes(item) ? "" : newArr.push(item);
+  });
+  return newArr;
+};
 
 const MovieDetail = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setActive] = useState(1);
+
   const Toggle = (number: any) => {
     setActive(number);
   };
@@ -34,6 +47,18 @@ const MovieDetail = (props: Props) => {
       dispatch(getOneMovie(slug));
     })();
   }, []);
+
+
+  useEffect(() => {
+    dispatch(getAlSt({}));
+  }, []);
+
+  let movieSelectId = data?.movie?._id;
+  const { stList } = useAppSelector((state) => state?.ShowTimeReducer);
+  let showTimeList = stList?.filter((item:any) => item?.movieId?._id === movieSelectId && item?.status === 0)
+ 
+
+
   if (data == "") return <div>Loading...</div>;
   return (
     <>
@@ -49,7 +74,7 @@ const MovieDetail = (props: Props) => {
         <iframe
           width="900"
           height="500"
-          src={`https://www.youtube.com/embed/${data?.movie?.trailerUrl}`}
+          src={`${data?.movie?.trailerUrl}`}
           title="YouTube video player"
           frameBorder={0}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -116,9 +141,11 @@ const MovieDetail = (props: Props) => {
               <span>Các phim khác</span>
             </button>
           </div>
+
           <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
-            <p>Ngày 03-10-2022</p>
-            <div className={styles.showTimesListItem}>
+
+       
+            {/* <div className={styles.showTimesListItem}>
               <span>
                 <Link to={`#`}>19:30</Link>
               </span>
@@ -143,8 +170,9 @@ const MovieDetail = (props: Props) => {
               <span>
                 <Link to={`#`}>19:30</Link>
               </span>
-            </div>
+            </div> */}
           </div>
+
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <div className={styles.showFilmListItem}>
               <Link to={`/d`}>
@@ -219,3 +247,6 @@ const MovieDetail = (props: Props) => {
 };
 
 export default MovieDetail;
+const CustomDatePicker = styled(DatePicker)`
+  td{height: 5px}
+`

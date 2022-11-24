@@ -6,6 +6,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { formatCurrency } from '../../../ultils'
 import { removeData, updateData, createData, getAllData } from '../../../redux/slice/FilmFormatSlice';
 import { validateMessages } from '../../../ultils/FormMessage'
+import { Link } from 'react-router-dom'
+import configRoute from '../../../config'
 
 type Props = {}
 
@@ -116,6 +118,7 @@ const FilmFormatList = (props: Props) => {
   return (
     <div className='flex  gap-3'>
       <div className="col-5">
+        <Button className='mb-5'><Link to={configRoute.routes.adminMovie}>Movie List</Link></Button>
         <DataTable column={columns} data={data} loading={isFetching} />
       </div>
       <div className="col-7">

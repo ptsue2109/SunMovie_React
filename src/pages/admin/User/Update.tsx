@@ -15,12 +15,12 @@ const UserEdit = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
   const [newPass, setNewPass] = useState<any>("");
+  const [showPass, setShowPass] = useState<any>(false);
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
   const dataSelected = users.find((item: any) => item._id === id);
-
-  useEffect(() => {
+  +useEffect(() => {
     document.title = `Admin | Edit ${
       dataSelected?.username ?? dataSelected?._id
     }`;
@@ -67,6 +67,7 @@ const UserEdit = (props: Props) => {
         setAvatarList={setAvatarList}
         onReset={onReset}
         edit={true}
+        showPass={showPass}
       />
     </div>
   );

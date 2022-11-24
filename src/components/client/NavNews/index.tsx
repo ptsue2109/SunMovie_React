@@ -27,13 +27,13 @@ const NavNews = (props: Props) => {
           </NavLink>
 
           {categories?.map((item: any, index: any) => (
-            <NavLink key={index} to={`${config.routes.newsCate1}/${item.slug}`} className="cate-news-link">
+            <NavLink key={index} to={`${config.routes.newsCate1}/${item?.slug}`} className="cate-news-link">
               <div className={`text-center px-4 group flex flex-col items-center cate-news-item`}>
                 <div className="cate-news-icon w-[50px] h-[50px] text-3xl rounded-full flex items-center justify-center bg-[#EEE8DF] transition duration-300 group-hover:bg-[#D9A953] group-hover:text-white cursor-pointer">
                   <ImNewspaper />
                 </div>
                 <p className="cate-news-name font-semibold mt-1 group-hover:text-[#D9A953] transition duration-300">
-                  {item.title}
+                  {item?.title}
                 </p>
               </div>
             </NavLink>

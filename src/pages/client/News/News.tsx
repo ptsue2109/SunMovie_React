@@ -14,7 +14,6 @@ type Props = {
 
 const News = ({ activeNav }: Props) => {
   const { posts } = useAppSelector((state: any) => state.PostReducer);
-
   const dispatch = useDispatch<any>();
   const { slug } = useParams();
   const [path, setPath] = useState<string>("");
@@ -36,8 +35,7 @@ const News = ({ activeNav }: Props) => {
       (async () => {
         try {
           const res = await dispatch(getListPostByCate(slug)).unwrap();
-          console.log("res", res?.posts);
-          setData(res?.posts);
+          setData(res?.post);
         } catch (error) {
           console.log(error);
         }

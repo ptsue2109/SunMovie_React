@@ -13,14 +13,16 @@ const AdminRoomCreate = (props: Props) => {
   const [rowFile, setRowFile] = useState(0);
   const [colFile, setSColFile] = useState(0);
   const [blockSeat, setBlockSeat] = useState(0);
+  const [showSeatTye, setShowSeatTye] = useState(true);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { errorMessage } = useAppSelector((state) => state.userReducer);
-  const onFinish = (val: any) => {
-    val.seats = seatFile;
-    val.seatBlock = blockSeat;
+  const [seats, setSeats] = useState();
+  const [adminRenderSeat, setAdminRenderSeat] = useState(true);
 
+  const onFinish = (val: any) => {
+    console.log(seatFile);
     dispatch(createRooms(val))
       .unwrap()
       .then(() => {
@@ -48,6 +50,10 @@ const AdminRoomCreate = (props: Props) => {
         setColFile={setSColFile}
         blockSeat={blockSeat}
         setBlockSeat={setBlockSeat}
+        seats={seats}
+        setSeats={setSeats}
+        showSeatTye={showSeatTye}
+        adminRenderSeat={adminRenderSeat}
       />
     </div>
   );
