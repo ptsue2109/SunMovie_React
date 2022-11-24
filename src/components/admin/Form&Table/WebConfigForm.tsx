@@ -50,7 +50,9 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edi
                         <TextArea placeholder="Nhập nội dung" />
                      </Form.Item>
 
+                    <p className='social_webconfig mb-3 before:mr-1'>Chọn mạng xã hội</p>
                      <Form.List name="social">
+                     
                         {(fields, { add, remove }) => (
                            <>
                               {fields.map(({ key, name, ...restField }) => (

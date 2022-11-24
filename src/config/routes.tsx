@@ -7,7 +7,7 @@ const routes = {
   signin: "/auth/signin",
   signup: "/auth/signup",
   detail: "/:slug",
-  bookChair: "/book-chair",
+  bookChair: "/book-chair/:id",
   tickitPrice: "/tickit-price",
   newsCate1: "/categories",
   newsCate2: "/categories/:slug",
@@ -52,7 +52,6 @@ const routes = {
   adminRoomsCreate: "/admin/rooms/create",
   adminRoomEdit: "/admin/rooms/:id",
 
-
   AdminShowTimes: "/admin/showTimes",
   AdminShowTimesCreate: "/admin/showTimes/create",
   AdminShowTimesEdit: "/admin/showTimes/:id",
@@ -71,7 +70,8 @@ const routes = {
   chooseCombo: "/admin/choose-combo",
   webConfig: "/admin/webConfig",
   webConfigAdd: "/admin/webConfig/create",
-  webConfigEdit: "/admin/webConfig/:id"
+  webConfigEdit: "/admin/webConfig/:id",
+  AdminSeatByRoom: "/admin/seatsByRoom/:id",
 };
 
 export default routes;

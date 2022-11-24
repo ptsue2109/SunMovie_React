@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateSeatType } from "../../../redux/slice/SeatTypeSlice";
@@ -39,6 +39,12 @@ const UploadSeatType = (props: Props) => {
   };
   return (
     <>
+      <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
+        </Button>
+       
+      </div>
       <Form
         form={form}
         layout="vertical"

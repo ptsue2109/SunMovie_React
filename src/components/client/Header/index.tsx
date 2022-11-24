@@ -15,7 +15,7 @@ const ClientHeader = (props: Props) => {
     (state) => state.authReducer
   );
   const { webConfigs } = useAppSelector( (state:any) => state.WebConfigReducer);
-  const logo  = webConfigs[0]?.logo?.url
+  const logo  = webConfigs[0]?.logo[0]?.url
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logout = () => {

@@ -1,49 +1,32 @@
-
 import moment from "moment";
-import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link, useParams } from "react-router-dom";
 import NewsSidebar from "../../../components/client/NewsSidebar";
 import config from "../../../config";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { getOneBySlug } from "../../../redux/slice/PostSlice";
-import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa"
+import { useAppSelector } from "../../../redux/hook";
+import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const NewsDetail = () => {
   const { slug } = useParams();
-  const dispatch = useAppDispatch();
   const { posts } = useAppSelector((state: any) => state.PostReducer);
-
   const dataSelected = posts?.find((item: any) => item?.slug === slug);
-
-  console.log('dataSelected', dataSelected);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        await dispatch(getOneBySlug(slug))
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [slug]);
-
-  const { loading, post } = useAppSelector((state: any) => state.PostReducer);
-  const [images, setImages] = useState("")
-  useEffect(() => {
-    setImages(post?.imagesFile[0]?.url)
-  }, [images])
+  const { loading } = useAppSelector((state: any) => state.PostReducer);
   return (
     <>
       {!loading && (
         <section className="container max-w-6xl mx-auto px-3 text-center pt-7  text-gray-300">
           <div className="border-b border-dashed pb-7 ">
-            <Link to={`${config.routes.newsCate2}/${post.category?.slug}`}>
-              <span className="uppercase text-sm ">{post.category?.name}</span>
+            <Link to={`/categories/${dataSelected?.categoryId?.slug}`}>
+              <span className="uppercase text-sm ">
+                {dataSelected?.categoryId?.title}
+              </span>
             </Link>
-            <h1 className="uppercase font-bold text-xl py-1 text-[#D9A953] ">{post.title}</h1>
+            <h1 className="uppercase font-bold text-xl py-1 text-[#D9A953] ">
+              {dataSelected?.title}
+            </h1>
             <p className="text-sm">
-              POSTED ON {moment(post.createdAt).format("DD/MM/YYYY")} BY {post.userId?.username}
+              POSTED ON {moment(dataSelected?.createdAt).format("DD/MM/YYYY")}{" "}
+              BY {dataSelected?.userId?.username}
             </p>
           </div>
         </section>
@@ -62,13 +45,28 @@ const NewsDetail = () => {
         <div className="col-span-12 lg:col-span-9 lg:pr-6">
           {!loading && (
             <div className="leading-relaxed text-justify">
-              <div className="" >
-                <img src={images ? images : `${import.meta.env.VITE_DEFAULT_IMG}`} alt="" className="w-full bg-center bg-cover bg-no-repeat mb-4 max-h-[350px]" />
+              <div className="">
+                {dataSelected?.imagesFile && (
+                  <img
+                    src={
+                      dataSelected?.imagesFile[0]?.url ??
+                      `${import.meta.env.VITE_DEFAULT_IMG}`
+                    }
+                    alt=""
+                    className="w-full bg-center bg-cover bg-no-repeat mb-4 max-h-[350px]"
+                  />
+                )}
               </div>
-              <div className="" >
-                <div dangerouslySetInnerHTML={{ __html: post?.desc }} className="news__desc text-gray-400"></div>
+              <div className="">
+                <div
+                  dangerouslySetInnerHTML={{ __html: dataSelected?.desc }}
+                  className="news__desc text-gray-400"
+                ></div>
               </div>
-              <div dangerouslySetInnerHTML={{ __html: post?.content }} className="news__content"></div>
+              <div
+                dangerouslySetInnerHTML={{ __html: dataSelected?.content }}
+                className="news__content"
+              ></div>
             </div>
           )}
 
@@ -87,7 +85,7 @@ const NewsDetail = () => {
                     window.open(
                       `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}/`,
                       "",
-                      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600",
+                      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
                     );
                   }}
                   className="hover-text-white w-8 h-8 border-2 border-gray-400 rounded-full flex items-center justify-center text-gray-400 transition duration-300 hover:bg-blue-500 hover:text-white hover:border-blue-500"
@@ -101,7 +99,7 @@ const NewsDetail = () => {
                     window.open(
                       `https://twitter.com/share?url=${window.location.href}`,
                       "",
-                      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600",
+                      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
                     );
                   }}
                   className="hover-text-white w-8 h-8 border-2 border-gray-400 rounded-full flex items-center justify-center text-gray-400 transition duration-300 hover:bg-blue-500 hover:text-white hover:border-blue-500"
@@ -115,7 +113,7 @@ const NewsDetail = () => {
                     window.open(
                       `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}/`,
                       "",
-                      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600",
+                      "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"
                     );
                   }}
                   className="hover-text-white w-8 h-8 border-2 border-gray-400 rounded-full flex items-center justify-center text-gray-400 transition duration-300 hover:bg-blue-500 hover:text-white hover:border-blue-500"

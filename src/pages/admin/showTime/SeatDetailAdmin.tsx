@@ -3,32 +3,40 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Button, Card, Divider, Form, Input } from "antd";
 import { Link, useParams } from "react-router-dom";
 import configRoute from "../../../config";
-import { getOneSBSTById, getAllSBST } from "../../../redux/slice/SeatBySTSlice";
+import { getAllSBST, updateSBST } from "../../../redux/slice/SeatBySTSlice";
 import styles from "./Seats.module.scss";
 import { formatCurrency, formatDate, formatTime } from "../../../ultils";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
 import ApplyVoucher from "../../../components/client/ApplyVoucher";
+import Swal from "sweetalert2";
+import { getAllData } from "../../../redux/slice/FilmFormatSlice";
+import { createTicket } from "../../../redux/slice/ticketSlice";
 type Props = {};
 
 const AdminSeatRenderDetail = (props: Props) => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const [tempPrice, setTempPrice] = useState<any>(100000);
-
+  const [count, setCount] = useState(0);
+  const { seatsByST } = useAppSelector((state: any) => state.SeatBySTReducer);
+  const { filmFormats } = useAppSelector((state: any) => state.FormatReducer);
+  const seat = seatsByST?.find((item: any) => item?._id === id);
+  const extraPrice = filmFormats.find(
+    (item: any) => item._id === seat?.showTimeId?.filmFormatId
+  );
+  const [tempPrice, setTempPrice] = useState<any>(40000);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
     document.title = "Admin | Detail Seat ";
     (async () => {
       dispatch(getAllSBST());
       dispatch(getAlVc());
+      dispatch(getAllData());
     })();
   }, [dispatch]);
 
   useEffect(() => {
     clearSelectedSeats();
   }, []);
-
-  const { seatsByST } = useAppSelector((state: any) => state.SeatBySTReducer);
-  const seat = seatsByST?.find((item: any) => item?._id === id);
   useEffect(() => {
     if (seat) {
       setSeatDetails(seat?.seats);
@@ -40,8 +48,40 @@ const AdminSeatRenderDetail = (props: Props) => {
   const [seatDetails, setSeatDetails] = useState(seat?.seats);
 
   const nextStepChooseCombo = () => {
-    console.log(JSON.stringify(seatDetails));
+    const seatClone = JSON.parse(JSON.stringify(seatDetails));
+    let seatArray: any = [];
+    for (let key in seatDetails) {
+      seatDetails[key].map((seatValue: any, rowIndex: any) => {
+        if (seatValue === 2) {
+          seatClone[key][rowIndex] = 1;
+        }
+        // setSeatDetails({ ...seatClone });
+      });
+    }
+    seatArray = { seats: seatClone, _id: id };
+    const tickit = {
+      totalPrice: total,
+      setByShowTimeId: id,
+      chosenSeats: selectedSeats,
+    };
+    /** update seatByShowtime */
+    console.log(tickit);
+
+    dispatch(createTicket(tickit))
+      .unwrap()
+      .then(() => {
+        dispatch(updateSBST(seatArray));
+        Swal.fire({
+          icon: "success",
+          title: "Thành công",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      })
+      .catch((err: any) => alert(err));
   };
+
+  // console.log(selectedSeats);
 
   const clearSelectedSeats = () => {
     let newMovieSeatDetails = { ...seatDetails };
@@ -63,11 +103,17 @@ const AdminSeatRenderDetail = (props: Props) => {
       if (seatValue === 1 || seatValue === 3) {
         return;
       } else if (seatValue === 0) {
+        if (count >= 8) return alert("Chọn tối đa 8 ghế");
         seatClone[key][rowIndex] = 2;
+        setCount(count + 1);
+        setTotal(count * tempPrice);
       } else {
         seatClone[key][rowIndex] = 0;
+        setCount(count - 1);
+        setTotal(count * tempPrice);
       }
     }
+
     setSeatDetails({ ...seatClone });
   };
 
@@ -125,7 +171,6 @@ const AdminSeatRenderDetail = (props: Props) => {
     return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
   };
 
-
   const RenderMovie = () => {
     return (
       <>
@@ -144,12 +189,11 @@ const AdminSeatRenderDetail = (props: Props) => {
           </div>
         </div>
         <div className="uppercase text-[12px]">
-          <span className="font-bold">Rạp:</span> Galaxy Mipec Long Biên |
-          {seat?.roomId?.name}
+          <span className="font-bold"> {seat?.roomId?.name}</span>
         </div>
         <div className="uppercase text-[12px]">
           <span className="font-bold">Suất chiếu:</span>
-          {formatTime(seat?.showTimeId?.startAt)} |
+          {formatTime(seat?.showTimeId?.startAt)} --
           {formatDate(seat?.showTimeId?.startAt)}
         </div>
         <div className="max-w-[300px]">
@@ -163,7 +207,7 @@ const AdminSeatRenderDetail = (props: Props) => {
         <div className="">
           <span className="font-bold">Tạm Tính : </span>
           <span className="text-orange-600 font-bold">
-            {formatCurrency(tempPrice)}
+            {formatCurrency(total)}
           </span>
         </div>
         <p>Tiền sau giảm : </p>
@@ -185,8 +229,7 @@ const AdminSeatRenderDetail = (props: Props) => {
               style={{ minWidth: 150 }}
               onClick={nextStepChooseCombo}
             >
-                
-              {/* <Link to={configRoute.routes.chooseCombo}> Tiếp theo</Link> */}
+              <Link to="#"> Tiếp theo</Link>
             </Button>
           </div>
         </Card>

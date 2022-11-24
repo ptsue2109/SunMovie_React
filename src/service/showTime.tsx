@@ -1,11 +1,11 @@
 
-import axiosClient from "./instance";
+import { AxiosRequestConfig } from "axios";
+import axiosClient, { AxiosRequest } from "./instance";
 
 
 export const showTimetApi = {
-  getAll(){
-    let url = "/showTime";
-    return axiosClient.get(url);
+  getAll(options: AxiosRequestConfig = {}): Promise<any> {
+    return AxiosRequest.get("/showTime", options);
   },
   removeApi(data?: string) {
     let url = `showTime/${data}`

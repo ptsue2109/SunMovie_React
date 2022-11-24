@@ -44,7 +44,7 @@ import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
-import ShowTimeSeat from "../pages/admin/showTime/ShowTimeSeat";
+// import ShowTimeSeat from "../pages/admin/showTime/ShowTimeSeat";
 import CreateMovie from "../pages/admin/Movie/CreateMovie";
 import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
@@ -59,7 +59,7 @@ import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
-import AdminSeatRenderDetail from "../pages/admin/showTime/SeatDetailAdmin";
+// import AdminSeatRenderDetail from "../pages/admin/showTime/SeatDetailAdmin";
 import FoodList from "../pages/admin/Food/FoodList";
 import CreateFood from "../pages/admin/Food/CreateFood";
 import UpdateFood from "../pages/admin/Food/UpdateFood";
@@ -67,11 +67,12 @@ import CreateSlider from "../pages/admin/Slider/CreateSlider";
 import AdminSlider from "../pages/admin/Slider/AdminSlider";
 import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
 import Profile from "../pages/client/profile";
-import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
+// import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
 import WebConfig from "../pages/admin/Config";
 import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
 import VoucherContent from "../components/client/VoucherContent";
+import SeatByRoom from "../pages/admin/Seats/seatByRoom";
 type RoutesType = {
   path: string;
   component: any;
@@ -91,8 +92,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.newsDetail, component: NewsDetail },
   { path: configRoute.routes.search, component: Search },
   { path: configRoute.routes.profile, component: Profile },
-  {path: configRoute.routes.verify, component: Complete},
-  {path: configRoute.routes.voucherDetail, component: VoucherContent},
+  { path: configRoute.routes.verify, component: Complete },
+  { path: configRoute.routes.voucherDetail, component: VoucherContent },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -107,13 +108,13 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
 
-  { path: configRoute.routes.adminFood, component:  FoodList},
+  { path: configRoute.routes.adminFood, component: FoodList },
   { path: configRoute.routes.adminFoodCreate, component: CreateFood },
-  { path: configRoute.routes.adminFoodUpdate, component: UpdateFood},
+  { path: configRoute.routes.adminFoodUpdate, component: UpdateFood },
 
-  { path: configRoute.routes.adminSlider, component:  AdminSlider},
+  { path: configRoute.routes.adminSlider, component: AdminSlider },
   { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
-  { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider},
+  { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider },
 
   { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
   { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
@@ -155,7 +156,7 @@ export const privateRoutes: RoutesType[] = [
     path: configRoute.routes.AdminShowTimesEdit,
     component: AdminShowTimesEdit,
   },
-  { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat },
+  // { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat },
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 
@@ -169,10 +170,11 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
-  { path: configRoute.routes.renderSeatAdmin, component: AdminSeatRenderDetail },
-  { path: configRoute.routes.chooseCombo, component: ChooseCombo },
-  
+  // { path: configRoute.routes.renderSeatAdmin, component: AdminSeatRenderDetail },
+  // { path: configRoute.routes.chooseCombo, component: ChooseCombo },
+
   { path: configRoute.routes.webConfig, component: WebConfig },
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
+  { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
 ];

@@ -2,8 +2,9 @@
 import { Link } from "react-router-dom";
 import "./maintain.scss"
 import { FaFacebookF } from "react-icons/fa";
-import { AiFillTwitterCircle } from "react-icons/ai"
 import { IoLogoInstagram } from 'react-icons/io'
+import { useAppSelector } from "../../../redux/hook";
+import { useEffect } from "react";
 
 type PrivateRouteProps = {
   children: JSX.Element;
@@ -11,7 +12,27 @@ type PrivateRouteProps = {
 };
 
 const Maintain = ({ children, isMaintain }: PrivateRouteProps) => {
-  
+  const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
+  const social = webConfigs[0]?.social;
+  useEffect(() => {
+    document.title = "Website đang bảo trì"
+  }, [])
+  const renderSocial = () => {
+    return (
+      <div className="pp-social-icons pp-social-icons-center pp-responsive-center">
+        {social && social?.map((item: any) => (
+          <div key={item?._id}>
+            <span className="pp-social-icon">
+              <a itemProp="sameAs" href={item?.text} target="_blank" title={item?.name} aria-label={item?.name} role="button">
+                {item?.name === "Facebook" ? <FaFacebookF /> : <IoLogoInstagram />}
+              </a>
+            </span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   const mainTainPage = () => {
     return (
       <>
@@ -25,23 +46,7 @@ const Maintain = ({ children, isMaintain }: PrivateRouteProps) => {
             <div className="pp-infobox-description">
               <p>Someone has kidnapped our site. We are negotiation ransom and<br />will resolve this issue in 24/7 hours</p>			</div>
             <span className="title-text pp-primary-title">We are social</span>
-            <div className="pp-social-icons pp-social-icons-center pp-responsive-center">
-              <span className="pp-social-icon">
-                <Link itemProp="sameAs" to="#" target="_blank" title="Facebook" aria-label="Facebook" role="button">
-                  <FaFacebookF />
-                </Link>
-              </span>
-              <span className="pp-social-icon">
-                <Link itemProp="sameAs" to="#" target="_blank" title="Twitter" aria-label="Twitter" role="button">
-                  <AiFillTwitterCircle />
-                </Link>
-              </span>
-              <span className="pp-social-icon">
-                <Link itemProp="sameAs" to="#" target="_blank" title="Instagram" aria-label="Instagram" role="button">
-                  <IoLogoInstagram />
-                </Link>
-              </span>
-            </div>
+            {renderSocial()}
           </div>
         </div>
       </>

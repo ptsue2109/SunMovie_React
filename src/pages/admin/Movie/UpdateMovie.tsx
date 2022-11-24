@@ -1,6 +1,6 @@
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovie } from "../../../redux/slice/Movie";
@@ -50,6 +50,9 @@ const UpdateMovies = (props: Props) => {
   };
   return (
     <>
+     <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to="/admin/movies">List Movies</Link>
+        </Button>
       <Form
         form={form}
         layout="vertical"

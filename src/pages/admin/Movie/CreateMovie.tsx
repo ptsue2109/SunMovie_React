@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { createMovie } from "../../../redux/slice/Movie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
@@ -39,6 +39,9 @@ const CreateMovie = (props: Props) => {
   };
   return (
     <>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to="/admin/movies">List Movies</Link>
+        </Button>
       <Form
         form={form}
         layout="vertical"

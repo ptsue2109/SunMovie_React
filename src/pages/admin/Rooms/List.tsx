@@ -1,35 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  message,
+  Popconfirm,
+  Space,
+  Tag,
+  Pagination,
+  Select,
+  Tooltip,
+} from "antd";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import {  removeRoom, updateRoom, getRooms } from '../../../redux/slice/roomSlice';
-import DataTable from "../../../components/admin/Form&Table/Table"
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import { screenData } from "../../../ultils/data"
+import {
+  removeRoom,
+  updateRoom,
+  getRooms,
+} from "../../../redux/slice/roomSlice";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { defaultStatus } from "../../../ultils/data";
+import configRoute from "../../../config";
 const { Option } = Select;
-type Props = {}
+type Props = {};
 
 const AdminRoomList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { rooms, isFetching, isErr, errorMessage } = useAppSelector((state: { roomReducer: any; }) => state.roomReducer);
-  useEffect(() => { 
-    document.title = "Admin | Rooms"
-    dispatch(getRooms())
-   }, [dispatch])
+  const { rooms, isFetching, isErr, errorMessage } = useAppSelector(
+    (state: { roomReducer: any }) => state.roomReducer
+  );
+  useEffect(() => {
+    document.title = "Admin | Rooms";
+    dispatch(getRooms());
+  }, [dispatch]);
 
   const deleteData = (data: string | undefined) => {
-    dispatch(removeRoom(data)).unwrap()
+    dispatch(removeRoom(data))
+      .unwrap()
       .then(() => {
         message.success({ content: "Xoá thành công", key: "handling" });
       })
       .catch(() => {
-        message.error({ content: { errorMessage } })
-      })
+        message.error({ content: { errorMessage } });
+      });
   };
 
-  const changeScreen = (id: any, val: any) => {
-    dispatch(updateRoom({ _id: id, screen: val })).unwrap().then(() => message.success('Thay đổi màn chiếu thành công'))
-  }
+  const changeStatus = (id: any, val: any) => {
+    dispatch(updateRoom({ _id: id, status: val }))
+      .unwrap()
+      .then(() => message.success("Thay đổi trạng thái thành công"));
+  };
   const columns: any = [
     {
       title: "NAME",
@@ -44,21 +63,6 @@ const AdminRoomList = (props: Props) => {
           >
             {record?.name}
           </Link>
-        </div>
-      ),
-    },
-    {
-      title: "Screen",
-      dataIndex: "screen",
-      key: "screen",
-      render: (_: any, { screen, _id }: any) => (
-        <div>
-          <Select value={screen == 0 ? 'Imax' : screen == 1 ? 'ScreenX' : screen == 2 ? 'Curved Screen' : 'Normal'} style={{ width: 120 }}
-            onChange={(value: any) => { changeScreen(_id, value) }}>
-            {screenData?.map((item: any) => (
-              <Option value={item?.value} key={item?.value}  >{item?.name}</Option>
-            ))}
-          </Select>
         </div>
       ),
     },
@@ -78,72 +82,91 @@ const AdminRoomList = (props: Props) => {
       key: "rows",
     },
     {
-      title: "gheKhaDung",
-      dataIndex: "gheKhaDung",
-      key: "gheKhaDung",
-    },
-    {
-      title: "gheBiAn",
-      dataIndex: "gheBiAn",
-      key: "gheBiAn",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_: any, record: any) => (
+        <Select
+          value={record?.status === 0 ? "Hoạt động" : "Dừng hoạt động"}
+          onChange={(value: any) => {
+            changeStatus(record?._id, value);
+          }}
+        >
+          {defaultStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
+      ),
     },
     {
       title: "ACTION",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Link to={`${record._id}`}>
-            <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
-          </Link>
-          <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteData(record?._id)}
-          >
-            <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
-          </Popconfirm>
+          <Tooltip title="Chỉnh sửa ">
+            <Link to={`${record?._id}`}>
+              <EditOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
+            </Link>
+          </Tooltip>
+          <Tooltip title="Xóa">
+            <Popconfirm
+              title={`Xem ${record?.username ?? record?._id}?`}
+              okText="OK"
+              cancelText="Cancel"
+              onConfirm={() => deleteData(record?._id)}
+            >
+              <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
+            </Popconfirm>
+          </Tooltip>
+          <Tooltip title="Xem ghế ">
+            <Link to={`/admin/seatsByRoom/${record?._id}`}>
+              <EyeOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
+            </Link>
+          </Tooltip>
         </Space>
       ),
-      width: 30
+      width: 130,
     },
   ];
- 
+
   const data: Props[] = rooms?.map((item: any, index: any) => {
-    console.log('item', item)
     return {
       key: index + 1,
       _id: item?._id,
       name: item?.name,
       columns: item?.columns,
       rows: item?.rows,
-      screen: item?.screen,
       seats: item?.seats,
+      status: item?.status,
       tongGhe: item?.rows * item?.columns,
-      gheKhaDung: ((item?.rows * item?.columns) - item?.seatBlock),
-      gheBiAn: item?.seatBlock
-
-
-    }
+    };
   });
-
-
 
   useEffect(() => {
     if (isErr) {
       message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
     }
   }, []);
-  
+
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="create">Add Rooms</Link>
-      </Button>
+      <div className="flex gap-5">
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to="create">Add Rooms</Link>
+        </Button>
+        <Button>
+          <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
+        </Button>
+      </div>
       <DataTable column={columns} data={data} loading={isFetching} />
-
     </div>
-  )
-}
+  );
+};
 
-export default AdminRoomList
+export default AdminRoomList;

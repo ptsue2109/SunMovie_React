@@ -23,7 +23,7 @@ const SignIn = (props: Props) => {
           navigate(config.routes.home)
         }, 2000);
       } else {
-        notification.success({
+        notification.error({
           message: 'Đăng nhập thất bại',
           description:`${payload}`,
        });
@@ -31,7 +31,7 @@ const SignIn = (props: Props) => {
   };
 
   return (
-    <div className="auth_container">
+    <div className="auth_container ">
       <div className="auth_container--title">
         <h1 className="text-[32px] font-bold">Đăng Nhập</h1>
       </div>

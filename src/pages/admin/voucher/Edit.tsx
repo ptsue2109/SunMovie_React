@@ -8,21 +8,22 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import config from "../../../config";
 import moment from "moment";
 
-type Props = {}
+type Props = {};
 
 const AdminVoucherEdit = (props: Props) => {
-
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-  const { vouchers, errorMessage } = useAppSelector((state) => state.voucherReducer);
+  const { vouchers, errorMessage } = useAppSelector(
+    (state) => state.voucherReducer
+  );
   const upperText = (text: any) => {
     return text.toUpperCase();
- };
+  };
   const dataSelected = vouchers.find((item: any) => item._id === id);
-  console.log('dataSelected', dataSelected);
+  console.log("dataSelected", dataSelected);
 
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.code ?? dataSelected?._id}`;
@@ -30,7 +31,10 @@ const AdminVoucherEdit = (props: Props) => {
       setAvatarList(dataSelected?.imagesFile as any[]);
       form.setFieldsValue({
         ...dataSelected,
-        timeValid: [moment(dataSelected.timeStart), moment(dataSelected.timeEnd)],
+        timeValid: [
+          moment(dataSelected.timeStart),
+          moment(dataSelected.timeEnd),
+        ],
       });
     }
   }, [dataSelected]);
@@ -45,8 +49,10 @@ const AdminVoucherEdit = (props: Props) => {
       const [x, y] = timeValid;
       const timeStart = new Date(moment(x).format());
       const timeEnd = new Date(moment(y).format());
-      values.code = upperText(values.code)
-      await dispatch(updateData({ ...values, _id: id, timeStart, timeEnd })).unwrap();
+      values.code = upperText(values.code);
+      await dispatch(
+        updateData({ ...values, _id: id, timeStart, timeEnd })
+      ).unwrap();
       message.success("Cập nhật Voucher thành công");
       navigate(config.routes.AdminVouchers);
     } catch (error) {
@@ -67,7 +73,7 @@ const AdminVoucherEdit = (props: Props) => {
         onReset={onReset}
       />
     </div>
-  )
-}
+  );
+};
 
-export default AdminVoucherEdit
+export default AdminVoucherEdit;

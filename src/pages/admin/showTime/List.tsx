@@ -1,123 +1,76 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { message, Popconfirm, Table, Tag, Tooltip } from 'antd';
+import { Card, Collapse, message, Popconfirm, Table, Tag, Tooltip } from 'antd';
 import { Space, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
-import { formatCurrency, formatDate, formatTime } from '../../../ultils'
+import { formatCurrency, formatDate, formatTime, convertMovieTime } from '../../../ultils'
 import configRoute from '../../../config';
 import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
+import { useSearchParams } from 'react-router-dom';
+import { CaretRightOutlined } from '@ant-design/icons';
+import { async } from '@firebase/util';
 type Props = {}
-
+const { Panel } = Collapse;
 const AdminShowTimeList = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    document.title = "Admin | Show"
-    dispatch(getAlSt())
+    document.title = "Admin | Showtime"
+    dispatch(getAlSt({}))
   }, [dispatch]);
 
   const { stList, errorMessage } = useAppSelector((state: any) => state.ShowTimeReducer);
-
-  const deleteData = (val: any) => {
-    dispatch(removeData(val)).unwrap()
-      .then(() => { message.success('Xóa thành công') })
-      .catch(() => message.error(errorMessage))
-  };
-
-  const columns = [
-    {
-      title: 'Ngày ', dataIndex: 'date', key: 'date', render: (_: any, { _id, date }: any) => (
-        <Link to={`${_id}`}>{date} </Link>)
-    },
-    {
-      title: 'MovieName', dataIndex: 'name', key: 'name', render: (_: any, { name }: any) => (
-        <>
-          {name && name?.map((item: any, index: any) => (
-            <div className="grid p-1" key={index} >
-              <Tag style={{ width: '100%' }}>{item}</Tag>
-            </div>
-          ))}
-        </>
-
-      )
-    },
-    {
-      title: 'Phòng ', dataIndex: 'room', key: 'room', render: (_: any, { room }: any) => (
-        <>
-          {room && room?.map((item: any, index: any) => (
-            <div className='grid p-1' key={index} >
-              <Tag style={{ width: '100%' }}>{item}</Tag>
-            </div>
-          ))}
-        </>
-      )
-    },
-    { title: 'Format ', dataIndex: 'format', key: 'format' },
-    { title: 'StartAt ', dataIndex: 'startAt', key: 'startAt' },
-    { title: 'EndtAt ', dataIndex: 'endAt', key: 'endAt' },
-    {
-      title: 'status ', dataIndex: 'status', key: 'status', render: (_: any, { status }: any) => (
-        status === 0 ? (<><p>Active</p></>) : (<>Inactive</>)
-      )
-    },
-    { title: 'Giá vé tạm tính ', dataIndex: 'extraPrice', key: 'extraPrice' },
-    {
-      title: "ACTION",
-      key: "action",
-      render: (_: any, record: any) => (
-        <Space size="middle">
-          <Tooltip title="Chỉnh sửa ">
-            <Link to={`${record._id}`}>
-              <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
-            </Link>
-          </Tooltip>
-          <Tooltip title="Xóa" >
-            <Popconfirm
-              title={`Xem ${record?.username ?? record?._id}?`}
-              okText="OK"
-              cancelText="Cancel"
-              onConfirm={() => deleteData(record?._id)}
-            >
-              <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
-            </Popconfirm>
-          </Tooltip>
-          <Tooltip title="Xem ghế ">
-            <Link to={`/admin/showTimes/seat/${record._id}`}>
-              <EyeOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
-            </Link>
-          </Tooltip>
-        </Space>
-      ),
-
-    },
-  ];
-
-  const data: Props[] = stList?.map((item: any, index: any) => {
-    let temPrice = 40000 + item?.extraPrice; //default tisiscket + extra
-    var roomName = item?.roomId?.map((item: any) => item?.name)
-    var movieNam = item?.movieId?.map((item: any) => item?.name)
-    
-    return {
-      key: index + 1,
-      _id: item?._id,
-      name: movieNam,
-      date: formatDate(item?.date),
-      room: roomName,
-      format: item?.filmFormatId?.name,
-      startAt: formatTime(item?.startAt),
-      endAt: formatTime(item?.endAt),
-      status: item?.status,
-      extraPrice: formatCurrency(temPrice)
-    }
-  });
+  const { movie } = useAppSelector((state) => state.movie);
+  const [searchParams, setSearchParams] = useSearchParams();
+  let movieId = searchParams.get("movieId");
+  let movieSelect = movie?.find((item: any) => item?._id === movieId && item?.status === 0 && item?.status === 0);
+  const [showTimeByDate, setShowTimeByDate] = useState<any>()
+  const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId));
 
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={configRoute.routes.AdminShowTimesCreate} style={{ color: '#ffff' }}>Create ShowTime</Link>
+        <Link to={`/admin/showTimes/create?movieId=${movieSelect?._id}`} style={{ color: '#ffff' }}>Create ShowTime</Link>
       </Button>
-      <Table columns={columns} dataSource={data} />
+      <Collapse
+        bordered={false}
+        defaultActiveKey={['2']}
+        expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+        className="site-collapse-custom-collapse"
+      >
+        <Panel header="Thông tin phim" key="1" className="site-collapse-custom-panel">
+          <div className=''>
+            <img src={movieSelect?.image[0]?.url} alt="" width="140px" height="140px" />
+            <div><b>Tên phim : </b>{movieSelect?.name}</div>
+            <div><b>Ngày khởi chiếu : </b>{formatDate(movieSelect?.releaseDate)}</div>
+            <div><b>Thời lượng : </b>{convertMovieTime(movieSelect?.runTime) + 'h'}</div>
+            <div><b>Tên phim : </b>{movieSelect?.name}</div>
+          </div>
+        </Panel>
+        <Panel header="Thông tin suất chiếu" key="2" className="site-collapse-custom-panel">
+          {showTimeByMovieId ? showTimeByMovieId?.map((item: any) => (
+            <Card key={item?._id}  >
+              <h1>Ngày chiếu : {formatDate(item?.date)}</h1>
+              <div>Giờ chiếu : {formatTime(item?.startAt)} - {formatTime(item?.endAt)}</div>
+              <div>Phòng chiếu :
+                {item?.roomId?.map((roomItem: any) => (
+                  <Button key={roomItem?._id}>
+                    <Link to={`/showTimes?date=${formatDate(item?.date)}?movieId=${item?._id}?roomId=${roomItem?._id}`}>
+                      {roomItem?.name}
+                    </Link>
+                  </Button>
+                ))}
+              </div>
+            </Card>
+          )) : (
+            <>
+              <p>Chưa có suất chiếu nào</p>
+            </>
+          )}
+        </Panel>
+      </Collapse>
+
     </div>
   )
 }
