@@ -22,9 +22,6 @@ const SeatByRoom = (props: Props) => {
   useEffect(() => {
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(id));
-      console.log("====================================");
-      console.log("payload", payload);
-      console.log("====================================");
       setSeats(payload);
     })();
   }, [id]);

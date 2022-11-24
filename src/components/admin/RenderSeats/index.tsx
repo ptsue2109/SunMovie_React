@@ -30,9 +30,6 @@ const RenderSeats = ({
   setSeatFile,
   roomId,
 }: Props) => {
-  console.log("====================================");
-  console.log(seats);
-  console.log("====================================");
   const [elClick, setElClick] = useState();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -74,7 +71,6 @@ const RenderSeats = ({
       accumulator[rowName].push(arrayItem);
       return accumulator;
     }, {});
-    console.log(groupByRowName);
 
     setSeatDetails({ ...groupByRowName });
     setSeatFile({ ...groupByRowName });
@@ -83,14 +79,12 @@ const RenderSeats = ({
     let arrValue: any[] = [];
   };
 
-  const changeStatusSeat = (id: any, val: number) => {
-    const upload = { seatId: { id }, status: Number(val) };
-
-    dispatch(updateSeatThunk(upload))
+  const changeStatusSeat = (id: any, val: Number) => {
+    dispatch(updateSeatThunk({ _id: id, status: val }))
       .unwrap()
       .then(() => {
-        message.success("Thay đổi trạng thái thành công");
-        dispatch(getOneSBSTById(roomId));
+        message.success("Thay đổi trạng thái ghế thành công");
+        handleSubmit();
       })
       .catch(() => message.error("Lỗi"));
   };
@@ -101,12 +95,11 @@ const RenderSeats = ({
       seatId: id,
       seatTypeId: val,
     };
-    console.log(payload);
 
     dispatch(updateSeatThunk(payload))
       .unwrap()
       .then(() => {
-        message.success("Thay đổi trạng thái thành công");
+        message.success("Thay đổi thể loại ghế thành công");
         dispatch(getOneSBSTById(roomId));
       })
       .catch(() => message.error("Lỗi"));
@@ -114,12 +107,13 @@ const RenderSeats = ({
   const info = (val: any) => {
     console.log("info", val);
     Modal.info({
-      title: `Seat infomatio`,
+      title: `Seat infomation`,
       content: (
         <div>
-          <div>Id : {val?._id}</div>
+          <div>ID : {val?._id}</div>
+          <div>Vị trí ghế: {val?.row + val?.column}</div>
           <div>
-            Loại ghế: {val?.seatTypeId?.name}
+            Loại ghế:
             <Select
               value={val?.seatTypeId?.name}
               onChange={(value: any) => {
@@ -133,7 +127,6 @@ const RenderSeats = ({
               ))}
             </Select>
           </div>
-          <div>Vị trí ghế: sxasa</div>
           <div>
             Trạng thái ghế:
             <Select
@@ -143,7 +136,7 @@ const RenderSeats = ({
               }}
             >
               {defaultStatus?.map((item: any) => (
-                <Option value={item?._id} key={item?.value}>
+                <Option value={item?.value} key={item?.value}>
                   {item?.name}
                 </Option>
               ))}
