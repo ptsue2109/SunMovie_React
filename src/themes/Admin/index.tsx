@@ -19,7 +19,7 @@ import { LogOut } from "../../redux/slice/AuthSlice";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Text } = Typography;
-
+// import { io, Socket } from "socket.io-client";
 type AdminLayoutProps = {
   children: JSX.Element;
   title: string;
@@ -41,6 +41,7 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
     navigate(configRoute.routes.signin);
   };
   useEffect(() => {
+<<<<<<< HEAD
     // if (user) {
     //   if (user.role == 0) {
     //     navigate(configRoute.routes.home);
@@ -49,6 +50,28 @@ const AdminLayout = ({ children, title }: AdminLayoutProps) => {
     //   navigate(configRoute.routes.home);
     // }
   }, [user]);
+=======
+    if (isLogged == true) {
+      if (currentUser.role == 0) {
+        navigate(configRoute.routes.home);
+      }
+    } else {
+      navigate(configRoute.routes.home);
+    }
+  }, []);
+  // const socketRef = useRef<Socket>();
+
+  // useEffect(() => {
+  //   socketRef.current = io(import.meta.env.VITE_API_URL);
+  //   socketRef.current.on("newOrder", (data) => {
+  //     message.success(`Đơn hàng mới từ ${data}`);
+  //   });
+  //   return () => {
+  //     socketRef.current?.disconnect();
+  //   };
+  // }, []);
+
+>>>>>>> 9f7ae592e33e43d230abd1390415525479d63e8a
   const menu = (
     <Menu
       items={[

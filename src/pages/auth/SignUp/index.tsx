@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../../../config";
-import { Form, Input, message } from "antd";
+import { Form, Input, message, notification } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { authAsyncRegister } from "../../../redux/slice/AuthSlice";
-
 type Props = {};
 
 const SignUp = (props: Props) => {
@@ -18,12 +17,20 @@ const SignUp = (props: Props) => {
   const onFinish = async (values: any) => {
     const { meta, payload } = await dispatch((authAsyncRegister(values)));
     if (meta.requestStatus == "fulfilled") {
-      message.success("Đăg Ký Thành Công");
+      notification.info({
+        message: 'Đăng ký thành công',
+        description:
+          `Chào ${payload?.username}, vui lòng vào email để xác nhận tài khoản!`,
+      });
       setTimeout(() => {
-        navigate(config.routes.signin);
+        form.resetFields()
       }, 2000);
     } else {
-      message.error(`${payload}`);
+      notification.error({
+        message: 'Đăng ký thất bại',
+        description:
+          ` ${payload}`,
+      });
     }
   };
 

@@ -11,7 +11,7 @@ import BookChair from "../pages/client/bookChair/BookChair";
 import Home from "../pages/client/home/Home";
 import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
-
+import Complete from "../pages/auth/complete";
 // admin
 import Dashboard from "../pages/admin/Dashboard";
 
@@ -71,9 +71,10 @@ import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
 import WebConfig from "../pages/admin/Config";
 import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
+import VoucherContent from "../components/client/VoucherContent";
 type RoutesType = {
   path: string;
-  component: (args: PropsWithChildren) => JSX.Element;
+  component: any;
   layout?: any;
   title?: string;
 };
@@ -90,6 +91,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.newsDetail, component: NewsDetail },
   { path: configRoute.routes.search, component: Search },
   { path: configRoute.routes.profile, component: Profile },
+  {path: configRoute.routes.verify, component: Complete},
+  {path: configRoute.routes.voucherDetail, component: VoucherContent},
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

@@ -1,4 +1,4 @@
-import { Form, Input, message } from "antd";
+import { Form, Input, notification } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../../../config";
@@ -16,12 +16,17 @@ const SignIn = (props: Props) => {
     document.title= "SignIn"
     const { meta, payload } = await dispatch(authAsyncLogin(values));
       if (meta.requestStatus == "fulfilled") {
-        message.success('Login success, wait...');
+        notification.success({
+          message: 'Đăng nhập thành công',
+       });
         setTimeout(() => {
           navigate(config.routes.home)
         }, 2000);
       } else {
-        message.error(`${payload}`);
+        notification.success({
+          message: 'Đăng nhập thất bại',
+          description:`${payload}`,
+       });
       }
   };
 
