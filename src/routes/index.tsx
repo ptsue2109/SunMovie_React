@@ -71,6 +71,7 @@ import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
 import VoucherContent from "../components/client/VoucherContent";
 import SeatByRoom from "../pages/admin/Seats/seatByRoom";
+import Payment from "../pages/client/payment/Payment";
 type RoutesType = {
   path: string;
   component: any;
@@ -92,6 +93,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.profile, component: Profile },
   { path: configRoute.routes.verify, component: Complete },
   { path: configRoute.routes.voucherDetail, component: VoucherContent },
+  { path: configRoute.routes.payment, component: Payment },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
