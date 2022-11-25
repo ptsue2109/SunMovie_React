@@ -13,4 +13,4 @@ export const SeatApi = {
   updateSeat(input?: any) {
     return AxiosRequest.put(`/seatsByRoom/${input?._id}`, input);
   },
-};
+}

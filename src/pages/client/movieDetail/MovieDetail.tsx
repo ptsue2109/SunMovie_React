@@ -6,10 +6,10 @@ import { GiFilmSpool } from "react-icons/gi";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
-import { formatDate } from "../../../ultils";
+import { formatDate, formatTime } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-import type { DatePickerProps } from 'antd';
-import { DatePicker, Space } from 'antd';
+import type { DatePickerProps } from "antd";
+import { DatePicker, Space } from "antd";
 import styled from "styled-components";
 type Props = {};
 
@@ -39,15 +39,13 @@ const MovieDetail = (props: Props) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    (() => {
-      dispatch(getOneMovie(slug));
-    })();
+    dispatch(getOneMovie(slug));
   }, []);
-
 
   useEffect(() => {
     dispatch(getAlSt({}));
@@ -55,11 +53,60 @@ const MovieDetail = (props: Props) => {
 
   let movieSelectId = data?.movie?._id;
   const { stList } = useAppSelector((state) => state?.ShowTimeReducer);
-  let showTimeList = stList?.filter((item:any) => item?.movieId?._id === movieSelectId && item?.status === 0)
- 
+  let showTimeList = stList?.filter(
+    (item: any) => item?.movieId?._id === movieSelectId && item?.status === 0
+  );
 
+  console.log(showTimeList);
 
   if (data == "") return <div>Loading...</div>;
+  const renderRoom = () => {
+    const [idRoom, setIdRoom] = useState();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = (id: any) => {
+      setIsModalOpen(true);
+      setIdRoom(id);
+    };
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+    console.log(idRoom);
+
+    return (
+      <>
+        <Modal
+          title="Basic Modal"
+          footer={null}
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
+        <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
+          <div className={styles.showTimesListItem}>
+            {showTimeList
+              ? showTimeList?.map((item: any) => (
+                  <span key={item._id}>
+                    {item?.roomId.map((a: any) => (
+                      <span key={a._id} onClick={() => showModal(a._id)}>
+                        {a.name}
+                      </span>
+                    ))}
+                  </span>
+                ))
+              : "Không có suất chiếu nào"}
+          </div>
+        </div>
+      </>
+    );
+  };
   return (
     <>
       <Modal
@@ -81,6 +128,7 @@ const MovieDetail = (props: Props) => {
           allowFullScreen
         ></iframe>
       </Modal>
+
       <div className={styles.container}>
         <div className={styles.title}>
           <h3>Chi tiết phim</h3>
@@ -141,38 +189,7 @@ const MovieDetail = (props: Props) => {
               <span>Các phim khác</span>
             </button>
           </div>
-
-          <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
-
-       
-            {/* <div className={styles.showTimesListItem}>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-              <span>
-                <Link to={`#`}>19:30</Link>
-              </span>
-            </div> */}
-          </div>
-
+          {/* {renderRoom()} */}
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <div className={styles.showFilmListItem}>
               <Link to={`/d`}>
@@ -248,5 +265,7 @@ const MovieDetail = (props: Props) => {
 
 export default MovieDetail;
 const CustomDatePicker = styled(DatePicker)`
-  td{height: 5px}
-`
+  td {
+    height: 5px;
+  }
+`;

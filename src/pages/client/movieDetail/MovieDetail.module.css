@@ -103,12 +103,15 @@
     padding-top: 20px;
 }
 .showTimesListItem{
-    margin: 30px 0;
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
     grid-gap: 20px;
 }
-.showTimesListItem span a{
+.showTimesListItem span{
+    margin: 10px 0;
+}
+.showTimesListItem span{
     color: white;
     border: 1px solid white;
     padding: 5px 10px;

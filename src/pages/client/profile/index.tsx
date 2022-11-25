@@ -2,42 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hook";
 import styles from "./profile.module.scss";
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Space,
-  Table,
-  Tag,
-} from "antd";
+import { Table } from "antd";
+import InfoUser from "../../../components/client/profile/InfoUser";
+import Avatar from "../../../components/client/profile/Avatar";
 type Props = {};
 
 const Profile = (props: Props) => {
-  const [value, setValue] = useState(1);
   const { currentUser, isLogged } = useAppSelector(
     (state) => state.authReducer
   );
+  const { users } = useAppSelector((state) => state.userReducer);
+  const id = currentUser._id;
+  const user = users?.find((item: any) => item._id === id);
   const [isActive, setActive] = useState(1);
   const isToggle = (number: number) => {
     setActive(number);
   };
   const navigate = useNavigate();
   useEffect(() => {
-    if (isLogged == false) {
+    if (!user) {
       return navigate("/");
     }
-    console.log(currentUser);
-  }, [currentUser]);
+  }, [user]);
 
-  const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 16 },
-  };
-  const onFinish = (values: any) => {
-    console.log(values);
-  };
   const columns: any[] = [
     {
       title: "Mã vé",
@@ -95,7 +82,7 @@ const Profile = (props: Props) => {
             />
           </div>
           <div className={styles.avatar}>
-            <img src="https://th.bing.com/th/id/R.71c4453ad27286d6fd431c271f737cf7?rik=kKxKeEyNDatElA&pid=ImgRaw&r=0&sres=1&sresct=1" />
+            <Avatar />
           </div>
         </div>
         <div className={styles.main}>
@@ -121,95 +108,7 @@ const Profile = (props: Props) => {
           </div>
           {/* infomation */}
           <div className={isActive == 1 ? styles.info : "hidden"}>
-            <Form {...layout} name="nest-messages" onFinish={onFinish}>
-              <Form.Item
-                name="email"
-                label={
-                  <label style={{ color: "white", fontSize: "18px" }}>
-                    Email
-                  </label>
-                }
-              >
-                <Input
-                  readOnly
-                  style={{
-                    cursor: "context-menu",
-                    height: "40px",
-                  }}
-                />
-              </Form.Item>
-              <Form.Item
-                name="username"
-                label={
-                  <label style={{ color: "white", fontSize: "18px" }}>
-                    Tên
-                  </label>
-                }
-                rules={[{ required: true, message: "Không được để trống!" }]}
-              >
-                <Input
-                  style={{
-                    height: "40px",
-                  }}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name="phone"
-                label={
-                  <label style={{ color: "white", fontSize: "18px" }}>
-                    Số điện thoại
-                  </label>
-                }
-                rules={[{ required: true, message: "Không được để trống!" }]}
-              >
-                <Input
-                  style={{
-                    height: "40px",
-                  }}
-                />
-              </Form.Item>
-              <Form.Item
-                label={
-                  <label style={{ color: "white", fontSize: "18px" }}>
-                    Giới tính
-                  </label>
-                }
-                name="gender"
-              >
-                <Radio.Group value={value}>
-                  <Radio value={0} style={{ color: "white", fontSize: "18px" }}>
-                    Nam
-                  </Radio>
-                  <Radio value={1} style={{ color: "white", fontSize: "18px" }}>
-                    Nữ
-                  </Radio>
-                </Radio.Group>
-              </Form.Item>
-              <div className={styles.infoItems}>
-                <div>Khách hàng</div>
-                <div>Trạng thái: Đã kích hoạt</div>
-                <div>
-                  <span>Ngày đăng ký: 29/05/2021 19:30:30</span>-
-                  <span> Ngày sửa gần nhất: 29/05/2021 19:30:30</span>
-                </div>
-              </div>
-              <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{
-                    margin: "20px 0",
-                    width: "150px",
-                    height: "50px",
-                    backgroundColor: "#151f32",
-                    fontSize: "17px",
-                  }}
-                >
-                  Save
-                </Button>
-              </Form.Item>
-            </Form>
+            <InfoUser />
           </div>
           {/* change password */}
           <div className={isActive == 2 ? styles.changePass : "hidden"}>

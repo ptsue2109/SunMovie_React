@@ -1,36 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import { Button, message, Popconfirm, Space, Tag, Pagination, Select, Tooltip } from "antd";
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  message,
+  Popconfirm,
+  Space,
+  Tag,
+  Pagination,
+  Select,
+  Tooltip,
+} from "antd";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import { removeRoom, updateRoom, getRooms } from '../../../redux/slice/roomSlice';
-import DataTable from "../../../components/admin/Form&Table/Table"
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
-import { defaultStatus } from '../../../ultils/data';
-import configRoute from '../../../config';
+import {
+  removeRoom,
+  updateRoom,
+  getRooms,
+} from "../../../redux/slice/roomSlice";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { defaultStatus } from "../../../ultils/data";
+import configRoute from "../../../config";
 const { Option } = Select;
-type Props = {}
+type Props = {};
 
 const AdminRoomList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { rooms, isFetching, isErr, errorMessage } = useAppSelector((state: { roomReducer: any; }) => state.roomReducer);
+  const { rooms, isFetching, isErr, errorMessage } = useAppSelector(
+    (state: { roomReducer: any }) => state.roomReducer
+  );
   useEffect(() => {
-    document.title = "Admin | Rooms"
-    dispatch(getRooms())
-  }, [dispatch])
+    document.title = "Admin | Rooms";
+    dispatch(getRooms());
+  }, [dispatch]);
 
   const deleteData = (data: string | undefined) => {
-    dispatch(removeRoom(data)).unwrap()
+    dispatch(removeRoom(data))
+      .unwrap()
       .then(() => {
         message.success({ content: "Xoá thành công", key: "handling" });
       })
       .catch(() => {
-        message.error({ content: { errorMessage } })
-      })
+        message.error({ content: { errorMessage } });
+      });
   };
 
   const changeStatus = (id: any, val: any) => {
-    dispatch(updateRoom({ _id: id, status: val })).unwrap().then(() => message.success('Thay đổi trạng thái thành công'))
-  }
+    dispatch(updateRoom({ _id: id, status: val }))
+      .unwrap()
+      .then(() => message.success("Thay đổi trạng thái thành công"));
+  };
   const columns: any = [
     {
       title: "NAME",
@@ -68,10 +86,16 @@ const AdminRoomList = (props: Props) => {
       dataIndex: "status",
       key: "status",
       render: (_: any, record: any) => (
-        <Select value={record?.status === 0 ? 'Hoạt động' : 'Dừng hoạt động'}
-          onChange={(value: any) => { changeStatus(record?._id, value) }}>
+        <Select
+          value={record?.status === 0 ? "Hoạt động" : "Dừng hoạt động"}
+          onChange={(value: any) => {
+            changeStatus(record?._id, value);
+          }}
+        >
           {defaultStatus?.map((item: any) => (
-            <Option value={item?.value} key={item?.value}>{item?.name}</Option>
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
           ))}
         </Select>
       ),
@@ -83,27 +107,31 @@ const AdminRoomList = (props: Props) => {
         <Space size="middle">
           <Tooltip title="Chỉnh sửa ">
             <Link to={`${record?._id}`}>
-              <EditOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
+              <EditOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
             </Link>
           </Tooltip>
-          <Tooltip title="Xóa" >
+          <Tooltip title="Xóa">
             <Popconfirm
               title={`Xem ${record?.username ?? record?._id}?`}
               okText="OK"
               cancelText="Cancel"
               onConfirm={() => deleteData(record?._id)}
             >
-              <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
+              <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
             </Popconfirm>
           </Tooltip>
           <Tooltip title="Xem ghế ">
             <Link to={`/admin/seatsByRoom/${record?._id}`}>
-              <EyeOutlined style={{ color: 'var(--primary)', fontSize: '18px' }} />
+              <EyeOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
             </Link>
           </Tooltip>
         </Space>
       ),
-      width: 130
+      width: 130,
     },
   ];
 
@@ -117,10 +145,8 @@ const AdminRoomList = (props: Props) => {
       seats: item?.seats,
       status: item?.status,
       tongGhe: item?.rows * item?.columns,
-    }
+    };
   });
-
-
 
   useEffect(() => {
     if (isErr) {
@@ -139,9 +165,8 @@ const AdminRoomList = (props: Props) => {
         </Button>
       </div>
       <DataTable column={columns} data={data} loading={isFetching} />
-
     </div>
-  )
-}
+  );
+};
 
-export default AdminRoomList
+export default AdminRoomList;

@@ -90,8 +90,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.newsDetail, component: NewsDetail },
   { path: configRoute.routes.search, component: Search },
   { path: configRoute.routes.profile, component: Profile },
-  {path: configRoute.routes.verify, component: Complete},
-  {path: configRoute.routes.voucherDetail, component: VoucherContent},
+  { path: configRoute.routes.verify, component: Complete },
+  { path: configRoute.routes.voucherDetail, component: VoucherContent },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -106,13 +106,13 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminMovieTypeAdd, component: CreateMovieType },
   { path: configRoute.routes.adminMovieType, component: ListMovieType },
 
-  { path: configRoute.routes.adminFood, component:  FoodList},
+  { path: configRoute.routes.adminFood, component: FoodList },
   { path: configRoute.routes.adminFoodCreate, component: CreateFood },
-  { path: configRoute.routes.adminFoodUpdate, component: UpdateFood},
+  { path: configRoute.routes.adminFoodUpdate, component: UpdateFood },
 
-  { path: configRoute.routes.adminSlider, component:  AdminSlider},
+  { path: configRoute.routes.adminSlider, component: AdminSlider },
   { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
-  { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider},
+  { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider },
 
   { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
   { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
@@ -167,9 +167,11 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
+  // { path: configRoute.routes.renderSeatAdmin, component: AdminSeatRenderDetail },
+  // { path: configRoute.routes.chooseCombo, component: ChooseCombo },
+
   { path: configRoute.routes.webConfig, component: WebConfig },
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
-
 ];

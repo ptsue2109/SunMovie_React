@@ -14,7 +14,7 @@ const CreateCategory = (props: Props) => {
   const onFinish = async (values: any) => {
     const { meta } = await dispatch(createCategories(values));
     if (meta.requestStatus == "fulfilled") {
-      message.success({ content: "Thêm thành công" });
+      message.success({ content: "Thêm thành công hùng đẹp trai" });
       navigate(configRoute.routes.adminCategories);
     } else {
       message.error({ content: "Lỗi" });
@@ -31,7 +31,9 @@ const CreateCategory = (props: Props) => {
         <Form.Item
           name="title"
           label="Name"
-          rules={[{ required: true, message: "Không được để trống! " }]}
+          rules={[
+            { required: true, message: "Không được để trống hùng đẹp trai! " },
+          ]}
         >
           <Input />
         </Form.Item>

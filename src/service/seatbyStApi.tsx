@@ -1,7 +1,5 @@
-
 import { AxiosRequestConfig } from "axios";
 import axiosClient, { AxiosRequest } from "./instance";
-
 
 export const seatByShowTime = {
   create(data: any): Promise<any> {
@@ -11,9 +9,11 @@ export const seatByShowTime = {
   getAll(options: AxiosRequestConfig = {}): Promise<any> {
     return AxiosRequest.get("/setByShowTime", options);
   },
-  getOneByid(roomId: any): Promise<any> {
-    const url = `seatsByRoom/${roomId}`
-    return axiosClient.get(url)
-  }
-
+  getOneByid(id: any): Promise<any> {
+    const url = `seatsByRoom/${id}`;
+    return axiosClient.get(url);
+  },
+  updateSeatByST(item: any) {
+    return axiosClient.put(`/setByShowTime/${item._id}`, item);
+  },
 };

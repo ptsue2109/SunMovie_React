@@ -40,7 +40,7 @@ const ListMovie = (props: Props) => {
       render: (_: any, record: any) => (
         <img width="50px" src={record?.image} height="50px" alt="" />
       ),
-      width: 120
+      width: 120,
     },
     {
       title: "Name",
@@ -92,21 +92,22 @@ const ListMovie = (props: Props) => {
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
           </Popconfirm>
-          <Button type="dashed" block  >
+          <Button type="dashed" block>
             <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
-              <PlusOutlined style={{ color: "var(--primary)", fontSize: "18px" }} />
+              <PlusOutlined
+                style={{ color: "var(--primary)", fontSize: "18px" }}
+              />
               showtime
             </Link>
           </Button>
-          <Button type="dashed" block  >
+          <Button type="dashed" block>
             <Link to={`/admin/showTimes?movieId=${record?._id}`}>
-             
               Danh sách giờ chiếu
             </Link>
           </Button>
         </Space>
       ),
-      width: 250
+      width: 250,
     },
   ];
 
@@ -134,15 +135,18 @@ const ListMovie = (props: Props) => {
         <Button type="primary" style={{ marginBottom: "20px" }}>
           <Link to="/admin/movies/create">Create Movies</Link>
         </Button>
-        <Button >
-          <Link to={configRoute.routes.adminMovieType}>Quản lí thể loại phim</Link>
+        <Button>
+          <Link to={configRoute.routes.adminMovieType}>
+            Quản lí thể loại phim
+          </Link>
         </Button>
-        <Button className='mb-5'><Link to={configRoute.routes.AdminFilmFormat}>Quản lí format film</Link></Button>
+        <Button className="mb-5">
+          <Link to={configRoute.routes.AdminFilmFormat}>
+            Quản lí format film
+          </Link>
+        </Button>
       </div>
-      <DataTable
-        column={columnUserList}
-        data={data}
-      />
+      <DataTable column={columnUserList} data={data} />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { removeMovieTypeItem } from "../../../redux/slice/movieTypeSlice";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 type Props = {};
 
 const ListMovieType = (props: Props) => {
@@ -15,21 +15,26 @@ const ListMovieType = (props: Props) => {
     (state) => state.movieTypeReducer
   );
   const deleteUser = (id: any) => {
-    swal({
-      title: "Bạn có muốn xóa không?",
+    Swal.fire({
+      title: "Are you sure?",
       icon: "warning",
-      dangerMode: true,
-      buttons: true,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((willDelete) => {
       if (willDelete) {
         dispatch(removeMovieTypeItem(id))
           .unwrap()
           .then(() => {
-            swal("Xóa thành công", {
+            Swal.fire({
               icon: "success",
+              title: "Xóa thành công",
+              showConfirmButton: false,
+              timer: 1500,
             });
           })
-          .catch((err: any) => swal("Lỗi", `${err}`, "error"));
+          .catch((err: any) => alert(err));
       }
     });
   };

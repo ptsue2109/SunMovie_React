@@ -6,7 +6,7 @@ import { updateUser } from "../../../redux/slice/userSlice";
 import UserForm from "../../../components/admin/Form&Table/UserForm";
 import config from "../../../config";
 import moment from "moment";
-interface Props { }
+interface Props {}
 
 const UserEdit = (props: Props) => {
   const [form] = Form.useForm();
@@ -14,20 +14,21 @@ const UserEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-  const [newPass, setNewPass] = useState<any>('');
+  const [newPass, setNewPass] = useState<any>("");
   const [showPass, setShowPass] = useState<any>(false);
   const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
   const dataSelected = users.find((item: any) => item._id === id);
-+  useEffect(() => {
-    document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id}`;
+  +useEffect(() => {
+    document.title = `Admin | Edit ${
+      dataSelected?.username ?? dataSelected?._id
+    }`;
     if (dataSelected) {
       setAvatarList(dataSelected?.avatar as any[]);
       form.setFieldsValue({
         ...dataSelected,
         dob: moment(dataSelected?.dob),
-
       });
     }
   }, [dataSelected]);
@@ -48,7 +49,7 @@ const UserEdit = (props: Props) => {
       .unwrap()
       .then(() => {
         navigate(config.routes.adminUserList);
-        message.success("update thành công");
+        message.success("update thành công ");
       })
       .catch(() => message.error(`${errorMessage}`));
   };
