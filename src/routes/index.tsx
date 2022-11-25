@@ -59,7 +59,6 @@ import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
-// import AdminSeatRenderDetail from "../pages/admin/showTime/SeatDetailAdmin";
 import FoodList from "../pages/admin/Food/FoodList";
 import CreateFood from "../pages/admin/Food/CreateFood";
 import UpdateFood from "../pages/admin/Food/UpdateFood";
@@ -67,7 +66,6 @@ import CreateSlider from "../pages/admin/Slider/CreateSlider";
 import AdminSlider from "../pages/admin/Slider/AdminSlider";
 import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
 import Profile from "../pages/client/profile";
-// import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
 import WebConfig from "../pages/admin/Config";
 import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
@@ -156,7 +154,6 @@ export const privateRoutes: RoutesType[] = [
     path: configRoute.routes.AdminShowTimesEdit,
     component: AdminShowTimesEdit,
   },
-  // { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat },
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 

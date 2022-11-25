@@ -9,7 +9,7 @@ import configRoute from '../../../config';
 import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
 import { useSearchParams } from 'react-router-dom';
 import { CaretRightOutlined } from '@ant-design/icons';
-import { async } from '@firebase/util';
+import moment from 'moment';
 type Props = {}
 const { Panel } = Collapse;
 const AdminShowTimeList = (props: Props) => {
@@ -18,20 +18,52 @@ const AdminShowTimeList = (props: Props) => {
   useEffect(() => {
     document.title = "Admin | Showtime"
     dispatch(getAlSt({}))
+    handleSubmit()
   }, [dispatch]);
 
   const { stList, errorMessage } = useAppSelector((state: any) => state.ShowTimeReducer);
   const { movie } = useAppSelector((state) => state.movie);
+  console.log('movie', movie);
+  
+  const [showByDate, setShowByDate] = useState([])
   const [searchParams, setSearchParams] = useSearchParams();
   let movieId = searchParams.get("movieId");
-  let movieSelect = movie?.find((item: any) => item?._id === movieId && item?.status === 0 && item?.status === 0);
-  const [showTimeByDate, setShowTimeByDate] = useState<any>()
-  const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId));
+  let movieSelect = movie?.find((item: any) => item?._id === movieId);
+    const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId && item?.status == 0));
 
+  // get by date
+  const handleSubmit = () => {
+    const groupByDate = showTimeByMovieId?.reduce((accumulator: any, arrayItem: any) => {
+      let rowName = formatDate(arrayItem.date)
+      if (accumulator[rowName] == null) {
+        accumulator[rowName] = [];
+      }
+      accumulator[rowName].push(arrayItem);
+      return accumulator;
+    }, {});
+    setShowByDate({ ...groupByDate });
+
+  };
+  const renderShowByDate = () => {
+    let arrValByDate = []
+    if (showByDate) {
+      for (let key in showByDate) {
+        // @ts-ignore
+        let byDate = showByDate[key]?.map((item: any) => (
+          <div key={item?._id}>
+            adasdasdasd
+          </div>
+        ))
+      }
+    }
+    return (
+      <></>
+    )
+  }
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={`/admin/showTimes/create?movieId=${movieSelect?._id}`} style={{ color: '#ffff' }}>Create ShowTime</Link>
+        <Link to={`/admin/showTimes/create?movieId=${movieId}`} style={{ color: '#ffff' }}>Create ShowTime</Link>
       </Button>
       <Collapse
         bordered={false}
@@ -68,6 +100,7 @@ const AdminShowTimeList = (props: Props) => {
               <p>Chưa có suất chiếu nào</p>
             </>
           )}
+          {/* {renderShowByDate()} */}
         </Panel>
       </Collapse>
 

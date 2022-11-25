@@ -25,7 +25,7 @@
    color: red !important;
  }
  .seatBooked {
-   background: red;
+   background: rgba(138, 138, 138, 0.418);
    cursor: default;
  }
  .seatSelected {
@@ -34,8 +34,7 @@
  }
  .seatBlocked {
    color: #fff !important;
-   opacity: 70%;
-   background-color: #545454;
+   background: tomato;
  }
  .paymentButton {
    background: #f84464 !important;
