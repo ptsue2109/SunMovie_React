@@ -1,5 +1,3 @@
-import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
-
 const routes = {
   home: "/",
   movie: "/movie",
