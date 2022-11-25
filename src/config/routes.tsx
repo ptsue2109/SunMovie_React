@@ -16,6 +16,7 @@ const routes = {
   profile: "/profile",
   verify: "/verify",
   voucherDetail: "/voucher/:id",
+  payment:"/payment",
 
   // admin
   dashboard: "/admin",
