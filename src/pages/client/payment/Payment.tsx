@@ -28,9 +28,11 @@ const Payment = (props: Props) => {
   };
 
   form.setFieldsValue({
-    name: currentUser?.fullname ?? currentUser?.username,
+    username: currentUser?.fullname ?? currentUser?.username,
     email: currentUser?.email,
-    phone: currentUser?.phone
+    phone: currentUser?.phone,
+    paymentType: '',
+    discountCode: ''
   });
 
   const checkCode = (discountCode: any) => {
@@ -59,12 +61,14 @@ const Payment = (props: Props) => {
             }
           }
         }
+        setVoucherMess("")
       }
     } else {
       setVoucherMess("")
     }
   };
   const onFinish = (val: any) => {
+    console.log(val);
 
   }
 
@@ -77,7 +81,6 @@ const Payment = (props: Props) => {
             <Form
               {...layout}
               layout="horizontal"
-              name="control-ref"
               className="w-[67%] mx-auto pt-5"
               form={form}
               onFinish={onFinish}
@@ -85,17 +88,18 @@ const Payment = (props: Props) => {
             >
               <Form.Item name="paymentType" label="Hình thức thanh toán" >
                 <Select placeholder="Chọn ngân hàng" allowClear>
-                  {banks.map((item, index: any) => (
-                    <Select.Option key={index} value={item.value}>
+                  {banks?.map((item, index: any) => (
+                    <Select.Option key={index} value={item?.value}>
                       <div className="flex justify-between">
-                        {item.name}
-                        <img src={item.image} alt="" width="25px" height="25px" />
+                        {item?.name}
+                        <img src={item?.image} alt="" width="25px" height="25px" />
                       </div>
                     </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
-              <Form.Item name="name" label="Họ và tên" rules={[{ required: true, min: 5, whitespace: true }]}>
+
+              <Form.Item name="username" label="Họ và tên" rules={[{ required: true, min: 5, whitespace: true }]}>
                 <Input />
               </Form.Item>
 
@@ -108,12 +112,11 @@ const Payment = (props: Props) => {
               </Form.Item>
 
               <Form.Item name="discountCode" label="Mã giảm giá" >
-                <Input onChange={(e: any) => checkCode(e.target.value)} />
+                <Input onChange={(e: any) => checkCode(e?.target?.value)} />
                 <small className="text-danger" >{voucherMess}</small>
               </Form.Item>
 
-
-              <Form.Item wrapperCol={{ offset: 7, span: 12 }}>
+              <div className=" w-[280px] justify-center flex flex-col ml-[160px]">
                 <Button
                   style={{
                     width: "100%",
@@ -129,35 +132,36 @@ const Payment = (props: Props) => {
                   (*) Bằng việc click/chạm vào THANH TOÁN, bạn đã xác nhận hiểu
                   rõ các Quy Định Giao Dịch Trực Tuyến của {webConfigs[0]?.storeName}.
                 </p>
-              </Form.Item>
 
-              <Form.Item wrapperCol={{ offset: 7, span: 12 }}>
-                <Button
-                  className={style.btn}
-                  style={{
-                    width: "47%",
-                    backgroundColor: "#f6710d",
-                    border: "none",
-                  }}
-                  type="primary"
-                  htmlType="submit"
-                >
-                  Quay lại
-                </Button>
-                <Button
-                  style={{
-                    width: "47%",
-                    marginLeft: "17px",
-                    backgroundColor: "#f6710d",
-                    border: "none",
-                  }}
-                  type="primary"
-                  htmlType="submit"
-                  className="hover: text-red-600"
-                >
-                  Thanh toán
-                </Button>
-              </Form.Item>
+
+                <div className="flex">
+                  <Button
+                    className={style.btn}
+                    style={{
+                      width: "47%",
+                      backgroundColor: "#f6710d",
+                      border: "none",
+                    }}
+                    type="primary"
+                    htmlType="submit"
+                  >
+                    Quay lại
+                  </Button>
+                  <Button
+                    style={{
+                      width: "47%",
+                      marginLeft: "17px",
+                      backgroundColor: "#f6710d",
+                      border: "none",
+                    }}
+                    type="primary"
+                    htmlType="submit"
+                    className="hover: text-red-600"
+                  >
+                    Thanh toán
+                  </Button>
+                </div>
+              </div>
             </Form>
           </div>
         </div>
