@@ -96,6 +96,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.voucherDetail, component: VoucherContent },
   { path: configRoute.routes.payment, component: Payment },
   { path: configRoute.routes.forgotPass, component: ForgotPass },
+  { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

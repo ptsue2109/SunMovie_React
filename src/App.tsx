@@ -39,7 +39,7 @@ function App() {
     dispatch(getUsers());
     dispatch(getAllData());
     dispatch(getRooms());
-    dispatch(getAllSBST({}));
+    dispatch(getAllSBST());
     dispatch(getConfigs());
     dispatch(getAlVc());
     dispatch(getAlPost())

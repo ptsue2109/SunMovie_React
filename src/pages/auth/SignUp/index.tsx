@@ -4,6 +4,7 @@ import config from "../../../config";
 import { Form, Input, message, notification } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { authAsyncRegister } from "../../../redux/slice/AuthSlice";
+import configRoute from "../../../config";
 type Props = {};
 
 const SignUp = (props: Props) => {
@@ -52,21 +53,26 @@ const SignUp = (props: Props) => {
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <Input />
+            <Input placeholder='Your name' />
           </Form.Item>
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
+          <Form.Item name="email" label="EMAIL" rules={[{ required: true }, { type: 'email', warningOnly: true }]} >
+            <Input placeholder="Enter your email" style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
+          <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Please input your password!' },]} hasFeedback >
+            <Input.Password placeholder='Enter password' />
+          </Form.Item>
+
+          <Form.Item name="confirm" label="Confirm Password" dependencies={['password']} hasFeedback
+            rules={[{ required: true, message: 'Please confirm your password!' },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) { return Promise.resolve(); }
+                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              },
+            }),
+            ]}
           >
-            <Input.Password />
+            <Input.Password placeholder='Confirm password' />
           </Form.Item>
           <Form.Item>
             <button className="auth_button">Save</button>
@@ -75,7 +81,7 @@ const SignUp = (props: Props) => {
       </div>
       <div className="flex justify-between">
         <div className="">
-          <Link to="#">Quên mật khẩu ?</Link>
+          <Link to={configRoute.routes.forgotPass}>Quên mật khẩu ?</Link>
         </div>
         <div className="">
           <span>Đã có tài khoản</span>

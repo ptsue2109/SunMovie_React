@@ -1,6 +1,7 @@
 import { Form, Input, notification } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import configRoute from "../../../config";
 import config from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { authAsyncLogin } from "../../../redux/slice/AuthSlice";
@@ -65,7 +66,7 @@ const SignIn = (props: Props) => {
       </div>
       <div className="flex justify-between">
         <div className="">
-          <Link to="#">Quên mật khẩu ?</Link>
+          <Link to={configRoute.routes.forgotPass}>Quên mật khẩu ?</Link>
         </div>
         <div className="">
           <span>Chưa có tài khoản</span>
