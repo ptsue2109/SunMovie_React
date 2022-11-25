@@ -7,7 +7,7 @@ import { defaultStatus } from "../../../ultils/data"
 import { useAppSelector } from '../../../redux/hook';
 import "antd/dist/antd.css";
 import { RangeValue } from 'rc-picker/lib/interface';
-import { formatTime, convertDateToNumber, convertMovieTime } from '../../../ultils';
+import { formatTime, convertDateToNumber, convertMovieTime, formatCurrency } from '../../../ultils';
 import { useParams, useSearchParams } from 'react-router-dom';
 
 interface ShowTimeFormProps {
@@ -19,19 +19,20 @@ interface ShowTimeFormProps {
    loading?: boolean;
    extraPrice: any;
    setExtraprice: any
-   movieId:any;
-   setTimeEnd:any;
-   timeEnd:any
+   movieId: any;
+   setTimeEnd: any;
+   timeEnd: any
 }
 const { RangePicker } = DatePicker;
-const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading = false, editUser = true }: ShowTimeFormProps) => {
+const ShowTimeForm = ({ form, movieId, onFinish, onReset, edit = false, loading = false, editUser = true }: ShowTimeFormProps) => {
    const { movie } = useAppSelector(state => state.movie);
    const { rooms } = useAppSelector(state => state.roomReducer);
-  
+
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
 
    const [timeEnd, setTimeEnd] = useState<any>()
+   const [priceExtra, setPriceExtra] = useState<any>()
    useEffect(() => {
       if (movieId) {
          form.setFieldsValue({
@@ -40,9 +41,10 @@ const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading 
       }
    }, [movieId]);
    useEffect(() => {
-      if (timeEnd) {
+      if (timeEnd && priceExtra) {
          form.setFieldsValue({
             timeEnd: moment(timeEnd),
+            price: priceExtra
          });
       }
    }, [timeEnd]);
@@ -53,6 +55,16 @@ const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading 
 
    const validRange = (value: any, dateString: any) => {
       setTimeEnd(moment(value).add(movieTime));
+      let timeStart = moment(value).hour();
+
+      if (timeStart >= 9 && timeStart <= 16) {
+         setPriceExtra(20000)
+      } else if (timeStart >= 17 && timeStart <= 21) {
+         setPriceExtra(30000)
+      } else {
+         setPriceExtra(10000)
+      }
+
    }
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages} className="">
@@ -75,6 +87,7 @@ const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading 
                               showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
                               format="YYYY-MM-DD HH:mm"
                               onChange={validRange}
+                              showNow={false}
                            />
                         </Form.Item>
 
@@ -86,6 +99,7 @@ const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading 
                            <DatePicker
                               disabled
                               showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
+                              showNow={false}
                               format="YYYY-MM-DD HH:mm"
                               onChange={validRange}
                            />
@@ -117,17 +131,25 @@ const ShowTimeForm = ({ form, movieId,onFinish, onReset,  edit = false, loading 
                      </div>
                   </Card>
                   <Card className="col-6 w-full">
-
+                  <small className='block text-danger w-[230px]'>
+                        Bảng giá extra: <br />
+                        Từ 9am - 16am: phụ thu {formatCurrency(20000)}<br />
+                        Từ 17am - 21pm: phụ thu {formatCurrency(30000)}<br />
+                        Sau 21pm: phụ thu {formatCurrency(10000)}
+                     </small>
                      <Form.Item label="price" name="price"
                         rules={[{ type: 'number', required: true, min: 10000, max: 200000, whitespace: true }]}
                      >
                         <InputNumber
+                           disabled
                            min={10000}
                            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                            style={{ width: '40%' }}
                            step="10000"
                         />
+
                      </Form.Item>
+                     
                      <Form.Item label="Chọn trạng thái" name="status" rules={[{ required: true }]}>
                         <Select>
                            {defaultStatus && defaultStatus?.map((item: any) => (

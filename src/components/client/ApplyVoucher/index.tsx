@@ -21,7 +21,6 @@ const ApplyVoucher = ({ tempPrice }: Props) => {
       if (voucher) {
          let upper = upperText(voucher);
          let item = vouchers.find((item: any) => item?.code === upper);
-         console.log("item", item);
          if (item === undefined) {
             setVoucherMess("Không tìm thấy mã voucher");
          } else if (isPast(parseISO(item?.timeEnd))) {

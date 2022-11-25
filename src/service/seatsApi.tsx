@@ -10,7 +10,7 @@ export const SeatApi = {
   createSeat(data?: any) {
     return AxiosRequest.post("/seats", data);
   },
-  updateSeat(roomId?: any) {
-    return AxiosRequest.put(`/seatsByRoom/${roomId}`);
+  updateSeat(input?: any) {
+    return AxiosRequest.put(`/seatsByRoom/${input?._id}`, input);
   },
 };

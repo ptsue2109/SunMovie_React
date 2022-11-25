@@ -33,8 +33,6 @@ const SeatByRoom = (props: Props) => {
         setRow(roomSelect?.rows)
     }, [])
 
-   
-
     return (
         <div>
             <Button>
@@ -61,7 +59,7 @@ const SeatByRoom = (props: Props) => {
                         setSeatDetails={setSeatDetails}
                         seats={seats}
                         setSeats={setSeats}
-                        roomId = {id}
+                        roomId={id}
                     />
                 </Panel>
             </Collapse>
