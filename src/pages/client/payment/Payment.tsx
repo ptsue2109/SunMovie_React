@@ -14,6 +14,7 @@ const layout = {
 type Props = {};
 
 const Payment = (props: Props) => {
+  document.title = "Payment"
   const [form] = Form.useForm()
   const { webConfigs } = useAppSelector((state) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state) => state.authReducer);
