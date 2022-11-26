@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import RenderSeats from "../../../components/admin/RenderSeats";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import {
+  RenderSeatClient,
+  InfoSeat,
+} from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { getRooms } from "../../../redux/slice/roomSlice";
+import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
+import { formatDate, formatTime } from "../../../ultils";
 import "./BookChair.scss";
 type Props = {};
 
 const BookChair = (props: Props) => {
   const dispatch = useAppDispatch();
-  let { id } = useParams();
+  // let id = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  let idRoom = searchParams.get("room");
+  let idShowtime = searchParams.get("showtime");
   const [seats, setSeats] = useState([]);
   const [seatDetails, setSeatDetails] = useState<any>();
   const [row, setRow] = useState<number>();
@@ -16,22 +25,36 @@ const BookChair = (props: Props) => {
   const [seatFile, setSeatFile] = useState<any>();
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
-  const showtime = stList.find((item: any) => item._id === id);
-  const roomSelect = rooms?.find((item) => item?._id === id);
-  console.log(showtime);
+  const showtime = stList.find((item: any) => item._id === idShowtime);
+  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);
+
   React.useEffect(() => {
     dispatch(getAlSt({}));
+    dispatch(getRooms());
+    (async () => {
+      const { payload } = await dispatch(getOneSBSTById(idRoom));
+      setSeats(payload);
+    })();
   }, []);
+
+  React.useEffect(() => {
+    setColumn(roomSelect?.columns);
+    setRow(roomSelect?.rows);
+  }, []);
+
   return (
     <>
       <div className="container">
         <div className="title">
           <h3>Chọn ghế</h3>
           <p>
-            Bạn đã chọn: <span>AVATAR 2</span>{" "}
+            Bạn đã chọn: <span>{showtime?.movieId?.name}</span>
           </p>
-          <p>Phòng chiếu: 5</p>
-          <p>Suất chiếu: 16:00 - 29/05/2022</p>
+          <p>Phòng chiếu: {roomSelect?.name}</p>
+          <p>
+            Suất chiếu: {formatTime(showtime?.startAt)} -{" "}
+            {formatDate(showtime?.date)}
+          </p>
         </div>
 
         {/* chair */}
@@ -52,19 +75,19 @@ const BookChair = (props: Props) => {
             </div>
 
             {/* chair */}
-            {/* <RenderSeats
-            setSeatFile={setSeatFile}
-            seatFile={seatFile}
-            row={row}
-            column={column}
-            seatDetails={seatDetails}
-            setSeatDetails={setSeatDetails}
-            seats={seats}
-            setSeats={setSeats}
-            roomId={id}
-          /> */}
+            <RenderSeatClient
+              setSeatFile={setSeatFile}
+              seatFile={seatFile}
+              row={row}
+              column={column}
+              seatDetails={seatDetails}
+              setSeatDetails={setSeatDetails}
+              seats={seats}
+              setSeats={setSeats}
+              roomId={idRoom}
+            />
             {/* end chair */}
-            <div className="my-10 flex justify-around mx-20">
+            <div className="mb-10 flex justify-around mx-20">
               <div className="flex">
                 <p className="w-5 h-5 bg-white"></p>
                 <span className="text-white pl-2"> Ghế Thường</span>
@@ -98,23 +121,11 @@ const BookChair = (props: Props) => {
             <div>
               <img
                 className="mx-auto w-[200px] mt-2"
-                src="https://chieuphimquocgia.com.vn/content/images/0016606_0.jpeg"
+                src={showtime?.movieId?.image[0]?.url}
                 alt=""
               />
             </div>
-            <div className="text-white px-3 mt-5">
-              <p>Ghế đã chọn: D3,D5</p>
-              <div className="border border-white px-3 my-2"></div>
-              <p>
-                Tổng:{" "}
-                <span className="text-red-600 text-2xl pl-5">200.000đ</span>
-              </p>
-              <div className="text-center">
-                <button className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12">
-                  Thanh Toán
-                </button>
-              </div>
-            </div>
+            <InfoSeat />
           </div>
         </div>
         {/* end chair */}

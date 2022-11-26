@@ -102,7 +102,11 @@ const MovieDetail = (props: Props) => {
           {getOneShowtime
             ? getOneShowtime.roomId.map((item: any) => (
                 <span key={item._id}>
-                  <Link to={`/`}>{item.name}</Link>
+                  <Link
+                    to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                  >
+                    {item.name}
+                  </Link>
                 </span>
               ))
             : ""}
