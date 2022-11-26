@@ -68,6 +68,7 @@ const UserEdit = (props: Props) => {
         onReset={onReset}
         edit={true}
         showPass={showPass}
+        userId= {id}
       />
     </div>
   );
