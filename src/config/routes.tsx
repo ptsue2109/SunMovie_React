@@ -15,7 +15,8 @@ const routes = {
   verify: "/verify",
   voucherDetail: "/voucher/:id",
   payment:"/payment",
-
+  forgotPass: "/forgot-password",
+  resetPassword: "/reset-password",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",

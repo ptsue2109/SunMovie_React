@@ -28,9 +28,9 @@ const UserCreate = (props: Props) => {
   }, [isSucess, isErr]);
 
   const onFinish = (data: any) => {
-     const dob = new Date(moment(data.dob).format());
-     data.avatar = data?.avatarList?.fileList;  
-     dispatch(createUser({...data,dob }))
+    const dob = new Date(moment(data.dob).format());
+    data.avatar = data?.avatarList?.fileList;
+    dispatch(createUser({ ...data, dob }))
   };
 
   const onReset = () => {
@@ -51,7 +51,7 @@ const UserCreate = (props: Props) => {
         newPass={newPass}
         setNewPass={setNewPass}
         showPass={showPass}
-      />
+        userId={undefined} />
     </div>
   )
 }
