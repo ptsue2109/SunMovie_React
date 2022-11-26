@@ -73,6 +73,7 @@ import VoucherContent from "../components/client/VoucherContent";
 import SeatByRoom from "../pages/admin/Seats/seatByRoom";
 import Payment from "../pages/client/payment/Payment";
 import ForgotPass from "../pages/auth/ForgotPassword";
+import Contact from "../components/client/Contact";
 type RoutesType = {
   path: string;
   component: any;
@@ -97,6 +98,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.payment, component: Payment },
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
+  { path: configRoute.routes.contact, component: Contact },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
