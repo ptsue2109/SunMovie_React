@@ -6,7 +6,7 @@ import { GiFilmSpool } from "react-icons/gi";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
-import { formatDate, formatTime } from "../../../ultils";
+import { convertDateToNumber, formatDate, formatTime } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
@@ -51,21 +51,25 @@ const MovieDetail = (props: Props) => {
     dispatch(getAlSt({}));
   }, []);
 
-  let movieSelectId = data?.movie?._id;
-  const { stList } = useAppSelector((state) => state?.ShowTimeReducer);
-  let showTimeList = stList?.filter(
-    (item: any) => item?.movieId?._id === movieSelectId && item?.status === 0
-  );
-
-  console.log(showTimeList);
-
   if (data == "") return <div>Loading...</div>;
-  const renderRoom = () => {
-    const [idRoom, setIdRoom] = useState();
+  const RenderShowTime = () => {
+    const [idShowtime, setIdShowtime] = useState();
+    const [dateChoose, setDateChoose] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    let movieSelectId = data?.movie?._id;
+    const { stList } = useAppSelector((state) => state?.ShowTimeReducer);
+    let showTimeList = stList?.filter(
+      (item: any) => item?.movieId?._id === movieSelectId && item?.status === 0
+    );
+    showTimeList = showTimeList.map((item: any) => {
+      return (item = {
+        ...item,
+        date: convertDateToNumber(item.date),
+      });
+    });
     const showModal = (id: any) => {
       setIsModalOpen(true);
-      setIdRoom(id);
+      setIdShowtime(id);
     };
     const handleOk = () => {
       setIsModalOpen(false);
@@ -74,8 +78,18 @@ const MovieDetail = (props: Props) => {
     const handleCancel = () => {
       setIsModalOpen(false);
     };
-    console.log(idRoom);
+    const onDate = (date: any) => {
+      let dateNew: any = convertDateToNumber(date);
+      setDateChoose(dateNew);
+    };
+    const showtime: any = showTimeList.filter(
+      (item: any) => item.date == dateChoose
+    );
+    const getOneShowtime = showTimeList.find(
+      (item: any) => item._id === idShowtime
+    );
 
+    if (!showTimeList) return <div>Loading...</div>;
     return (
       <>
         <Modal
@@ -85,23 +99,36 @@ const MovieDetail = (props: Props) => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          {getOneShowtime
+            ? getOneShowtime.roomId.map((item: any) => (
+                <span key={item._id}>
+                  <Link to={`/`}>{item.name}</Link>
+                </span>
+              ))
+            : ""}
         </Modal>
         <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
           <div className={styles.showTimesListItem}>
             {showTimeList
               ? showTimeList?.map((item: any) => (
-                  <span key={item._id}>
-                    {item?.roomId.map((a: any) => (
-                      <span key={a._id} onClick={() => showModal(a._id)}>
-                        {a.name}
-                      </span>
-                    ))}
+                  <span key={item?._id} onClick={() => onDate(item?.date)}>
+                    {formatDate(item?.date)}
                   </span>
                 ))
               : "Không có suất chiếu nào"}
+          </div>
+        </div>
+
+        <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
+          <p>Vui lòng chọn khung giờ</p>
+          <div className={styles.showTimesListItem}>
+            {showtime != ""
+              ? showtime.map((item: any) => (
+                  <span key={item._id} onClick={() => showModal(item._id)}>
+                    {formatTime(item.startAt)}
+                  </span>
+                ))
+              : "Không có khung giờ phù hợp"}
           </div>
         </div>
       </>
@@ -189,7 +216,7 @@ const MovieDetail = (props: Props) => {
               <span>Các phim khác</span>
             </button>
           </div>
-          {/* {renderRoom()} */}
+          <RenderShowTime />
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <div className={styles.showFilmListItem}>
               <Link to={`/d`}>
