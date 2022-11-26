@@ -24,7 +24,7 @@ const Navbar = (props: Props) => {
             <Link to={config.routes.news}>Tin tức</Link>
           </li>
           <li>
-            <Link to={`#`}>Hỗ trợ</Link>
+            <Link to={config.routes.contact}>Hỗ trợ</Link>
           </li>
         </ul>
       </nav>

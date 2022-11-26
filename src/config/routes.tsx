@@ -17,6 +17,7 @@ const routes = {
   payment:"/payment",
   forgotPass: "/forgot-password",
   resetPassword: "/reset-password",
+  contact: "/contact",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",

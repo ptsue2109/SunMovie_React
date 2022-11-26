@@ -44,6 +44,22 @@ const ForgotPass = (props: Props) => {
   }
   const onFinishResetPass = ({ password }: any) => {
     console.log(password);
+    // AuthApi.createOrUpdateUser(token as any, { password: password })
+    //   .then(() => {
+    //     notification.success({
+    //       message: "Đặt lại mật khẩu thành công",
+    //       description: ` vui lòng đăng nhập để tiếp tục`,
+    //     });
+    //     setTimeout(() => {
+    //       navigate(configRoute.routes.signin);
+    //     }, 2000);
+    //   })
+    //   .catch((res) => {
+    //     notification.error({
+    //       message: "Đặt lại mật khẩu thất bại",
+    //       description: ` ${res.response.data}`,
+    //     });
+    //   });
 
   }
   return (

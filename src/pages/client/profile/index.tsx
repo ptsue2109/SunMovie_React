@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hook";
 import styles from "./profile.module.scss";
-import { Table } from "antd";
+import { Table, notification } from "antd";
 import InfoUser from "../../../components/client/profile/InfoUser";
 import Avatar from "../../../components/client/profile/Avatar";
+import configRoute from "../../../config";
 type Props = {};
 
 const Profile = (props: Props) => {
   const { currentUser, isLogged } = useAppSelector(
     (state) => state.authReducer
   );
-  const { users } = useAppSelector((state) => state.userReducer);
+  const { users } = useAppSelector((state: any) => state.userReducer);
   const id = currentUser._id;
   const user = users?.find((item: any) => item._id === id);
   const [isActive, setActive] = useState(1);
@@ -19,11 +20,16 @@ const Profile = (props: Props) => {
     setActive(number);
   };
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!user) {
-      return navigate("/");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     notification.info({
+  //       message: 'Bạn cần đăng nhập để thực hiện chức năng này'
+  //     });
+  //     setTimeout(() => {
+  //       navigate(configRoute.routes.signin)
+  //     }, 5000);
+  //   }
+  // }, [user]);
 
   const columns: any[] = [
     {
