@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from "react";
 import configRoute from "../../config";
-import { useAppSelector } from "../../redux/hook";
-import { Link } from "react-router-dom";
-
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { Link, useNavigate } from "react-router-dom";
+import { AiFillHeart } from 'react-icons/ai'
+import SignUpSocial from "../../components/client/SignUpSocial";
+import { Button, notification } from "antd";
+import { LogOut } from "../../redux/slice/AuthSlice";
 type Props = {
   children: JSX.Element;
 };
 
 const AuthCore = ({ children }: Props) => {
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
+  const { isLogged, currentUser } = useAppSelector((state: any) => state.authReducer);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (isLogged) {
+      notification.warning({ message: 'Warning', description: 'Bạn cần đăng xuất trước khi đăng nhập vào tài khoản mới' })
+    }
+  }, []);
+
+  const handleLogout = () => {
+    dispatch(LogOut());
+    notification.success({ message: "Đăng xuất thành công, hãy đăng nhập để tiếp tục" });
+    navigate(configRoute.routes.signin)
+  }
   return (
     <section className="container max-w-6xl px-3 mx-auto justify-center h-[550px] sm:h-auto border border-solid border-gray-600 shadow-lg rounded-md">
       <div className="w-full h-full">
@@ -30,13 +47,23 @@ const AuthCore = ({ children }: Props) => {
               <img src={webConfigs[0]?.logo[0]?.url} className="max-w-[350px] h-[296px] align-middle" />
             </div>
           </div>
-          <div className="auth-right w-auto p-[30px] ml-4 ">
-            <div className="auth-right__main">{children}</div>
-            <div className="divider text-center font-bold">OR</div>
-            <div className="mb-3">
-              <button className="bg-gray-600 w-full p-1">Đăng nhập với google</button>
+          {isLogged ? (
+            <div className="">
+              <div className="grid justify-center align-baseline mt-[5%] justify-items-center">
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/log-out-6275829-5210411.png" alt="" />
+                <p className="max-w-[250px] w-[250px]">Chào <b>{currentUser?.username ?? currentUser?.email}</b>, hãy đăng xuất trước khi đăng nhập vào tài khoản mới nhé<AiFillHeart /></p>
+                <Button type="primary" className="w-[41%]" onClick={handleLogout}> Logout </Button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="auth-right w-auto p-[30px] ml-4 ">
+              <div className="auth-right__main">{children}</div>
+              <div className="divider text-center font-bold">OR</div>
+              <div className="mb-3">
+                <SignUpSocial />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {/* </div> */}
