@@ -19,7 +19,6 @@ interface updatePassProps {
 
 const UpdatePassWord = ({ userId }: updatePassProps) => {
    const [open, setOpen] = useState(false);
-   const [mess, setMess] = useState('');
    const dispatch = useAppDispatch()
    const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
       open,
@@ -75,7 +74,6 @@ const UpdatePassWord = ({ userId }: updatePassProps) => {
          .then(() => {
             message.success('Đổi mật khẩu thành công');
             setOpen(false);
-            setMess('');
          })
          .catch((error: any) => {
             message.success(error.response.data);
