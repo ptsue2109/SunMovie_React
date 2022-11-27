@@ -13,9 +13,40 @@ type Props = {
   seats: any;
   setSeats: any;
   roomId: any;
+  showtime: any;
 };
 let arrValue: any[] = [];
+let total = 0;
+export const RenderInfoSeats = () => {
+  console.log("seats:", arrValue);
+  // console.log(total);
 
+  return (
+    <>
+      <div className="text-white px-3 mt-5">
+        <p>
+          Ghế đã chọn:
+          {arrValue?.map((item: any) => (
+            <span className="text-white" key={item._id}>
+              {item.row + item.column}
+            </span>
+          ))}
+        </p>
+        <div className="border border-white px-3 my-2"></div>
+        <p>
+          Tổng:
+          <span className="text-red-600 text-2xl pl-5">{total}</span>
+        </p>
+
+        <div className="text-center">
+          <button className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12">
+            Thanh Toán
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
 export const RenderSeatClient = ({
   row,
   column,
@@ -26,6 +57,7 @@ export const RenderSeatClient = ({
   seatFile,
   setSeatFile,
   roomId,
+  showtime,
 }: Props) => {
   const [elClick, setElClick] = useState();
   const dispatch = useAppDispatch();
@@ -36,7 +68,7 @@ export const RenderSeatClient = ({
   useEffect(() => {
     clearSelectedSeats();
   }, []);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
   const [classSeatChoose, setClassSeatChoose] = useState("");
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
 
@@ -75,7 +107,15 @@ export const RenderSeatClient = ({
     setSeatDetails({ ...groupByRowName });
     setSeatFile({ ...groupByRowName });
   };
+  console.log("showtime:", showtime);
+  console.log("room:", roomId);
+  const price = roomId?.formatId?.extraPrice + showtime?.price;
+
   const onSeatClick = (seatValue: any) => {
+    seatValue = {
+      ...seatValue,
+      totalPriceSeat: seatValue?.seatTypeId?.extraPrice + price,
+    };
     if (seatValue.status == 0) {
       let exitsSeats = arrValue.find((item: any) => item._id === seatValue._id);
       if (exitsSeats) {
@@ -84,6 +124,7 @@ export const RenderSeatClient = ({
         arrValue.push(seatValue);
       }
     }
+    RenderInfoSeats();
   };
 
   const RenderSeatsContain = () => {
@@ -117,33 +158,6 @@ export const RenderSeatClient = ({
     <div className="p-̀̀̀̀5 mx-̀̀5 h-[1024px] w-full">
       <div className="pt-5 m-5">{RenderSeatsContain()}</div>
     </div>
-  );
-};
-export const InfoSeat = () => {
-  useEffect(() => {}, [arrValue]);
-  console.log(arrValue);
-  arrValue?.map((item: any) => console.log("hihi", item.row));
-  return (
-    <>
-      <div className="text-white px-3 mt-5">
-        <p>
-          Ghế đã chọn:hi
-          {arrValue?.map((item: any) => (
-            <span>{item?.row}</span>
-          ))}
-        </p>
-        <div className="border border-white px-3 my-2"></div>
-        <p>
-          Tổng: <span className="text-red-600 text-2xl pl-5">200.000đ</span>
-        </p>
-
-        <div className="text-center">
-          <button className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12">
-            Thanh Toán
-          </button>
-        </div>
-      </div>
-    </>
   );
 };
 // export default RenderSeatClient;

@@ -92,7 +92,7 @@ const RenderSeats = ({
   const changeSeatType = (id: any, val: any) => {
     console.log(id, val);
     const payload = {
-      seatId: id,
+      _id: id,
       seatTypeId: val,
     };
 

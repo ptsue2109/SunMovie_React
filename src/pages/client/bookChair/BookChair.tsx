@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
+  RenderInfoSeats,
   RenderSeatClient,
-  InfoSeat,
 } from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getRooms } from "../../../redux/slice/roomSlice";
@@ -84,7 +84,8 @@ const BookChair = (props: Props) => {
               setSeatDetails={setSeatDetails}
               seats={seats}
               setSeats={setSeats}
-              roomId={idRoom}
+              roomId={roomSelect}
+              showtime={showtime}
             />
             {/* end chair */}
             <div className="mb-10 flex justify-around mx-20">
@@ -125,7 +126,7 @@ const BookChair = (props: Props) => {
                 alt=""
               />
             </div>
-            <InfoSeat />
+            <RenderInfoSeats />
           </div>
         </div>
         {/* end chair */}
