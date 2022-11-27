@@ -10,11 +10,11 @@ const SlideShow = (props: Props) => {
     <div className="banner">
       <Slide easing="ease">
         {slider?.map((item: any, index: any) => (
-          <div key={index}>
+          <div className="" key={index}>
             <div
               style={{ backgroundImage: `url(${item?.images[0]?.url})` }}
             ></div>
-            <span className="   limit-line-2 block my-1 pt-20 font-semibold text-center leading-tight transition duration-300 text-gray-600 hover:text-black uppercase ">
+            <span className=" limit-line-2 block my-1 pt-20 font-semibold text-center leading-tight transition duration-300 text-gray-600 hover:text-black uppercase ">
               {item.content}
             </span>
           </div>

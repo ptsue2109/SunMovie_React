@@ -101,11 +101,13 @@ const sliderSlice = createSlice({
     // list
     builder.addCase(getSlider.pending, (state, action) => {
       state.errMess = action.payload;
+
       //   state.isFetching = true;
       //   state.isSucess = false;
     });
     builder.addCase(getSlider.fulfilled, (state, action) => {
       state.slider = action.payload;
+      console.log(action.payload);
     });
     builder.addCase(getSlider.rejected, (state, action) => {
       state.errMess = true;
