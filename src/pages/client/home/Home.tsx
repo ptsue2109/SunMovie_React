@@ -122,14 +122,18 @@ const Home = (props: Props) => {
             <h3>Tin tức</h3>
             <News  activeNav={true}/>
           </div>
+          
           {/* <div className={styles.content_cmt}>
             <h3>Bình luận phim</h3>
           </div> */}
         </div>
 
-        <div className={styles.discountNews}>
-          <h3>Tin khuyến mãi</h3>
-          <Voucher/>
+        <div className={styles.content_news_cmt}>
+          <div className={styles.content_news}>
+            <h3>Khuyến mãi mới</h3>
+            <Voucher  activeNav={true}/>
+          </div>
+          
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload"
 import { userRole, userStatus } from "../../../ultils/data"
 import UpdatePassWord from '../UpdatePassword';
+import { useAppSelector } from '../../../redux/hook';
 interface UserFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -18,9 +19,10 @@ interface UserFormProps {
    editUser?: boolean;
    loading?: boolean;
    showPass: boolean;
-   userId:any
+   userId: any
 }
 const UserForm = ({ setNewPass, newPass, userId, setAvatarList, avatarList, showPass, form, onFinish, onReset, edit = false, loading = false, editUser = true }: UserFormProps) => {
+   const { accessToken } = useAppSelector((state) => state.authReducer)
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
@@ -69,7 +71,7 @@ const UserForm = ({ setNewPass, newPass, userId, setAvatarList, avatarList, show
                            ))}
                         </Select>
                      </Form.Item>
-                     <UpdatePassWord  userId={userId}/>
+                     <UpdatePassWord userId={userId} token={accessToken} />
                      <div className="col-12">
                         <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
                            <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
@@ -89,7 +91,7 @@ const UserForm = ({ setNewPass, newPass, userId, setAvatarList, avatarList, show
                         </Card>
                      </div>
                   </Card>
-                              
+
                </>
             ) : (<>
                <Skeleton />

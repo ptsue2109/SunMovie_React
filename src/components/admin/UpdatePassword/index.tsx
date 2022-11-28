@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal, Radio } from 'antd';
-import { updatePass } from '../../../redux/slice/userSlice';
+import { UserApi } from '../../../service/userApi';
 import { useAppDispatch } from '../../../redux/hook';
 interface Values {
    title: string;
@@ -15,9 +15,10 @@ interface CollectionCreateFormProps {
 }
 interface updatePassProps {
    userId: any,
+   token: any
 }
 
-const UpdatePassWord = ({ userId }: updatePassProps) => {
+const UpdatePassWord = ({ userId, token }: updatePassProps) => {
    const [open, setOpen] = useState(false);
    const dispatch = useAppDispatch()
    const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
@@ -30,18 +31,19 @@ const UpdatePassWord = ({ userId }: updatePassProps) => {
          <Modal
             open={open}
             title={`User: ${userId}`}
-            okText="Create"
+            okText="Update password"
             cancelText="Cancel"
             onCancel={onCancel}
             onOk={() => {
                form
                   .validateFields()
-                  .then((values) => {
+                  .then(({ password }) => {
                      form.resetFields();
-                     onCreate(values);
+                     onCreate(password)
+
                   })
-                  .catch((info) => {
-                     console.log('Validate Failed:', info);
+                  .catch((error) => {
+                     console.log(error);
                   });
             }}
          >
@@ -67,19 +69,15 @@ const UpdatePassWord = ({ userId }: updatePassProps) => {
       );
    };
    const onCreate = ({ password }: any) => {
-      const payload = { newPassword: password, _id: userId };
-      console.log(payload);
-      
-      dispatch(updatePass(payload)).unwrap()
+      dispatch(UserApi.updatePassword({ token, newPassword: password, _id: userId }))
          .then(() => {
-            message.success('Đổi mật khẩu thành công');
             setOpen(false);
-         })
-         .catch((error: any) => {
-            message.success(error.response.data);
-            setOpen(true);
-         })
+            message.success('Đổi mật khẩu thành công');
 
+         })
+         .catch((err: any) => {
+            console.log(err);
+         })
    };
    return (
       <div>

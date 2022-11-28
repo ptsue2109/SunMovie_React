@@ -26,7 +26,7 @@ export const updateUser = createAsyncThunk<any, any, { rejectValue: string }>(
   async (user, { rejectWithValue }) => {
     try {
       const { data } = await UserApi.updateUser(user);
-      return data;
+      return data; updateUser
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }

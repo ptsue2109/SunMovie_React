@@ -1,10 +1,12 @@
-import { Button, Form, Input, notification, Space } from 'antd';
+import { Button, Form, Input, message, notification, Space } from 'antd';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { useAppSelector } from '../../../redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { AuthApi } from "../../../service/authApi";
 import { useState, useEffect } from 'react'
 import configRoute from '../../../config';
+import { UserApi } from '../../../service/userApi';
+import { updatePass } from '../../../redux/slice/userSlice';
 type Props = {}
 
 const ForgotPass = (props: Props) => {
@@ -15,6 +17,7 @@ const ForgotPass = (props: Props) => {
   const [isReset, setIsReset] = useState(false)
   const token = searchParams.get("token");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
   useEffect(() => {
     if (token) {
       setIsReset(true)
@@ -37,29 +40,33 @@ const ForgotPass = (props: Props) => {
             notification.success({ message: "Thành công", description: "Vui lòng kiểm tra email và đặt lại mật khẩu" });
             form.resetFields();
           })
-          .catch(() => console.log('Lỗi'))
+          .catch(() => {
+            notification.error({ message: "Lỗi", description: "Vui lòng thử lại" });
+          })
       }
 
     }
   }
   const onFinishResetPass = ({ password }: any) => {
     console.log(password);
-    // AuthApi.createOrUpdateUser(token as any, { password: password })
-    //   .then(() => {
-    //     notification.success({
-    //       message: "Đặt lại mật khẩu thành công",
-    //       description: ` vui lòng đăng nhập để tiếp tục`,
-    //     });
-    //     setTimeout(() => {
-    //       navigate(configRoute.routes.signin);
-    //     }, 2000);
-    //   })
-    //   .catch((res) => {
-    //     notification.error({
-    //       message: "Đặt lại mật khẩu thất bại",
-    //       description: ` ${res.response.data}`,
-    //     });
-    //   });
+    const payload = { newPassword: password };
+    console.log(payload);
+    dispatch(updatePass({ token, newPassword: password }))
+      .then(() => {
+        notification.success({
+          message: "Đặt lại mật khẩu thành công",
+          description: ` vui lòng đăng nhập để tiếp tục`,
+        });
+        setTimeout(() => {
+          navigate(configRoute.routes.signin);
+        }, 2000);
+      })
+      .catch((res: any) => {
+        notification.error({
+          message: "Đặt lại mật khẩu thất bại",
+          description: ` ${res.response.data}`,
+        });
+      });
 
   }
   return (
