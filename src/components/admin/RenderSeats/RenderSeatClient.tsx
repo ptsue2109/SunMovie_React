@@ -19,7 +19,7 @@ type Props = {
 };
 export const RenderInfoSeats = () => {
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
-  console.log("seats:", arrSeats);
+  console.log("seats:ssss", arrSeats);
   let i = 0;
   const sum = (a: any, b: any) => {
     i++;
