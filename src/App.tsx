@@ -13,21 +13,23 @@ import { getCategories } from "./redux/slice/CategorySlice";
 import { getMovie } from "./redux/slice/Movie";
 import { getFood } from "./redux/slice/FoodSlice";
 import { getUsers } from "./redux/slice/userSlice";
-import { getAllData } from "./redux/slice/FilmFormatSlice"
-import { getRooms } from "./redux/slice/roomSlice"
+import { getAllData } from "./redux/slice/FilmFormatSlice";
+import { getRooms } from "./redux/slice/roomSlice";
 import { getAllSBST } from "./redux/slice/SeatBySTSlice";
 import { getSlider } from "./redux/slice/Slider";
 import { getConfigs } from "./redux/slice/webConfig";
 import { getAlVc } from "./redux/slice/voucherSlice";
 import Maintain from "./components/client/Maintain";
 import { getAlPost } from "./redux/slice/PostSlice";
-import { getAllSeats } from "./redux/slice/SeatSlice"
+import { getAllSeats } from "./redux/slice/SeatSlice";
 import PrivateRoute from "./components/client/PrivateRouter";
 function App() {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
-  const { loading, webConfigs } = useAppSelector((state: any) => state.WebConfigReducer)
-  const isMaintain = webConfigs[0]?.isMaintaince
+  const { loading, webConfigs } = useAppSelector(
+    (state: any) => state.WebConfigReducer
+  );
+  const isMaintain = webConfigs[0]?.isMaintaince;
   useEffect(() => {
     dispatch(getMovieType());
     dispatch(getTicket());
@@ -43,8 +45,8 @@ function App() {
     dispatch(getAllSBST());
     dispatch(getConfigs());
     dispatch(getAlVc());
-    dispatch(getAlPost())
-    dispatch(getAllSeats({}))
+    dispatch(getAlPost());
+    dispatch(getAllSeats({}));
   }, [dispatch]);
 
   return (
@@ -66,8 +68,8 @@ function App() {
                 key={index}
                 path={route.path}
                 element={
-                  <Maintain isMaintain={isMaintain} >
-                    <PrivateRoute acceptRole={0} >
+                  <Maintain isMaintain={isMaintain}>
+                    <PrivateRoute acceptRole={0}>
                       <Layout>
                         <Page />
                       </Layout>
@@ -83,7 +85,7 @@ function App() {
               key={index}
               path={route.path}
               element={
-                <Maintain isMaintain={isMaintain} >
+                <Maintain isMaintain={isMaintain}>
                   <Layout>
                     <Page />
                   </Layout>
@@ -107,7 +109,7 @@ function App() {
               key={index}
               path={route.path}
               element={
-                <PrivateRoute acceptRole={1} >
+                <PrivateRoute acceptRole={1}>
                   <Layout>
                     <Page />
                   </Layout>

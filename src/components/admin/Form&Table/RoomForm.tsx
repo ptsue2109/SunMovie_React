@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, Card, Form, FormInstance, Input, Select, Skeleton, InputNumber } from "antd";
+import {
+  Button,
+  Card,
+  Form,
+  FormInstance,
+  Input,
+  Select,
+  Skeleton,
+  InputNumber,
+} from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { useAppSelector } from '../../../redux/hook';
-import RenderSeats from "../RenderSeats"
+import { useAppSelector } from "../../../redux/hook";
+import RenderSeats from "../RenderSeats";
 interface RoomFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -15,50 +24,135 @@ interface RoomFormProps {
   seats: any;
   setSeats: any;
   showSeatTye: any;
-  rowFile: any,
+  rowFile: any;
   colFile: any;
   setRowFile: any;
   setColFile: any;
   blockSeat: any;
   setBlockSeat: any;
-  adminRenderSeat: any
+  adminRenderSeat: any;
 }
-const RoomForm = ({ form, onFinish, adminRenderSeat, showSeatTye, edit = false, rowFile, colFile, blockSeat, setBlockSeat, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile }: RoomFormProps) => {
+const RoomForm = ({
+  form,
+  onFinish,
+  adminRenderSeat,
+  showSeatTye,
+  edit = false,
+  rowFile,
+  colFile,
+  blockSeat,
+  setBlockSeat,
+  setRowFile,
+  setColFile,
+  loading = false,
+  editData = true,
+  setSeatFile,
+  seatFile,
+}: RoomFormProps) => {
   const [seatDetails, setSeatDetails] = useState<any>();
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
   const { seatType } = useAppSelector((state: any) => state?.seatTypeReducer);
-  const onChangeRow = (val: any) => { setRow(val) }
-  const onChangeCols = (val: any) => { setColumn(val) }
-  return (
+  const { filmFormats } = useAppSelector((state) => state.FormatReducer);
+  console.log(filmFormats);
 
+  const onChangeRow = (val: any) => {
+    setRow(val);
+  };
+  const onChangeCols = (val: any) => {
+    setColumn(val);
+  };
+  return (
     <div className="">
       {editData ? (
         <>
-          <Form layout="vertical" className='flex' form={form} onFinish={onFinish} validateMessages={validateMessages}>
+          <Form
+            layout="vertical"
+            className="flex"
+            form={form}
+            onFinish={onFinish}
+            validateMessages={validateMessages}
+          >
             {adminRenderSeat ? (
               <>
                 <Card className="col-2">
-                  <Form.Item label="Tên rạp" name="name" rules={[{ type: 'string', required: true, min: 5, max: 20, whitespace: true }]}>
+                  <Form.Item
+                    label="Tên rạp"
+                    name="name"
+                    rules={[
+                      {
+                        type: "string",
+                        required: true,
+                        min: 5,
+                        max: 20,
+                        whitespace: true,
+                      },
+                    ]}
+                  >
                     <Input placeholder="Nhập vào" />
                   </Form.Item>
-                  {showSeatTye && (
-                    <Form.Item label="seatTypeId" name="seatTypeId" rules={[{ required: true }]}>
-                      <Select>
-                        {seatType && seatType?.map((item: any) => (
-                          <Select.Option value={item._id} key={item._id} >{item.name}</Select.Option>
+                  <Form.Item
+                    label="Film Format"
+                    name="formatId"
+                    rules={[{ required: true }]}
+                  >
+                    <Select>
+                      {filmFormats &&
+                        filmFormats?.map((item: any) => (
+                          <Select.Option value={item._id} key={item._id}>
+                            {item.name}
+                          </Select.Option>
                         ))}
+                    </Select>
+                  </Form.Item>
+                  {showSeatTye && (
+                    <Form.Item
+                      label="seatTypeId"
+                      name="seatTypeId"
+                      rules={[{ required: true }]}
+                    >
+                      <Select>
+                        {seatType &&
+                          seatType?.map((item: any) => (
+                            <Select.Option value={item._id} key={item._id}>
+                              {item.name}
+                            </Select.Option>
+                          ))}
                       </Select>
                     </Form.Item>
                   )}
-                  <Form.Item label="columns" name="rows"  >
-                    <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
+                  <Form.Item label="columns" name="rows">
+                    <InputNumberCs
+                      min={1}
+                      max={20}
+                      placeholder="tạo số hàng"
+                      onChange={onChangeRow}
+                    />
                   </Form.Item>
-                  <Form.Item label="rows" name="columns"  >
-                    <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
+                  <Form.Item label="rows" name="columns">
+                    <InputNumberCs
+                      min={1}
+                      max={20}
+                      placeholder="tạo số hàng"
+                      onChange={onChangeCols}
+                    />
                   </Form.Item>
-                  <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
-                    <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
+                  <Card
+                    style={{
+                      position: "sticky",
+                      bottom: "0",
+                      left: "0",
+                      width: "100%",
+                      border: "none",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "start",
+                        gap: "5px",
+                      }}
+                    >
                       <Button
                         htmlType="submit"
                         type="primary"
@@ -78,33 +172,92 @@ const RoomForm = ({ form, onFinish, adminRenderSeat, showSeatTye, edit = false, 
                     seatDetails={seatDetails}
                     setSeatDetails={setSeatDetails}
                     seats={undefined}
-                    setSeats={undefined} 
-                    roomId={undefined} />
+                    setSeats={undefined}
+                    roomId={undefined}
+                  />
                 </Card>
               </>
             ) : (
               <Card className="col-12">
-                <Form.Item label="Tên rạp" name="name" rules={[{ type: 'string', required: true, min: 5, max: 20, whitespace: true }]}>
+                <Form.Item
+                  label="Tên rạp"
+                  name="name"
+                  rules={[
+                    {
+                      type: "string",
+                      required: true,
+                      min: 5,
+                      max: 20,
+                      whitespace: true,
+                    },
+                  ]}
+                >
                   <Input placeholder="Nhập vào" />
                 </Form.Item>
 
-                {showSeatTye && (
-                  <Form.Item label="seatTypeId" name="seatTypeId" rules={[{ required: true }]}>
-                    <Select>
-                      {seatType && seatType?.map((item: any) => (
-                        <Select.Option value={item._id} key={item._id} >{item.name}</Select.Option>
+                <Form.Item
+                  label="Film Format"
+                  name="formatId"
+                  rules={[{ required: true }]}
+                >
+                  <Select>
+                    {filmFormats &&
+                      filmFormats?.map((item: any) => (
+                        <Select.Option value={item._id} key={item._id}>
+                          {item.name}
+                        </Select.Option>
                       ))}
+                  </Select>
+                </Form.Item>
+                {showSeatTye && (
+                  <Form.Item
+                    label="seatTypeId"
+                    name="seatTypeId"
+                    rules={[{ required: true }]}
+                  >
+                    <Select>
+                      {seatType &&
+                        seatType?.map((item: any) => (
+                          <Select.Option value={item._id} key={item._id}>
+                            {item.name}
+                          </Select.Option>
+                        ))}
                     </Select>
                   </Form.Item>
                 )}
-                <Form.Item label="columns" name="rows"  >
-                  <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
+
+                <Form.Item label="columns" name="rows">
+                  <InputNumberCs
+                    min={1}
+                    max={20}
+                    placeholder="tạo số hàng"
+                    onChange={onChangeRow}
+                  />
                 </Form.Item>
-                <Form.Item label="rows" name="columns"  >
-                  <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
+                <Form.Item label="rows" name="columns">
+                  <InputNumberCs
+                    min={1}
+                    max={20}
+                    placeholder="tạo số hàng"
+                    onChange={onChangeCols}
+                  />
                 </Form.Item>
-                <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
-                  <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
+                <Card
+                  style={{
+                    position: "sticky",
+                    bottom: "0",
+                    left: "0",
+                    width: "100%",
+                    border: "none",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "start",
+                      gap: "5px",
+                    }}
+                  >
                     <Button
                       htmlType="submit"
                       type="primary"
@@ -118,16 +271,16 @@ const RoomForm = ({ form, onFinish, adminRenderSeat, showSeatTye, edit = false, 
             )}
           </Form>
         </>
-      ) : (<>
-        <Skeleton />
-      </>)
-      }
-    </div >
-
-  )
-}
+      ) : (
+        <>
+          <Skeleton />
+        </>
+      )}
+    </div>
+  );
+};
 
 export default RoomForm;
 const InputNumberCs = styled(InputNumber)`
-  width: 100%
-`
+  width: 100%;
+`;

@@ -16,18 +16,24 @@ export const formatDate = (dateString: Date) => {
   const date = new Date(dateString || "");
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 };
-
+export const formatDateNew = (dateString: Date) => {
+  const date = new Date(dateString || "");
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+};
 export const formatDateString = (dateString: Date) => {
   const date = new Date(dateString || "");
-  return `${date.getDate()} Tháng ${date.getMonth() + 1
-    }, ${date.getFullYear()}`;
+  return `${date.getDate()} Tháng ${
+    date.getMonth() + 1
+  }, ${date.getFullYear()}`;
 };
 
-export const convertDateToNumber = (date: Date) => {
+export const convertDate = (date: any) => {
   const dateConvert = new Date(date);
   return dateConvert.getTime();
 };
-
+export const convertDateToNumber = (date: any) => {
+  return convertDate(formatDateNew(date));
+};
 export const formatTime = (dateString: Date) => {
   const date = moment(new Date(dateString || "")).format("HH:mm");
   return date;
@@ -40,19 +46,27 @@ export const discountPercent = (money?: any, discount?: any) => {
 };
 
 export const convertMovieTime = (seconds: any) => {
-  var h, m, s, result = '';
+  var h,
+    m,
+    s,
+    result = "";
   // HOURs
   h = Math.floor(seconds / 3600);
   seconds -= h * 3600;
   if (h) {
-    result = h < 10 ? '0' + h + ':' : h + ':';
+    result = h < 10 ? "0" + h + ":" : h + ":";
   }
   // MINUTEs
   m = Math.floor(seconds / 60);
   seconds -= m * 60;
-  result += m < 10 ? '0' + m + ':' : m + ':';
+  result += m < 10 ? "0" + m + ":" : m + ":";
   // SECONDs
   s = seconds % 60;
-  result += s < 10 ? '0' + s : s;
+  result += s < 10 ? "0" + s : s;
   return result;
+};
+
+export function addDays(dateObj: any, numDays: any) {
+  dateObj.setDate(dateObj.getDate() + numDays);
+  return dateObj;
 }

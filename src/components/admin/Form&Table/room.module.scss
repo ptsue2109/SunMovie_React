@@ -21,6 +21,9 @@
    font-weight: 700;
    margin-right: 20px;
  }
+ .seatNotBooksed{
+  background-color: white;
+ }
  .seatSelected0 {
    color: red !important;
  }
@@ -30,7 +33,7 @@
  }
  .seatSelected {
    color: #fff !important;
-   background: rgb(53 212 6);
+   background: rgb(53 212 6) !important;
  }
  .seatBlocked {
    color: #fff !important;

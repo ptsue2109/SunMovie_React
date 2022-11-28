@@ -5,7 +5,7 @@ const routes = {
   signin: "/auth/signin",
   signup: "/auth/signup",
   detail: "/:slug",
-  bookChair: "/book-chair/:id",
+  bookChair: "/book-chair",
   tickitPrice: "/tickit-price",
   newsCate1: "/categories",
   newsCate2: "/categories/:slug",

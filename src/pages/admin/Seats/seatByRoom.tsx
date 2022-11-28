@@ -28,7 +28,6 @@ const SeatByRoom = (props: Props) => {
 
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const roomSelect = rooms?.find((item) => item?._id === id);
-  console.log("roomSelect", roomSelect);
 
   useEffect(() => {
     setColumn(roomSelect?.columns);
