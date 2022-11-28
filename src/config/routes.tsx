@@ -73,6 +73,7 @@ const routes = {
   webConfigAdd: "/admin/webConfig/create",
   webConfigEdit: "/admin/webConfig/:id",
   AdminSeatByRoom: "/admin/seatsByRoom/:id",
+  adminCategoryEdit: "/admin/categories/:id"
 };
 
 export default routes;

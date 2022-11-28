@@ -1,4 +1,4 @@
-import axiosClient from "./instance";
+import axiosClient, { AxiosRequest } from "./instance";
 
 export const UserApi = {
   getAll() {
@@ -9,15 +9,21 @@ export const UserApi = {
     let url = `users/${userID}`
     return axiosClient.delete(url);
   },
-  updateUser(payload: any) {
-    const url = `/users/${payload._id}`
-    return axiosClient.put(url, payload)
+  updateUser( data: any) {
+    const url = `/users/${data._id}`
+    return axiosClient.put(url, data)
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/register", data);
   },
-  updatePassword(payload: any) {
-    const url = `/users/users_password_update`
-    return axiosClient.put(url, payload)
+   updatePassword( data: any): Promise<any> {
+    const url = `/users_password_update`
+    return AxiosRequest.put(url, data,
+      {
+        headers: {
+          "Authorization": `Bearer ${data.token}`,
+        },
+      },
+    );
   },
 };

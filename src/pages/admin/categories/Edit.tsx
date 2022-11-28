@@ -1,20 +1,30 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button, Form, Input, message, Space } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../../redux/hook";
-import { createCategories } from "../../../redux/slice/CategorySlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { editCate } from "../../../redux/slice/CategorySlice";
 import configRoute from "../../../config";
 
 type Props = {};
 
-const CreateCategory = (props: Props) => {
+const EditCategory = (props: Props) => {
   const [form] = Form.useForm();
+  const {categories} = useAppSelector((state:any) => state.categoriesReducer)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const onFinish = async (values: any) => {
-    const { meta } = await dispatch(createCategories(values));
+  const {id} = useParams();
+
+  const select = categories?.find((item:any) => item?._id === id);  console.log(select);
+  useEffect(()=> {
+    if(select) {
+      form.setFieldsValue({title: select?.title})
+    }
+  }, [])
+
+  const onFinish = async ({title}: any) => {
+    const { meta } = await dispatch(editCate({_id: id, title}));
     if (meta.requestStatus == "fulfilled") {
-      message.success({ content: "Thêm thành công hùng đẹp trai" });
+      message.success({ content: "Sửa thành công hùng đẹp trai" });
       navigate(configRoute.routes.adminCategories);
     } else {
       message.error({ content: "Lỗi" });
@@ -50,4 +60,4 @@ const CreateCategory = (props: Props) => {
   );
 };
 
-export default CreateCategory;
+export default EditCategory;

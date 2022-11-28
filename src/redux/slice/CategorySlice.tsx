@@ -36,7 +36,17 @@ export const removeCategory = createAsyncThunk(
     }
   }
 );
-
+export const editCate = createAsyncThunk(
+  "categories/editCate",
+  async (id: any, { rejectWithValue }) => {
+    try {
+      const { data } = await CategoriesApi.edit(id);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 // export const getPostListByCate = createAsyncThunk<any, any, { rejectValue: string }>(
 //    "categories/getPostListByCate",
 //    async (input, { rejectWithValue }) => {
@@ -112,27 +122,26 @@ const categoriesSlice = createSlice({
       state.categories = state.categories.filter(
         (item) => item._id != action.payload.category._id
       );
-      // console.log(action.payload.categories._id);
     });
     builder.addCase(removeCategory.rejected, (state, action) => {
       state.isErr = true;
       state.isFetching = false;
       state.isSucess = false;
     });
-
-    //getPostByCate
-    // builder.addCase(getPostListByCate.pending, (state, action) => {
-    //   state.isFetching = true
-    // });
-    // builder.addCase(getPostListByCate.fulfilled, (state, action) => {
-    //   state.category = action.payload
-    //   state.isFetching = false
-    // });
-    // builder.addCase(getPostListByCate.rejected, (state, action) => {
-    //   state.isErr = true
-    //   state.errorMessage = action.payload
-    //   state.isFetching = false
-    // });
+    builder.addCase(editCate.rejected, (state, action) => {
+      state.isFetching = true;
+      state.isSucess = false;
+      state.isErr = false;
+    });
+    builder.addCase(editCate.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.isSucess = true;
+      state.isErr = false;
+      state.categories = state.categories.map((item) =>
+      item._id !== action.payload._id ? item : action.payload
+    );
+    });
+   
   },
 });
 export const selectCatePostList = (state: any) => state.categories.categories;

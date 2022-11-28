@@ -11,7 +11,7 @@ export const CategoriesApi = {
     return AxiosRequest.post("/categories", data);
   },
   edit(data: any) {
-    return AxiosRequest.patch(`/categories/${data._id}`, data);
+    return AxiosRequest.put(`/categories/${data._id}`, data);
   },
   // getPostByCate(slug?: string | undefined){
   //   return AxiosRequest.get(`/categories/get-post-by-cate/${slug}`)

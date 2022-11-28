@@ -22,7 +22,7 @@ const ListCategories = (props: Props) => {
   const columnList: any = [
     {
       title: "Name",
-      render: (item: any, index: any) => <p>{item.title}</p>,
+      render: (item: any, index: any) => <Link to={item?._id} className="text-black">{item.title}</Link>,
       height: "10",
     },
     {

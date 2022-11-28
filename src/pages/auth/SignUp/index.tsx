@@ -12,9 +12,7 @@ const SignUp = (props: Props) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  useEffect(() => {
     document.title = "Đăng Ký";
-  }, []);
 
   const onFinish = async (values: any) => {
     const { meta, payload } = await dispatch((authAsyncRegister(values)));
