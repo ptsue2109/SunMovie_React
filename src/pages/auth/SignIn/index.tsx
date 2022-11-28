@@ -1,6 +1,8 @@
 import { Form, Input, notification } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthForm from "../../../components/auth/AuthForm";
+import configRoute from "../../../config";
 import config from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { authAsyncLogin } from "../../../redux/slice/AuthSlice";
@@ -12,72 +14,26 @@ const SignIn = (props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onFinish = async(values: any) => {
-    document.title= "SignIn"
+  const onFinish = async (values: any) => {
+    document.title = "SignIn"
     const { meta, payload } = await dispatch(authAsyncLogin(values));
-      if (meta.requestStatus == "fulfilled") {
-        notification.success({
-          message: 'Đăng nhập thành công',
-       });
-        setTimeout(() => {
-          navigate(config.routes.home)
-        }, 2000);
-      } else {
-        notification.error({
-          message: 'Đăng nhập thất bại',
-          description:`${payload}`,
-       });
-      }
+    if (meta.requestStatus == "fulfilled") {
+      notification.success({
+        message: 'Đăng nhập thành công',
+      });
+      setTimeout(() => {
+        navigate(config.routes.home)
+      }, 2000);
+    } else {
+      notification.error({
+        message: 'Đăng nhập thất bại',
+        description: `${payload}`,
+      });
+    }
   };
 
   return (
-    <div className="auth_container ">
-      <div className="auth_container--title">
-        <h1 className="text-[32px] font-bold">Đăng Nhập</h1>
-      </div>
-      <div className="auth_container--content">
-        <Form
-          autoComplete="off"
-          layout="vertical"
-          name="signin"
-          onFinish={onFinish}
-          form={form}
-        >
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item>
-            <button className="auth_button">Save</button>
-          </Form.Item>
-        </Form>
-      </div>
-      <div className="flex justify-between">
-        <div className="">
-          <Link to="#">Quên mật khẩu ?</Link>
-        </div>
-        <div className="">
-          <span>Chưa có tài khoản</span>
-          <Link
-            to={config.routes.signup}
-            className="text-bold pl-1 hover:text-red-600"
-          >
-            Đăng ký
-          </Link>
-        </div>
-      </div>
-    </div>
+    <AuthForm onFinish={onFinish} form={form} name="Đăng Nhập" isSignUp={true} sign="Đăng Ký" />
   );
 };
 

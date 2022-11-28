@@ -30,7 +30,6 @@ const AdminShowTimesCreate = (_props: Props) => {
     values.startAt = new Date(moment(values.timeStart).format());
     values.endAt = new Date(moment(values.timeEnd).format());
     values.date = values.startAt
-    console.log(values);
 
     dispatch(createData(values)).unwrap()
       .then(() => {

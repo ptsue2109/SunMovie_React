@@ -44,7 +44,17 @@ export const createUser = createAsyncThunk<any, any, { rejectValue: string }>(
     }
   }
 );
-
+export const updatePass = createAsyncThunk<any, any, { rejectValue: string }>(
+  "users/updatePass",
+  async (input, { rejectWithValue }) => {
+    try {
+      const { data } = await UserApi.updatePassword(input);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 type UserState = {
   users: any[];
   isFetching: boolean;
@@ -123,11 +133,24 @@ const userSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
+    });
+    builder.addCase(updateUser.rejected, (state, action) => {
+      state.isFetching = false;
+      state.errorMessage = action.payload;
+    });
+
+    //update pass
+    builder.addCase(updatePass.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(updatePass.fulfilled, (state, action) => {
+      state.isFetching = false;
+      state.isSucess = true;
       state.users = state.users.map((item) =>
         item._id !== action.payload._id ? item : action.payload
       );
     });
-    builder.addCase(updateUser.rejected, (state, action) => {
+    builder.addCase(updatePass.rejected, (state, action) => {
       state.isFetching = false;
       state.errorMessage = action.payload;
     });

@@ -22,11 +22,12 @@ import { getAlVc } from "./redux/slice/voucherSlice";
 import Maintain from "./components/client/Maintain";
 import { getAlPost } from "./redux/slice/PostSlice";
 import { getAllSeats } from "./redux/slice/SeatSlice";
+import PrivateRoute from "./components/client/PrivateRouter";
 function App() {
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state) => state.authReducer);
+  const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const { loading, webConfigs } = useAppSelector(
-    (state) => state.WebConfigReducer
+    (state: any) => state.WebConfigReducer
   );
   const isMaintain = webConfigs[0]?.isMaintaince;
   useEffect(() => {
@@ -61,6 +62,24 @@ function App() {
             Layout = Fragment;
           }
 
+          if (route.path.startsWith("/profile")) {
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <Maintain isMaintain={isMaintain}>
+                    <PrivateRoute acceptRole={0}>
+                      <Layout>
+                        <Page />
+                      </Layout>
+                    </PrivateRoute>
+                  </Maintain>
+                }
+              />
+            );
+          }
+
           return (
             <Route
               key={index}
@@ -75,7 +94,6 @@ function App() {
             />
           );
         })}
-
         {privateRoutes.map((route, index) => {
           const Page = route.component;
           let Layout: any = AdminTheme;
@@ -91,9 +109,11 @@ function App() {
               key={index}
               path={route.path}
               element={
-                <Layout>
-                  <Page />
-                </Layout>
+                <PrivateRoute acceptRole={1}>
+                  <Layout>
+                    <Page />
+                  </Layout>
+                </PrivateRoute>
               }
             />
           );

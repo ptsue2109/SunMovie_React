@@ -59,7 +59,6 @@ import AdminPostsCreate from "../pages/admin/Post/Create";
 import AdminPostsEdit from "../pages/admin/Post/Edit";
 import NewsDetail from "../pages/client/NewsDetail";
 import Search from "../pages/client/search/Search";
-// import AdminSeatRenderDetail from "../pages/admin/showTime/SeatDetailAdmin";
 import FoodList from "../pages/admin/Food/FoodList";
 import CreateFood from "../pages/admin/Food/CreateFood";
 import UpdateFood from "../pages/admin/Food/UpdateFood";
@@ -67,12 +66,14 @@ import CreateSlider from "../pages/admin/Slider/CreateSlider";
 import AdminSlider from "../pages/admin/Slider/AdminSlider";
 import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
 import Profile from "../pages/client/profile";
-// import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
 import WebConfig from "../pages/admin/Config";
 import WebConfigCreate from "../pages/admin/Config/Create";
 import WebConfigEdit from "../pages/admin/Config/Edit";
 import VoucherContent from "../components/client/VoucherContent";
 import SeatByRoom from "../pages/admin/Seats/seatByRoom";
+import Payment from "../pages/client/payment/Payment";
+import ForgotPass from "../pages/auth/ForgotPassword";
+import Contact from "../components/client/Contact";
 type RoutesType = {
   path: string;
   component: any;
@@ -94,6 +95,10 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.profile, component: Profile },
   { path: configRoute.routes.verify, component: Complete },
   { path: configRoute.routes.voucherDetail, component: VoucherContent },
+  { path: configRoute.routes.payment, component: Payment },
+  { path: configRoute.routes.forgotPass, component: ForgotPass },
+  { path: configRoute.routes.resetPassword, component: ForgotPass },
+  { path: configRoute.routes.contact, component: Contact },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -156,7 +161,6 @@ export const privateRoutes: RoutesType[] = [
     path: configRoute.routes.AdminShowTimesEdit,
     component: AdminShowTimesEdit,
   },
-  // { path: configRoute.routes.AdminShowTimeSeat, component: ShowTimeSeat },
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 

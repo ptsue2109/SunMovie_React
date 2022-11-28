@@ -15,5 +15,9 @@ export const UserApi = {
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/register", data);
-  }
+  },
+  updatePassword(payload: any) {
+    const url = `/users/users_password_update`
+    return axiosClient.put(url, payload)
+  },
 };

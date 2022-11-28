@@ -1,11 +1,21 @@
-import { Collapse, message, Modal, Select } from "antd";
+import {
+  Button,
+  Card,
+  Collapse,
+  Form,
+  message,
+  Modal,
+  Select,
+  Table,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { updateSeatThunk } from "../../../redux/slice/SeatSlice";
 import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
-
+import configRoute from "../../../config";
+import { useNavigate } from "react-router-dom";
 type Props = {
   row: any;
   column: any;
@@ -18,7 +28,6 @@ type Props = {
   roomId: any;
 };
 const { Option } = Select;
-const { Panel } = Collapse;
 const RenderSeats = ({
   row,
   column,
@@ -30,29 +39,30 @@ const RenderSeats = ({
   setSeatFile,
   roomId,
 }: Props) => {
-  const [elClick, setElClick] = useState();
   const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
+  const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
+  const [seatArr, setSeatArr] = useState<any>([]);
+  const [seatArrSelect, setSeatArrSelect] = useState<any>([]);
+  const [optionsStatus, setOptionsStatus] = useState();
+  const [optionsSeatTpe, setOptionsSeatTpe] = useState();
+  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     handleSubmit();
   }, [seats]);
-  useEffect(() => {
-    clearSelectedSeats();
-  }, []);
-  const [total, setTotal] = useState(0);
-  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
-
-  const clearSelectedSeats = () => {};
 
   const getClassNameForSeats = (seatValue: any) => {
-    let seatStatus = seatValue?.status;
     let dynamicClass;
-    if (seatStatus === 0) {
+    if (seatValue == 0) {
       // Not booked
-      dynamicClass = styles.seatNotBooksed;
-    } else if (seatStatus === 1) {
+      dynamicClass = styles.seatNotBooked;
+    } else if (seatValue == 1) {
       // booked
       dynamicClass = styles.seatBooked;
-    } else if (seatStatus === 2) {
+    } else if (seatValue == 2) {
       // Seat Selected
       dynamicClass = styles.seatSelected;
     } else {
@@ -61,7 +71,6 @@ const RenderSeats = ({
     }
     return `${styles.seats} ${dynamicClass}`;
   };
-
   const handleSubmit = () => {
     const groupByRowName = seats?.reduce((accumulator: any, arrayItem: any) => {
       let rowName = arrayItem.row;
@@ -75,45 +84,42 @@ const RenderSeats = ({
     setSeatDetails({ ...groupByRowName });
     setSeatFile({ ...groupByRowName });
   };
-  const onSeatClick = (seatValue: any) => {
-    let arrValue: any[] = [];
+
+  const onSeatClick = (seatValue: any, rowIndex: any, key: any) => {
+    let item = JSON.parse(JSON.stringify(seatValue));
+    if (item?.status === 1) {
+      return;
+    } else if (item?.status === 0) {
+      item["status"] = 3;
+    } else {
+      item["status"] = 0;
+    }
+    seatDetails[key][rowIndex] = { ...item };
+    setSeatDetails({ ...seatDetails });
+    let flatern = findSelectSeat();
+    setSeatArr(flatern);
   };
-
-  const changeStatusSeat = (id: any, val: Number) => {
-    dispatch(updateSeatThunk({ _id: id, status: val }))
-      .unwrap()
-      .then(() => {
-        message.success("Thay đổi trạng thái ghế thành công");
-        handleSubmit();
-      })
-      .catch(() => message.error("Lỗi"));
-  };
-
-  const changeSeatType = (id: any, val: any) => {
-    console.log(id, val);
-    const payload = {
-      _id: id,
-      seatTypeId: val,
-    };
-
-    dispatch(updateSeatThunk(payload))
-      .unwrap()
-      .then(() => {
-        message.success("Thay đổi thể loại ghế thành công");
-        dispatch(getOneSBSTById(roomId));
-      })
-      .catch(() => message.error("Lỗi"));
+  const findSelectSeat = () => {
+    let arr: any = [];
+    for (const key in seatDetails) {
+      let colVal = seatDetails[key]?.filter(
+        (seatVal: any) => seatVal?.status == 3
+      );
+      arr = [...arr, colVal];
+    }
+    const flatten = arr.reduce((a: any, b: any) => {
+      return a.concat(b);
+    });
+    return flatten;
   };
   const info = (val: any) => {
-    console.log("info", val);
     Modal.info({
-      title: `Seat infomation`,
+      title: `Seat infomatio`,
       content: (
         <div>
-          <div>ID : {val?._id}</div>
-          <div>Vị trí ghế: {val?.row + val?.column}</div>
+          <div>Id : {val?._id}</div>
           <div>
-            Loại ghế:
+            Loại ghế: {val?.seatTypeId?.name}
             <Select
               value={val?.seatTypeId?.name}
               onChange={(value: any) => {
@@ -127,16 +133,17 @@ const RenderSeats = ({
               ))}
             </Select>
           </div>
+          <div>Vị trí ghế: sxasa</div>
           <div>
             Trạng thái ghế:
             <Select
-              value={val?.status === 0 ? "Hoạt động" : "Dừng hoạt động"}
+              value={val === 0 ? "Hoạt động" : "Dừng hoạt động"}
               onChange={(value: any) => {
                 changeStatusSeat(val?._id, value);
               }}
             >
               {defaultStatus?.map((item: any) => (
-                <Option value={item?.value} key={item?.value}>
+                <Option value={item?._id} key={item?.value}>
                   {item?.name}
                 </Option>
               ))}
@@ -147,17 +154,37 @@ const RenderSeats = ({
       onOk() {},
     });
   };
+  const changeStatusSeat = (id: any, val: number) => {
+    const upload = { seatId: [id], status: Number(val), roomId: roomId };
+    dispatch(updateSeatThunk(upload))
+      .unwrap()
+      .then(() => {
+        dispatch(getOneSBSTById(roomId));
+        message.success("Thay đổi trạng thái thành công");
+      })
+      .catch(() => message.error("Lỗi"));
+  };
 
+  const changeSeatType = (id: any, val: any) => {
+    const payload = { seatId: [id], seatTypeId: val, roomId: roomId };
+    dispatch(updateSeatThunk(payload))
+      .unwrap()
+      .then(() => {
+        dispatch(getOneSBSTById(roomId));
+        message.success("Thay đổi loại ghế thành công");
+      })
+      .catch(() => message.error("Lỗi"));
+  };
   const RenderSeatsContain = () => {
-    let seatArray = [];
+    let seatArray: any[] = [];
     for (let key in seatDetails) {
       let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
           <span
-            className={getClassNameForSeats(seatValue)}
+            className={getClassNameForSeats(seatValue?.status)}
             onClick={() => {
-              onSeatClick(seatValue);
+              onSeatClick(seatValue, rowIndex, key);
             }}
             onDoubleClick={() => {
               info(seatValue);
@@ -168,22 +195,142 @@ const RenderSeats = ({
 
           {seatDetails && rowIndex === seatDetails[key].length - 1 && (
             <>
-              <br />
-              <br />
+              {" "}
+              <br /> <br />{" "}
             </>
           )}
         </span>
       ));
-
       seatArray.push(colValue);
     }
-
     return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
   };
 
+  //table
+  const columns: any[] = [
+    { title: "STT", dataIndex: "key" },
+    { title: "id", dataIndex: "_id", width: 5 },
+    { title: "position", dataIndex: "position" },
+  ];
+  const data: any[] = seatArr?.map((item: any, index: any) => {
+    return {
+      key: index + 1,
+      _id: item?._id,
+      position: `${item?.row}${item?.column}`,
+    };
+  });
+
+  const onSelectChange = (newSelectedRowKeys: any) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+    let selectArr: any[] = seatArr?.filter((item: any, index: any) =>
+      selectedRowKeys.includes(index + 1)
+    );
+    setSeatArrSelect(selectArr);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
+  const renderChoice = () => {
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
+    const onFinish = (val: any) => {
+      const payload = {
+        status: Number(optionsStatus),
+        seatTypeId: optionsSeatTpe,
+        seatId: [...seatArr],
+      };
+      dispatch(updateSeatThunk(payload))
+        .unwrap()
+        .then(() => {
+          message.success("Update thành công");
+          navigate(configRoute.routes.adminRooms);
+        })
+        .catch(() => message.error("Lỗi update"));
+    };
+    const getStatusChoice = (val: any) => {
+      setOptionsStatus(val);
+    };
+    const getSeatTypeChoice = (val: any) => {
+      setOptionsSeatTpe(val);
+    };
+    return (
+      <>
+        <Button type="primary" onClick={showModal}>
+          choice List
+        </Button>
+        <Modal
+          title="Basic Modal"
+          open={isModalOpen}
+          onCancel={handleCancel}
+          okButtonProps={{ style: { display: "none" } }}
+        >
+          <Form onFinish={onFinish} form={form}>
+            <div>
+              Trạng thái ghế:
+              <Select
+                defaultValue={defaultStatus[0]?.name}
+                onChange={(value: any) => getStatusChoice(value)}
+              >
+                {defaultStatus?.map((item: any) => (
+                  <Option value={item?._id} key={item?.value}>
+                    {item?.name}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div>
+              Loại ghế:
+              <Select
+                defaultValue={seatType[0]?.name}
+                onChange={(value: any) => getSeatTypeChoice(value)}
+              >
+                {seatType?.map((item: any) => (
+                  <Option value={item?._id} key={item?._id}>
+                    {item?.name}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <Button htmlType="submit">Change all items</Button>
+          </Form>
+        </Modal>
+      </>
+    );
+  };
+  const renderSeatClick = () => {
+    return (
+      <div className="w-full mt-3">
+        {selectedRowKeys.length >= 1 && (
+          <div className="flex gap-3">{renderChoice()}</div>
+        )}
+        <div style={{ width: "100%" }}>
+          <Table
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+          />
+        </div>
+      </div>
+    );
+  };
   return (
-    <div className="p-̀̀̀̀5 mx-̀̀5 h-[1024px] w-full">
-      <div className="pt-5 m-5">{RenderSeatsContain()}</div>
+    <div className="flex overflow-hidden gap-3">
+      <div className="col-8 p-5">{RenderSeatsContain()}</div>
+      <div className="col-4 ">{renderSeatClick()}</div>
+      <div>
+        {seatArrSelect &&
+          seatArrSelect?.map((item: any) => (
+            <div key={item?._id}>{item?._id}</div>
+          ))}
+      </div>
     </div>
   );
 };

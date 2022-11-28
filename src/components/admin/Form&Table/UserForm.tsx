@@ -5,6 +5,7 @@ import { validateMessages } from "../../../ultils/FormMessage";
 import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload"
 import { userRole, userStatus } from "../../../ultils/data"
+import UpdatePassWord from '../UpdatePassword';
 interface UserFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -16,9 +17,10 @@ interface UserFormProps {
    edit?: boolean;
    editUser?: boolean;
    loading?: boolean;
-   showPass: boolean
+   showPass: boolean;
+   userId:any
 }
-const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, showPass, form, onFinish, onReset, edit = false, loading = false, editUser = true }: UserFormProps) => {
+const UserForm = ({ setNewPass, newPass, userId, setAvatarList, avatarList, showPass, form, onFinish, onReset, edit = false, loading = false, editUser = true }: UserFormProps) => {
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
@@ -61,12 +63,13 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, showPass, fo
                         </Select>
                      </Form.Item>
                      <Form.Item label="address" name="address">
-                        <Select>
+                        <Select showSearch>
                            {provices && provices?.map((item: any, index: any) => (
                               <Select.Option value={item.name} key={index}>{item.name}</Select.Option>
                            ))}
                         </Select>
                      </Form.Item>
+                     <UpdatePassWord  userId={userId}/>
                      <div className="col-12">
                         <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
                            <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>
@@ -86,7 +89,7 @@ const UserForm = ({ setNewPass, newPass, setAvatarList, avatarList, showPass, fo
                         </Card>
                      </div>
                   </Card>
-
+                              
                </>
             ) : (<>
                <Skeleton />

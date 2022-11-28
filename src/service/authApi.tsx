@@ -19,4 +19,8 @@ export const AuthApi = {
       },
     );
   },
+  async forgotPassword(data: any): Promise<any> {
+    const url = "forgotPassword"
+    return AxiosRequest.post(url, data);
+  },
 };

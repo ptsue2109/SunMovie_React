@@ -11,8 +11,8 @@ type Props = {};
 
 const InfoUser = (props: Props) => {
   const [form] = Form.useForm();
-  const { currentUser } = useAppSelector((state) => state.authReducer);
-  const { users } = useAppSelector((state) => state.userReducer);
+  const { currentUser } = useAppSelector((state:any) => state.authReducer);
+  const { users } = useAppSelector((state:any) => state.userReducer);
   const id = currentUser._id;
   const data = users?.find((item: any) => item._id === id);
   const layout = {

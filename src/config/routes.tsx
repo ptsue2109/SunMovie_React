@@ -1,5 +1,3 @@
-import ChooseCombo from "../pages/admin/showTime/ChooseCombo";
-
 const routes = {
   home: "/",
   movie: "/movie",
@@ -16,7 +14,10 @@ const routes = {
   profile: "/profile",
   verify: "/verify",
   voucherDetail: "/voucher/:id",
-
+  payment:"/payment",
+  forgotPass: "/forgot-password",
+  resetPassword: "/reset-password",
+  contact: "/contact",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",
