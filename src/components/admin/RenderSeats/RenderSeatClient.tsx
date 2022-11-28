@@ -1,6 +1,8 @@
 import { Collapse, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { addSeats } from "../../../redux/slice/SeatSlice";
+import { formatCurrency } from "../../../ultils";
 import styles from "../Form&Table/room.module.scss";
 
 type Props = {
@@ -15,27 +17,33 @@ type Props = {
   roomId: any;
   showtime: any;
 };
-let arrValue: any[] = [];
-let total = 0;
 export const RenderInfoSeats = () => {
-  console.log("seats:", arrValue);
-  // console.log(total);
+  const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
+  console.log("seats:", arrSeats);
+  let i = 0;
+  const sum = (a: any, b: any) => {
+    i++;
+    return a + b.totalPriceSeat;
+  };
+  const total = arrSeats.reduce(sum, 0);
 
   return (
     <>
       <div className="text-white px-3 mt-5">
         <p>
           Ghế đã chọn:
-          {arrValue?.map((item: any) => (
+          {arrSeats?.map((item: any) => (
             <span className="text-white" key={item._id}>
-              {item.row + item.column}
+              {" " + item.row + item.column + ", "}
             </span>
           ))}
         </p>
         <div className="border border-white px-3 my-2"></div>
         <p>
           Tổng:
-          <span className="text-red-600 text-2xl pl-5">{total}</span>
+          <span className="text-red-600 text-2xl pl-5">
+            {formatCurrency(total)}
+          </span>
         </p>
 
         <div className="text-center">
@@ -68,9 +76,7 @@ export const RenderSeatClient = ({
   useEffect(() => {
     clearSelectedSeats();
   }, []);
-  // const [total, setTotal] = useState(0);
   const [classSeatChoose, setClassSeatChoose] = useState("");
-  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
 
   const clearSelectedSeats = () => {};
 
@@ -107,8 +113,6 @@ export const RenderSeatClient = ({
     setSeatDetails({ ...groupByRowName });
     setSeatFile({ ...groupByRowName });
   };
-  console.log("showtime:", showtime);
-  console.log("room:", roomId);
   const price = roomId?.formatId?.extraPrice + showtime?.price;
 
   const onSeatClick = (seatValue: any) => {
@@ -117,14 +121,8 @@ export const RenderSeatClient = ({
       totalPriceSeat: seatValue?.seatTypeId?.extraPrice + price,
     };
     if (seatValue.status == 0) {
-      let exitsSeats = arrValue.find((item: any) => item._id === seatValue._id);
-      if (exitsSeats) {
-        arrValue = arrValue.filter((item: any) => item._id !== seatValue._id);
-      } else {
-        arrValue.push(seatValue);
-      }
+      dispatch(addSeats(seatValue));
     }
-    RenderInfoSeats();
   };
 
   const RenderSeatsContain = () => {
