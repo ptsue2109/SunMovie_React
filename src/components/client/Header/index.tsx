@@ -109,7 +109,7 @@ const ClientHeader = (props: Props) => {
                       color: "white",
                     }}
                   >
-                    {currentUser.email}
+                    {currentUser.username ?? currentUser?.email}
                   </Button>
                 </Dropdown>
               ) : (
@@ -125,7 +125,7 @@ const ClientHeader = (props: Props) => {
                       color: "white",
                     }}
                   >
-                    {currentUser.email}
+                    {currentUser.username ?? currentUser?.email}
                   </Button>
                 </Dropdown>
               )

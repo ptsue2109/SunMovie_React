@@ -74,6 +74,7 @@ import SeatByRoom from "../pages/admin/Seats/seatByRoom";
 import Payment from "../pages/client/payment/Payment";
 import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
+import EditCategory from "../pages/admin/categories/Edit";
 type RoutesType = {
   path: string;
   component: any;
@@ -142,7 +143,7 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminCategories, component: ListCategories },
   { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
-  { path: configRoute.routes.adminCategoriesCreate, component: CreateCategory },
+  { path: configRoute.routes.adminCategoryEdit, component: EditCategory },
 
   { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
   { path: configRoute.routes.adminMovie, component: ListMovie },

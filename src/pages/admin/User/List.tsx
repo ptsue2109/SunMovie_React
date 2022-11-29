@@ -32,6 +32,11 @@ const AdminUserList = (props: Props) => {
   const { users, isFetching, isErr, errorMessage } = useAppSelector(
     (state) => state.userReducer
   );
+
+  const { currentUser } = useAppSelector((state: any) => state.authReducer)
+  console.log(currentUser?._id);
+
+
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data))
       .unwrap()
@@ -102,8 +107,8 @@ const AdminUserList = (props: Props) => {
             status === 0
               ? "Chưa xác thực"
               : status === 1
-              ? "Đang hoạt động"
-              : "Dừng hoạt động"
+                ? "Đang hoạt động"
+                : "Dừng hoạt động"
           }
           onChange={(value: any) => {
             changeStatus(_id, value);
@@ -195,14 +200,16 @@ const AdminUserList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
-            title={`Delete ${record?.username ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteUser(record?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          {(currentUser?._id !== record?._id)  && (
+            <Popconfirm
+              title={`Delete ${record?.username ?? record?._id}?`}
+              okText="OK"
+              cancelText="Cancel"
+              onConfirm={() => deleteUser(record?._id)}
+            >
+              <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
+            </Popconfirm>
+          )}
         </Space>
       ),
       width: 30,

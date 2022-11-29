@@ -45,8 +45,8 @@ const News = ({ activeNav }: Props) => {
   return (
     <>
       {!activeNav && <NavNews />}
-      {!slug && <NewsContent newsList={posts} path={path} />}
-      {slug && <NewsContent newsList={data} path={path} />}
+      {!slug && <NewsContent data={posts} path={path}  dataName=""/>}
+      {slug && <NewsContent data={data} path={path} dataName="" />}
     </>
   );
 };

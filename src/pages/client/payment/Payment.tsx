@@ -18,15 +18,16 @@ const Payment = (props: Props) => {
   const [form] = Form.useForm()
   const { webConfigs } = useAppSelector((state) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state) => state.authReducer);
-  const tempPrice = 10000000;  // giá lấy từ tổng vé đã chọn
+  const [tempPrice, setTempPrice] = useState<number>(3242343000)
   const [voucherMess, setVoucherMess] = useState("");
   const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
-  const [priceAfterDiscount, setPriceAfterDiscount] = useState(0);
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState<number>(0);
+  const [CODE, setCODE] = useState('');
 
   const upperText = (text: any) => {
     return text.toUpperCase();
   };
-
+  
   form.setFieldsValue({
     username: currentUser?.fullname ?? currentUser?.username,
     email: currentUser?.email,
@@ -35,9 +36,21 @@ const Payment = (props: Props) => {
     discountCode: ''
   });
 
-  const checkCode = (discountCode: any) => {
-    if (discountCode) {
-      let upper = upperText(discountCode);
+  const checkCode = (codeVal: any) => {
+    if (codeVal.length > 0) {
+      setCODE(codeVal)
+    } else {
+      setCODE(CODE)
+      setPriceAfterDiscount(tempPrice)
+    }
+  };
+  const onFinish = (val: any) => {
+    console.log(val);
+
+  }
+  const handle = () => {
+    if (CODE) {
+      let upper = upperText(CODE);
       let item = vouchers.find((item: any) => item?.code === upper);
       if (item === undefined) {
         setVoucherMess("Không tìm thấy mã voucher");
@@ -48,7 +61,7 @@ const Payment = (props: Props) => {
       }
       else {
         let vcDiscount = item?.conditionNumber;
-        let vcValue = item?.voucherValue; // tiền tối thiểu để giảm
+        let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
         if (item?.voucherKey === "hóa đơn") {
           if (tempPrice < vcValue) {
             setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
@@ -66,12 +79,8 @@ const Payment = (props: Props) => {
     } else {
       setVoucherMess("")
     }
-  };
-  const onFinish = (val: any) => {
-    console.log(val);
 
   }
-
   return (
     <div className="flex flex-row justify-center mt-16 ">
       <div className="w-[55%]">
@@ -118,6 +127,7 @@ const Payment = (props: Props) => {
 
               <div className=" w-[280px] justify-center flex flex-col ml-[160px]">
                 <Button
+                  onClick={handle}
                   style={{
                     width: "100%",
                     backgroundColor: "#f6710d",

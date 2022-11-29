@@ -11,53 +11,54 @@ import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
 import styled from "styled-components";
-import moment from "moment";
+import RelateMovie from "../RelateMovie";
 type Props = {};
 
-let unique_arr = (arr: any[]) => {
-  var newArr: any[] = [];
-  newArr = arr.filter(function (item: any) {
-    return newArr.includes(item) ? "" : newArr.push(item);
-  });
-  return newArr;
-};
-
 const MovieDetail = (props: Props) => {
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setActive] = useState(1);
-
+  const [relateArr, setRelateArr] = useState([]);
   const Toggle = (number: any) => {
     setActive(number);
   };
   const showModal = () => {
     setIsModalOpen(true);
   };
-
   const handleOk = () => {
     setIsModalOpen(false);
   };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
-  const dispatch = useAppDispatch();
+  const { movie } = useAppSelector((state) => state.movie);
+
+  let movieSelectId = data?.movie?._id;
+
+  useEffect(() => {
+    if (movie) {
+      let arr = movie?.filter((item: any) => item?._id !== movieSelectId);
+      setRelateArr(arr);
+    }
+  }, [movieSelectId]);
+
   useEffect(() => {
     dispatch(getOneMovie(slug));
   }, []);
-
   useEffect(() => {
     dispatch(getAlSt({}));
   }, []);
 
   if (data == "") return <div>Loading...</div>;
+
   const RenderShowTime = () => {
     const [idShowtime, setIdShowtime] = useState();
     const [dateChoose, setDateChoose] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    let movieSelectId = data?.movie?._id;
+
     const { stList } = useAppSelector((state) => state?.ShowTimeReducer);
     let showTimeList = stList?.filter(
       (item: any) => item?.movieId?._id === movieSelectId && item?.status === 0
@@ -75,10 +76,10 @@ const MovieDetail = (props: Props) => {
     const handleOk = () => {
       setIsModalOpen(false);
     };
-
     const handleCancel = () => {
       setIsModalOpen(false);
     };
+
     const onDate = (date: any) => {
       let dateNew: any = convertDateToNumber(date);
       setDateChoose(dateNew);
@@ -99,6 +100,7 @@ const MovieDetail = (props: Props) => {
         arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
     );
     if (!showTimeList) return <div>Loading...</div>;
+
     return (
       <>
         <Modal
@@ -162,6 +164,7 @@ const MovieDetail = (props: Props) => {
       </>
     );
   };
+
   return (
     <>
       <Modal
@@ -246,71 +249,7 @@ const MovieDetail = (props: Props) => {
           </div>
           <RenderShowTime />
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
-            <div className={styles.showFilmListItem}>
-              <Link to={`/d`}>
-                <div className={styles.showFilmListItemImg}>
-                  <img
-                    src="https://chieuphimquocgia.com.vn/Content/Images/0016631_0.jpeg"
-                    alt=""
-                  />
-                </div>
-                <div className={styles.showFilmListItemInfo}>
-                  <h3>ÔNG VUA TIẾNG CƯỜI</h3>
-                </div>
-              </Link>
-            </div>
-            <div className={styles.showFilmListItem}>
-              <Link to={`/d`}>
-                <div className={styles.showFilmListItemImg}>
-                  <img
-                    src="https://chieuphimquocgia.com.vn/Content/Images/0016631_0.jpeg"
-                    alt=""
-                  />
-                </div>
-                <div className={styles.showFilmListItemInfo}>
-                  <h3>ÔNG VUA TIẾNG CƯỜI</h3>
-                </div>
-              </Link>
-            </div>
-            <div className={styles.showFilmListItem}>
-              <Link to={`/d`}>
-                <div className={styles.showFilmListItemImg}>
-                  <img
-                    src="https://chieuphimquocgia.com.vn/Content/Images/0016631_0.jpeg"
-                    alt=""
-                  />
-                </div>
-                <div className={styles.showFilmListItemInfo}>
-                  <h3>ÔNG VUA TIẾNG CƯỜI</h3>
-                </div>
-              </Link>
-            </div>
-            <div className={styles.showFilmListItem}>
-              <Link to={`/d`}>
-                <div className={styles.showFilmListItemImg}>
-                  <img
-                    src="https://chieuphimquocgia.com.vn/Content/Images/0016631_0.jpeg"
-                    alt=""
-                  />
-                </div>
-                <div className={styles.showFilmListItemInfo}>
-                  <h3>ÔNG VUA TIẾNG CƯỜI</h3>
-                </div>
-              </Link>
-            </div>
-            <div className={styles.showFilmListItem}>
-              <Link to={`/d`}>
-                <div className={styles.showFilmListItemImg}>
-                  <img
-                    src="https://chieuphimquocgia.com.vn/Content/Images/0016631_0.jpeg"
-                    alt=""
-                  />
-                </div>
-                <div className={styles.showFilmListItemInfo}>
-                  <h3>ÔNG VUA TIẾNG CƯỜI</h3>
-                </div>
-              </Link>
-            </div>
+            <RelateMovie data={relateArr} />
           </div>
         </div>
       </div>
@@ -319,8 +258,3 @@ const MovieDetail = (props: Props) => {
 };
 
 export default MovieDetail;
-const CustomDatePicker = styled(DatePicker)`
-  td {
-    height: 5px;
-  }
-`;
