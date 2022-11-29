@@ -19,10 +19,18 @@ const MovieDetail = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
-  const Toggle = (number: any) => { setActive(number) };
-  const showModal = () => { setIsModalOpen(true) };
-  const handleOk = () => { setIsModalOpen(false) };
-  const handleCancel = () => { setIsModalOpen(false) };
+  const Toggle = (number: any) => {
+    setActive(number);
+  };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
@@ -33,12 +41,16 @@ const MovieDetail = (props: Props) => {
   useEffect(() => {
     if (movie) {
       let arr = movie?.filter((item: any) => item?._id !== movieSelectId);
-      setRelateArr(arr)
+      setRelateArr(arr);
     }
   }, [movieSelectId]);
 
-  useEffect(() => { dispatch(getOneMovie(slug)) }, []);
-  useEffect(() => { dispatch(getAlSt({})) }, []);
+  useEffect(() => {
+    dispatch(getOneMovie(slug));
+  }, []);
+  useEffect(() => {
+    dispatch(getAlSt({}));
+  }, []);
 
   if (data == "") return <div>Loading...</div>;
 
@@ -57,54 +69,78 @@ const MovieDetail = (props: Props) => {
         date: convertDateToNumber(item.date),
       });
     });
-    const showModal = (id: any) => { setIsModalOpen(true); setIdShowtime(id) };
-    const handleOk = () => { setIsModalOpen(false) };
-    const handleCancel = () => { setIsModalOpen(false) };
+    const showModal = (id: any) => {
+      setIsModalOpen(true);
+      setIdShowtime(id);
+    };
+    const handleOk = () => {
+      setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
 
     const onDate = (date: any) => {
       let dateNew: any = convertDateToNumber(date);
       setDateChoose(dateNew);
     };
-    const showtime: any = showTimeList.filter((item: any) => item?.date == dateChoose);
-    const getOneShowtime = showTimeList.find((item: any) => item?._id === idShowtime);
-    console.log('getOneShowtime', getOneShowtime);
-
+    const showtime: any = showTimeList.filter(
+      (item: any) => item.date == dateChoose
+    );
+    const getOneShowtime = showTimeList.find(
+      (item: any) => item._id === idShowtime
+    );
+    let arrDate: any = [];
+    showTimeList?.map((item: any) => {
+      arrDate.push(item.date);
+    });
+    let today = new Date();
+    arrDate = arrDate.filter(
+      (item: any, index: any) =>
+        arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
+    );
     if (!showTimeList) return <div>Loading...</div>;
-
-
-
-
-
 
     return (
       <>
         <Modal
-          title="Basic Modal"
+          title="Vui lòng chọn phòng"
           footer={null}
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          {getOneShowtime
-            ? getOneShowtime.roomId.map((item: any) => (
-              <span key={item._id}>
-                <Link
-                  to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
-                >
-                  {item.name}
-                </Link>
-              </span>
-            ))
-            : ""}
+          <div className="grid grid-cols-4 gap-2">
+            {getOneShowtime
+              ? getOneShowtime.roomId.map((item: any) => (
+                  <div
+                    key={item._id}
+                    className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
+                  >
+                    <Link
+                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                    >
+                      <a className="text-black hover:text-white ">
+                        {item.name}
+                      </a>
+                    </Link>
+                  </div>
+                ))
+              : ""}
+          </div>
         </Modal>
         <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
           <div className={styles.showTimesListItem}>
             {showTimeList
-              ? showTimeList?.map((item: any) => (
-                <span key={item?._id} onClick={() => onDate(item?.date)}>
-                  {formatDate(item?.date)}
-                </span>
-              ))
+              ? arrDate?.map((item: any, index: any) => (
+                  <span
+                    key={index}
+                    onClick={() => onDate(item)}
+                    className="cursor-pointer"
+                  >
+                    {formatDate(item)}
+                  </span>
+                ))
               : "Không có suất chiếu nào"}
           </div>
         </div>
@@ -114,10 +150,14 @@ const MovieDetail = (props: Props) => {
           <div className={styles.showTimesListItem}>
             {showtime != ""
               ? showtime.map((item: any) => (
-                <span key={item._id} onClick={() => showModal(item._id)}>
-                  {formatTime(item.startAt)}
-                </span>
-              ))
+                  <span
+                    key={item._id}
+                    onClick={() => showModal(item._id)}
+                    className="cursor-pointer"
+                  >
+                    {formatTime(item.startAt)}
+                  </span>
+                ))
               : "Không có khung giờ phù hợp"}
           </div>
         </div>
@@ -218,4 +258,3 @@ const MovieDetail = (props: Props) => {
 };
 
 export default MovieDetail;
-
