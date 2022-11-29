@@ -1,11 +1,13 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, message, Select, Steps } from "antd";
 import style from "./Payment.module.scss";
-import { useAppSelector } from "../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import React, { useState, useEffect } from "react";
-import { discountPercent, formatCurrency, formatDate } from "../../../ultils";
+import { discountPercent, formatCurrency, formatDate, formatDateString, formatTime } from "../../../ultils";
 import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
+import { createOrder } from "../../../redux/slice/OrdersSlice";
+import shortid from "shortid";
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 12 },
@@ -15,39 +17,76 @@ type Props = {};
 
 const Payment = (props: Props) => {
   document.title = "Payment"
-  const [form] = Form.useForm()
-  const { webConfigs } = useAppSelector((state) => state.WebConfigReducer);
-  const { currentUser } = useAppSelector((state) => state.authReducer);
-  const [tempPrice, setTempPrice] = useState<number>(3242343000)
-  const [voucherMess, setVoucherMess] = useState("");
+  const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
+  const { currentUser } = useAppSelector((state: any) => state.authReducer);
+  const [tempPrice, setTempPrice] = useState<any>()
+  const [voucherMess, setVoucherMess] = useState<any>("");
   const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
-  const [priceAfterDiscount, setPriceAfterDiscount] = useState<number>(0);
-  const [CODE, setCODE] = useState('');
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState<any>();
+  const [CODE, setCODE] = useState<any>('');
+  const [data, setData] = useState<any>([]);
+  const [info, setInfo] = useState<any>();
+  const dispatch = useAppDispatch()
+  const [form] = Form.useForm();
+  useEffect(() => {
+    // @ts-ignore
+    let item = (JSON.parse(localStorage.getItem('cart')));
+    console.log(item);
+    setData(item?.cart)
+    setInfo(item)
+  }, []);
 
-  const upperText = (text: any) => {
-    return text.toUpperCase();
-  };
-  
-  form.setFieldsValue({
-    username: currentUser?.fullname ?? currentUser?.username,
-    email: currentUser?.email,
-    phone: currentUser?.phone,
-    paymentType: '',
-    discountCode: ''
-  });
+  useEffect(() => {
+    if (data) {
+      // @ts-ignore
+      let sumPriceCart = data?.reduce(
+        (accumulator: any, currentValue: any) => accumulator + currentValue?.totalPriceSeat, 0
+      );
+      setTempPrice(sumPriceCart)
+    }
+  }, [data]);
+
+  const upperText = (text: any) => { return text.toUpperCase() };
+
+  useEffect(() => {
+    form.setFieldsValue({
+      username: currentUser?.fullname ?? currentUser?.username,
+      email: currentUser?.email,
+      phone: currentUser?.phone,
+      paymentType: '',
+      voucherCode: ''
+    });
+  }, []);
 
   const checkCode = (codeVal: any) => {
-    if (codeVal.length > 0) {
+    if (codeVal.length >= 1) {
       setCODE(codeVal)
     } else {
-      setCODE(CODE)
+      setCODE("")
+      setVoucherMess("")
       setPriceAfterDiscount(tempPrice)
     }
   };
+
   const onFinish = (val: any) => {
-    console.log(val);
+    // let payload = {
+    //   userId: {
+    //     username: val?.username,
+    //     phone: val?.username,
+    //     userId: info?.userId,
+    //     voucherId: val?.voucherCode
+    //   },
+    //   ...info,
+    //   totalPrice: priceAfterDiscount,
+    //   ticketId: shortid.generate()
+    // }
+    // dispatch(createOrder(payload)).unwrap()
+    //   .then(() => message.success('Thành công'))
+
+    //   .catch((err: any) => console.log(err))
 
   }
+
   const handle = () => {
     if (CODE) {
       let upper = upperText(CODE);
@@ -78,9 +117,11 @@ const Payment = (props: Props) => {
       }
     } else {
       setVoucherMess("")
+      setPriceAfterDiscount(tempPrice)
     }
-
   }
+
+
   return (
     <div className="flex flex-row justify-center mt-16 ">
       <div className="w-[55%]">
@@ -95,7 +136,7 @@ const Payment = (props: Props) => {
               onFinish={onFinish}
               validateMessages={validateMessages}
             >
-              <Form.Item name="paymentType" label="Hình thức thanh toán" >
+              <Form.Item name="paymentType" label="Hình thức thanh toán" rules={[{ required: true }]} >
                 <Select placeholder="Chọn ngân hàng" allowClear>
                   {banks?.map((item, index: any) => (
                     <Select.Option key={index} value={item?.value}>
@@ -116,15 +157,16 @@ const Payment = (props: Props) => {
                 <Input disabled />
               </Form.Item>
 
-              <Form.Item name="phone" label="Số điện thoại" rules={[{ required: true, type: 'string', whitespace: true, len: 10 }]}>
+              <Form.Item name="phone" label="Số điện thoại" rules={[{ required: true, whitespace: true, len: 10 }]}>
                 <Input />
               </Form.Item>
 
-              <Form.Item name="discountCode" label="Mã giảm giá" >
-                <Input onChange={(e: any) => checkCode(e?.target?.value)} />
-                <small className="text-danger" >{voucherMess}</small>
-              </Form.Item>
-
+              <div className="">
+                <Form.Item name="voucherCode" label="Mã giảm giá" >
+                  <Input onChange={(e: any) => checkCode(e?.target?.value)} />
+                </Form.Item>
+                <small className="text-danger ml-[170px]">{voucherMess}</small>
+              </div>
               <div className=" w-[280px] justify-center flex flex-col ml-[160px]">
                 <Button
                   onClick={handle}
@@ -186,16 +228,18 @@ const Payment = (props: Props) => {
         <h1 className="font-bold uppercase px-4 pt-2">ONE PIECE FILM RED</h1>
         <ul className="px-4 py-3">
           <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Rạp</b>: Galaxy Nguyễn Du | RAP 5{" "}
+            <b>Rạp</b>: {webConfigs[0]?.storeName} | RAP {info ? (<>{info?.roomId?.name}</>) : ""}
           </li>
           <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Suất chiếu</b>: 19:00 | Thứ sáu, 25/11/2022
+            <b>Suất chiếu</b>:  {formatTime(info?.showtimeId?.startAt)} |  {formatDateString(info?.showtimeId?.date)}
           </li>
           <li className="border-b-2 border-dotted border-black leading-10">
             <b>Combo</b>:{" "}
           </li>
           <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Ghế</b>: H4
+            <b>Ghế</b>: {data && data?.map((item: any) => (
+              <span key={item?._id}>{item?.row}{item?.column},</span>
+            ))}
           </li>
         </ul>
         <h2 className="px-4 text-base">
@@ -206,9 +250,19 @@ const Payment = (props: Props) => {
         </h2>
         <h2 className="px-4 text-base">
           Tổng:{" "}
-          <span className="font-semibold text-xl text-[#f6710d]">
-            {formatCurrency(priceAfterDiscount)}
-          </span>
+          {priceAfterDiscount ? (
+            <>
+              <span className="font-semibold text-xl text-[#f6710d]">
+                {formatCurrency(priceAfterDiscount)}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="font-semibold text-xl text-[#f6710d]">
+                {formatCurrency(tempPrice)}
+              </span>
+            </>
+          )}
         </h2>
       </div>
     </div>

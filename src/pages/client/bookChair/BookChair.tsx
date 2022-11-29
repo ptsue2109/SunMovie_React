@@ -27,7 +27,6 @@ const BookChair = (props: Props) => {
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
   const showtime = stList.find((item: any) => item._id === idShowtime);
   const roomSelect = rooms?.find((item: any) => item?._id === idRoom);
-
   React.useEffect(() => {
     dispatch(getAlSt({}));
     dispatch(getRooms());
@@ -41,7 +40,7 @@ const BookChair = (props: Props) => {
     setColumn(roomSelect?.columns);
     setRow(roomSelect?.rows);
   }, []);
-
+  let {currentUser} = useAppSelector((state) => state.authReducer)
   return (
     <>
       <div className="container">
@@ -86,7 +85,7 @@ const BookChair = (props: Props) => {
               setSeats={setSeats}
               roomId={roomSelect}
               showtime={showtime}
-            />
+               userId={undefined}            />
             {/* end chair */}
             <div className="mb-10 flex justify-around mx-20">
               <div className="flex">
@@ -113,7 +112,7 @@ const BookChair = (props: Props) => {
           </div>
           <div className="h-[598px] bg-[url(https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/bg04.png)]">
             <div className="text-center">
-              <Link to={`#`}>
+              <Link to={`/`}>
                 <button className="rounded-3xl mt-14 border border-white text-white w-40 h-12">
                   Chọn lại phim
                 </button>
@@ -126,7 +125,19 @@ const BookChair = (props: Props) => {
                 alt=""
               />
             </div>
-            <RenderInfoSeats />
+            <RenderInfoSeats
+              row={undefined}
+              column={undefined}
+              seatDetails={undefined}
+              setSeatDetails={undefined}
+              seatFile={undefined}
+              setSeatFile={undefined}
+              seats={undefined}
+              setSeats={undefined}
+              roomId={roomSelect}
+              showtime={showtime}
+              userId= {currentUser}
+               />
           </div>
         </div>
         {/* end chair */}

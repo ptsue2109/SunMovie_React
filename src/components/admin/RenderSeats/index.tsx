@@ -151,7 +151,7 @@ const RenderSeats = ({
           </div>
         </div>
       ),
-      onOk() {},
+      onOk() { },
     });
   };
   const changeStatusSeat = (id: any, val: number) => {

@@ -45,6 +45,7 @@
 body {
   border-radius: 3px;
   scroll-behavior: smooth;
+  background-color: var(--bg) !important;
   ::selection {
     color: var(--white);
     background-color: var(--primary);

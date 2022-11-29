@@ -1,5 +1,7 @@
 import { Collapse, Select } from "antd";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { addSeats } from "../../../redux/slice/SeatSlice";
 import { formatCurrency } from "../../../ultils";
@@ -16,10 +18,31 @@ type Props = {
   setSeats: any;
   roomId: any;
   showtime: any;
+  userId:any
 };
-export const RenderInfoSeats = () => {
+export const RenderInfoSeats = ({
+  row,
+  column,
+  seats,
+  setSeats,
+  seatDetails,
+  setSeatDetails,
+  seatFile,
+  setSeatFile,
+  roomId,
+  showtime,
+  userId
+}: Props) => {
+
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
-  console.log("seats:ssss", arrSeats);
+  console.log(roomId, showtime);
+  
+  localStorage.setItem('cart', JSON.stringify({
+    cart: arrSeats,
+    userId: userId ,
+    roomId: roomId,
+    showtimeId: showtime
+  }))
   let i = 0;
   const sum = (a: any, b: any) => {
     i++;
@@ -48,7 +71,7 @@ export const RenderInfoSeats = () => {
 
         <div className="text-center">
           <button className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12">
-            Thanh Toán
+            <Link to={configRoute.routes.payment}> Thanh Toán</Link>
           </button>
         </div>
       </div>
@@ -78,7 +101,7 @@ export const RenderSeatClient = ({
   }, []);
   const [classSeatChoose, setClassSeatChoose] = useState("");
 
-  const clearSelectedSeats = () => {};
+  const clearSelectedSeats = () => { };
 
   const getClassNameForSeats = (seatValue: any) => {
     // console.log(seatValue);
