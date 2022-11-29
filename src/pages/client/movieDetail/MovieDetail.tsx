@@ -11,6 +11,7 @@ import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
 import styled from "styled-components";
+import moment from "moment";
 type Props = {};
 
 let unique_arr = (arr: any[]) => {
@@ -88,35 +89,54 @@ const MovieDetail = (props: Props) => {
     const getOneShowtime = showTimeList.find(
       (item: any) => item._id === idShowtime
     );
-
+    let arrDate: any = [];
+    showTimeList?.map((item: any) => {
+      arrDate.push(item.date);
+    });
+    let today = new Date();
+    arrDate = arrDate.filter(
+      (item: any, index: any) =>
+        arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
+    );
     if (!showTimeList) return <div>Loading...</div>;
     return (
       <>
         <Modal
-          title="Basic Modal"
+          title="Vui lòng chọn phòng"
           footer={null}
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          {getOneShowtime
-            ? getOneShowtime.roomId.map((item: any) => (
-                <span key={item._id}>
-                  <Link
-                    to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+          <div className="grid grid-cols-4 gap-2">
+            {getOneShowtime
+              ? getOneShowtime.roomId.map((item: any) => (
+                  <div
+                    key={item._id}
+                    className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
                   >
-                    {item.name}
-                  </Link>
-                </span>
-              ))
-            : ""}
+                    <Link
+                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                    >
+                      <a className="text-black hover:text-white ">
+                        {item.name}
+                      </a>
+                    </Link>
+                  </div>
+                ))
+              : ""}
+          </div>
         </Modal>
         <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
           <div className={styles.showTimesListItem}>
             {showTimeList
-              ? showTimeList?.map((item: any) => (
-                  <span key={item?._id} onClick={() => onDate(item?.date)}>
-                    {formatDate(item?.date)}
+              ? arrDate?.map((item: any, index: any) => (
+                  <span
+                    key={index}
+                    onClick={() => onDate(item)}
+                    className="cursor-pointer"
+                  >
+                    {formatDate(item)}
                   </span>
                 ))
               : "Không có suất chiếu nào"}
@@ -128,7 +148,11 @@ const MovieDetail = (props: Props) => {
           <div className={styles.showTimesListItem}>
             {showtime != ""
               ? showtime.map((item: any) => (
-                  <span key={item._id} onClick={() => showModal(item._id)}>
+                  <span
+                    key={item._id}
+                    onClick={() => showModal(item._id)}
+                    className="cursor-pointer"
+                  >
                     {formatTime(item.startAt)}
                   </span>
                 ))
