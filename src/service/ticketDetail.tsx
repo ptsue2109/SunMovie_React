@@ -13,7 +13,9 @@ export const TicketDetailApi = {
   createTiketDetail(data: any): Promise<any> {
     return AxiosRequest.post("/tickets", data);
   },
-  getTicketDetailByShowTime(id: any) {
-    return AxiosRequest.get(`/getTicketDetailByShowTime?showTimeId=${id}`);
+  getTicketDetailByShowTime(data: any) {
+    return AxiosRequest.get(
+      `/getTicketDetailByShowTime?showTimeId=${data.idShowTime}&roomId=${data.idRoom}`
+    );
   },
 };
