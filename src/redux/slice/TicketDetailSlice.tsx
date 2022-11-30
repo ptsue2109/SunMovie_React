@@ -50,9 +50,9 @@ export const createTicketDetail = createAsyncThunk<
     return rejectWithValue(error.response.data);
   }
 });
-export const ticketByShowTime = createAsyncThunk(
+export const ticketDetailByShowTime = createAsyncThunk(
   "TicketDetail/getTicketByShowTime",
-  async (id, { rejectWithValue }) => {
+  async (id: any, { rejectWithValue }) => {
     try {
       const { data } = await TicketDetailApi.getTicketDetailByShowTime(id);
       return data;
@@ -66,7 +66,7 @@ const initialState: any = {
   ticketByShowTime: [],
 };
 
-const tiketSlice = createSlice({
+const tiketDetailSlice = createSlice({
   name: "ticketDetail",
   initialState,
   reducers: {},
@@ -100,9 +100,9 @@ const tiketSlice = createSlice({
       });
     });
     // ticket by showtime
-    builder.addCase(ticketByShowTime.fulfilled, (state, { payload }) => {
-      state.ticketByShowTime.push(payload);
+    builder.addCase(ticketDetailByShowTime.fulfilled, (state, { payload }) => {
+      state.ticketByShowTime = payload;
     });
   },
 });
-export default tiketSlice.reducer;
+export default tiketDetailSlice.reducer;

@@ -14,6 +14,6 @@ export const TicketDetailApi = {
     return AxiosRequest.post("/tickets", data);
   },
   getTicketDetailByShowTime(id: any) {
-    return AxiosRequest.get(`/getTicketDetailByShowTime/${id}`);
+    return AxiosRequest.get(`/getTicketDetailByShowTime?showTimeId=${id}`);
   },
 };

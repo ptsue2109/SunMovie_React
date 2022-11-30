@@ -1,9 +1,15 @@
+import { async } from "@firebase/util";
 import { Collapse, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { addSeats } from "../../../redux/slice/SeatSlice";
+import {
+  createTicketDetail,
+  ticketDetailByShowTime,
+} from "../../../redux/slice/TicketDetailSlice";
+import { createTicket } from "../../../redux/slice/ticketSlice";
 import { formatCurrency } from "../../../ultils";
 import styles from "../Form&Table/room.module.scss";
 
@@ -33,17 +39,12 @@ export const RenderInfoSeats = ({
   showtime,
   userId,
 }: Props) => {
+  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
-  console.log(roomId, showtime);
-
-  localStorage.setItem(
-    "cart",
-    JSON.stringify({
-      cart: arrSeats,
-      userId: userId,
-      roomId: roomId,
-      showtimeId: showtime,
-    })
+  let idShowtime = searchParams.get("showtime");
+  const { ticketByShowTime } = useAppSelector(
+    (state) => state.TicketDetailReducer
   );
   let i = 0;
   const sum = (a: any, b: any) => {
@@ -51,6 +52,40 @@ export const RenderInfoSeats = ({
     return a + b.totalPriceSeat;
   };
   const total = arrSeats.reduce(sum, 0);
+  let cart: any = [];
+  localStorage.setItem(
+    "cart",
+    JSON.stringify({
+      cart: arrSeats,
+      userId: userId,
+      roomId: roomId,
+      showtimeId: showtime,
+      total: total,
+    })
+  );
+  let count = 0;
+  cart = JSON.parse(localStorage.getItem("cart") as string);
+  cart?.cart?.map((item: any, index: number) => (count = index + 1));
+  const navigate = useNavigate();
+  const onSubmit = async () => {
+    let ticket = cart?.cart?.map((item: any, index: number) => {
+      return (item = {
+        seatId: item._id,
+        showTimeId: idShowtime,
+        price: item.totalPriceSeat,
+      });
+    });
+    dispatch(createTicket(ticket))
+      .unwrap()
+      .then(() => navigate(configRoute.routes.payment))
+      .catch((err: any) => {
+        alert(err);
+      });
+  };
+  useEffect(() => {
+    dispatch(ticketDetailByShowTime(idShowtime));
+  }, [dispatch]);
+  console.log(ticketByShowTime);
 
   return (
     <>
@@ -72,9 +107,14 @@ export const RenderInfoSeats = ({
         </p>
 
         <div className="text-center">
-          <button className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12">
-            <Link to={configRoute.routes.payment}> Thanh Toán</Link>
-          </button>
+          {total !== 0 && (
+            <button
+              onClick={() => onSubmit()}
+              className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12"
+            >
+              Thanh Toán
+            </button>
+          )}
         </div>
       </div>
     </>
