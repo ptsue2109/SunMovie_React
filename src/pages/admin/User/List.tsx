@@ -29,14 +29,8 @@ const AdminUserList = (props: Props) => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const { users, isFetching, isErr, errorMessage } = useAppSelector(
-    (state) => state.userReducer
-  );
-
+  const { users, isFetching, isErr, errorMessage } = useAppSelector( (state:any) => state.userReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer)
-  console.log(currentUser?._id);
-
-
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data))
       .unwrap()
@@ -51,15 +45,19 @@ const AdminUserList = (props: Props) => {
       });
   };
   const changeRole = (id: any, value: any) => {
+    console.log(id, value);
+    
     dispatch(updateUser({ _id: id, role: value }))
       .unwrap()
-      .then(() => message.success("Thay đổi quyền thành công hùng đẹp trai"));
+      .then(() => message.success("Thay đổi quyền thành công"));
   };
   const changeStatus = (id: any, value: any) => {
+    console.log(id, value);
+    
     dispatch(updateUser({ _id: id, status: value }))
       .unwrap()
       .then(() =>
-        message.success("Thay đổi trạng thái thành công hùng đẹp trai")
+        message.success("Thay đổi trạng thái thành công")
       );
   };
   const changeAddress = (id: any, value: any) => {

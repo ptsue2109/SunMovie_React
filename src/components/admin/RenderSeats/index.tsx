@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  Collapse,
-  Form,
-  message,
-  Modal,
-  Select,
-  Table,
-} from "antd";
+import { Button, Card, Collapse, Form, message,  Modal, Select, Table} from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
@@ -26,19 +17,10 @@ type Props = {
   seats: any;
   setSeats: any;
   roomId: any;
+  showTable?: any
 };
 const { Option } = Select;
-const RenderSeats = ({
-  row,
-  column,
-  seats,
-  setSeats,
-  seatDetails,
-  setSeatDetails,
-  seatFile,
-  setSeatFile,
-  roomId,
-}: Props) => {
+const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails, seatFile, setSeatFile, roomId, showTable }: Props) => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
@@ -195,8 +177,7 @@ const RenderSeats = ({
 
           {seatDetails && rowIndex === seatDetails[key].length - 1 && (
             <>
-              {" "}
-              <br /> <br />{" "}
+              <br /> <br />
             </>
           )}
         </span>

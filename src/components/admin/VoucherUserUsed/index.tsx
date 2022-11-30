@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Button, Divider, Form, Input, List, Modal, Skeleton } from "antd";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useAppDispatch } from "../../../redux/hook";
 
 type Props = {
    voucherId?: any,
@@ -25,7 +24,7 @@ const VoucherUserUsed = ({ voucherId, userId }: Props) => {
 
    const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({ open, onCancel, }) => {
       return (
-         <Modal open={open} title="check userId " cancelText="Cancel" onCancel={onCancel} >
+         <Modal open={open} title={`voucherId : ${voucherId}`} cancelText="Cancel" onCancel={onCancel} >
             <div id="scrollableDiv" style={{ height: 400, overflow: 'auto', padding: '0 16px', border: '1px solid rgba(140, 140, 140, 0.35)' }}>
                <InfiniteScroll
                   dataLength={data?.length}
