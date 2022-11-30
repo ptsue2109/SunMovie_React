@@ -53,6 +53,7 @@ const AdminVoucherCreate = (props: Props) => {
         onReset={onReset}
         avatarList={avatarList}
         setAvatarList={setAvatarList}
+        isCreate={true}
       />
     </div>
   );
