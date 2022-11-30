@@ -20,8 +20,6 @@ interface updatePassProps {
 }
 
 const UpdatePassWord = ({ userId, token }: updatePassProps) => {
-   console.log('token', token);
-
    const [open, setOpen] = useState(false);
    const dispatch = useAppDispatch()
    const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
