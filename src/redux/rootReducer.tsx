@@ -18,11 +18,12 @@ import PostReducer from "./slice/PostSlice";
 import voucherReducer from "./slice/voucherSlice";
 import SeatBySTReducer from "./slice/SeatBySTSlice";
 import WebConfigReducer from "./slice/webConfig";
-import SeatsReducer from "./slice/SeatSlice"
+import SeatsReducer from "./slice/SeatSlice";
+import TicketDetailReducer from "./slice/TicketDetailSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["authReducer"], 
+  whitelist: ["authReducer"],
 };
 const reducers = combineReducers({
   authReducer,
@@ -42,8 +43,8 @@ const reducers = combineReducers({
   PostReducer,
   SeatBySTReducer,
   WebConfigReducer,
-  SeatsReducer
-
+  SeatsReducer,
+  TicketDetailReducer,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

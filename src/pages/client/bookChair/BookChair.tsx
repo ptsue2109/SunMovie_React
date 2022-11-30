@@ -30,6 +30,7 @@ const BookChair = (props: Props) => {
   React.useEffect(() => {
     dispatch(getAlSt({}));
     dispatch(getRooms());
+
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(idRoom));
       setSeats(payload);
@@ -40,7 +41,7 @@ const BookChair = (props: Props) => {
     setColumn(roomSelect?.columns);
     setRow(roomSelect?.rows);
   }, []);
-  let {currentUser} = useAppSelector((state) => state.authReducer)
+  let { currentUser } = useAppSelector((state) => state.authReducer);
   return (
     <>
       <div className="container">
@@ -85,7 +86,8 @@ const BookChair = (props: Props) => {
               setSeats={setSeats}
               roomId={roomSelect}
               showtime={showtime}
-               userId={undefined}            />
+              userId={undefined}
+            />
             {/* end chair */}
             <div className="mb-10 flex justify-around mx-20">
               <div className="flex">
@@ -136,8 +138,8 @@ const BookChair = (props: Props) => {
               setSeats={undefined}
               roomId={roomSelect}
               showtime={showtime}
-              userId= {currentUser}
-               />
+              userId={currentUser}
+            />
           </div>
         </div>
         {/* end chair */}
