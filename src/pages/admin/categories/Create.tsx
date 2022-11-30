@@ -14,7 +14,7 @@ const CreateCategory = (props: Props) => {
   const onFinish = async (values: any) => {
     const { meta } = await dispatch(createCategories(values));
     if (meta.requestStatus == "fulfilled") {
-      message.success({ content: "Thêm thành công hùng đẹp trai" });
+      message.success({ content: "Thêm thành công" });
       navigate(configRoute.routes.adminCategories);
     } else {
       message.error({ content: "Lỗi" });
@@ -22,9 +22,9 @@ const CreateCategory = (props: Props) => {
   };
   return (
     <>
-    <Button className="mb-3">
-      <Link to={configRoute.routes.adminCategories}>List Category</Link>
-    </Button>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminCategories}>List Category</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
@@ -35,7 +35,8 @@ const CreateCategory = (props: Props) => {
           name="title"
           label="Name"
           rules={[
-            { required: true, message: "Không được để trống" }, {min: 5}
+            { required: true, message: "Không được để trống" },
+            { min: 5 },
           ]}
         >
           <Input />

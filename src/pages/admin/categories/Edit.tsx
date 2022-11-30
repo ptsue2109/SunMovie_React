@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, message, Space } from "antd";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -9,22 +9,25 @@ type Props = {};
 
 const EditCategory = (props: Props) => {
   const [form] = Form.useForm();
-  const {categories} = useAppSelector((state:any) => state.categoriesReducer)
+  const { categories } = useAppSelector(
+    (state: any) => state.categoriesReducer
+  );
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const {id} = useParams();
+  const { id } = useParams();
 
-  const select = categories?.find((item:any) => item?._id === id);  console.log(select);
-  useEffect(()=> {
-    if(select) {
-      form.setFieldsValue({title: select?.title})
+  const select = categories?.find((item: any) => item?._id === id);
+  console.log(select);
+  useEffect(() => {
+    if (select) {
+      form.setFieldsValue({ title: select?.title });
     }
-  }, [])
+  }, []);
 
-  const onFinish = async ({title}: any) => {
-    const { meta } = await dispatch(editCate({_id: id, title}));
+  const onFinish = async ({ title }: any) => {
+    const { meta } = await dispatch(editCate({ _id: id, title }));
     if (meta.requestStatus == "fulfilled") {
-      message.success({ content: "Sửa thành công hùng đẹp trai" });
+      message.success({ content: "Sửa thành công" });
       navigate(configRoute.routes.adminCategories);
     } else {
       message.error({ content: "Lỗi" });
@@ -32,9 +35,9 @@ const EditCategory = (props: Props) => {
   };
   return (
     <>
-    <Button className="mb-3">
-      <Link to={configRoute.routes.adminCategories}>List Category</Link>
-    </Button>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminCategories}>List Category</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
@@ -45,7 +48,8 @@ const EditCategory = (props: Props) => {
           name="title"
           label="Name"
           rules={[
-            { required: true, message: "Không được để trống" }, {min: 5}
+            { required: true, message: "Không được để trống" },
+            { min: 5 },
           ]}
         >
           <Input />

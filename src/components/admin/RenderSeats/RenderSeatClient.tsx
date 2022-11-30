@@ -18,7 +18,7 @@ type Props = {
   setSeats: any;
   roomId: any;
   showtime: any;
-  userId:any
+  userId: any;
 };
 export const RenderInfoSeats = ({
   row,
@@ -31,18 +31,20 @@ export const RenderInfoSeats = ({
   setSeatFile,
   roomId,
   showtime,
-  userId
+  userId,
 }: Props) => {
-
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
   console.log(roomId, showtime);
-  
-  localStorage.setItem('cart', JSON.stringify({
-    cart: arrSeats,
-    userId: userId ,
-    roomId: roomId,
-    showtimeId: showtime
-  }))
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify({
+      cart: arrSeats,
+      userId: userId,
+      roomId: roomId,
+      showtimeId: showtime,
+    })
+  );
   let i = 0;
   const sum = (a: any, b: any) => {
     i++;
@@ -101,7 +103,7 @@ export const RenderSeatClient = ({
   }, []);
   const [classSeatChoose, setClassSeatChoose] = useState("");
 
-  const clearSelectedSeats = () => { };
+  const clearSelectedSeats = () => {};
 
   const getClassNameForSeats = (seatValue: any) => {
     // console.log(seatValue);
@@ -112,12 +114,6 @@ export const RenderSeatClient = ({
       dynamicClass = styles.seatNotBooksed;
     } else if (seatStatus === 1) {
       // booked
-      dynamicClass = styles.seatBooked;
-    } else if (seatStatus === 2) {
-      // Seat Selected
-      dynamicClass = styles.seatSelected;
-    } else {
-      // Seat Blocked
       dynamicClass = styles.seatBlocked;
     }
     return `${styles.seats} ${dynamicClass}`;
@@ -176,7 +172,7 @@ export const RenderSeatClient = ({
     return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
   };
   return (
-    <div className="p-̀̀̀̀5 mx-̀̀5 h-[1024px] w-full">
+    <div className="p-̀̀̀̀5 mx-̀̀5 w-full">
       <div className="pt-5 m-5">{RenderSeatsContain()}</div>
     </div>
   );
