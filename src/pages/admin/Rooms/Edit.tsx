@@ -39,7 +39,8 @@ const AdminRoomEdit = (props: Props) => {
     console.log(dataSelected);
     if (dataSelected) {
       form.setFieldsValue({
-        ...dataSelected
+        ...dataSelected,
+        formatId: dataSelected?.formatId?._id
       });
     }
   }, [dataSelected]);
@@ -48,15 +49,10 @@ const AdminRoomEdit = (props: Props) => {
   const onFinish = (data: any) => {
     data.seats = seatFile;
     data._id = id;
-    data.seatBlock = blockSeat;
     dispatch(updateRoom(data)).unwrap()
       .then(() => { message.success('Update thành công'); navigate(config.routes.adminRooms) })
       .catch(() => message.error('Update thất bại'))
   };
-
-
-
-
 
   return (
     <div>
@@ -73,12 +69,11 @@ const AdminRoomEdit = (props: Props) => {
         colFile={colFile}
         setRowFile={setRowFile}
         setColFile={setSColFile}
-        blockSeat={blockSeat}
-        setBlockSeat={setBlockSeat}
         seats={seats}
         setSeats={setSeats}
         showSeatTye={showSeatTye}
         adminRenderSeat= {adminRenderSeat}
+        showTable={false}
       />
     </div>
   )

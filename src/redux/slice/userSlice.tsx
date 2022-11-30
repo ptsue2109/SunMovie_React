@@ -133,6 +133,9 @@ const userSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
+      state.users = state.users.map((item) =>
+      item._id !== action.payload._id ? item : action.payload
+    );
     });
     builder.addCase(updateUser.rejected, (state, action) => {
       state.isFetching = false;

@@ -28,34 +28,17 @@ interface RoomFormProps {
   colFile: any;
   setRowFile: any;
   setColFile: any;
-  blockSeat: any;
-  setBlockSeat: any;
   adminRenderSeat: any;
+  showTable?: boolean
 }
 const RoomForm = ({
-  form,
-  onFinish,
-  adminRenderSeat,
-  showSeatTye,
-  edit = false,
-  rowFile,
-  colFile,
-  blockSeat,
-  setBlockSeat,
-  setRowFile,
-  setColFile,
-  loading = false,
-  editData = true,
-  setSeatFile,
-  seatFile,
-}: RoomFormProps) => {
+  form, onFinish, adminRenderSeat, showSeatTye, edit = false, rowFile, colFile, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile, showTable }: RoomFormProps) => {
   const [seatDetails, setSeatDetails] = useState<any>();
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
   const { seatType } = useAppSelector((state: any) => state?.seatTypeReducer);
   const { filmFormats } = useAppSelector((state) => state.FormatReducer);
-  console.log(filmFormats);
-
+ 
   const onChangeRow = (val: any) => {
     setRow(val);
   };
@@ -121,7 +104,7 @@ const RoomForm = ({
                       </Select>
                     </Form.Item>
                   )}
-                  <Form.Item label="columns" name="rows">
+                  <Form.Item label="columns" name="rows" rules={[{ required: true }]}>
                     <InputNumberCs
                       min={1}
                       max={20}
@@ -129,7 +112,7 @@ const RoomForm = ({
                       onChange={onChangeRow}
                     />
                   </Form.Item>
-                  <Form.Item label="rows" name="columns">
+                  <Form.Item label="rows" name="columns" rules={[{ required: true }]}>
                     <InputNumberCs
                       min={1}
                       max={20}
@@ -174,6 +157,7 @@ const RoomForm = ({
                     seats={undefined}
                     setSeats={undefined}
                     roomId={undefined}
+                    showTable={showTable}
                   />
                 </Card>
               </>

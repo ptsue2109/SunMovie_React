@@ -18,7 +18,7 @@ interface PostFormProps {
    loading?: boolean;
 }
 const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = false, loading = false, editData = true }: PostFormProps) => {
-   const { categories, isFetching } = useAppSelector((state:any) => state.categoriesReducer);   
+   const { categories, isFetching } = useAppSelector((state: any) => state.categoriesReducer);
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
@@ -34,13 +34,13 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                      </Form.Item>
                      <Form.Item label="Danh mục" name="categoryId" rules={[{ required: true, message: "Vui lòng nhập thông tin" }]}>
                         <Select placeholder="Lựa chọn" allowClear showSearch optionFilterProp="children">
-                            {categories?.map((item:any) => (
-                                <Select.Option key={item._id} value={item._id}>
-                                    {item.title}
-                                </Select.Option>
-                            ))}
+                           {categories?.map((item: any) => (
+                              <Select.Option key={item._id} value={item._id}>
+                                 {item.title}
+                              </Select.Option>
+                           ))}
                         </Select>
-                    </Form.Item>
+                     </Form.Item>
 
                      <Form.Item label="Status" name="status">
                         <Select>
@@ -58,7 +58,7 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                            return data;
                         }}
                         rules={[{ required: true }]}>
-                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập mô tả bài viết" }}   data={form.getFieldValue("desc")} />
+                        <CKEditor editor={ClassicEditor}  config={{ placeholder: "Vui lòng nhập mô tả bài viết", ImageUpload }} data={form.getFieldValue("desc")} />
                      </Form.Item>
 
                      <Form.Item
@@ -70,7 +70,7 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                            return data;
                         }}
                         rules={[{ required: true }]} >
-                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập nội dung bài viết" }}  data={form.getFieldValue("content")}/>
+                        <CKEditor editor={ClassicEditor} config={{ placeholder: "Vui lòng nhập nội dung bài viết" }} data={form.getFieldValue("content")} />
                      </Form.Item>
 
                      <div className="col-12">

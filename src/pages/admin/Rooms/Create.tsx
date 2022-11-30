@@ -48,12 +48,12 @@ const AdminRoomCreate = (props: Props) => {
         colFile={colFile}
         setRowFile={setRowFile}
         setColFile={setSColFile}
-        blockSeat={blockSeat}
-        setBlockSeat={setBlockSeat}
         seats={seats}
         setSeats={setSeats}
         showSeatTye={showSeatTye}
         adminRenderSeat={adminRenderSeat}
+        showTable={false}
+
       />
     </div>
   );
