@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal, Radio } from 'antd';
 import { UserApi } from '../../../service/userApi';
 import { useAppDispatch } from '../../../redux/hook';
+import { updatePass } from '../../../redux/slice/userSlice';
 interface Values {
    title: string;
    description: string;
@@ -19,6 +20,8 @@ interface updatePassProps {
 }
 
 const UpdatePassWord = ({ userId, token }: updatePassProps) => {
+   console.log('token', token);
+
    const [open, setOpen] = useState(false);
    const dispatch = useAppDispatch()
    const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
@@ -68,8 +71,8 @@ const UpdatePassWord = ({ userId, token }: updatePassProps) => {
          </Modal>
       );
    };
-   const onCreate = ({ password }: any) => {
-      dispatch(UserApi.updatePassword({ token, newPassword: password, _id: userId }))
+   const onCreate = (val: any) => {
+      dispatch(updatePass({ token, newPassword: val }))
          .then(() => {
             setOpen(false);
             message.success('Đổi mật khẩu thành công');
