@@ -38,8 +38,16 @@
  .seatBlocked {
    color: #fff !important;
    background: tomato;
-  //  visibility: hidden;
+   visibility: hidden;
  }
+ .seatBlockedClient {
+  color: #fff !important;
+  background: tomato;
+  visibility: hidden;
+}
+.seatNotBookedClient{
+  background-color: white;
+}
  .paymentButton {
    background: #f84464 !important;
  }

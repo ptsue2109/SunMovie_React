@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { addSeats } from "../../../redux/slice/SeatSlice";
+import { addSeats, removeArrSeats } from "../../../redux/slice/SeatSlice";
 import {
   createTicketDetail,
   ticketDetailByShowTime,
@@ -43,6 +43,7 @@ export const RenderInfoSeats = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
   let idShowtime = searchParams.get("showtime");
+  let idRoom = searchParams.get("room");
   const { ticketByShowTime } = useAppSelector(
     (state) => state.TicketDetailReducer
   );
@@ -60,12 +61,9 @@ export const RenderInfoSeats = ({
       userId: userId,
       roomId: roomId,
       showtimeId: showtime,
-      total: total,
     })
   );
-  let count = 0;
   cart = JSON.parse(localStorage.getItem("cart") as string);
-  cart?.cart?.map((item: any, index: number) => (count = index + 1));
   const navigate = useNavigate();
   const onSubmit = async () => {
     let ticket = cart?.cart?.map((item: any, index: number) => {
@@ -77,15 +75,19 @@ export const RenderInfoSeats = ({
     });
     dispatch(createTicket(ticket))
       .unwrap()
-      .then(() => navigate(configRoute.routes.payment))
+      .then(() => {
+        navigate(configRoute.routes.payment);
+        dispatch(removeArrSeats());
+      })
       .catch((err: any) => {
         alert(err);
       });
   };
   useEffect(() => {
-    dispatch(ticketDetailByShowTime(idShowtime));
+    dispatch(
+      ticketDetailByShowTime({ idShowTime: idShowtime, idRoom: roomId })
+    );
   }, [dispatch]);
-  console.log(ticketByShowTime);
 
   return (
     <>
@@ -134,7 +136,9 @@ export const RenderSeatClient = ({
 }: Props) => {
   const [elClick, setElClick] = useState();
   const dispatch = useAppDispatch();
-
+  const { ticketByShowTime } = useAppSelector(
+    (state) => state.TicketDetailReducer
+  );
   useEffect(() => {
     handleSubmit();
   }, [seats]);
@@ -146,14 +150,19 @@ export const RenderSeatClient = ({
   const clearSelectedSeats = () => {};
 
   const getClassNameForSeats = (seatValue: any) => {
-    // console.log(seatValue);
     let seatStatus = seatValue?.status;
     let dynamicClass;
-    if (seatStatus === 0) {
+    if (seatStatus == 0) {
       // Not booked
-      dynamicClass = styles.seatNotBooksed;
-    } else if (seatStatus === 1) {
+      dynamicClass = styles.seatNotBookedClient;
+    } else if (seatStatus == 1) {
       // booked
+      dynamicClass = styles.seatBlockedClient;
+    } else if (seatValue == 2) {
+      // Seat Selected
+      dynamicClass = styles.seatSelected;
+    } else {
+      // Seat Blocked
       dynamicClass = styles.seatBlocked;
     }
     return `${styles.seats} ${dynamicClass}`;
@@ -174,13 +183,24 @@ export const RenderSeatClient = ({
   };
   const price = roomId?.formatId?.extraPrice + showtime?.price;
 
-  const onSeatClick = (seatValue: any) => {
+  const onSeatClick = (seatValue: any, rowIndex: any, key: any) => {
     seatValue = {
       ...seatValue,
       totalPriceSeat: seatValue?.seatTypeId?.extraPrice + price,
     };
-    if (seatValue.status == 0) {
-      dispatch(addSeats(seatValue));
+    let checkSeat = ticketByShowTime.find(
+      (item: any) => item.seatId === seatValue._id
+    );
+    if (ticketByShowTime.length == 0) {
+      if (seatValue?.status === 0) {
+        dispatch(addSeats(seatValue));
+      }
+    } else {
+      if (checkSeat) {
+        return;
+      } else {
+        dispatch(addSeats(seatValue));
+      }
     }
   };
 
@@ -193,7 +213,7 @@ export const RenderSeatClient = ({
           <span
             className={`${getClassNameForSeats(seatValue)} ${classSeatChoose}`}
             onClick={() => {
-              onSeatClick(seatValue);
+              onSeatClick(seatValue, rowIndex, key);
             }}
           >
             {rowIndex + 1}

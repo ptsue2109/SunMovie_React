@@ -58,6 +58,9 @@ const seatsSlice = createSlice({
         state.arrSeats.push(action.payload);
       }
     },
+    removeArrSeats(state) {
+      state.arrSeats = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getAllSeats.pending, (state, action) => {
@@ -93,5 +96,5 @@ const seatsSlice = createSlice({
     });
   },
 });
-export const { addSeats } = seatsSlice.actions;
+export const { addSeats, removeArrSeats } = seatsSlice.actions;
 export default seatsSlice.reducer;
