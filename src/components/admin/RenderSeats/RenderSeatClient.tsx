@@ -202,19 +202,6 @@ export const RenderSeatClient = ({
         dispatch(addSeats(seatValue));
       }
     }
-
-    let item = JSON.parse(JSON.stringify(seatValue));
-    if (item?.status === 1) {
-      return;
-    } else if (item?.status === 0) {
-      item["status"] = 2;
-      dispatch(addSeats(seatValue));
-    } else {
-      item["status"] = 0;
-      dispatch(addSeats(seatValue));
-    }
-    seatDetails[key][rowIndex] = { ...item };
-    setSeatDetails({ ...seatDetails });
   };
 
   const RenderSeatsContain = () => {
