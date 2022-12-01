@@ -75,6 +75,7 @@ import Payment from "../pages/client/payment/Payment";
 import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
 import EditCategory from "../pages/admin/categories/Edit";
+import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
 type RoutesType = {
   path: string;
   component: any;
@@ -100,6 +101,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
+  { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

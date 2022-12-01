@@ -78,8 +78,9 @@ export const RenderInfoSeats = ({
     dispatch(createTicket(ticket))
       .unwrap()
       .then((payload: any) => {
-        let ticketId = payload?.ticket?._id
-        navigate(`/payment?id=${ticketId}`);
+        console.log(payload);
+        //@ts-ignore
+        navigate('/payment', { state: payload })
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {

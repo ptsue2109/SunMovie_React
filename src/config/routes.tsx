@@ -19,6 +19,7 @@ const routes = {
   resetPassword: "/reset-password",
   contact: "/contact",
   successPayment: "/success",
+  loadingPushAccountInLocalStorage: "/loading",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",

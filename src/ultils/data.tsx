@@ -28,12 +28,6 @@ export const CatePostMenu = [
 
 export const banks = [
   {
-    value: "cash",
-    name: "Không chọn",
-    image:
-      "",
-  },
-  {
     value: "MOMO",
     name: "Ví MOMO",
     image:
