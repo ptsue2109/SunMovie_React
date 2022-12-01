@@ -46,8 +46,20 @@ export const createTicket = createAsyncThunk<any, any, { rejectValue: string }>(
     }
   }
 );
+export const getticketDetailById = createAsyncThunk<any, any, { rejectValue: string }>(
+  "tickets/getticketDetailById",
+  async (tiket, { rejectWithValue }) => {
+    try {
+      const { data } = await TicketApi.getticketDetailById(tiket);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 type TicketState = {
   tickets: any[];
+  ticket:any;
   isFetching: boolean;
   isSucess: boolean;
   isErr: boolean;
@@ -55,6 +67,7 @@ type TicketState = {
 };
 const initialState: TicketState = {
   tickets: [],
+  ticket:{},
   isFetching: false,
   isSucess: false,
   isErr: false,
@@ -133,6 +146,15 @@ const tiketSlice = createSlice({
     builder.addCase(updateTiket.rejected, (state, action) => {
       state.isFetching = false;
       state.errorMessage = action.payload;
+    });
+
+    //getticketDetailById
+    builder.addCase(getticketDetailById.pending, (state) => {
+      state.isFetching = true;
+    });  
+    builder.addCase(getticketDetailById.fulfilled, (state, { payload }) => {
+      state.ticket = payload;
+      state.isFetching = false;
     });
   },
 });

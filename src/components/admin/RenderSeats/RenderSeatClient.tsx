@@ -54,6 +54,7 @@ export const RenderInfoSeats = ({
   };
   const total = arrSeats.reduce(sum, 0);
   let cart: any = [];
+
   localStorage.setItem(
     "cart",
     JSON.stringify({
@@ -71,15 +72,18 @@ export const RenderInfoSeats = ({
         seatId: item._id,
         showTimeId: idShowtime,
         price: item.totalPriceSeat,
+        roomId: roomId
       });
     });
     dispatch(createTicket(ticket))
       .unwrap()
-      .then(() => {
-        navigate(configRoute.routes.payment);
+      .then((payload: any) => {
+        let ticketId = payload?.ticket?._id
+        navigate(`/payment?id=${ticketId}`);
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {
+        console.log(err.message);
         alert(err);
       });
   };
@@ -147,7 +151,7 @@ export const RenderSeatClient = ({
   }, []);
   const [classSeatChoose, setClassSeatChoose] = useState("");
 
-  const clearSelectedSeats = () => {};
+  const clearSelectedSeats = () => { };
 
   const getClassNameForSeats = (seatValue: any) => {
     let seatStatus = seatValue?.status;

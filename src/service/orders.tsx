@@ -8,4 +8,7 @@ export const orderApi = {
   create(data: any): Promise<any> {
     return axiosClient.post("/order", data);
   },
+  createPayment(data:any): Promise<any> {
+    return axiosClient.post("/order/createPaymentUrl", data);
+  },
 };
