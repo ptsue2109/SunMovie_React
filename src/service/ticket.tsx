@@ -12,6 +12,9 @@ export const TicketApi = {
   createTiket(data: any): Promise<any> {
     return AxiosRequest.post("/tickets", data);
   },
+  getticketDetailById(input: any): Promise<any> {
+    return AxiosRequest.get(`/tickets/getticketDetailById/${input}`);
+  },
   // ticketPrice
   getAllTicketPrice() {
     return AxiosRequest.get("/ticketPrice");

@@ -23,6 +23,7 @@ import Maintain from "./components/client/Maintain";
 import { getAlPost } from "./redux/slice/PostSlice";
 import { getAllSeats } from "./redux/slice/SeatSlice";
 import PrivateRoute from "./components/client/PrivateRouter";
+import { getAllOrders } from "./redux/slice/OrdersSlice";
 function App() {
   const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
@@ -47,6 +48,7 @@ function App() {
     dispatch(getAlVc());
     dispatch(getAlPost());
     dispatch(getAllSeats({}));
+    dispatch(getAllOrders({}))
   }, [dispatch]);
 
   return (

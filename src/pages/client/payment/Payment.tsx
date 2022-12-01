@@ -6,8 +6,10 @@ import { discountPercent, formatCurrency, formatDate, formatDateString, formatTi
 import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { createOrder } from "../../../redux/slice/OrdersSlice";
-import shortid from "shortid";
+import { createOrder, createPaymeny } from "../../../redux/slice/OrdersSlice";
+import { Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { getticketDetailById } from "../../../redux/slice/ticketSlice";
+
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 12 },
@@ -16,36 +18,34 @@ const layout = {
 type Props = {};
 
 const Payment = (props: Props) => {
-  document.title = "Payment"
+  document.title = "Payment";
+  const [searchParams, setSearchParams] = useSearchParams();
+  let id = searchParams.get("id");
+
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const [tempPrice, setTempPrice] = useState<any>()
   const [voucherMess, setVoucherMess] = useState<any>("");
   const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
-  const [priceAfterDiscount, setPriceAfterDiscount] = useState<any>();
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState<number>();
   const [CODE, setCODE] = useState<any>('');
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
+  const [room, setRoom] = useState<any>();
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [form] = Form.useForm();
-  useEffect(() => {
-    // @ts-ignore
-    let item = (JSON.parse(localStorage.getItem('cart')));
-    console.log(item);
-    setData(item?.cart)
-    setInfo(item)
-  }, []);
 
   useEffect(() => {
-    if (data) {
-      // @ts-ignore
-      let sumPriceCart = data?.reduce(
-        (accumulator: any, currentValue: any) => accumulator + currentValue?.totalPriceSeat, 0
-      );
-      setTempPrice(sumPriceCart)
-    }
-  }, [data]);
-
+    (async () => {
+      const { payload } = await dispatch(getticketDetailById(id));
+      console.log(payload);
+      setData(payload?.ticketDetail)
+      setInfo(payload?.ticketDetail[0]);
+      setTempPrice(payload?.ticketId?.totalPrice);
+      setPriceAfterDiscount(payload?.ticketId?.totalPrice)
+    })();
+  }, [id]);
   const upperText = (text: any) => { return text.toUpperCase() };
 
   useEffect(() => {
@@ -69,21 +69,22 @@ const Payment = (props: Props) => {
   };
 
   const onFinish = (val: any) => {
-    // let payload = {
-    //   userId: {
-    //     username: val?.username,
-    //     phone: val?.username,
-    //     userId: info?.userId,
-    //     voucherId: val?.voucherCode
-    //   },
-    //   ...info,
-    //   totalPrice: priceAfterDiscount,
-    //   ticketId: shortid.generate()
-    // }
-    // dispatch(createOrder(payload)).unwrap()
-    //   .then(() => message.success('Thành công'))
+    let payload = {
+      userId: currentUser?._id,
+      ticketId: id,
+      totalPrice: priceAfterDiscount,
+      bankCode: val.paymentType,
+      orderDescription: "thanh toan",
+      orderType: "billpayment",
+      language: ""
+    }
 
-    //   .catch((err: any) => console.log(err))
+    dispatch(createPaymeny(payload)).unwrap()
+      .then((res: any) => {
+        window.location.href = `${res}`
+      })
+
+    .catch((err: any) => console.log(err))
 
   }
 
@@ -91,28 +92,33 @@ const Payment = (props: Props) => {
     if (CODE) {
       let upper = upperText(CODE);
       let item = vouchers.find((item: any) => item?.code === upper);
+      console.log('item', item);
       if (item === undefined) {
         setVoucherMess("Không tìm thấy mã voucher");
       } else if (isPast(parseISO(item?.timeEnd))) {
         setVoucherMess("Voucher đã hết hạn sử dụng");
       } else if (isFuture(parseISO(item?.timeStart))) {
         setVoucherMess(`Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`);
+      } else if (item?.userId) {
+        if (item?.userId?.map((a: any) => a?._id === currentUser?._id)) {
+          setVoucherMess(`Bạn đã sử dụng voucher này rồi`);
+        }
       }
       else {
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
-        if (item?.voucherKey === "hóa đơn") {
-          if (tempPrice < vcValue) {
-            setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
+        if (tempPrice < vcValue) {
+          setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
+        } else {
+          if (item?.condition === 1) {
+            setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
+            console.log('priceAfterDiscount', priceAfterDiscount);
           } else {
-            if (item?.condition === 1) {
-              setPriceAfterDiscount(tempPrice - vcDiscount);
-            } else {
-              let price: any = discountPercent(tempPrice, vcDiscount)
-              setPriceAfterDiscount(price);
-            }
+            let price: any = discountPercent(tempPrice, vcDiscount)
+            setPriceAfterDiscount(price);
           }
         }
+
         setVoucherMess("")
       }
     } else {
@@ -231,14 +237,14 @@ const Payment = (props: Props) => {
             <b>Rạp</b>: {webConfigs[0]?.storeName} | RAP {info ? (<>{info?.roomId?.name}</>) : ""}
           </li>
           <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Suất chiếu</b>:  {formatTime(info?.showtimeId?.startAt)} |  {formatDateString(info?.showtimeId?.date)}
+            <b>Suất chiếu</b>:  {formatTime(info?.showTimeId?.startAt)} |  {formatDateString(info?.showTimeId?.date)}
           </li>
           <li className="border-b-2 border-dotted border-black leading-10">
             <b>Combo</b>:{" "}
           </li>
           <li className="border-b-2 border-dotted border-black leading-10">
             <b>Ghế</b>: {data && data?.map((item: any) => (
-              <span key={item?._id}>{item?.row}{item?.column},</span>
+              <span key={item?._id}>{item?.seatId?.row}{item?.seatId?.column},</span>
             ))}
           </li>
         </ul>
