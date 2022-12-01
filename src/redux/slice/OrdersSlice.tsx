@@ -13,7 +13,7 @@ export const createOrder = createAsyncThunk(
   }
 );
 export const createPaymeny = createAsyncThunk(
-  "order/add",
+  "order/createPaymeny",
   async (item: any, { rejectWithValue }) => {
     try {
       const { data } = await orderApi.createPayment(item);
@@ -24,10 +24,10 @@ export const createPaymeny = createAsyncThunk(
   }
 );
 export const getAllOrders = createAsyncThunk(
-  "order/lits",
+  "order/getAllOrders",
   async (_: any, { rejectWithValue }) => {
     try {
-      const { data } = await orderApi.getAll();
+      const { data } = await orderApi.getAllOrder();
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

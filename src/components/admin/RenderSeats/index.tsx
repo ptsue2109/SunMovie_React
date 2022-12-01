@@ -1,4 +1,4 @@
-import { Button, Card, Collapse, Form, message,  Modal, Select, Table} from "antd";
+import { Button, Card, Collapse, Form, message, Modal, Select, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
@@ -31,7 +31,7 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     handleSubmit();
   }, [seats]);
@@ -54,17 +54,20 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
     return `${styles.seats} ${dynamicClass}`;
   };
   const handleSubmit = () => {
-    const groupByRowName = seats?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = arrayItem.row;
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
+    if (seats) {
+      const groupByRowName = seats?.reduce((accumulator: any, arrayItem: any) => {
+        let rowName = arrayItem.row;
+        if (accumulator[rowName] == null) {
+          accumulator[rowName] = [];
+        }
+        accumulator[rowName].push(arrayItem);
+        return accumulator;
+      }, {});
 
-    setSeatDetails({ ...groupByRowName });
-    setSeatFile({ ...groupByRowName });
+      setSeatDetails({ ...groupByRowName });
+      setSeatFile({ ...groupByRowName });
+    }
+
   };
 
   const onSeatClick = (seatValue: any, rowIndex: any, key: any) => {

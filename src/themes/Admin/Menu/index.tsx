@@ -68,10 +68,9 @@ const items: any[] = [
       "adminTicketPrice10"
     ),
   ]),
-  // getItem("Quản lí Loại Ghế", "adminSeatType", <MdEventSeat />, [
-  //   getItem(<Link to={config.routes.adminSeatType}> Danh sách loại ghế</Link>, "adminSeatType1"),
-  //   getItem(<Link to={config.routes.adminSeatTypeAdd}> Thêm ghế</Link>, "adminSeatType2"),
-  // ]),
+  getItem("Quản lí đơn hàng", "adminOrders", <MdEventSeat />, [
+    getItem(<Link to={config.routes.adminOrders}> Danh sách  orders</Link>, "adminOrders1"),
+  ]),
   getItem("Quản lí Phòng chiếu", "adminRooms", <GiTheater />, [
     getItem(
       <Link to={config.routes.adminRooms}> Danh sách phòng chiếu</Link>,

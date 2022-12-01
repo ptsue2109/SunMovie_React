@@ -1,7 +1,7 @@
 import axiosClient from "./instance";
 
 export const orderApi = {
-  getAll() {
+  getAllOrder() {
     let url = "/order";
     return axiosClient.get(url);
   },
