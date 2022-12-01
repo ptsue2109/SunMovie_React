@@ -1,18 +1,16 @@
 import {
   faCheck,
   faMoneyCheck,
-  faNewspaper,
   faShippingFast,
   faShoppingCart,
   faTimes,
-  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { PostApi } from "../../../service/postApi";
 import { MovieApi } from "../../../service/MovieApi";
+import { orderApi } from "../../../service/orders";
 import { UserApi } from "../../../service/userApi";
-import {RiMovie2Fill, RiUserLine} from 'react-icons/ri'
+import { RiMovie2Fill, RiUserLine } from "react-icons/ri";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,14 +22,24 @@ import {
   Legend,
   LineElement,
 } from "chart.js";
-import { Bar, Line } from "react-chartjs-2";
-// import "./Dashboard.scss";
+import { Bar, Line, Radar } from "react-chartjs-2";
+import { useAppSelector } from "../../../redux/hook";
+import Item from "antd/lib/list/Item";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 type Props = {};
 
-export const options = {
+const optionsMovie = {
   responsive: true,
   plugins: {
     legend: {
@@ -39,12 +47,12 @@ export const options = {
     },
     title: {
       display: true,
-      text: "User đăng ký theo tháng",
+      text: "Phim doanh thu cao",
     },
   },
 };
 
-const optionsLine = {
+const optionsUser = {
   responsive: true,
   plugins: {
     legend: {
@@ -52,7 +60,20 @@ const optionsLine = {
     },
     title: {
       display: true,
-      text: "Doanh thu hàng tháng",
+      text: "User đăng ký theo năm",
+    },
+  },
+};
+
+const optionsOrder = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Doanh thu hàng năm",
     },
   },
 };
@@ -63,78 +84,99 @@ const Dashboard = (props: Props) => {
   const [totalMovie, setTotalMovie] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
   const [totalPost, setTotalPost] = useState(0);
-  const [statsUserSignup, setStatsUserSignup] = useState<any[]>();
-  const [moneyMonth, setMoneyMonth] = useState<any[]>();
 
-  const labels = Array.apply(null, new Array(12)).map((_, index) => `Tháng ${++index}`);
-  const data = {
-    labels,
+  const { users } = useAppSelector((state: any) => state.userReducer);
+  const { tickets } = useAppSelector((state: any) => state.ticketReducer);
+
+  const dataMovie = {
+    labels: tickets.map((item: any) => item.quantity),
     datasets: [
       {
-        label: `Năm ${new Date().getFullYear()}`,
-        data: labels.map((itemMonth) => {
-          const month = +itemMonth.split(" ")[1];
-          const getMonth = statsUserSignup?.find((item) => item.month === month);
-
-          if (getMonth) {
-            return getMonth.total;
-          }
-          return 0;
-        }),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        label: "Ticket",
+        data: tickets.map((item: any) => item.quantity),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#008000",
+          "#800000",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
       },
     ],
   };
 
-  const dataLine = {
-    labels,
+  const years = users.map((item: any) => {
+    return new Date(item.createdAt);
+  });
+  const dataUser = {
+    labels: Array.apply(null, new Array(users.length)).map(
+      (_, index) => `${++index}`
+    ),
     datasets: [
       {
-        label: `Năm ${new Date().getFullYear()}`,
-        data: labels.map((itemMonth) => {
-          const month = +itemMonth.split(" ")[1];
-          const getMonth = moneyMonth?.find((item) => item.month === month);
-
-          if (getMonth) {
-            return getMonth.totalPrice;
-          }
-          return 0;
+        label: "User",
+        data: years.map((year: any) => {
+          return year.getFullYear();
         }),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#008000",
+          "#800000",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  };
+
+  const [dataOrders, setDataOrder] = useState([]);
+  const yearsOrder = dataOrders.map((item: any) => {
+    return new Date(item.createdAt);
+  });
+
+  const dataOrder = {
+    labels: yearsOrder.map((item: any) => {
+      return item.getFullYear();
+    }),
+    datasets: [
+      {
+        label: "Order",
+        data: dataOrders.map((item: any) => item.totalPrice),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#008000",
+          "#800000",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
       },
     ],
   };
 
   useEffect(() => {
-
     (async () => {
       try {
-        // thống kê đơn hàng
-        
-        // const statsOrder = await .statsOrderByStatus();
-        // setTotalOrder(() => {
-        //   return statsOrder.payload.stats?.reduce((total: any, item: { total: any; }) => total + item.total, 0);
-        // });
-        // if (statsOrder.status) setStatOrder(statsOrder.payload.stats);
-
-        // thống kê sp
-        const  {data:movies, status:mStatus} = await MovieApi.getAll();
-        if(mStatus == 200) setTotalMovie(movies?.length)
+        // phim
+        const { data: movies, status: mStatus } = await MovieApi.getAll();
+        if (mStatus == 200) setTotalMovie(movies?.length);
 
         // thống kê user
-        const {status, data} = await UserApi.getAll();
-        if(status == 200) setTotalUser(data?.length)
-       
-        // user đăng ký theo tháng
-       
+        const { status, data } = await UserApi.getAll();
+        if (status == 200) setTotalUser(data?.length);
 
-        // thống kê bài viết
-        const {data:postData, status:postStatus} = await PostApi.getAll();
-        if(postStatus == 200) setTotalPost(postData?.length)
-        
+        // order
+        const { data: orderData, status: orderStatus } =
+          await orderApi.getAll();
+        setDataOrder(orderData);
+        if (orderStatus == 200) setTotalPost(orderData?.length);
       } catch (error) {
-        console.log(error);
+        return error;
       }
     })();
   }, []);
@@ -189,44 +231,48 @@ const Dashboard = (props: Props) => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="flex items-center justify-between p-3 bg-white rounded-md text-[#b5b5c3]">
-          <div>
-            <FontAwesomeIcon icon={faShoppingCart} />
-          </div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
+          <RiMovie2Fill className="w-10 h-10 px-1" />
           <div className="text-center">
             <span className="block text-black font-semibold">{totalMovie}</span>
-            <span className="text-sm font-semibold">Số phim đang chiếu</span>
+            <span className="text-sm font-semibold">
+              Top phim có nhiều người xem nhiều nhất
+            </span>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 bg-white rounded-md text-[#b5b5c3]">
-         <RiMovie2Fill />
-          <div className="text-center"> 
+        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
+          <RiUserLine className="w-10 h-10 px-1" />
+          <div className="text-center">
             <span className="block text-black font-semibold">{totalUser}</span>
             <span className="text-sm font-semibold">Số tài khoản hiện có</span>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 bg-white rounded-md text-[#b5b5c3]">
+        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <div>
-          <RiUserLine />
+            <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" />
           </div>
 
           <div className="text-center">
             <span className="block text-black font-semibold">{totalPost}</span>
-            <span className="text-sm font-semibold">Tổng số bài viết</span>
+            <span className="text-sm font-semibold">Tổng đơn đặt hàng</span>
           </div>
         </div>
       </div>
 
-      {/* user đăng ký theo tháng */}
+      {/* doanh thu phim theo tháng */}
       <div className="bg-white mt-4 rounded-md p-3">
-        <Bar options={options} data={data} />
+        <Bar options={optionsMovie} data={dataMovie} />
       </div>
 
-      {/* doanh thu hàng tháng */}
+      {/* user đăng ký theo tháng */}
       <div className="bg-white mt-4 rounded-md p-3">
-        <Line options={optionsLine} data={dataLine} />
+        <Line options={optionsUser} data={dataUser} />
+      </div>
+
+      {/* tổng đơn đặt hàng */}
+      <div className="bg-white mt-4 rounded-md p-3">
+        <Line options={optionsOrder} data={dataOrder} />
       </div>
     </div>
   );
