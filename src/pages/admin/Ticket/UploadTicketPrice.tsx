@@ -1,6 +1,6 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, InputNumber, message } from "antd";
 import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateTiketPrice } from "../../../redux/slice/ticketPriceSlice";
@@ -42,6 +42,9 @@ const UploadTicketPrice = (props: Props) => {
   };
   return (
     <>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to="/admin/ticketprice">List TicketPrice</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
@@ -60,7 +63,13 @@ const UploadTicketPrice = (props: Props) => {
           label="Price"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <InputNumber
+            min={10000}
+            formatter={(value) =>
+              ` ${value}VND`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            style={{ width: "100%" }}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

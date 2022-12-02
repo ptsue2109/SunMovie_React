@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Form, Input, message, Space } from "antd";
+import { Button, Form, Input, InputNumber, message, Space } from "antd";
 import configRoute from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { createTicketPrice } from "../../../redux/slice/ticketPriceSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -23,6 +23,9 @@ const CreateTicketPrice = (props: Props) => {
 
   return (
     <>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to="/admin/ticketprice">List TicketPrice</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
@@ -41,7 +44,13 @@ const CreateTicketPrice = (props: Props) => {
           label="Price"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <InputNumber
+            min={10000}
+            formatter={(value) =>
+              ` ${value}VND`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            style={{ width: "100%" }}
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
