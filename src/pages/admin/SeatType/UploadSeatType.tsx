@@ -43,7 +43,6 @@ const UploadSeatType = (props: Props) => {
         <Button type="primary" style={{ marginBottom: "20px" }}>
           <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
         </Button>
-       
       </div>
       <Form
         form={form}
@@ -54,9 +53,7 @@ const UploadSeatType = (props: Props) => {
         <Form.Item
           name="name"
           label="Name"
-          rules={[
-            { required: true, message: "Không được để trống! ", min: 10 },
-          ]}
+          rules={[{ required: true, message: "Không được để trống! ", min: 5 }]}
         >
           <Input />
         </Form.Item>
@@ -66,6 +63,13 @@ const UploadSeatType = (props: Props) => {
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name="color"
+          label="Color"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input type="color" style={{ width: "100px", height: "40px" }} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

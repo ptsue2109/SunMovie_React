@@ -17,17 +17,16 @@ const CeateSeatType = (props: Props) => {
       message.success("Thêm thành công");
       navigate(configRoute.routes.adminSeatType);
     } else {
-      message.error(`${payload}`);
+      message.error(`${payload.message}`);
     }
   };
 
   return (
     <>
-   
-        <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
-        </Button>
-      
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
+      </Button>
+
       <Form
         form={form}
         layout="vertical"
@@ -37,9 +36,7 @@ const CeateSeatType = (props: Props) => {
         <Form.Item
           name="name"
           label="Name"
-          rules={[
-            { required: true, message: "Không được để trống! ", min: 10 },
-          ]}
+          rules={[{ required: true, message: "Không được để trống! ", min: 5 }]}
         >
           <Input />
         </Form.Item>
@@ -49,6 +46,13 @@ const CeateSeatType = (props: Props) => {
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name="color"
+          label="Color"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input type="color" style={{ width: "100px", height: "40px" }} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

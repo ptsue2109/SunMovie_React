@@ -21,7 +21,20 @@ const ListSeatType = (props: Props) => {
   const columnList: any = [
     {
       title: "name",
-      render: (item: any, index: any) => <p>{item.name}</p>,
+      render: (item: any, index: any) => (
+        <div className="flex">
+          <p>{item.name}</p>
+          <div
+            style={{
+              backgroundColor: `${item.color}`,
+              width: "70px",
+              height: "20px",
+              marginLeft: "10px",
+              border: "1px solid black",
+            }}
+          ></div>
+        </div>
+      ),
       height: "10",
     },
     {
@@ -57,6 +70,7 @@ const ListSeatType = (props: Props) => {
       _id: item._id,
       name: item.name,
       extraPrice: item.extraPrice,
+      color: item.color,
     };
   });
   return (
@@ -65,7 +79,7 @@ const ListSeatType = (props: Props) => {
         <Button type="primary" style={{ marginBottom: "20px" }}>
           <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
         </Button>
-        <Button >
+        <Button>
           <Link to={configRoute.routes.adminRooms}>Quản lí phòng chiếu</Link>
         </Button>
       </div>
