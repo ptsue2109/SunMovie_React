@@ -25,6 +25,7 @@ const BookChair = (props: Props) => {
   const [seatFile, setSeatFile] = useState<any>();
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
+  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const showtime = stList.find((item: any) => item._id === idShowtime);
   const roomSelect = rooms?.find((item: any) => item?._id === idRoom);
   React.useEffect(() => {
@@ -36,6 +37,7 @@ const BookChair = (props: Props) => {
       setSeats(payload);
     })();
   }, []);
+  console.log(seatType);
 
   React.useEffect(() => {
     setColumn(roomSelect?.columns);
@@ -90,24 +92,21 @@ const BookChair = (props: Props) => {
             />
             {/* end chair */}
             <div className="mb-10 flex justify-around mx-20">
+              {seatType?.map((item: any) => (
+                <div className="flex">
+                  <p className={`w-5 h-5 bg-[${item.color}]`}></p>
+                  <span className="text-white pl-2 capitalize">
+                    {item.name}
+                  </span>
+                </div>
+              ))}
+
               <div className="flex">
-                <p className="w-5 h-5 bg-white"></p>
-                <span className="text-white pl-2"> Ghế Thường</span>
-              </div>
-              <div className="flex">
-                <p className="w-5 h-5 bg-blue-800"></p>
-                <span className="text-white pl-2"> Ghế VIP</span>
-              </div>
-              <div className="flex">
-                <p className="w-5 h-5 bg-pink-400"></p>
-                <span className="text-white pl-2"> Ghế Đôi</span>
-              </div>
-              <div className="flex">
-                <p className="w-5 h-5 bg-green-800"></p>
+                <p className="w-5 h-5 bg-[#35d406]"></p>
                 <span className="text-white pl-2"> Ghế Đã Chọn</span>
               </div>
               <div className="flex">
-                <p className="w-5 h-5 bg-red-600"></p>
+                <p className="w-5 h-5 bg-red-700"></p>
                 <span className="text-white pl-2"> Ghế Đã Bán</span>
               </div>
             </div>
