@@ -92,12 +92,12 @@ const BookChair = (props: Props) => {
             {/* end chair */}
             <div className="mb-10 flex justify-around mx-20">
               {seatType?.map((item: any) => (
-                <div className="flex">
+                <div className="flex" key={item._id}>
                   <p
                     className={`w-5 h-5 `}
                     style={{ backgroundColor: `${item.color}` }}
                   ></p>
-                  <span className="text-white pl-2 capitalize" key={item._id}>
+                  <span className="text-white pl-2 capitalize">
                     {item.name}
                   </span>
                 </div>
