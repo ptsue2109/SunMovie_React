@@ -43,10 +43,6 @@ export const RenderInfoSeats = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
   let idShowtime = searchParams.get("showtime");
-  let idRoom = searchParams.get("room");
-  const { ticketByShowTime } = useAppSelector(
-    (state) => state.TicketDetailReducer
-  );
   let i = 0;
   const sum = (a: any, b: any) => {
     i++;
@@ -72,13 +68,13 @@ export const RenderInfoSeats = ({
         seatId: item._id,
         showTimeId: idShowtime,
         price: item.totalPriceSeat,
-        roomId: roomId
+        roomId: roomId,
       });
     });
     dispatch(createTicket(ticket))
       .unwrap()
       .then((payload: any) => {
-        let ticketId = payload?.ticket?._id
+        let ticketId = payload?.ticket?._id;
         navigate(`/payment?id=${ticketId}`);
         dispatch(removeArrSeats());
       })
@@ -151,25 +147,28 @@ export const RenderSeatClient = ({
   }, []);
   const [classSeatChoose, setClassSeatChoose] = useState("");
 
-  const clearSelectedSeats = () => { };
+  const clearSelectedSeats = () => {};
 
   const getClassNameForSeats = (seatValue: any) => {
     let seatStatus = seatValue?.status;
     let dynamicClass;
-    if (seatStatus == 0) {
-      // Not booked
-      dynamicClass = styles.seatNotBookedClient;
-    } else if (seatStatus == 1) {
+    if (seatStatus == 1) {
       // booked
       dynamicClass = styles.seatBlockedClient;
-    } else if (seatValue == 2) {
+    } else if (seatStatus == 2) {
       // Seat Selected
       dynamicClass = styles.seatSelected;
     } else {
-      // Seat Blocked
-      dynamicClass = styles.seatBlocked;
+      dynamicClass = `bg-[${seatValue.seatTypeId?.color}]`;
     }
-    return `${styles.seats} ${dynamicClass}`;
+    if (ticketByShowTime.length !== 0) {
+      ticketByShowTime?.map((item: any) => {
+        if (seatValue._id === item.seatId) {
+          dynamicClass = styles.seatBooked;
+        }
+      });
+    }
+    return `${dynamicClass} ${styles.seatsClient} `;
   };
 
   const handleSubmit = () => {
@@ -195,17 +194,34 @@ export const RenderSeatClient = ({
     let checkSeat = ticketByShowTime.find(
       (item: any) => item.seatId === seatValue._id
     );
-    if (ticketByShowTime.length == 0) {
-      if (seatValue?.status === 0) {
-        dispatch(addSeats(seatValue));
-      }
-    } else {
-      if (checkSeat) {
-        return;
+
+    let item = JSON.parse(JSON.stringify(seatValue));
+    console.log("item", item);
+
+    if (item?.status === 1) {
+      return;
+    } else if (item?.status === 0) {
+      item["status"] = 2;
+
+      if (ticketByShowTime.length == 0) {
+        if (seatValue?.status === 0) {
+          dispatch(addSeats(seatValue));
+        }
       } else {
-        dispatch(addSeats(seatValue));
+        if (checkSeat) {
+          console.log("Ghế đang giữ");
+          return;
+        } else {
+          dispatch(addSeats(seatValue));
+        }
       }
+    } else if (item?.status === 2) {
+      item["status"] = 0;
+      dispatch(addSeats(seatValue));
     }
+
+    seatDetails[key][rowIndex] = { ...item };
+    setSeatDetails({ ...seatDetails });
   };
 
   const RenderSeatsContain = () => {
@@ -215,7 +231,7 @@ export const RenderSeatClient = ({
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
           <span
-            className={`${getClassNameForSeats(seatValue)} ${classSeatChoose}`}
+            className={`${getClassNameForSeats(seatValue)}`}
             onClick={() => {
               onSeatClick(seatValue, rowIndex, key);
             }}
