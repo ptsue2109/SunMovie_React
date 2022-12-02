@@ -37,7 +37,6 @@ const BookChair = (props: Props) => {
       setSeats(payload);
     })();
   }, []);
-  console.log(seatType);
 
   React.useEffect(() => {
     setColumn(roomSelect?.columns);
@@ -94,8 +93,11 @@ const BookChair = (props: Props) => {
             <div className="mb-10 flex justify-around mx-20">
               {seatType?.map((item: any) => (
                 <div className="flex">
-                  <p className={`w-5 h-5 bg-[${item.color}]`}></p>
-                  <span className="text-white pl-2 capitalize">
+                  <p
+                    className={`w-5 h-5 `}
+                    style={{ backgroundColor: `${item.color}` }}
+                  ></p>
+                  <span className="text-white pl-2 capitalize" key={item._id}>
                     {item.name}
                   </span>
                 </div>

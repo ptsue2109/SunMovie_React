@@ -158,8 +158,6 @@ export const RenderSeatClient = ({
     } else if (seatStatus == 2) {
       // Seat Selected
       dynamicClass = styles.seatSelected;
-    } else {
-      dynamicClass = `bg-[${seatValue.seatTypeId?.color}]`;
     }
     if (ticketByShowTime.length !== 0) {
       ticketByShowTime?.map((item: any) => {
@@ -196,7 +194,6 @@ export const RenderSeatClient = ({
     );
 
     let item = JSON.parse(JSON.stringify(seatValue));
-    console.log("item", item);
 
     if (item?.status === 1) {
       return;
@@ -223,7 +220,6 @@ export const RenderSeatClient = ({
     seatDetails[key][rowIndex] = { ...item };
     setSeatDetails({ ...seatDetails });
   };
-
   const RenderSeatsContain = () => {
     let seatArray = [];
     for (let key in seatDetails) {
@@ -231,6 +227,7 @@ export const RenderSeatClient = ({
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
           <span
+            style={{ backgroundColor: `${seatValue?.seatTypeId?.color}` }}
             className={`${getClassNameForSeats(seatValue)}`}
             onClick={() => {
               onSeatClick(seatValue, rowIndex, key);
