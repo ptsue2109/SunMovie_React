@@ -1,5 +1,5 @@
 .headerWap{
-    @apply fixed h-[70px] top-0 left-0 right-0 z-[10000] bg-[#151f32]
+    @apply  h-[70px] top-0 left-0 right-0 z-[10000] bg-[#151f32]
 }
 .header{
     @apply flex justify-between mx-auto w-[1200px] 
@@ -16,7 +16,7 @@
     display: inline-block;
     padding: 25px;
 }
-.header .header_navbar nav ul li{
+.header .header_navbar nav ul li a{
     text-transform: uppercase;
     font-weight: 600;
     color: gray;
@@ -42,10 +42,12 @@
     margin-top: 20px;
 }
 .header_right_btn{
-    color: white;
     padding: 0px 20px;
     font-size: 30px;
     cursor: pointer;
+}
+.header_right_btn a{
+    color: white;
 }
 .login a{
     color: white;
