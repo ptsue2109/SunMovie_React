@@ -113,19 +113,19 @@ const MovieDetail = (props: Props) => {
           <div className="grid grid-cols-4 gap-2">
             {getOneShowtime
               ? getOneShowtime.roomId.map((item: any) => (
-                <div
-                  key={item._id}
-                  className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
-                >
-                  <Link
-                    to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                  <div
+                    key={item._id}
+                    className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
                   >
-                    <a className="text-black hover:text-white ">
-                      {item.name}
-                    </a>
-                  </Link>
-                </div>
-              ))
+                    <Link
+                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                    >
+                      <a className="text-black hover:text-white ">
+                        {item.name}
+                      </a>
+                    </Link>
+                  </div>
+                ))
               : ""}
           </div>
         </Modal>
@@ -133,32 +133,44 @@ const MovieDetail = (props: Props) => {
           <div className={styles.showTimesListItem}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                <span
-                  key={index}
-                  onClick={() => onDate(item)}
-                  className="cursor-pointer"
-                >
-                  {formatDate(item)}
-                </span>
-              ))
+                  <span
+                    key={index}
+                    onClick={() => onDate(item)}
+                    className="cursor-pointer"
+                  >
+                    {formatDate(item)}
+                  </span>
+                ))
               : "Không có suất chiếu nào"}
           </div>
-        </div>
 
-        <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
-          <p>Vui lòng chọn khung giờ</p>
-          <div className={styles.showTimesListItem}>
-            {showtime != ""
-              ? showtime.map((item: any) => (
-                <span
-                  key={item._id}
-                  onClick={() => showModal(item._id)}
-                  className="cursor-pointer"
-                >
-                  {formatTime(item.startAt)}
-                </span>
-              ))
-              : "Không có khung giờ phù hợp"}
+          <div>
+            {arrDate.length == 0 ? (
+              <p className="text-white">
+                Xin lỗi, Hiện tại chưa có xuất chiếu nào
+              </p>
+            ) : (
+              <div>
+                <div className={styles.showTimesListItem}>
+                  {showtime != "" ? (
+                    <div>
+                      <p className="text-white">Vui lòng chọn khung giờ</p>
+                      {showtime.map((item: any) => (
+                        <span
+                          key={item._id}
+                          onClick={() => showModal(item._id)}
+                          className="cursor-pointer"
+                        >
+                          {formatTime(item.startAt)}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </>
