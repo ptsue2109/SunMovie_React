@@ -1,11 +1,19 @@
-import { Button, DatePicker, Form, Input, message, Select } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Select,
+} from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { EditFood } from "../../../redux/slice/FoodSlice";
 import moment from "moment";
-
+import { FoodStatsut } from "../../../ultils/data";
 
 type Props = {};
 
@@ -45,13 +53,15 @@ const UpdateFood = (props: Props) => {
   };
   return (
     <>
-     <Form
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminFood}>List Food</Link>
+      </Button>
+      <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
         autoComplete="off"
       >
-
         <Form.Item
           name="name"
           label="Name"
@@ -65,7 +75,13 @@ const UpdateFood = (props: Props) => {
           label="Price"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <InputNumber
+            min={10000}
+            formatter={(value) =>
+              ` ${value} VND`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            style={{ width: "100%" }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -73,21 +89,18 @@ const UpdateFood = (props: Props) => {
           name="status"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-        <Input />
-            
+          <Select>
+            {FoodStatsut.map((item) => (
+              <Select.Option key={item.name} value={item.value}>
+                {item.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item
           name="stock"
           label="Stock"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="size"
-          label="Size"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />

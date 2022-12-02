@@ -7,18 +7,21 @@ import {
   Tag,
   Pagination,
   Image,
+  Select,
 } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import { removeFoodItem } from "../../../redux/slice/FoodSlice";
+import { EditFood, removeFoodItem } from "../../../redux/slice/FoodSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-
+import UpdateFood from "./UpdateFood";
+import { FoodStatsut } from "../../../ultils/data";
+import { Option } from "antd/lib/mentions";
 type Props = {};
 
 const FoodList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { food, errMess } = useAppSelector((state) => state.food); //
+  const { food, errMess, isFetching } = useAppSelector((state) => state.food); //
   const deleteFood = (data: string | undefined) => {
     dispatch(removeFoodItem(data))
       .unwrap()
@@ -28,6 +31,11 @@ const FoodList = (props: Props) => {
       .catch(() => {
         message.error({ content: { errMess } });
       });
+  };
+  const changeStatus = (id: any, value: any) => {
+    dispatch(EditFood({ _id: id, status: value }))
+      .unwrap()
+      .then(() => message.success("Thay đổi trạng thái thành công"));
   };
   const columnUserList: any = [
     {
@@ -46,9 +54,22 @@ const FoodList = (props: Props) => {
 
     {
       title: "Status",
+      key: "status",
       dataIndex: "status",
-      render: (_: any, record: any) => <p>{record?.status}</p>,
-      width: "200px",
+      render: (_: any, { _id, status }: any) => (
+        <Select
+          value={status === true ? "Còn hàng" : "Hết hang"}
+          onChange={(value: any) => {
+            changeStatus(_id, value);
+          }}
+        >
+          {FoodStatsut?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
+      ),
     },
     {
       title: "Stock",
@@ -56,9 +77,9 @@ const FoodList = (props: Props) => {
       render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
     {
-      title: "Size",
-      dataIndex: "size",
-      render: (_: any, record: any) => <p>{record?.size}</p>,
+      title: "Stock",
+      dataIndex: "stock",
+      render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
 
     {
@@ -97,18 +118,13 @@ const FoodList = (props: Props) => {
       status: item?.status,
     };
   });
- console.log(data);
- 
+
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/food/create">Create Food</Link>
       </Button>
-      <DataTable
-        column={columnUserList}
-        data={data}
-        scrollWidth={{ x: 2000 }}
-      />
+      <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>
   );
 };

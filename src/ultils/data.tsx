@@ -20,6 +20,10 @@ export const defaultStatus = [
   { value: 0, name: "Hoạt động" },
   { value: 1, name: "Dừng hoạt động" },
 ];
+export const FoodStatsut = [
+  { value: true, name: "Còn hàng" },
+  { value: false, name: "Hết hàng" },
+];
 
 export const CatePostMenu = [
   { value: 0, name: "Active" },
@@ -30,8 +34,7 @@ export const banks = [
   {
     value: "cash",
     name: "Không chọn",
-    image:
-      "",
+    image: "",
   },
   {
     value: "MOMO",
