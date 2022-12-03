@@ -75,6 +75,10 @@ import Payment from "../pages/client/payment/Payment";
 import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
 import EditCategory from "../pages/admin/categories/Edit";
+import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
+import ChooseCombo from "../components/client/ChooseCombo";
+import AdminOrders from "../pages/admin/Order/List";
+import AdminOrdersDetail from "../pages/admin/Order/Detail";
 type RoutesType = {
   path: string;
   component: any;
@@ -100,6 +104,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
+  { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage },
+  { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -182,4 +188,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
+
+  { path: configRoute.routes.adminOrders, component: AdminOrders },
+  { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
 ];

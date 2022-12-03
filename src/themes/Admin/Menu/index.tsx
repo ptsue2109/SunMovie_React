@@ -48,30 +48,29 @@ const items: any[] = [
   //   getItem(<Link to={config.routes.adminMovieType}> Danh sách thể loại</Link>, "adminMovieType5"),
   //   getItem(<Link to={config.routes.adminMovieTypeAdd}> Thêm thể loại</Link>, "adminMovieType6"),
   // ]),
-  // getItem("Quản lí Vé Xem phim", "adminListTicket", <HiOutlineTicket />, [
-  //   getItem(
-  //     <Link to={config.routes.adminListTicket}> Danh sách Vé Xem phim</Link>,
-  //     "adminListTicket7"
-  //   ),
-  //   getItem(
-  //     <Link to={config.routes.adminTicketAdd}> Thêm Vé</Link>,
-  //     "adminListTicket8"
-  //   ),
-  // ]),
-  // getItem("Quản lí Vé", "adminTicketPrice", <UserOutlined />, [
-  //   getItem(
-  //     <Link to={config.routes.adminTicketPrice}> Danh sách Vé Xem phim</Link>,
-  //     "adminTicketPrice9"
-  //   ),
-  //   getItem(
-  //     <Link to={config.routes.adminTicketPriceAdd}> Thêm Vé</Link>,
-  //     "adminTicketPrice10"
-  //   ),
-  // ]),
-  // getItem("Quản lí Loại Ghế", "adminSeatType", <MdEventSeat />, [
-  //   getItem(<Link to={config.routes.adminSeatType}> Danh sách loại ghế</Link>, "adminSeatType1"),
-  //   getItem(<Link to={config.routes.adminSeatTypeAdd}> Thêm ghế</Link>, "adminSeatType2"),
-  // ]),
+  getItem("Quản lí Vé Xem phim", "adminListTicket", <HiOutlineTicket />, [
+    getItem(
+      <Link to={config.routes.adminListTicket}> Danh sách Vé Xem phim</Link>,
+      "adminListTicket7"
+    ),
+    getItem(
+      <Link to={config.routes.adminTicketAdd}> Thêm Vé</Link>,
+      "adminListTicket8"
+    ),
+  ]),
+  getItem("Quản lí Vé", "adminTicketPrice", <UserOutlined />, [
+    getItem(
+      <Link to={config.routes.adminTicketPrice}> Danh sách Vé Xem phim</Link>,
+      "adminTicketPrice9"
+    ),
+    getItem(
+      <Link to={config.routes.adminTicketPriceAdd}> Thêm Vé</Link>,
+      "adminTicketPrice10"
+    ),
+  ]),
+  getItem("Quản lí đơn hàng", "adminOrders", <MdEventSeat />, [
+    getItem(<Link to={config.routes.adminOrders}> Danh sách  orders</Link>, "adminOrders1"),
+  ]),
   getItem("Quản lí Phòng chiếu", "adminRooms", <GiTheater />, [
     getItem(
       <Link to={config.routes.adminRooms}> Danh sách phòng chiếu</Link>,

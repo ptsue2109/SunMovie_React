@@ -7,7 +7,7 @@ import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { createOrder, createPaymeny } from "../../../redux/slice/OrdersSlice";
-import { Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getticketDetailById } from "../../../redux/slice/ticketSlice";
 
 const layout = {
@@ -19,8 +19,8 @@ type Props = {};
 
 const Payment = (props: Props) => {
   document.title = "Payment";
-  const [searchParams, setSearchParams] = useSearchParams();
-  let id = searchParams.get("id");
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // let id = searchParams.get("id");
 
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
@@ -36,17 +36,21 @@ const Payment = (props: Props) => {
   const dispatch = useAppDispatch()
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    (async () => {
-      const { payload } = await dispatch(getticketDetailById(id));
-      console.log(payload);
-      setData(payload?.ticketDetail)
-      setInfo(payload?.ticketDetail[0]);
-      setTempPrice(payload?.ticketId?.totalPrice);
-      setPriceAfterDiscount(payload?.ticketId?.totalPrice)
-    })();
-  }, [id]);
   const upperText = (text: any) => { return text.toUpperCase() };
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state) {
+      setInfo(state?.populatedDetail);
+      console.log(info);
+
+      setData(state?.ticket)
+      setTempPrice(state?.ticket?.totalPrice);
+      setPriceAfterDiscount(state?.ticket?.totalPrice)
+    }
+    console.log(state);
+
+  }, [state])
 
   useEffect(() => {
     form.setFieldsValue({
@@ -71,22 +75,24 @@ const Payment = (props: Props) => {
   const onFinish = (val: any) => {
     let payload = {
       userId: currentUser?._id,
-      ticketId: id,
+      ticketId: data?._id,
       totalPrice: priceAfterDiscount,
       bankCode: val.paymentType,
       orderDescription: "thanh toan",
       orderType: "billpayment",
       language: ""
     }
+    console.log(payload);
 
     dispatch(createPaymeny(payload)).unwrap()
       .then((res: any) => {
         window.location.href = `${res}`
       })
 
-    .catch((err: any) => console.log(err))
+      .catch((err: any) => message.error(`${err}`))
 
   }
+
 
   const handle = () => {
     if (CODE) {
@@ -99,17 +105,26 @@ const Payment = (props: Props) => {
         setVoucherMess("Voucher đã hết hạn sử dụng");
       } else if (isFuture(parseISO(item?.timeStart))) {
         setVoucherMess(`Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`);
-      } else if (item?.userId) {
-        if (item?.userId?.map((a: any) => a?._id === currentUser?._id)) {
-          setVoucherMess(`Bạn đã sử dụng voucher này rồi`);
-        }
       }
       else {
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
         if (tempPrice < vcValue) {
           setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
-        } else {
+        } else if (item?.userId) {
+          if (item?.userId?.find((item: any) => item?._id === currentUser?._id)) {
+            setVoucherMess("bạn đã sử dụng voucher này");
+          } else {
+            if (item?.condition === 1) {
+              setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
+              console.log('priceAfterDiscount', priceAfterDiscount);
+            } else {
+              let price: any = discountPercent(tempPrice, vcDiscount)
+              setPriceAfterDiscount(price);
+            }
+          }
+        }
+        else {
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
             console.log('priceAfterDiscount', priceAfterDiscount);
@@ -232,22 +247,26 @@ const Payment = (props: Props) => {
           />
         </div>
         <h1 className="font-bold uppercase px-4 pt-2">ONE PIECE FILM RED</h1>
-        <ul className="px-4 py-3">
-          <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Rạp</b>: {webConfigs[0]?.storeName} | RAP {info ? (<>{info?.roomId?.name}</>) : ""}
-          </li>
-          <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Suất chiếu</b>:  {formatTime(info?.showTimeId?.startAt)} |  {formatDateString(info?.showTimeId?.date)}
-          </li>
-          <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Combo</b>:{" "}
-          </li>
-          <li className="border-b-2 border-dotted border-black leading-10">
-            <b>Ghế</b>: {data && data?.map((item: any) => (
-              <span key={item?._id}>{item?.seatId?.row}{item?.seatId?.column},</span>
-            ))}
-          </li>
-        </ul>
+        {info && (
+          <>
+            <ul className="px-4 py-3">
+              <li className="border-b-2 border-dotted border-black leading-10">
+                <b>Rạp</b>: {webConfigs[0]?.storeName} |  {info && (<>{info[0]?.seatId?.roomId?.name}</>)}
+              </li>
+              <li className="border-b-2 border-dotted border-black leading-10">
+                <b>Suất chiếu</b>:  {info && formatTime(info[0]?.showTimeId?.startAt)} |  {formatDateString(info[0]?.showTimeId?.date)}
+              </li>
+              <li className="border-b-2 border-dotted border-black leading-10">
+                <b>Combo</b>:
+              </li>
+              <li className="border-b-2 border-dotted border-black leading-10">
+                <b>Ghế</b>: {info && info?.map((item: any) => (
+                  <span key={item?._id}>{item?.seatId?.row}{item?.seatId?.column},</span>
+                ))}
+              </li>
+            </ul>
+          </>
+        )}
         <h2 className="px-4 text-base">
           Tổng Giá:{" "}
           <span className="font-semibold text-xl text-[#dcdcd]">

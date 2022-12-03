@@ -20,7 +20,7 @@ import SeatBySTReducer from "./slice/SeatBySTSlice";
 import WebConfigReducer from "./slice/webConfig";
 import SeatsReducer from "./slice/SeatSlice";
 import TicketDetailReducer from "./slice/TicketDetailSlice";
-import OrderReducer from "./slice/TicketDetailSlice";
+import OrderReducer from "./slice/OrdersSlice";
 const persistConfig = {
   key: "root",
   storage,

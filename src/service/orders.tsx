@@ -1,7 +1,7 @@
 import axiosClient from "./instance";
 
 export const orderApi = {
-  getAll() {
+  getAllOrder() {
     let url = "/order";
     return axiosClient.get(url);
   },
@@ -10,5 +10,8 @@ export const orderApi = {
   },
   createPayment(data:any): Promise<any> {
     return axiosClient.post("/order/createPaymentUrl", data);
+  },
+  getOne(data:any): Promise<any> {
+    return axiosClient.get(`/order/${data}`);
   },
 };

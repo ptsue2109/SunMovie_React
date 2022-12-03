@@ -13,7 +13,7 @@ export const createOrder = createAsyncThunk(
   }
 );
 export const createPaymeny = createAsyncThunk(
-  "order/add",
+  "order/createPaymeny",
   async (item: any, { rejectWithValue }) => {
     try {
       const { data } = await orderApi.createPayment(item);
@@ -24,10 +24,21 @@ export const createPaymeny = createAsyncThunk(
   }
 );
 export const getAllOrders = createAsyncThunk(
-  "order/lits",
+  "order/getAllOrders",
   async (_: any, { rejectWithValue }) => {
     try {
-      const { data } = await orderApi.getAll();
+      const { data } = await orderApi.getAllOrder();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const getOneOrder = createAsyncThunk(
+  "order/getOneOrder",
+  async (input: any, { rejectWithValue }) => {
+    try {
+      const { data } = await orderApi.getOne(input);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -36,6 +47,7 @@ export const getAllOrders = createAsyncThunk(
 );
 const initialState: any = {
   orders: [],
+  order: {}
 };
 const OrderSlice = createSlice({
   name: "orders",
@@ -50,7 +62,9 @@ const OrderSlice = createSlice({
     builder.addCase(getAllOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
     });
-
+    builder.addCase(getOneOrder.fulfilled, (state, action) => {
+      state.order = action.payload;
+    });
     builder.addCase(createPaymeny.fulfilled, (state, action) => {
       state.orders.push(action.payload);
     });

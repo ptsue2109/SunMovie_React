@@ -17,6 +17,7 @@ const axiosClient = axios.create({
     Authorization: `Bearer ${accessToken}`,
   },
 });
+
 export const AxiosRequest = {
   post(path: string, data: {}, options = {}): Promise<any> {
     return axiosClient.post(path, data, options);
