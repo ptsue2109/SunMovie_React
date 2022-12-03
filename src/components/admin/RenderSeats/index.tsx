@@ -17,10 +17,21 @@ type Props = {
   seats: any;
   setSeats: any;
   roomId: any;
-  showTable?: any
+  showTable?: any;
 };
 const { Option } = Select;
-const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails, seatFile, setSeatFile, roomId, showTable }: Props) => {
+const RenderSeats = ({
+  row,
+  column,
+  seats,
+  setSeats,
+  seatDetails,
+  setSeatDetails,
+  seatFile,
+  setSeatFile,
+  roomId,
+  showTable,
+}: Props) => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
@@ -98,13 +109,15 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
     return flatten;
   };
   const info = (val: any) => {
+    console.log(val);
+
     Modal.info({
       title: `Seat infomatio`,
       content: (
         <div>
           <div>Id : {val?._id}</div>
           <div>
-            Loại ghế: {val?.seatTypeId?.name}
+            Loại ghế:
             <Select
               value={val?.seatTypeId?.name}
               onChange={(value: any) => {
@@ -118,11 +131,11 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
               ))}
             </Select>
           </div>
-          <div>Vị trí ghế: sxasa</div>
+          <div>Vị trí ghế: {val.row + val.column}</div>
           <div>
             Trạng thái ghế:
             <Select
-              value={val === 0 ? "Hoạt động" : "Dừng hoạt động"}
+              value={val.status === 0 ? "Hoạt động" : "Dừng hoạt động"}
               onChange={(value: any) => {
                 changeStatusSeat(val?._id, value);
               }}
@@ -136,7 +149,7 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
           </div>
         </div>
       ),
-      onOk() { },
+      onOk() {},
     });
   };
   const changeStatusSeat = (id: any, val: number) => {
@@ -216,7 +229,7 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
     selectedRowKeys,
     onChange: onSelectChange,
   };
-
+  console.log("hihi", defaultStatus);
   const renderChoice = () => {
     const showModal = () => {
       setIsModalOpen(true);
@@ -244,6 +257,7 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
     const getSeatTypeChoice = (val: any) => {
       setOptionsSeatTpe(val);
     };
+
     return (
       <>
         <Button type="primary" onClick={showModal}>
@@ -276,7 +290,7 @@ const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails
                 onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
-                  <Option value={item?._id} key={item?._id}>
+                  <Option value={item?.value} key={item?._id}>
                     {item?.name}
                   </Option>
                 ))}
