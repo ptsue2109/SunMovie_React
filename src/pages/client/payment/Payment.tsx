@@ -19,8 +19,6 @@ type Props = {};
 
 const Payment = (props: Props) => {
   document.title = "Payment";
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // let id = searchParams.get("id");
 
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
@@ -31,26 +29,25 @@ const Payment = (props: Props) => {
   const [CODE, setCODE] = useState<any>('');
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
-  const [room, setRoom] = useState<any>();
+  const [movieDetail, setMovieDetail] = useState<any>();
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [form] = Form.useForm();
-
+  const { movie } = useAppSelector((state) => state.movie)
   const upperText = (text: any) => { return text.toUpperCase() };
   const { state } = useLocation();
+  let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
 
   useEffect(() => {
-    if (state) {
+    if (state && movieSelect) {
       setInfo(state?.populatedDetail);
-      console.log(info);
-
       setData(state?.ticket)
       setTempPrice(state?.ticket?.totalPrice);
-      setPriceAfterDiscount(state?.ticket?.totalPrice)
+      setPriceAfterDiscount(state?.ticket?.totalPrice);
+      setMovieDetail(movieSelect)
     }
-    console.log(state);
 
-  }, [state])
+  }, [state, movieSelect])
 
   useEffect(() => {
     form.setFieldsValue({
@@ -62,7 +59,8 @@ const Payment = (props: Props) => {
     });
   }, []);
 
-  const checkCode = (codeVal: any) => {
+  const checkCode = (codeVal: any, e:Event) => {
+    e?.preventDefault()
     if (codeVal.length >= 1) {
       setCODE(codeVal)
     } else {
@@ -88,7 +86,6 @@ const Payment = (props: Props) => {
       .then((res: any) => {
         window.location.href = `${res}`
       })
-
       .catch((err: any) => message.error(`${err}`))
 
   }
@@ -98,7 +95,6 @@ const Payment = (props: Props) => {
     if (CODE) {
       let upper = upperText(CODE);
       let item = vouchers.find((item: any) => item?.code === upper);
-      console.log('item', item);
       if (item === undefined) {
         setVoucherMess("Không tìm thấy mã voucher");
       } else if (isPast(parseISO(item?.timeEnd))) {
@@ -117,7 +113,6 @@ const Payment = (props: Props) => {
           } else {
             if (item?.condition === 1) {
               setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
-              console.log('priceAfterDiscount', priceAfterDiscount);
             } else {
               let price: any = discountPercent(tempPrice, vcDiscount)
               setPriceAfterDiscount(price);
@@ -127,7 +122,6 @@ const Payment = (props: Props) => {
         else {
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
-            console.log('priceAfterDiscount', priceAfterDiscount);
           } else {
             let price: any = discountPercent(tempPrice, vcDiscount)
             setPriceAfterDiscount(price);
@@ -184,7 +178,7 @@ const Payment = (props: Props) => {
 
               <div className="">
                 <Form.Item name="voucherCode" label="Mã giảm giá" >
-                  <Input onChange={(e: any) => checkCode(e?.target?.value)} />
+                  <Input onChange={(e: any) => checkCode(e?.target?.value, e )} />
                 </Form.Item>
                 <small className="text-danger ml-[170px]">{voucherMess}</small>
               </div>
@@ -197,7 +191,7 @@ const Payment = (props: Props) => {
                     border: "none",
                   }}
                   type="primary"
-                  htmlType="submit"
+                  htmlType="button"
                 >
                   Áp dụng
                 </Button>
@@ -242,11 +236,11 @@ const Payment = (props: Props) => {
       <div className="w-[20%] bg-white ml-10 h-[580px] ">
         <div className="w-[80%] mx-auto p-2">
           <img
-            src="https://cdn.galaxycine.vn/media/2022/11/21/450x300_1668999445553.jpg"
+            src={movieSelect?.image[0]?.url}
             alt=""
           />
         </div>
-        <h1 className="font-bold uppercase px-4 pt-2">ONE PIECE FILM RED</h1>
+        <h1 className="font-bold uppercase px-4 pt-2">{movieSelect?.name}</h1>
         {info && (
           <>
             <ul className="px-4 py-3">
@@ -268,13 +262,13 @@ const Payment = (props: Props) => {
           </>
         )}
         <h2 className="px-4 text-base">
-          Tổng Giá:{" "}
+          Tổng Giá:
           <span className="font-semibold text-xl text-[#dcdcd]">
             {formatCurrency(tempPrice)}
           </span>
         </h2>
         <h2 className="px-4 text-base">
-          Tổng:{" "}
+          Tổng:
           {priceAfterDiscount ? (
             <>
               <span className="font-semibold text-xl text-[#f6710d]">
