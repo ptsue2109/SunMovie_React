@@ -20,7 +20,7 @@ const AdminOrders = (props: Props) => {
       {
          title: "Order Code",
          dataIndex: "code",
-         render: (_: any, { code }: any) => <Link to={`/admin/code/${code}`}>{code}</Link>,
+         render: (_: any, { code, _id }: any) => <Link to={`/admin/orders/${_id}`}>{code}</Link>,
 
       },
       {
@@ -52,17 +52,17 @@ const AdminOrders = (props: Props) => {
          key: "action",
          fixed: "right",
          render: (_: any, record: any) => (
-           <Space size="middle">
-             <Link to={`${record._id}`}>
-               <EditOutlined
-                 style={{ color: "var(--primary)", fontSize: "18px" }}
-               />
-             </Link>
-             
-           </Space>
+            <Space size="middle">
+               <Link to={`${record._id}`}>
+                  <EditOutlined
+                     style={{ color: "var(--primary)", fontSize: "18px" }}
+                  />
+               </Link>
+
+            </Space>
          ),
          width: 250,
-       },
+      },
    ]
    const data: Props[] = orders?.map((item: any, index: any) => {
       return {
@@ -80,10 +80,6 @@ const AdminOrders = (props: Props) => {
    });
    return (
       <>
-         <Button>
-            <Link to={configRoute.routes.adminOrders}></Link>
-         </Button>
-
          <DataTable column={columns} data={data} />
 
       </>

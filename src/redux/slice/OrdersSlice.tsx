@@ -34,8 +34,20 @@ export const getAllOrders = createAsyncThunk(
     }
   }
 );
+export const getOneOrder = createAsyncThunk(
+  "order/getOneOrder",
+  async (input: any, { rejectWithValue }) => {
+    try {
+      const { data } = await orderApi.getOne(input);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 const initialState: any = {
   orders: [],
+  order: {}
 };
 const OrderSlice = createSlice({
   name: "orders",
@@ -50,7 +62,9 @@ const OrderSlice = createSlice({
     builder.addCase(getAllOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
     });
-
+    builder.addCase(getOneOrder.fulfilled, (state, action) => {
+      state.order = action.payload;
+    });
     builder.addCase(createPaymeny.fulfilled, (state, action) => {
       state.orders.push(action.payload);
     });

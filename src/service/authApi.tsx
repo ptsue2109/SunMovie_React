@@ -21,7 +21,7 @@ export const AuthApi = {
     );
   },
   async forgotPassword(data: any): Promise<any> {
-    const url = "forgotPassword"
+    const url = "users_forgot_password"
     return AxiosRequest.post(url, data);
   },
   async getCurrentUser(): Promise<any> {

@@ -77,7 +77,8 @@ const routes = {
   AdminSeatByRoom: "/admin/seatsByRoom/:id",
   adminCategoryEdit: "/admin/categories/:id",
 
-  adminOrders: "/admin/orders"
+  adminOrders: "/admin/orders",
+  adminOrdersDetail: "/admin/orders/:id",
 };
 
 export default routes;

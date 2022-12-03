@@ -11,4 +11,7 @@ export const orderApi = {
   createPayment(data:any): Promise<any> {
     return axiosClient.post("/order/createPaymentUrl", data);
   },
+  getOne(data:any): Promise<any> {
+    return axiosClient.get(`/order/${data}`);
+  },
 };

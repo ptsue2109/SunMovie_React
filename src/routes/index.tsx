@@ -78,6 +78,7 @@ import EditCategory from "../pages/admin/categories/Edit";
 import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
 import ChooseCombo from "../components/client/ChooseCombo";
 import AdminOrders from "../pages/admin/Order/List";
+import AdminOrdersDetail from "../pages/admin/Order/Detail";
 type RoutesType = {
   path: string;
   component: any;
@@ -189,4 +190,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
 
   { path: configRoute.routes.adminOrders, component: AdminOrders },
+  { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
 ];
