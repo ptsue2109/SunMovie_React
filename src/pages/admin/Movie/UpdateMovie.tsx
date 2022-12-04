@@ -50,9 +50,9 @@ const UpdateMovies = (props: Props) => {
   };
   return (
     <>
-     <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies">List Movies</Link>
-        </Button>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to="/admin/movies">List Movies</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"

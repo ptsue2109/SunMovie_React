@@ -30,12 +30,12 @@ const AdminSlider = (props: Props) => {
   };
   const columnUserList: any = [
     {
-      title: "Image",
-      dataIndex: "image",
+      title: "Images",
+      dataIndex: "images",
       fixed: "left",
       // key: "image",
       render: (_: any, record: any) => (
-        <img width="150px" src={record?.image} alt="" />
+        <img width="150px" src={record?.images} alt="" />
       ),
       width: "200px",
     },
@@ -58,8 +58,6 @@ const AdminSlider = (props: Props) => {
       dataIndex: "url",
       render: (_: any, record: any) => <p>{record?.url}</p>,
     },
-   
-    
 
     {
       title: "ACTION",
@@ -90,11 +88,11 @@ const AdminSlider = (props: Props) => {
     return {
       key: index + 1,
       _id: item?._id,
-      image: item?.images[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      images: item?.images[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       title: item?.title,
       content: item?.content,
       url: item?.url,
-      
+      slug: item.slug,
     };
   });
 
