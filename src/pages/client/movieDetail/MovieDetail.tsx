@@ -6,12 +6,18 @@ import { GiFilmSpool } from "react-icons/gi";
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
-import { convertDateToNumber, formatDate, formatTime } from "../../../ultils";
+import {
+  convertDate,
+  convertDateToNumber,
+  formatDate,
+  formatTime,
+} from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
 import styled from "styled-components";
 import RelateMovie from "../RelateMovie";
+import moment from "moment";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -84,7 +90,7 @@ const MovieDetail = (props: Props) => {
       let dateNew: any = convertDateToNumber(date);
       setDateChoose(dateNew);
     };
-    const showtime: any = showTimeList.filter(
+    let showtime: any = showTimeList.filter(
       (item: any) => item.date == dateChoose
     );
     const getOneShowtime = showTimeList.find(
@@ -95,10 +101,17 @@ const MovieDetail = (props: Props) => {
       arrDate.push(item.date);
     });
     let today = new Date();
-    arrDate = arrDate.filter(
-      (item: any, index: any) =>
-        arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
-    );
+    arrDate = arrDate
+      .sort()
+      .filter(
+        (item: any, index: any) =>
+          arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
+      );
+
+    showtime = showtime
+      .sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
+      .filter((item: any) => convertDate(today) < convertDate(item.startAt));
+
     if (!showTimeList) return <div>Loading...</div>;
 
     return (
