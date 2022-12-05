@@ -12,6 +12,7 @@ import type { DatePickerProps } from "antd";
 import { DatePicker, Space } from "antd";
 import styled from "styled-components";
 import RelateMovie from "../RelateMovie";
+import Comente from "../comment";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -19,6 +20,7 @@ const MovieDetail = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
+  const [cometArr, setComentArr] = useState([]);
   const Toggle = (number: any) => {
     setActive(number);
   };
@@ -258,10 +260,19 @@ const MovieDetail = (props: Props) => {
               <GiFilmSpool />
               <span>Các phim khác</span>
             </button>
+            <button
+              onClick={() => Toggle(3)}
+              className={isActive == 3 ? styles.showTimesBtnActive : ""}
+            >
+              <span>Binh luan</span>
+            </button>
           </div>
           <RenderShowTime />
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <RelateMovie data={relateArr} />
+          </div>
+          <div className={isActive == 3 ? styles.showFilmList : "hidden"}>
+            <Comente data={cometArr} />
           </div>
         </div>
       </div>
