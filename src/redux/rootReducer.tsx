@@ -21,6 +21,7 @@ import WebConfigReducer from "./slice/webConfig";
 import SeatsReducer from "./slice/SeatSlice";
 import TicketDetailReducer from "./slice/TicketDetailSlice";
 import OrderReducer from "./slice/OrdersSlice";
+import ComenterReducer from "./slice/ComenteSlice";
 const persistConfig = {
   key: "root",
   storage,
@@ -46,7 +47,8 @@ const reducers = combineReducers({
   WebConfigReducer,
   SeatsReducer,
   TicketDetailReducer,
-  OrderReducer
+  OrderReducer,
+  ComenterReducer,
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 
