@@ -11,11 +11,11 @@ type Props = {};
 const CreateFood = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
+  const [avatarList, setAvatarList] = useState<any>([])
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
-    values.releaseDate = new Date(moment(values.releaseDate).format());
-    values.image = values.avatarList?.fileList;
-    delete values?.avatarList;
+    values.image = values.avatarList?.fileList[0]?.url;
+
     const { meta, payload } = await dispatch(createFood(values));
     if (meta.requestStatus == "fulfilled") {
       message.success("Thêm thành công");
@@ -24,15 +24,7 @@ const CreateFood = (props: Props) => {
       message.error(`${payload}`);
     }
   };
-  const config = {
-    rules: [
-      {
-        type: "object" as const,
-        required: true,
-        message: "Please select time!",
-      },
-    ],
-  };
+
   return (
     <>
       <Form
@@ -41,7 +33,10 @@ const CreateFood = (props: Props) => {
         onFinish={onFinish}
         autoComplete="off"
       >
-
+        <Form.Item label="Avatar" >
+          <ImageUpload imageList={avatarList} limit={1} />
+          <small>(Tải lên ít nhất 1 ảnh )</small>
+        </Form.Item>
         <Form.Item
           name="name"
           label="Name"
@@ -63,8 +58,7 @@ const CreateFood = (props: Props) => {
           name="status"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-        <Input />
-            
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -74,15 +68,6 @@ const CreateFood = (props: Props) => {
         >
           <Input />
         </Form.Item>
-
-        <Form.Item
-          name="size"
-          label="Size"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
