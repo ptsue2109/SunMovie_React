@@ -22,6 +22,7 @@ const routes = {
   loadingPushAccountInLocalStorage: "/loading",
   chooseCombo: "/combo",
   paymentStatus: "/payment-status",
+  step: "/step",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",

@@ -85,13 +85,7 @@ const UpdateFood = (props: Props) => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          name="size"
-          label="Size"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
+ 
 
         <Form.Item>
           <Button type="primary" htmlType="submit">

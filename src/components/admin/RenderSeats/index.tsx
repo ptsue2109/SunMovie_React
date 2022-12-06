@@ -7,6 +7,7 @@ import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
 import configRoute from "../../../config";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 type Props = {
   row: any;
   column: any;
@@ -42,10 +43,13 @@ const RenderSeats = ({
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     handleSubmit();
   }, [seats]);
+  const showModal = () => { setIsModalOpen(true) };
+  const handleCancel = () => { setIsModalOpen(false) };
+
 
   const getClassNameForSeats = (seatValue: any) => {
     let dynamicClass;
@@ -109,8 +113,6 @@ const RenderSeats = ({
     return flatten;
   };
   const info = (val: any) => {
-    console.log(val);
-
     Modal.info({
       title: `Seat infomatio`,
       content: (
@@ -149,7 +151,7 @@ const RenderSeats = ({
           </div>
         </div>
       ),
-      onOk() {},
+      onOk() { },
     });
   };
   const changeStatusSeat = (id: any, val: number) => {
@@ -165,11 +167,16 @@ const RenderSeats = ({
 
   const changeSeatType = (id: any, val: any) => {
     const payload = { seatId: [id], seatTypeId: val, roomId: roomId };
+    console.log(payload);
+
     dispatch(updateSeatThunk(payload))
       .unwrap()
-      .then(() => {
+      .then((res: any) => {
         dispatch(getOneSBSTById(roomId));
         message.success("Thay đổi loại ghế thành công");
+        handleCancel()
+        console.log('res', res);
+
       })
       .catch(() => message.error("Lỗi"));
   };
@@ -206,13 +213,11 @@ const RenderSeats = ({
   //table
   const columns: any[] = [
     { title: "STT", dataIndex: "key" },
-    { title: "id", dataIndex: "_id", width: 5 },
     { title: "position", dataIndex: "position" },
   ];
   const data: any[] = seatArr?.map((item: any, index: any) => {
     return {
       key: index + 1,
-      _id: item?._id,
       position: `${item?.row}${item?.column}`,
     };
   });
@@ -229,20 +234,18 @@ const RenderSeats = ({
     selectedRowKeys,
     onChange: onSelectChange,
   };
-  console.log("hihi", defaultStatus);
+
   const renderChoice = () => {
-    const showModal = () => {
-      setIsModalOpen(true);
-    };
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    };
     const onFinish = (val: any) => {
       const payload = {
         status: Number(optionsStatus),
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
       };
+      console.log('val', val);
+      console.log(payload);
+
+
       dispatch(updateSeatThunk(payload))
         .unwrap()
         .then(() => {
@@ -302,35 +305,45 @@ const RenderSeats = ({
       </>
     );
   };
+
+
   const renderSeatClick = () => {
     return (
-      <div className="w-full mt-3">
-        {selectedRowKeys.length >= 1 && (
-          <div className="flex gap-3">{renderChoice()}</div>
-        )}
-        <div style={{ width: "100%" }}>
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={data}
-            pagination={false}
-          />
-        </div>
-      </div>
+      <>
+        {seatArr?.length >= 1 && <div className="w-full mt-3">
+          {selectedRowKeys.length >= 1 && (
+            <div className="flex gap-3">{renderChoice()}</div>
+          )}
+          <div style={{ width: "100%" }}>
+            <TableCustom
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={data}
+              pagination={false}
+              scroll={{ y: 250 }}
+
+            />
+          </div>
+        </div>}
+
+      </>
     );
   };
+
+
   return (
     <div className="flex overflow-hidden gap-3">
       <div className="col-8 p-5">{RenderSeatsContain()}</div>
-      <div className="col-4 ">{renderSeatClick()}</div>
-      <div>
-        {seatArrSelect &&
-          seatArrSelect?.map((item: any) => (
-            <div key={item?._id}>{item?._id}</div>
-          ))}
-      </div>
+      <div className="col-4 "> {renderSeatClick()}</div>
+
     </div>
   );
 };
 
 export default RenderSeats;
+
+
+const TableCustom = styled(Table)`
+
+  
+`

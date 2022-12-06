@@ -80,6 +80,7 @@ import ChooseCombo from "../components/client/ChooseCombo";
 import AdminOrders from "../pages/admin/Order/List";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import PaymentStatus from "../components/client/PaymentStatus";
+import PaymentStep from "../components/client/PaymentStep";
 type RoutesType = {
   path: string;
   component: any;
@@ -108,7 +109,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage },
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
-  // { path: configRoute.routes.paymentStatusSuccess, component: PaymentStatus },
+ { path: configRoute.routes.step, component: PaymentStep },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
