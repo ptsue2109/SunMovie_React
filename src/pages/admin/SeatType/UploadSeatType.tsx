@@ -53,7 +53,7 @@ const UploadSeatType = (props: Props) => {
         <Form.Item
           name="name"
           label="Name"
-          rules={[{ required: true, message: "Không được để trống! ", min: 5 }]}
+          rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
         </Form.Item>
