@@ -25,6 +25,13 @@ export const getComente = createAsyncThunk(
   }
 );
 
+export const listCommentByMovie = createAsyncThunk(
+  "comente/listCommentByMovie",
+  async (id: string) => {
+    return await Comenter.listByMovies(id);
+  }
+);
+
 export const removeComente = createAsyncThunk(
   "comente/remove",
   async (id: any, { rejectWithValue }) => {
@@ -85,6 +92,21 @@ const ComenterSlice = createSlice({
     });
     // list
 
+    builder.addCase(listCommentByMovie.pending, (state, action) => {
+      state.errMess = action.payload;
+      //   state.isFetching = true;
+      //   state.isSucess = false;
+    });
+    builder.addCase(listCommentByMovie.fulfilled, (state, action) => {
+      state.commenter = action.payload;
+    });
+    builder.addCase(listCommentByMovie.rejected, (state, action) => {
+      state.errMess = true;
+      //   state.isFetching = false;
+      //   state.isSucess = false;
+    });
+
+    //commentByMovie
     builder.addCase(getComente.pending, (state, action) => {
       state.errMess = action.payload;
       //   state.isFetching = true;

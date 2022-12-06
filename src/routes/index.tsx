@@ -81,6 +81,7 @@ import AdminOrders from "../pages/admin/Order/List";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import PaymentStatus from "../components/client/PaymentStatus";
 import PaymentStep from "../components/client/PaymentStep";
+import ListCommentMovie from "../pages/admin/comment";
 type RoutesType = {
   path: string;
   component: any;
@@ -195,4 +196,5 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminOrders, component: AdminOrders },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
+  { path: configRoute.routes.adminListCommentMovie, component: ListCommentMovie },
 ];

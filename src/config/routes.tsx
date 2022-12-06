@@ -14,7 +14,7 @@ const routes = {
   profile: "/profile",
   verify: "/verify",
   voucherDetail: "/voucher/:id",
-  payment:"/payment",
+  payment: "/payment",
   forgotPass: "/forgot-password",
   resetPassword: "/reset-password",
   contact: "/contact",
@@ -81,6 +81,7 @@ const routes = {
 
   adminOrders: "/admin/orders",
   adminOrdersDetail: "/admin/orders/:id",
+  adminListCommentMovie: "/admin/movieComment/:id",
 };
 
 export default routes;
