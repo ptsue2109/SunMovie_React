@@ -81,7 +81,7 @@ const Comente = (props: Props) => {
                         { required: true, message: "Không được để trống! " },
                       ]}
                     >
-                      <Rate className="" value={5} />
+                      <Rate className="" defaultValue={5} />
                     </Form.Item>
                   </div>
                   <button
