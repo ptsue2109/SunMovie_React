@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, message, Select } from "antd";
+import { Button, DatePicker, Form, Input, InputNumber, message, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { createFood } from "../../../redux/slice/FoodSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
-import moment from "moment";
+import { validateMessages } from "../../../ultils/FormMessage"
 import ImageUpload from "../../../components/upload";
+import FoodForm from "../../../components/admin/Form&Table/FoodForm";
 type Props = {};
 
 const CreateFood = (props: Props) => {
@@ -14,8 +15,7 @@ const CreateFood = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any>([])
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
-    values.image = values.avatarList?.fileList[0]?.url;
-
+    values.image = values.avatarList?.fileList;    
     const { meta, payload } = await dispatch(createFood(values));
     if (meta.requestStatus == "fulfilled") {
       message.success("Thêm thành công");
@@ -27,53 +27,10 @@ const CreateFood = (props: Props) => {
 
   return (
     <>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.Item label="Avatar" >
-          <ImageUpload imageList={avatarList} limit={1} />
-          <small>(Tải lên ít nhất 1 ảnh )</small>
-        </Form.Item>
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="price"
-          label="Price"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Status"
-          name="status"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="stock"
-          label="Stock"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminFood}>List Food</Link>
+      </Button>
+      <FoodForm onFinish={onFinish} form={form} avatarList={avatarList} setAvatarList={setAvatarList} />
     </>
   );
 };

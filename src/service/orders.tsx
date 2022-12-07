@@ -14,4 +14,5 @@ export const orderApi = {
   getOne(data:any): Promise<any> {
     return axiosClient.get(`/order/${data}`);
   },
+  
 };

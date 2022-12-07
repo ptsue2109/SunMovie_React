@@ -69,15 +69,10 @@ export const searchFood = createAsyncThunk(
     }
   }
 );
-//  const FoodState = {
-//   Food: any[];
-//   isFetching: boolean;
-//   isSucess: boolean;
-//   errMess: boolean;
-// };
+
 const initialState: any = {
   food: [],
-  oneFood: [],
+  localFood: [],
   errMess: false,
   FoodSearch: [],
 };
@@ -89,53 +84,39 @@ const FoodSlice = createSlice({
     // create
     builder.addCase(createFood.pending, (state, action) => {
       state.errMess = false;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
     });
     builder.addCase(createFood.fulfilled, (state, action) => {
-      //   state.errMess = false;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
       state.food.push(action.payload);
     });
     builder.addCase(createFood.rejected, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
+
     });
     // list
     builder.addCase(getFood.pending, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
+
     });
     builder.addCase(getFood.fulfilled, (state, action) => {
       state.food = action.payload;
     });
     builder.addCase(getFood.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     // remove
     builder.addCase(removeFoodItem.fulfilled, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
+
       state.food = state.food.filter(
         (x: any) => x._id !== action.payload._id
       );
     });
     builder.addCase(EditFood.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     // update
     builder.addCase(EditFood.fulfilled, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
       state.food = state.food.map((item: any) => {
         if (item._id !== action.payload._id) {
           return item;
@@ -156,8 +137,6 @@ const FoodSlice = createSlice({
     });
     builder.addCase(getOneFood.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     builder.addCase(searchFood.fulfilled, (state, action) => {
       state.FoodSearch = action.payload;

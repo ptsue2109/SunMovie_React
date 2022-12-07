@@ -9,7 +9,7 @@ import { validateMessages } from "../../../ultils/FormMessage";
 import { createOrder, createPaymeny } from "../../../redux/slice/OrdersSlice";
 import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getticketDetailById } from "../../../redux/slice/ticketSlice";
-
+import { updateData } from "../../../redux/slice/voucherSlice";
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 12 },
@@ -29,23 +29,26 @@ const Payment = (props: Props) => {
   const [CODE, setCODE] = useState<any>('');
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
+  const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [form] = Form.useForm();
-  const { movie } = useAppSelector((state) => state.movie)
+  const { movie } = useAppSelector((state: any) => state.movie)
   const upperText = (text: any) => { return text.toUpperCase() };
   const { state } = useLocation();
+
   let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
 
   useEffect(() => {
     if (state && movieSelect) {
       setInfo(state?.populatedDetail);
       setData(state?.ticket)
-      setTempPrice(state?.ticket?.totalPrice);
-      setPriceAfterDiscount(state?.ticket?.totalPrice);
-      setMovieDetail(movieSelect)
+      setTempPrice(state?.finalPrice);
+      setPriceAfterDiscount(state?.finalPrice);
+      setMovieDetail(movieSelect);
     }
+
 
   }, [state, movieSelect])
 
@@ -59,7 +62,7 @@ const Payment = (props: Props) => {
     });
   }, []);
 
-  const checkCode = (codeVal: any, e:Event) => {
+  const checkCode = (codeVal: any, e: Event) => {
     e.preventDefault();
     e.stopPropagation()
     if (codeVal.length >= 1) {
@@ -71,31 +74,16 @@ const Payment = (props: Props) => {
     }
   };
 
-  const onFinish = (val: any) => {
-    let payload = {
-      userId: currentUser?._id,
-      ticketId: data?._id,
-      totalPrice: priceAfterDiscount,
-      bankCode: val.paymentType,
-      orderDescription: "thanh toan",
-      orderType: "billpayment",
-      language: ""
-    }
-    console.log(payload);
-
-    dispatch(createPaymeny(payload)).unwrap()
-      .then((res: any) => {
-        window.location.href = `${res}`
-      })
-      .catch((err: any) => message.error(`${err}`))
-
-  }
-
 
   const handle = () => {
     if (CODE) {
       let upper = upperText(CODE);
       let item = vouchers.find((item: any) => item?.code === upper);
+      let checkUsed = item?.userId?.find((val: any) => val?._id === currentUser?._id)
+      console.log('checkUsed', checkUsed);
+
+      console.log(item);
+
       if (item === undefined) {
         setVoucherMess("Không tìm thấy mã voucher");
       } else if (isPast(parseISO(item?.timeEnd))) {
@@ -108,25 +96,18 @@ const Payment = (props: Props) => {
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
         if (tempPrice < vcValue) {
           setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
-        } else if (item?.userId) {
-          if (item?.userId?.find((item: any) => item?._id === currentUser?._id)) {
-            setVoucherMess("bạn đã sử dụng voucher này");
-          } else {
-            if (item?.condition === 1) {
-              setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
-            } else {
-              let price: any = discountPercent(tempPrice, vcDiscount)
-              setPriceAfterDiscount(price);
-            }
-          }
+        } else if (checkUsed) {
+          setVoucherMess("bạn đã sử dụng voucher này");
         }
-        else {
+        else  {
+
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
           } else {
             let price: any = discountPercent(tempPrice, vcDiscount)
             setPriceAfterDiscount(price);
           }
+          message.info("Đã áp dụng mã giảm giá")
         }
 
         setVoucherMess("")
@@ -135,6 +116,33 @@ const Payment = (props: Props) => {
       setVoucherMess("")
       setPriceAfterDiscount(tempPrice)
     }
+  }
+
+  const onFinish = (val: any) => {
+    let payload = {
+      userId: currentUser?._id,
+      ticketId: data?._id,
+      totalPrice: priceAfterDiscount,
+      bankCode: val.paymentType,
+      orderDescription: "thanh toan",
+      orderType: "billpayment",
+      language: "",
+      foodDetailId: state?.foodDetailId,
+    }
+    dispatch(createPaymeny(payload)).unwrap()
+      .then((res: any) => {
+        window.location.href = `${res}`;
+        let voucherChange = {
+          _id: voucherItem?._id,
+          quantity: voucherItem?.quantity - 1,
+          userId: [...voucherItem?.userId, currentUser?._id]
+        }
+        dispatch(updateData(voucherChange)).unwrap()
+          .then(() => console.log('success'))
+          .catch(() => console.log('errr'))
+      })
+      .catch((err: any) => message.error(`${err}`))
+
   }
 
 
@@ -179,7 +187,7 @@ const Payment = (props: Props) => {
 
               <div className="">
                 <Form.Item name="voucherCode" label="Mã giảm giá" >
-                  <Input onChange={(e: any) => checkCode(e?.target?.value, e )} />
+                  <Input onChange={(e: any) => checkCode(e?.target?.value, e)} />
                 </Form.Item>
                 <small className="text-danger ml-[170px]">{voucherMess}</small>
               </div>
@@ -253,7 +261,10 @@ const Payment = (props: Props) => {
                 <b>Suất chiếu</b>:  {info && formatTime(info[0]?.showTimeId?.startAt)} |  {formatDateString(info[0]?.showTimeId?.date)}
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Combo</b>:
+                <b>Combo</b>: {state?.foodDetail?.map((item: any) => (
+                  <span key={item?.foodId?._id}>{item?.foodId?.name}({item?.quantity}) </span>
+                ))}
+
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
                 <b>Ghế</b>: {info && info?.map((item: any) => (

@@ -15,7 +15,7 @@ const WebConfigCreate = (props: Props) => {
    const dispatch = useAppDispatch();
    const navigate = useNavigate()
    const [avatarList, setAvatarList] = useState([]);
-
+   const [hiddenBtn, setHiddenBtn] = useState(true)
    useEffect(() => { document.title = "Admin | Config Store - Create" }, []);
 
    const onFinish = (values: any) => {
@@ -39,6 +39,7 @@ const WebConfigCreate = (props: Props) => {
             onReset={onReset}
             avatarList={avatarList}
             setAvatarList={setAvatarList}
+            hiddenBtn={hiddenBtn}
          />
       </>
    );

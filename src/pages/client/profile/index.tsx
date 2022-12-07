@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../redux/hook";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import styles from "./profile.module.scss";
-import { Table, notification } from "antd";
+import { Table, Card, Button, Modal } from "antd";
 import InfoUser from "../../../components/client/profile/InfoUser";
 import Avatar from "../../../components/client/profile/Avatar";
 import configRoute from "../../../config";
+import { formatCurrency, formatDateString } from "../../../ultils";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import Ticket from "../../../components/client/Ticket";
+import { getOneOrder } from "../../../redux/slice/OrdersSlice";
 type Props = {};
 
 const Profile = (props: Props) => {
-  const { currentUser, isLogged } = useAppSelector(
-    (state) => state.authReducer
-  );
+  const { currentUser, isLogged } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state: any) => state.userReducer);
+  const { orders } = useAppSelector((state: any) => state.OrderReducer);
+  const [open, setOpen] = useState(false);
+  const [yourOrder, setYourOrder] = useState<any>([])
+  const [orderID, setOrderID] = useState<any>()
+  const [orderDetail, setOrderDetail] = useState<any>();
+  const [detail, setDetail] = useState<any>();
+  const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
   const id = currentUser._id;
   const user = users?.find((item: any) => item._id === id);
   const [isActive, setActive] = useState(1);
@@ -20,63 +29,79 @@ const Profile = (props: Props) => {
     setActive(number);
   };
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!user) {
-  //     notification.info({
-  //       message: 'Bạn cần đăng nhập để thực hiện chức năng này'
-  //     });
-  //     setTimeout(() => {
-  //       navigate(configRoute.routes.signin)
-  //     }, 5000);
-  //   }
-  // }, [user]);
+  const dispatch = useAppDispatch();
 
-  const columns: any[] = [
+  const handle = (id: any) => { setOrderID(id) }
+  useEffect(() => {
+    if (orders) {
+      let a = orders?.filter((item: any) => item?.userId?._id === user?._id); setYourOrder(a);
+    }
+  }, [orders]);
+
+  useEffect(() => {
+    dispatch(getOneOrder(orderID))
+  }, [orderID]);
+  const { order } = useAppSelector((state: any) => state.OrderReducer);
+
+  useEffect(() => {
+    if (order) {
+      setOrderDetail(order?.order);
+      setDetail(order?.detail);
+      let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice );
+      setTotalPriceFinal(price);
+    }
+  }, [order]);
+
+  const columns = [
     {
-      title: "Mã vé",
-      dataIndex: "name",
-      key: "name",
-      render: (text: any) => <a>{text}</a>,
+      title: "Ngày đặt",
+      dataIndex: "createdAt",
+      render: (_: any, { createdAt }: any) => formatDateString(createdAt)
     },
     {
-      title: "Tên phim",
-      dataIndex: "address",
-      key: "address",
+      title: "Mã đơn hàng",
+      dataIndex: "shortId",
+      render: (_: any, { shortId, _id }: any) => (
+        <>
+          <Button type="link" onClick={() =>{ handle(_id); setOpen(true)}}>{shortId}</Button>
+          <Modal
+            title={`Đơn hàng ${shortId}`}
+            centered
+            open={open}
+            onOk={() => setOpen(false)}
+            onCancel={() => setOpen(false)}
+            width={1000}
+          >
+            {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal} />}
+
+
+          </Modal>
+        </>
+      )
+
     },
     {
-      title: "Thời gian đặt",
-      dataIndex: "address",
-      key: "address",
+      title: "Số tiền thanh toán",
+      dataIndex: "totalPrice",
+      render: (_: any, { totalPrice }: any) => formatCurrency(totalPrice),
     },
     {
-      title: "Số ghế",
-      dataIndex: "address",
-      key: "address",
+      title: "Trạng Thái",
+      dataIndex: "status",
+      render: (_: any, record: any) => <p>{record?.status === 1 ? 'Đã thanh toán' : "chưa thanh toán"}</p>
     },
-  ];
-  const data: any[] = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+
+  ]
+  const data: any[] = yourOrder?.map((item: any, index: any) => {
+    return {
+      key: index + 1,
+      shortId: item?.shortId,
+      totalPrice: item?.totalPrice,
+      status: item?.status,
+      createdAt: item?.createdAt,
+      _id: item?._id
+    }
+  })
   return (
     <>
       <div className={styles.container}>
@@ -122,7 +147,8 @@ const Profile = (props: Props) => {
           </div>
           {/* history */}
           <div className={isActive == 3 ? styles.history : "hidden"}>
-            <Table columns={columns} dataSource={data} />;
+            <Card>Bạn có {yourOrder?.length} đơn hàng</Card>
+            <DataTable column={columns} data={data} />
           </div>
         </div>
       </div>

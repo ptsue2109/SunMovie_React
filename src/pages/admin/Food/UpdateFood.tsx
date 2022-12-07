@@ -1,11 +1,10 @@
-import { Button, DatePicker, Form, Input, message, Select } from "antd";
+import { Button, Form, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { EditFood } from "../../../redux/slice/FoodSlice";
-import moment from "moment";
-
+import FoodForm from "../../../components/admin/Form&Table/FoodForm";
 
 type Props = {};
 
@@ -15,24 +14,24 @@ const UpdateFood = (props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { food, errMess } = useAppSelector((state) => state.food); //
+  const { food, errMess } = useAppSelector((state) => state.food);
   const data = food.find((item: any) => item._id === id);
+  const [avatarList, setAvatarList] = useState<any>([])
+
   useEffect(() => {
     if (data) {
+      setAvatarList(data?.image as any[]);
       form.setFieldsValue({
         ...data,
-        releaseDate: moment(data.releaseDate),
       });
     }
   }, [data]);
 
   const onFinish = async (values: any) => {
     values._id = id;
-    values.releaseDate = new Date(moment(values.releaseDate).format());
     let imageOld = values.avatarList?.fileList;
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
-    delete values?.imageOld;
     dispatch(EditFood(values))
       .unwrap()
       .then(() => {
@@ -45,54 +44,10 @@ const UpdateFood = (props: Props) => {
   };
   return (
     <>
-     <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="price"
-          label="Price"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Status"
-          name="status"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-        <Input />
-            
-        </Form.Item>
-
-        <Form.Item
-          name="stock"
-          label="Stock"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
- 
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminFood}>List Food</Link>
+      </Button>
+      <FoodForm onFinish={onFinish} form={form} avatarList={avatarList} setAvatarList={setAvatarList} />
     </>
   );
 };
