@@ -30,18 +30,7 @@ type Props = {
   showTable?: any;
 };
 const { Option } = Select;
-const RenderSeats = ({
-  row,
-  column,
-  seats,
-  setSeats,
-  seatDetails,
-  setSeatDetails,
-  seatFile,
-  setSeatFile,
-  roomId,
-  showTable,
-}: Props) => {
+const RenderSeats = ({ row, column, seats, setSeats, seatDetails, setSeatDetails, seatFile, setSeatFile, roomId, showTable, }: Props) => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
@@ -186,21 +175,14 @@ const RenderSeats = ({
       let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
-          <span
-            className={getClassNameForSeats(seatValue?.status)}
-            onClick={() => {
-              onSeatClick(seatValue, rowIndex, key);
-            }}
-            onDoubleClick={() => {
-              info(seatValue);
-            }}
-          >
+          <span className={getClassNameForSeats(seatValue?.status)} onClick={() => { onSeatClick(seatValue, rowIndex, key) }} onDoubleClick={() => { info(seatValue) }}>
             {rowIndex + 1}
           </span>
 
           {seatDetails && rowIndex === seatDetails[key].length - 1 && (
-            <>
-              <br /> <br />
+            < >
+             <br /> 
+             <br />
             </>
           )}
         </span>
@@ -263,12 +245,8 @@ const RenderSeats = ({
           .catch(() => message.error("Lỗi update"));
       }
     };
-    const getStatusChoice = (val: any) => {
-      setOptionsStatus(val);
-    };
-    const getSeatTypeChoice = (val: any) => {
-      setOptionsSeatTpe(val);
-    };
+    const getStatusChoice = (val: any) => { setOptionsStatus(val) };
+    const getSeatTypeChoice = (val: any) => { setOptionsSeatTpe(val) };
 
     return (
       <>

@@ -46,9 +46,9 @@ const WebConfig = (props: Props) => {
       title: "Status",
       key: "status",
       dataIndex: "status",
-      render: (_: any, {isMaintaince}: any) => (
+      render: (_: any, { isMaintaince }: any) => (
         <Tag color={isMaintaince === false ? "blue" : "red"}>
-          {isMaintaince === false ? `Đang hoạt động` : ` Đang bảo trì` }
+          {isMaintaince === false ? `Đang hoạt động` : ` Đang bảo trì`}
         </Tag>
       ),
       width: 150,

@@ -25,8 +25,6 @@ const AdminShowTimesCreate = (_props: Props) => {
   useEffect(() => { document.title = "Admin | Create - ShowTimes" }, [])
 
   const onFinish = async (values: any) => {
-    console.log('timeEnf', timeEnd)
-
     values.startAt = new Date(moment(values.timeStart).format());
     values.endAt = new Date(moment(values.timeEnd).format());
     values.date = values.startAt

@@ -172,7 +172,7 @@ const Dashboard = (props: Props) => {
 
         // order
         const { data: orderData, status: orderStatus } =
-          await orderApi.getAll();
+          await orderApi.getAllOrder();
         setDataOrder(orderData);
         if (orderStatus == 200) setTotalPost(orderData?.length);
       } catch (error) {
@@ -187,17 +187,16 @@ const Dashboard = (props: Props) => {
         {statOrder?.map((item, index) => (
           <div
             key={index}
-            className={`bg-white p-3 rounded-md ${
-              item.status === 0
+            className={`bg-white p-3 rounded-md ${item.status === 0
                 ? "order__card-item--new"
                 : item.status === 1
-                ? "order__card-item--verified"
-                : item.status === 2
-                ? "order__card-item--progress"
-                : item.status === 3
-                ? "order__card-item--success"
-                : "order__card-item--cancel"
-            }`}
+                  ? "order__card-item--verified"
+                  : item.status === 2
+                    ? "order__card-item--progress"
+                    : item.status === 3
+                      ? "order__card-item--success"
+                      : "order__card-item--cancel"
+              }`}
           >
             <div className="">
               <div className="flex items-center justify-between">

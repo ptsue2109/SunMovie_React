@@ -13,6 +13,7 @@ const AdminOrdersDetail = (props: Props) => {
    const dispatch = useAppDispatch();
    const [orderDetail, setOrderDetail] = useState<any>();
    const [detail, setDetail] = useState<any>();
+   const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
    useEffect(() => {
       dispatch(getOneOrder(id));
    }, [id]);
@@ -24,6 +25,8 @@ const AdminOrdersDetail = (props: Props) => {
       if (order) {
          setOrderDetail(order?.order);
          setDetail(order?.detail);
+         let price = (order?.order?.foodDetailId?.totalPrice) + (order?.order?.totalPrice);
+         setTotalPriceFinal(price);
       }
    }, [order]);
    return (
@@ -31,7 +34,7 @@ const AdminOrdersDetail = (props: Props) => {
          <Button type="primary" style={{ marginBottom: "20px" }}>
             <Link to="/admin/orders">List orders</Link>
          </Button>
-         {order && <Ticket detail={detail} order={orderDetail} />}
+         {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal} />}
       </div>
    );
 };

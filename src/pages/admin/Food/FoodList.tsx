@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Image,
-} from "antd";
+import { Button, message, Popconfirm, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeFoodItem } from "../../../redux/slice/FoodSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { formatCurrency } from "../../../ultils";
 
 type Props = {};
 
@@ -22,44 +15,40 @@ const FoodList = (props: Props) => {
   const deleteFood = (data: string | undefined) => {
     dispatch(removeFoodItem(data))
       .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errMess } });
-      });
+      .then(() => { message.success({ content: "Xoá thành công", key: "handling" }) })
+      .catch(() => { message.error({ content: { errMess } }) });
   };
   const columnUserList: any = [
     {
+      title: "Image",
+      dataIndex: "image",
+      render: (_: any, { image, _id }: any) => <Link to={_id}><img src={image} style={{ width: '40px', height: '40px' }} /></Link>,
+      width: 40
+    },
+    {
       title: "Name",
       dataIndex: "name",
-      render: (_: any, record: any) => <p>{record?.name}</p>,
-      width: "200px",
+      render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
       title: "Price",
       dataIndex: "price",
-      render: (_: any, record: any) => <p>{record?.price}</p>,
-      width: "200px",
+      render: (_: any, record: any) => <p>{formatCurrency(record?.price)}</p>,
+      width: 140
     },
 
     {
       title: "Status",
       dataIndex: "status",
-      render: (_: any, record: any) => <p>{record?.status}</p>,
-      width: "200px",
+      render: (_: any, record: any) => <p>{record?.status===0 ? "Đang bán" : "Ngừng bán"}</p>,
     },
     {
       title: "Stock",
       dataIndex: "stock",
       render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
-    {
-      title: "Size",
-      dataIndex: "size",
-      render: (_: any, record: any) => <p>{record?.size}</p>,
-    },
+
 
     {
       title: "ACTION",
@@ -93,12 +82,12 @@ const FoodList = (props: Props) => {
       name: item?.name,
       price: item?.price,
       stock: item?.stock,
-      size: item?.size,
       status: item?.status,
+      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
     };
   });
- console.log(data);
- 
+  console.log(data);
+
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
@@ -107,7 +96,6 @@ const FoodList = (props: Props) => {
       <DataTable
         column={columnUserList}
         data={data}
-        scrollWidth={{ x: 2000 }}
       />
     </div>
   );

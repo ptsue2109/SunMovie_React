@@ -22,12 +22,6 @@ import UserEdit from "../pages/admin/User/Update";
 import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 import ListMovieType from "../pages/admin/MovieType/ListMovieType";
 
-import ListAddminTicket from "../pages/admin/Ticket/ListTicket";
-import CreateTicket from "../pages/admin/Ticket/Create";
-import UploadTicket from "../pages/admin/Ticket/Upload";
-import ListTicketPrice from "../pages/admin/Ticket/ListTicketPrice";
-import CreateTicketPrice from "../pages/admin/Ticket/CreateTicketPrice";
-import UploadTicketPrice from "../pages/admin/Ticket/UploadTicketPrice";
 
 import ListSeatType from "../pages/admin/SeatType/ListSeatType";
 import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
@@ -81,6 +75,9 @@ import AdminOrders from "../pages/admin/Order/List";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import PaymentStatus from "../components/client/PaymentStatus";
 import PaymentStep from "../components/client/PaymentStep";
+import FailedOrder from "../pages/admin/Order/FailedOrder";
+import Ticket from "../components/client/Ticket";
+import ProfileOrder from "../pages/client/profile/ProfileOrder";
 type RoutesType = {
   path: string;
   component: any;
@@ -110,6 +107,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
  { path: configRoute.routes.step, component: PaymentStep },
+ { path: configRoute.routes.profileOrder, component: ProfileOrder },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -132,20 +130,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
   { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider },
 
-  { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
-  { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
-  { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
-
-  { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
-
-  {
-    path: configRoute.routes.adminTicketPriceUpdate,
-    component: UploadTicketPrice,
-  },
-  {
-    path: configRoute.routes.adminTicketPriceAdd,
-    component: CreateTicketPrice,
-  },
 
   { path: configRoute.routes.adminSeatType, component: ListSeatType },
   { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
@@ -195,4 +179,6 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.adminOrders, component: AdminOrders },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
+  { path: configRoute.routes.adminOrderFailed, component: FailedOrder },
+
 ];
