@@ -60,7 +60,8 @@ const Payment = (props: Props) => {
   }, []);
 
   const checkCode = (codeVal: any, e:Event) => {
-    e?.preventDefault()
+    e.preventDefault();
+    e.stopPropagation()
     if (codeVal.length >= 1) {
       setCODE(codeVal)
     } else {
@@ -238,6 +239,7 @@ const Payment = (props: Props) => {
           <img
             src={movieSelect?.image[0]?.url}
             alt=""
+            className=" h-[140px]"
           />
         </div>
         <h1 className="font-bold uppercase px-4 pt-2">{movieSelect?.name}</h1>

@@ -23,7 +23,8 @@ const SignUp = (props: Props) => {
           `Chào ${payload?.username ?? payload?.email}, vui lòng vào email để xác nhận tài khoản!`,
       });
       setTimeout(() => {
-        form.resetFields()
+        form.resetFields();
+        navigate(config.routes.signin)
       }, 2000);
     } else {
       notification.error({

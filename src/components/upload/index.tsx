@@ -81,7 +81,7 @@ const ImageUpload = (props: Props) => {
         maxCount={props.limit}
         onChange={handleChange}
         onPreview={handlePreview}>
-        {fileList.length >= props.limit ? null : uploadButton}
+        {fileList?.length >= props?.limit ? null : uploadButton}
       </Upload>
     </Form.Item>
     <Modal

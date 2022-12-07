@@ -76,7 +76,7 @@ export const RenderInfoSeats = ({
       .then((payload: any) => {
         console.log(payload);
         //@ts-ignore
-        navigate('/payment', { state: payload })
+        navigate('/combo', { state: payload })
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {
@@ -115,7 +115,7 @@ export const RenderInfoSeats = ({
               onClick={() => onSubmit()}
               className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12"
             >
-              Thanh Toán
+              Tiếp tục
             </button>
           )}
         </div>
