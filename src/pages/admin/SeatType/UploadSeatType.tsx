@@ -1,4 +1,4 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, InputNumber, message } from "antd";
 import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
@@ -62,7 +62,13 @@ const UploadSeatType = (props: Props) => {
           label="extraPrice"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <InputNumber
+            min={100000}
+            formatter={(value) =>
+              `${value} VND`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            }
+            style={{ width: "100%" }}
+          />
         </Form.Item>
         <Form.Item
           name="color"
