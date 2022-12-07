@@ -17,7 +17,9 @@ type Props = {};
 
 const AdminSlider = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { slider, errMess } = useAppSelector((state) => state.slider);
+  const { slider, errMess, isFetching } = useAppSelector(
+    (state) => state.slider
+  );
   const deleteSlider = (data: string | undefined) => {
     dispatch(removeSliderItem(data))
       .unwrap()
@@ -30,12 +32,12 @@ const AdminSlider = (props: Props) => {
   };
   const columnUserList: any = [
     {
-      title: "Images",
-      dataIndex: "images",
+      title: "Image",
+      dataIndex: "image",
       fixed: "left",
       // key: "image",
       render: (_: any, record: any) => (
-        <img width="150px" src={record?.images} alt="" />
+        <img width="150px" src={record?.image} alt="" />
       ),
       width: "200px",
     },
@@ -88,24 +90,30 @@ const AdminSlider = (props: Props) => {
     return {
       key: index + 1,
       _id: item?._id,
-      images: item?.images[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      image: item?.images[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       title: item?.title,
       content: item?.content,
       url: item?.url,
-      slug: item.slug,
     };
   });
 
   return (
+    // <div>
+    //   <Button type="primary" style={{ marginBottom: "20px" }}>
+    //     <Link to="/admin/slider/create">Create Slider</Link>
+    //   </Button>
+    //   <DataTable
+    //     column={columnUserList}
+    //     data={data}
+    //     scrollWidth={{ x: 2000 }}
+    //     loading={isFetching}
+    //   />
+    // </div>
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/slider/create">Create Slider</Link>
       </Button>
-      <DataTable
-        column={columnUserList}
-        data={data}
-        scrollWidth={{ x: 2000 }}
-      />
+      <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>
   );
 };
