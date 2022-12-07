@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Select, Steps } from "antd";
+import { Button, Form, Input, message, notification, Popconfirm, Select, Steps } from "antd";
 import style from "./Payment.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import React, { useState, useEffect } from "react";
@@ -10,6 +10,7 @@ import { createOrder, createPaymeny } from "../../../redux/slice/OrdersSlice";
 import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getticketDetailById } from "../../../redux/slice/ticketSlice";
 import { updateData } from "../../../redux/slice/voucherSlice";
+import Swal from "sweetalert2";
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 12 },
@@ -37,7 +38,7 @@ const Payment = (props: Props) => {
   const { movie } = useAppSelector((state: any) => state.movie)
   const upperText = (text: any) => { return text.toUpperCase() };
   const { state } = useLocation();
-
+  const [open, setOpen] = useState(false)
   let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
 
   useEffect(() => {
@@ -48,8 +49,6 @@ const Payment = (props: Props) => {
       setPriceAfterDiscount(state?.finalPrice);
       setMovieDetail(movieSelect);
     }
-
-
   }, [state, movieSelect])
 
   useEffect(() => {
@@ -80,10 +79,6 @@ const Payment = (props: Props) => {
       let upper = upperText(CODE);
       let item = vouchers.find((item: any) => item?.code === upper);
       let checkUsed = item?.userId?.find((val: any) => val?._id === currentUser?._id)
-      console.log('checkUsed', checkUsed);
-
-      console.log(item);
-
       if (item === undefined) {
         setVoucherMess("Không tìm thấy mã voucher");
       } else if (isPast(parseISO(item?.timeEnd))) {
@@ -99,7 +94,7 @@ const Payment = (props: Props) => {
         } else if (checkUsed) {
           setVoucherMess("bạn đã sử dụng voucher này");
         }
-        else  {
+        else {
 
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
@@ -129,19 +124,36 @@ const Payment = (props: Props) => {
       language: "",
       foodDetailId: state?.foodDetailId,
     }
-    dispatch(createPaymeny(payload)).unwrap()
-      .then((res: any) => {
-        window.location.href = `${res}`;
-        let voucherChange = {
-          _id: voucherItem?._id,
-          quantity: voucherItem?.quantity - 1,
-          userId: [...voucherItem?.userId, currentUser?._id]
-        }
-        dispatch(updateData(voucherChange)).unwrap()
-          .then(() => console.log('success'))
-          .catch(() => console.log('errr'))
-      })
-      .catch((err: any) => message.error(`${err}`))
+    Swal.fire({
+      title: 'Bạn có chắc muốn thanh toán',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          '', '',
+          'success'
+        )
+        dispatch(createPaymeny(payload)).unwrap()
+          .then((res: any) => {
+            window.location.href = `${res}`;
+            let voucherChange = {
+              _id: voucherItem?._id,
+              quantity: voucherItem?.quantity - 1,
+              userId: [...voucherItem?.userId, currentUser?._id]
+            }
+            dispatch(updateData(voucherChange)).unwrap()
+              .then(() => console.log('success'))
+              .catch(() => console.log('errr'))
+          })
+          .catch((err: any) => message.error(`${err}`))
+      }
+    })
+
 
   }
 
