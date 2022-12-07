@@ -28,6 +28,7 @@ const AdminSlider = (props: Props) => {
         message.error({ content: { errMess } });
       });
   };
+  //food
   const columnUserList: any = [
     {
       title: "Image",
@@ -58,8 +59,6 @@ const AdminSlider = (props: Props) => {
       dataIndex: "url",
       render: (_: any, record: any) => <p>{record?.url}</p>,
     },
-   
-    
 
     {
       title: "ACTION",
@@ -94,7 +93,6 @@ const AdminSlider = (props: Props) => {
       title: item?.title,
       content: item?.content,
       url: item?.url,
-      
     };
   });
 
