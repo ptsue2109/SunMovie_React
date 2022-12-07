@@ -23,6 +23,7 @@ const routes = {
   chooseCombo: "/combo",
   paymentStatus: "/payment-status",
   step: "/step",
+  profileOrder: "/profile/orders/:id",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",
@@ -81,6 +82,7 @@ const routes = {
 
   adminOrders: "/admin/orders",
   adminOrdersDetail: "/admin/orders/:id",
+  adminOrderFailed: "/admin/orders/failed"
 };
 
 export default routes;

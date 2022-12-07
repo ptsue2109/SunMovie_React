@@ -42,6 +42,7 @@ $grey: #e0e0e0;
 
   &--start {
     position: relative;
+
     &:before {
       content: "";
       width: 32px;
@@ -75,19 +76,23 @@ $grey: #e0e0e0;
       margin-top: -16px;
       border-radius: 50%;
     }
-    & > img {
+
+    &>img {
       display: block;
       padding: 24px;
       height: 270px;
     }
+
     border-right: 1px dashed $grey;
   }
 
   &--center {
     padding: 24px;
     flex: 1;
+
     &--row {
       display: flex;
+
       &:not(:last-child) {
         padding-bottom: 48px;
       }
@@ -115,6 +120,7 @@ $grey: #e0e0e0;
       width: 50%;
       box-sizing: border-box;
       flex-direction: column;
+
       &:not(:last-child) {
         padding-right: 16px;
       }
@@ -127,6 +133,7 @@ $grey: #e0e0e0;
     display: flex;
     flex-direction: column;
     position: relative;
+
     &:before {
       content: "";
       width: 32px;
@@ -161,10 +168,11 @@ $grey: #e0e0e0;
       border-radius: 50%;
     }
 
-    & > div {
+    &>div {
       &:first-child {
         flex: 1;
-        & > img {
+
+        &>img {
           width: 128px;
           padding: 4px;
           background-color: #fff;
@@ -172,7 +180,7 @@ $grey: #e0e0e0;
       }
 
       &:last-child {
-        > img {
+        >img {
           display: block;
           margin: 0 auto;
           filter: brightness(0) invert(1);

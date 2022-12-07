@@ -21,9 +21,8 @@ const AdminShowTimeList = (props: Props) => {
     handleSubmit()
   }, [dispatch]);
 
-  const { stList, errorMessage } = useAppSelector((state: any) => state.ShowTimeReducer);
+  const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
   const { movie } = useAppSelector((state) => state.movie);
-  console.log('movie', movie);
   
   const [showByDate, setShowByDate] = useState([])
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,22 +43,7 @@ const AdminShowTimeList = (props: Props) => {
     setShowByDate({ ...groupByDate });
 
   };
-  const renderShowByDate = () => {
-    let arrValByDate = []
-    if (showByDate) {
-      for (let key in showByDate) {
-        // @ts-ignore
-        let byDate = showByDate[key]?.map((item: any) => (
-          <div key={item?._id}>
-            adasdasdasd
-          </div>
-        ))
-      }
-    }
-    return (
-      <></>
-    )
-  }
+ 
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>

@@ -127,8 +127,6 @@ const AdminPosts = (props: Props) => {
   ];
 
   const data: Props[] = posts?.map((item: any, index: any) => {
-    console.log('item', item);
-
     return {
       key: index + 1,
       _id: item?._id,

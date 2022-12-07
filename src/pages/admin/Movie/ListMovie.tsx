@@ -1,34 +1,21 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Image,
-} from "antd";
+import { Button, message, Popconfirm, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeMovieItem } from "../../../redux/slice/Movie";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { formatDate } from "../../../ultils";
+import { formatDate, convertMovieTime } from "../../../ultils";
 import configRoute from "../../../config";
+
 type Props = {};
 
 const ListMovie = (props: Props) => {
   const dispatch = useAppDispatch();
   const { movie, errMess } = useAppSelector((state) => state.movie);
   const deleteUser = (data: string | undefined) => {
-    dispatch(removeMovieItem(data))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errMess } });
-      });
+    dispatch(removeMovieItem(data)).unwrap()
+      .then(() => { message.success({ content: "Xoá thành công", key: "handling" }) })
+      .catch(() => { message.error({ content: { errMess } }) });
   };
 
   const columnUserList: any = [
@@ -36,23 +23,21 @@ const ListMovie = (props: Props) => {
       title: "Image",
       dataIndex: "image",
       fixed: "left",
-      // key: "image",
-      render: (_: any, record: any) => (
-        <img width="50px" src={record?.image} height="50px" alt="" />
+      render: (_: any, {image, _id}: any) => (
+       <Link to={_id}> <img width="50px" src={image} height="50px" /></Link>
       ),
       width: 120,
     },
     {
       title: "Name",
       dataIndex: "name",
-      // key: "image",
-      render: (_: any, record: any) => <p>{record?.name}</p>,
+      render: (_: any, {name, _id}: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
       title: "Run Time",
       dataIndex: "runTime",
-      render: (_: any, record: any) => <p>{record?.runTime}</p>,
+      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)}</p>,
     },
 
     {

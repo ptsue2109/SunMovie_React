@@ -59,7 +59,6 @@ const RoomForm = ({
   const onChangeCols = (val: any) => {
     setColumn(val);
   };
-
   return (
     <div className="">
       {editData ? (
@@ -105,7 +104,7 @@ const RoomForm = ({
                   </Form.Item>
                   {showSeatTye && (
                     <Form.Item
-                      label="Loại ghế"
+                      label="seatTypeId"
                       name="seatTypeId"
                       rules={[{ required: true }]}
                     >
@@ -124,8 +123,8 @@ const RoomForm = ({
                     name="rows"
                     rules={[{ required: true }]}
                   >
-                    <InputNumberCs
-                      min={1}
+                    <InputNumber
+                      min={column}
                       max={20}
                       placeholder="tạo số hàng"
                       onChange={onChangeRow}
@@ -136,8 +135,8 @@ const RoomForm = ({
                     name="columns"
                     rules={[{ required: true }]}
                   >
-                    <InputNumberCs
-                      min={1}
+                    <InputNumber
+                      min={row}
                       max={20}
                       placeholder="tạo số hàng"
                       onChange={onChangeCols}
@@ -218,7 +217,7 @@ const RoomForm = ({
                 </Form.Item>
                 {showSeatTye && (
                   <Form.Item
-                    label="Loại ghế"
+                    label="seatTypeId"
                     name="seatTypeId"
                     rules={[{ required: true }]}
                   >
@@ -233,15 +232,24 @@ const RoomForm = ({
                   </Form.Item>
                 )}
 
-                <Form.Item label="columns" name="rows">
+                <Form.Item
+                  label="columns"
+                  name="rows"
+                  rules={[{ required: true }]}
+                >
                   <InputNumberCs
                     min={1}
                     max={20}
                     placeholder="tạo số hàng"
                     onChange={onChangeRow}
+                    className="w-full"
                   />
                 </Form.Item>
-                <Form.Item label="rows" name="columns">
+                <Form.Item
+                  label="rows"
+                  name="columns"
+                  rules={[{ required: true }]}
+                >
                   <InputNumberCs
                     min={1}
                     max={20}

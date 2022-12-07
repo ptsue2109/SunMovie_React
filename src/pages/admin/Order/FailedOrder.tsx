@@ -1,19 +1,17 @@
-import { Button, Space } from 'antd';
-import { Link } from 'react-router-dom';
-import DataTable from '../../../components/admin/Form&Table/Table';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { formatCurrency, formatDate } from '../../../ultils';
+import { Button, Space } from 'antd'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import DataTable from '../../../components/admin/Form&Table/Table'
+import configRoute from '../../../config'
+import { useAppSelector } from '../../../redux/hook'
+import { formatCurrency, formatDate } from '../../../ultils'
 import { EditOutlined } from "@ant-design/icons";
-import configRoute from '../../../config';
 
 type Props = {}
 
-const AdminOrders = (props: Props) => {
-   document.title = "Admin | Orders";
-   const dispatch = useAppDispatch()
-
+const FailedOrder = (props: Props) => {
    const { orders } = useAppSelector((state: any) => state.OrderReducer)
-   let orderSuccess = orders.filter((item: any) => item?.status == 1)
+   let orderFailed = orders.filter((item: any) => item?.status !== 1);
    const columns = [
       {
          title: "Order Code",
@@ -51,7 +49,7 @@ const AdminOrders = (props: Props) => {
          fixed: "right",
          render: (_: any, record: any) => (
             <Space size="middle">
-               <Link to={`${record._id}`}>
+               <Link to={`/orders/${record._id}`}>
                   <EditOutlined
                      style={{ color: "var(--primary)", fontSize: "18px" }}
                   />
@@ -62,7 +60,7 @@ const AdminOrders = (props: Props) => {
          width: 250,
       },
    ]
-   const data: Props[] = orderSuccess?.map((item: any, index: any) => {
+   const data: Props[] = orderFailed?.map((item: any, index: any) => {
       return {
          key: index + 1,
          _id: item?._id,
@@ -78,10 +76,10 @@ const AdminOrders = (props: Props) => {
    });
    return (
       <>
-         <Button type='ghost' className='mb-3'><Link to={configRoute.routes.adminOrderFailed}>Order thanh toán không thành công</Link></Button>
+         <Button type='primary' className='mb-3'><Link to={configRoute.routes.adminOrders}>Order thanh toán thành công</Link></Button>
          <DataTable column={columns} data={data} />
       </>
    )
 }
 
-export default AdminOrders
+export default FailedOrder

@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Select,
-} from "antd";
+import { Button, message, Popconfirm, Space, Tag, Pagination, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import {
-  removeUser,
-  updateUser,
-  getUsers,
-} from "../../../redux/slice/userSlice";
+import { removeUser, updateUser, getUsers, } from "../../../redux/slice/userSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { userRole, userStatus } from "../../../ultils/data";
 import { provices } from "../../../redux/slice/Provider";
-import { formatDate } from "../../../ultils";
+
 type Props = {};
 const { Option } = Select;
 const AdminUserList = (props: Props) => {
@@ -27,42 +15,24 @@ const AdminUserList = (props: Props) => {
   useEffect(() => {
     document.title = "Admin | Users";
     dispatch(getUsers());
+   
   }, [dispatch]);
-
-  const { users, isFetching, isErr, errorMessage } = useAppSelector( (state:any) => state.userReducer);
+  const { users, isFetching, isErr, errorMessage } = useAppSelector((state: any) => state.userReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer)
   const deleteUser = (data: string | undefined) => {
-    dispatch(removeUser(data))
-      .unwrap()
-      .then(() => {
-        message.success({
-          content: "Xoá thành công",
-          key: "handling",
-        });
-      })
-      .catch(() => {
-        message.error({ content: { errorMessage } });
-      });
+    dispatch(removeUser(data)).unwrap()
+      .then(() => { message.success({ content: "Xoá thành công", key: "handling", }) })
+      .catch(() => { message.error({ content: { errorMessage } }) });
   };
   const changeRole = (id: any, value: any) => {
-    console.log(id, value);
-    
-    dispatch(updateUser({ _id: id, role: value }))
-      .unwrap()
-      .then(() => message.success("Thay đổi quyền thành công"));
+    dispatch(updateUser({ _id: id, role: value })).unwrap().then(() => message.success("Thay đổi quyền thành công"));
   };
   const changeStatus = (id: any, value: any) => {
-    console.log(id, value);
-    
-    dispatch(updateUser({ _id: id, status: value }))
-      .unwrap()
-      .then(() =>
-        message.success("Thay đổi trạng thái thành công")
-      );
+    dispatch(updateUser({ _id: id, status: value })).unwrap()
+      .then(() => message.success("Thay đổi trạng thái thành công"));
   };
   const changeAddress = (id: any, value: any) => {
-    dispatch(updateUser({ _id: id, address: value }))
-      .unwrap()
+    dispatch(updateUser({ _id: id, address: value })).unwrap()
       .then(() => message.success("Thay đổi điạ chỉ thành công"));
   };
   const columnUserList: any = [
@@ -198,7 +168,7 @@ const AdminUserList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {(currentUser?._id !== record?._id)  && (
+          {(currentUser?._id !== record?._id) && (
             <Popconfirm
               title={`Delete ${record?.username ?? record?._id}?`}
               okText="OK"
