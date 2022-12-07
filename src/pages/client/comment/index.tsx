@@ -98,13 +98,13 @@ const Comente = (props: Props) => {
                   Nội dung bình luận chỉ mang tính chất tham khảo
                 </p>
 
-                {data.comment.map((item: any, index: any) => (
+                {data.comment?.map((item: any, index: any) => (
                   <div
                     className="flex items-center mt-4 text-gray-600 dark:text-gray-400"
                     key={index}
                   >
-                    <img src={item.user.avatar} alt={item.user.avatar} />
-                    <h5 className="user__title">{item.user.username}</h5>
+                    <img src={item.user.avatar} alt={item.user?.avatar} />
+                    <h5 className="user__title">{item.user?.username}</h5>
                     <Rate className="" value={item.rating} />
                     <Link
                       to="mailto:minhtuan0330@gmail.com"
