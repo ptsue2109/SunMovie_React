@@ -32,6 +32,7 @@ const AdminRoomCreate = (props: Props) => {
       .catch(() => message.error(`${errorMessage}`));
   };
   useEffect(() => {
+    setShowSeatTye(true);
     document.title = "Admin | Create-Room";
   }, []);
   return (
@@ -53,7 +54,6 @@ const AdminRoomCreate = (props: Props) => {
         showSeatTye={showSeatTye}
         adminRenderSeat={adminRenderSeat}
         showTable={false}
-
       />
     </div>
   );

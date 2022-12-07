@@ -29,22 +29,37 @@ interface RoomFormProps {
   setRowFile: any;
   setColFile: any;
   adminRenderSeat: any;
-  showTable?: boolean
+  showTable?: boolean;
 }
 const RoomForm = ({
-  form, onFinish, adminRenderSeat, showSeatTye, edit = false, rowFile, colFile, setRowFile, setColFile, loading = false, editData = true, setSeatFile, seatFile, showTable }: RoomFormProps) => {
+  form,
+  onFinish,
+  adminRenderSeat,
+  showSeatTye,
+  edit = false,
+  rowFile,
+  colFile,
+  setRowFile,
+  setColFile,
+  loading = false,
+  editData = true,
+  setSeatFile,
+  seatFile,
+  showTable,
+}: RoomFormProps) => {
   const [seatDetails, setSeatDetails] = useState<any>();
   const [row, setRow] = useState<number>(rowFile);
   const [column, setColumn] = useState<number>(colFile);
   const { seatType } = useAppSelector((state: any) => state?.seatTypeReducer);
   const { filmFormats } = useAppSelector((state) => state.FormatReducer);
- 
+
   const onChangeRow = (val: any) => {
     setRow(val);
   };
   const onChangeCols = (val: any) => {
     setColumn(val);
   };
+
   return (
     <div className="">
       {editData ? (
@@ -90,7 +105,7 @@ const RoomForm = ({
                   </Form.Item>
                   {showSeatTye && (
                     <Form.Item
-                      label="seatTypeId"
+                      label="Loại ghế"
                       name="seatTypeId"
                       rules={[{ required: true }]}
                     >
@@ -104,7 +119,11 @@ const RoomForm = ({
                       </Select>
                     </Form.Item>
                   )}
-                  <Form.Item label="columns" name="rows" rules={[{ required: true }]}>
+                  <Form.Item
+                    label="columns"
+                    name="rows"
+                    rules={[{ required: true }]}
+                  >
                     <InputNumberCs
                       min={1}
                       max={20}
@@ -112,7 +131,11 @@ const RoomForm = ({
                       onChange={onChangeRow}
                     />
                   </Form.Item>
-                  <Form.Item label="rows" name="columns" rules={[{ required: true }]}>
+                  <Form.Item
+                    label="rows"
+                    name="columns"
+                    rules={[{ required: true }]}
+                  >
                     <InputNumberCs
                       min={1}
                       max={20}
@@ -195,7 +218,7 @@ const RoomForm = ({
                 </Form.Item>
                 {showSeatTye && (
                   <Form.Item
-                    label="seatTypeId"
+                    label="Loại ghế"
                     name="seatTypeId"
                     rules={[{ required: true }]}
                   >
