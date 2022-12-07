@@ -1,4 +1,14 @@
-import { Button, Card, Collapse, Form, message, Modal, Select, Table } from "antd";
+import {
+  Button,
+  Card,
+  Collapse,
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+  Table,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
@@ -42,7 +52,7 @@ const RenderSeats = ({
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     handleSubmit();
   }, [seats]);
@@ -52,42 +62,41 @@ const RenderSeats = ({
     if (seatValue == 0) {
       // Not booked
       dynamicClass = styles.seatNotBooked;
-    } else if (seatValue == 1) {
+    } else if (seatValue == 1 || seatValue == null) {
       // booked
-      dynamicClass = styles.seatBooked;
+      dynamicClass = styles.seatBlocked;
     } else if (seatValue == 2) {
       // Seat Selected
       dynamicClass = styles.seatSelected;
-    } else {
-      // Seat Blocked
-      dynamicClass = styles.seatBlocked;
     }
     return `${styles.seats} ${dynamicClass}`;
   };
   const handleSubmit = () => {
     if (seats) {
-      const groupByRowName = seats?.reduce((accumulator: any, arrayItem: any) => {
-        let rowName = arrayItem.row;
-        if (accumulator[rowName] == null) {
-          accumulator[rowName] = [];
-        }
-        accumulator[rowName].push(arrayItem);
-        return accumulator;
-      }, {});
+      const groupByRowName = seats?.reduce(
+        (accumulator: any, arrayItem: any) => {
+          let rowName = arrayItem.row;
+          if (accumulator[rowName] == null) {
+            accumulator[rowName] = [];
+          }
+          accumulator[rowName].push(arrayItem);
+          return accumulator;
+        },
+        {}
+      );
 
       setSeatDetails({ ...groupByRowName });
       setSeatFile({ ...groupByRowName });
     }
-
   };
 
   const onSeatClick = (seatValue: any, rowIndex: any, key: any) => {
     let item = JSON.parse(JSON.stringify(seatValue));
-    if (item?.status === 1) {
+    if (item?.status === 1 || item?.status == null) {
       return;
     } else if (item?.status === 0) {
-      item["status"] = 3;
-    } else {
+      item["status"] = 2;
+    } else if (item?.status === 2) {
       item["status"] = 0;
     }
     seatDetails[key][rowIndex] = { ...item };
@@ -99,7 +108,7 @@ const RenderSeats = ({
     let arr: any = [];
     for (const key in seatDetails) {
       let colVal = seatDetails[key]?.filter(
-        (seatVal: any) => seatVal?.status == 3
+        (seatVal: any) => seatVal?.status == 2
       );
       arr = [...arr, colVal];
     }
@@ -109,10 +118,8 @@ const RenderSeats = ({
     return flatten;
   };
   const info = (val: any) => {
-    console.log(val);
-
     Modal.info({
-      title: `Seat infomatio`,
+      title: `Seat infomation`,
       content: (
         <div>
           <div>Id : {val?._id}</div>
@@ -229,7 +236,6 @@ const RenderSeats = ({
     selectedRowKeys,
     onChange: onSelectChange,
   };
-  console.log("hihi", defaultStatus);
   const renderChoice = () => {
     const showModal = () => {
       setIsModalOpen(true);
@@ -243,13 +249,19 @@ const RenderSeats = ({
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
       };
-      dispatch(updateSeatThunk(payload))
-        .unwrap()
-        .then(() => {
-          message.success("Update thành công");
-          navigate(configRoute.routes.adminRooms);
-        })
-        .catch(() => message.error("Lỗi update"));
+      console.log(optionsSeatTpe, optionsStatus);
+
+      if (optionsSeatTpe === undefined || optionsStatus === undefined) {
+        message.error({ content: "Thêm đẩy đủ trường" });
+      } else {
+        dispatch(updateSeatThunk(payload))
+          .unwrap()
+          .then(() => {
+            message.success("Update thành công");
+            navigate(configRoute.routes.adminRooms);
+          })
+          .catch(() => message.error("Lỗi update"));
+      }
     };
     const getStatusChoice = (val: any) => {
       setOptionsStatus(val);
@@ -273,7 +285,8 @@ const RenderSeats = ({
             <div>
               Trạng thái ghế:
               <Select
-                defaultValue={defaultStatus[0]?.name}
+                placeholder="Vui lòng chọn trạng thái ghế"
+                style={{ width: "200px" }}
                 onChange={(value: any) => getStatusChoice(value)}
               >
                 {defaultStatus?.map((item: any) => (
@@ -283,10 +296,11 @@ const RenderSeats = ({
                 ))}
               </Select>
             </div>
-            <div>
+            <div className="mt-2">
               Loại ghế:
               <Select
-                defaultValue={seatType[0]?.name}
+                placeholder="Vui lòng chọn loại ghế"
+                style={{ width: "200px" }}
                 onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
@@ -296,7 +310,13 @@ const RenderSeats = ({
                 ))}
               </Select>
             </div>
-            <Button htmlType="submit">Change all items</Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ marginTop: "20px" }}
+            >
+              Change all items
+            </Button>
           </Form>
         </Modal>
       </>
