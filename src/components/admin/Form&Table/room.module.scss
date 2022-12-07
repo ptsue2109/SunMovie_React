@@ -70,6 +70,24 @@
 }
 
 .seatBlockedClient {
+ }
+ .seatSelected0 {
+   color: red !important;
+ }
+ .seatBooked {
+   background: red !important;
+   cursor: default;
+   color:white
+ }
+ .seatSelected {
+   color: #fff !important;
+   background: rgb(53 212 6) !important;
+ }
+ .seatBlocked {
+   color: #fff !important;
+   background: rgb(69, 69, 69);
+   }
+ .seatBlockedClient{
   visibility: hidden !important;
 }
 

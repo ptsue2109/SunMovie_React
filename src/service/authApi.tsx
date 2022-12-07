@@ -26,6 +26,9 @@ export const AuthApi = {
   },
   async getCurrentUser(): Promise<any> {
     const url = "current_user"
-    return axiosClient.get(url);
+    return AxiosRequest.get(url, {
+      withCredentials: true,    // IMPORTANT!!!
+    }
+    );
   },
 };
