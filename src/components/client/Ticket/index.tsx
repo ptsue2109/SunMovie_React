@@ -9,7 +9,8 @@ type Props = {
 }
 
 const Ticket = ({ detail, order, totalPriceFinal }: Props) => {
-
+   console.log(detail, order, totalPriceFinal);
+   
    return (
       <>
          {detail &&  order ? (

@@ -76,8 +76,7 @@ import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import PaymentStatus from "../components/client/PaymentStatus";
 import PaymentStep from "../components/client/PaymentStep";
 import FailedOrder from "../pages/admin/Order/FailedOrder";
-import Ticket from "../components/client/Ticket";
-import ProfileOrder from "../pages/client/profile/ProfileOrder";
+import FindOrder from "../pages/client/findOrder";
 type RoutesType = {
   path: string;
   component: any;
@@ -107,7 +106,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
  { path: configRoute.routes.step, component: PaymentStep },
- { path: configRoute.routes.profileOrder, component: ProfileOrder },
+ { path: configRoute.routes.findOrder, component: FindOrder },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

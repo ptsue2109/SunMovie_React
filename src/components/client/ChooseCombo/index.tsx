@@ -98,8 +98,8 @@ const ChooseCombo = (props: Props) => {
          }
 
       ];
-      console.log(payload);
-      
+   // console.log(payload);
+
    useEffect(() => {
       if (food) { setInitLoading(false); setList(food) }
       document.title = "Choose Combo";
@@ -119,6 +119,17 @@ const ChooseCombo = (props: Props) => {
    }, [])
 
    const handleFood = (qt: any, val: any) => {
+      console.log(qt, val);
+      let chooseArr: any[] = []
+      const existFood = chooseArr?.find((item: any) => item?.foodId?._id === val?._id);
+      let foodprice = val?.price * qt
+      if (existFood) {
+         chooseArr.push( { foodId: val, quantity: qt, price: foodprice })
+      } else {
+         chooseArr = [...chooseArr, { foodId: val, quantity: qt, price: foodprice }]
+      }
+      console.log(chooseArr);
+
    }
    const nextStep = () => {
       dispatch(createFD(payload)).unwrap()
@@ -186,7 +197,7 @@ const ChooseCombo = (props: Props) => {
                               <b>Suất chiếu</b>:  {info && formatTime(info[0]?.showTimeId?.startAt)} |  {formatDateString(info[0]?.showTimeId?.date)}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Food</b> : {payload?.map((item:any) => item?.foodId?.name)}
+                              <b>Food</b> : {payload?.map((item: any) => item?.foodId?.name)}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
                               <b>Ghế</b>: {info && info?.map((item: any) => (

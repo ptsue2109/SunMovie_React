@@ -47,7 +47,7 @@ const Profile = (props: Props) => {
     if (order) {
       setOrderDetail(order?.order);
       setDetail(order?.detail);
-      let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice );
+      let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice);
       setTotalPriceFinal(price);
     }
   }, [order]);
@@ -63,7 +63,7 @@ const Profile = (props: Props) => {
       dataIndex: "shortId",
       render: (_: any, { shortId, _id }: any) => (
         <>
-          <Button type="link" onClick={() =>{ handle(_id); setOpen(true)}}>{shortId}</Button>
+          <Button type="link" onClick={() => { handle(_id); setOpen(true) }}>{shortId}</Button>
           <Modal
             title={`Đơn hàng ${shortId}`}
             centered
