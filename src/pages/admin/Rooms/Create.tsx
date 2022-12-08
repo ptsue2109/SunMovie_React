@@ -29,7 +29,7 @@ const AdminRoomCreate = (props: Props) => {
         message.success("tạo thành công");
         navigate(config.routes.adminRooms);
       })
-      .catch(() => message.error(`${errorMessage}`));
+      .catch((err: any) => message.error(`${err}`));
   };
   useEffect(() => {
     setShowSeatTye(true);

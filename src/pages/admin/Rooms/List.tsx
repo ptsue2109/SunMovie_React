@@ -47,7 +47,8 @@ const AdminRoomList = (props: Props) => {
   const changeStatus = (id: any, val: any) => {
     dispatch(updateRoom({ _id: id, status: val }))
       .unwrap()
-      .then(() => message.success("Thay đổi trạng thái thành công"));
+      .then(() => message.success("Thay đổi trạng thái thành công"))
+      .catch((err: any) => alert(err));
   };
   const columns: any = [
     {
@@ -112,7 +113,7 @@ const AdminRoomList = (props: Props) => {
               />
             </Link>
           </Tooltip>
-          <Tooltip title="Xóa">
+          {/* <Tooltip title="Xóa">
             <Popconfirm
               title={`Xem ${record?.username ?? record?._id}?`}
               okText="OK"
@@ -121,7 +122,7 @@ const AdminRoomList = (props: Props) => {
             >
               <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
             </Popconfirm>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip title="Xem ghế ">
             <Link to={`/admin/seatsByRoom/${record?._id}`}>
               <EyeOutlined

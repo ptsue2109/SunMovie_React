@@ -136,20 +136,22 @@ const MovieDetail = (props: Props) => {
         >
           <div className="grid grid-cols-4 gap-2">
             {getOneShowtime
-              ? getOneShowtime.roomId.map((item: any) => (
-                  <div
-                    key={item._id}
-                    className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
-                  >
-                    <Link
-                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+              ? getOneShowtime.roomId
+                  .filter((x: any) => x.status == false)
+                  .map((item: any) => (
+                    <div
+                      key={item._id}
+                      className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
                     >
-                      <a className="text-black hover:text-white ">
-                        {item.name}
-                      </a>
-                    </Link>
-                  </div>
-                ))
+                      <Link
+                        to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                      >
+                        <a className="text-black hover:text-white ">
+                          {item.name}
+                        </a>
+                      </Link>
+                    </div>
+                  ))
               : ""}
           </div>
         </Modal>
