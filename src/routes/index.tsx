@@ -22,7 +22,6 @@ import UserEdit from "../pages/admin/User/Update";
 import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 import ListMovieType from "../pages/admin/MovieType/ListMovieType";
 
-
 import ListSeatType from "../pages/admin/SeatType/ListSeatType";
 import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
 import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
@@ -69,15 +68,15 @@ import Payment from "../pages/client/payment/Payment";
 import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
 import EditCategory from "../pages/admin/categories/Edit";
-import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
+import ListCommentMovie from "../pages/admin/comment";
+import ProfileOrder from "../pages/client/profile/ProfileOrder";
+import PaymentStep from "../components/client/PaymentStep";
 import ChooseCombo from "../components/client/ChooseCombo";
+import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
 import AdminOrders from "../pages/admin/Order/List";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
-import PaymentStatus from "../components/client/PaymentStatus";
-import PaymentStep from "../components/client/PaymentStep";
 import FailedOrder from "../pages/admin/Order/FailedOrder";
-import Ticket from "../components/client/Ticket";
-import ProfileOrder from "../pages/client/profile/ProfileOrder";
+import PaymentStatus from "../components/client/PaymentStatus";
 type RoutesType = {
   path: string;
   component: any;
@@ -103,11 +102,14 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
-  { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage },
+  {
+    path: configRoute.routes.loadingPushAccountInLocalStorage,
+    component: LoadingPushAccountInLocalStorage,
+  },
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
- { path: configRoute.routes.step, component: PaymentStep },
- { path: configRoute.routes.profileOrder, component: ProfileOrder },
+  { path: configRoute.routes.step, component: PaymentStep },
+  { path: configRoute.routes.profileOrder, component: ProfileOrder },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -129,7 +131,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminSlider, component: AdminSlider },
   { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
   { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider },
-
 
   { path: configRoute.routes.adminSeatType, component: ListSeatType },
   { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
@@ -181,4 +182,8 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
   { path: configRoute.routes.adminOrderFailed, component: FailedOrder },
 
+  {
+    path: configRoute.routes.adminListCommentMovie,
+    component: ListCommentMovie,
+  },
 ];
