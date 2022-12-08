@@ -54,7 +54,7 @@ const MovieDetail = (props: Props) => {
 
   useEffect(() => {
     dispatch(getOneMovie(slug));
-  }, []);
+  }, [slug]);
   useEffect(() => {
     dispatch(getAlSt({}));
   }, []);
@@ -210,15 +210,6 @@ const MovieDetail = (props: Props) => {
         onOk={handleOk2}
         onCancel={handleCancel2}
       >
-        {/* <iframe
-          width="900"
-          height="500"
-          src={`${data?.movie?.trailerUrl}`}
-          title="YouTube video player"
-          frameBorder={0}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe> */}
         <iframe
           width="900"
           height="500"
