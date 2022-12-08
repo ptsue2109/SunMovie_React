@@ -154,7 +154,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                 <Form.Item
                   name="trailerUrl"
                   label="Trailer"
-                  rules={[{ required: true, type: "url" }]}
+                  rules={[{ required: true }]}
                 >
                   <Input />
                 </Form.Item>
