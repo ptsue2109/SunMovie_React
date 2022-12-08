@@ -37,11 +37,20 @@
 }
 
 .colName {
-  color: #545454;
+  color: white;
   font-weight: 700;
-  margin-right: 20px;
-  border: 2px solid rebeccapurple;
-  padding-right: 5px
+  // margin-right: 20px;
+  // border: 2px solid rebeccapurple;
+  padding-right: 5px;
+  float: left;
+}
+.colName2 {
+  color: white;
+  font-weight: 700;
+  // margin-right: 20px;
+  // border: 2px solid rebeccapurple;
+  padding-right: 5px;
+  float: right;
 }
 
 .seatNotBooksed {

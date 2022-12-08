@@ -76,7 +76,7 @@ export const RenderInfoSeats = ({
       .then((payload: any) => {
         console.log(payload);
         //@ts-ignore
-        navigate('/combo', { state: payload })
+        navigate("/combo", { state: payload });
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {
@@ -243,6 +243,7 @@ export const RenderSeatClient = ({
               <br />
             </>
           )}
+          {rowIndex === 0 && <span className={styles.colName2}>{key}</span>}
         </span>
       ));
       seatArray.push(colValue);
