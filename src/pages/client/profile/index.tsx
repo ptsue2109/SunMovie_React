@@ -10,15 +10,18 @@ import { formatCurrency, formatDateString } from "../../../ultils";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import Ticket from "../../../components/client/Ticket";
 import { getOneOrder } from "../../../redux/slice/OrdersSlice";
+import ChangePassword from "./ChangePassword";
 type Props = {};
 
 const Profile = (props: Props) => {
-  const { currentUser, isLogged } = useAppSelector((state) => state.authReducer);
+  const { currentUser, isLogged } = useAppSelector(
+    (state) => state.authReducer
+  );
   const { users } = useAppSelector((state: any) => state.userReducer);
   const { orders } = useAppSelector((state: any) => state.OrderReducer);
   const [open, setOpen] = useState(false);
-  const [yourOrder, setYourOrder] = useState<any>([])
-  const [orderID, setOrderID] = useState<any>()
+  const [yourOrder, setYourOrder] = useState<any>([]);
+  const [orderID, setOrderID] = useState<any>();
   const [orderDetail, setOrderDetail] = useState<any>();
   const [detail, setDetail] = useState<any>();
   const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
@@ -31,15 +34,18 @@ const Profile = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handle = (id: any) => { setOrderID(id) }
+  const handle = (id: any) => {
+    setOrderID(id);
+  };
   useEffect(() => {
     if (orders) {
-      let a = orders?.filter((item: any) => item?.userId?._id === user?._id); setYourOrder(a);
+      let a = orders?.filter((item: any) => item?.userId?._id === user?._id);
+      setYourOrder(a);
     }
   }, [orders]);
 
   useEffect(() => {
-    dispatch(getOneOrder(orderID))
+    dispatch(getOneOrder(orderID));
   }, [orderID]);
   const { order } = useAppSelector((state: any) => state.OrderReducer);
 
@@ -47,7 +53,9 @@ const Profile = (props: Props) => {
     if (order) {
       setOrderDetail(order?.order);
       setDetail(order?.detail);
-      let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice );
+      let price =
+        (order?.order?.foodDetailId?.totalPrice || 0) +
+        order?.order?.totalPrice;
       setTotalPriceFinal(price);
     }
   }, [order]);
@@ -56,14 +64,22 @@ const Profile = (props: Props) => {
     {
       title: "Ngày đặt",
       dataIndex: "createdAt",
-      render: (_: any, { createdAt }: any) => formatDateString(createdAt)
+      render: (_: any, { createdAt }: any) => formatDateString(createdAt),
     },
     {
       title: "Mã đơn hàng",
       dataIndex: "shortId",
       render: (_: any, { shortId, _id }: any) => (
         <>
-          <Button type="link" onClick={() =>{ handle(_id); setOpen(true)}}>{shortId}</Button>
+          <Button
+            type="link"
+            onClick={() => {
+              handle(_id);
+              setOpen(true);
+            }}
+          >
+            {shortId}
+          </Button>
           <Modal
             title={`Đơn hàng ${shortId}`}
             centered
@@ -72,13 +88,16 @@ const Profile = (props: Props) => {
             onCancel={() => setOpen(false)}
             width={1000}
           >
-            {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal} />}
-
-
+            {order && (
+              <Ticket
+                detail={detail}
+                order={orderDetail}
+                totalPriceFinal={totalPriceFinal}
+              />
+            )}
           </Modal>
         </>
-      )
-
+      ),
     },
     {
       title: "Số tiền thanh toán",
@@ -88,10 +107,11 @@ const Profile = (props: Props) => {
     {
       title: "Trạng Thái",
       dataIndex: "status",
-      render: (_: any, record: any) => <p>{record?.status === 1 ? 'Đã thanh toán' : "chưa thanh toán"}</p>
+      render: (_: any, record: any) => (
+        <p>{record?.status === 1 ? "Đã thanh toán" : "chưa thanh toán"}</p>
+      ),
     },
-
-  ]
+  ];
   const data: any[] = yourOrder?.map((item: any, index: any) => {
     return {
       key: index + 1,
@@ -99,9 +119,9 @@ const Profile = (props: Props) => {
       totalPrice: item?.totalPrice,
       status: item?.status,
       createdAt: item?.createdAt,
-      _id: item?._id
-    }
-  })
+      _id: item?._id,
+    };
+  });
   return (
     <>
       <div className={styles.container}>
@@ -143,7 +163,7 @@ const Profile = (props: Props) => {
           </div>
           {/* change password */}
           <div className={isActive == 2 ? styles.changePass : "hidden"}>
-            pass
+            <ChangePassword />
           </div>
           {/* history */}
           <div className={isActive == 3 ? styles.history : "hidden"}>
