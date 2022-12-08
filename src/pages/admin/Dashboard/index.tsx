@@ -89,7 +89,7 @@ const Dashboard = (props: Props) => {
   const { tickets } = useAppSelector((state: any) => state.ticketReducer);
 
   const dataMovie = {
-    labels: tickets.map((item: any) => item.quantity),
+    labels: tickets.map((item: any) => `Số lượng vé ${item.quantity}`),
     datasets: [
       {
         label: "Ticket",
@@ -112,7 +112,7 @@ const Dashboard = (props: Props) => {
   });
   const dataUser = {
     labels: Array.apply(null, new Array(users.length)).map(
-      (_, index) => `${++index}`
+      (_, index) => `Số lượng user ${++index}`
     ),
     datasets: [
       {
@@ -138,9 +138,10 @@ const Dashboard = (props: Props) => {
     return new Date(item.createdAt);
   });
 
+  console.log(dataOrders.map((item: any) => item.ticketId));
   const dataOrder = {
     labels: yearsOrder.map((item: any) => {
-      return item.getFullYear();
+      return `Năm ${item.getFullYear()}`;
     }),
     datasets: [
       {
@@ -187,16 +188,17 @@ const Dashboard = (props: Props) => {
         {statOrder?.map((item, index) => (
           <div
             key={index}
-            className={`bg-white p-3 rounded-md ${item.status === 0
+            className={`bg-white p-3 rounded-md ${
+              item.status === 0
                 ? "order__card-item--new"
                 : item.status === 1
-                  ? "order__card-item--verified"
-                  : item.status === 2
-                    ? "order__card-item--progress"
-                    : item.status === 3
-                      ? "order__card-item--success"
-                      : "order__card-item--cancel"
-              }`}
+                ? "order__card-item--verified"
+                : item.status === 2
+                ? "order__card-item--progress"
+                : item.status === 3
+                ? "order__card-item--success"
+                : "order__card-item--cancel"
+            }`}
           >
             <div className="">
               <div className="flex items-center justify-between">
