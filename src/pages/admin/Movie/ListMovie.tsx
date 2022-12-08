@@ -100,6 +100,11 @@ const ListMovie = (props: Props) => {
               Danh sách giờ chiếu
             </Link>
           </Button>
+          <Button type="dashed" block>
+            <Link to={`/admin/movieComment/${record?._id}`}>
+              Đánh giá về phim
+            </Link>
+          </Button>
         </Space>
       ),
       width: 250,

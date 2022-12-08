@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovie } from "../../../redux/slice/Movie";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
-import { sliderUpdate } from "../../../redux/slice/Slider";
+import { UpdateSliders } from "../../../redux/slice/Slider";
 
 type Props = {};
 
@@ -36,7 +36,7 @@ const UpdateSlider = (props: Props) => {
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
     delete values?.imageOld;
-    dispatch(sliderUpdate(values))
+    dispatch(UpdateSliders(values))
       .unwrap()
       .then(() => {
         message.success({ content: "Sửa thành công" });
@@ -77,11 +77,16 @@ const UpdateSlider = (props: Props) => {
           label="Url"
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
-
         >
           <Input />
         </Form.Item>
-
+        <Form.Item
+          label="slug"
+          name="slug"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
