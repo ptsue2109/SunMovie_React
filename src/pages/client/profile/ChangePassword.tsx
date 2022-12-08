@@ -56,7 +56,7 @@ const ChangePassword = (props: Props) => {
   };
   return (
     <>
-      <div className="min-h-[200px]">
+      <div className="min-h-[200px] pt-5">
         <Form {...layout} name="nest-messages" onFinish={onFinish} form={form}>
           <Form.Item
             name="oldPassword"
