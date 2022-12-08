@@ -20,7 +20,7 @@ const ListSeatType = (props: Props) => {
   };
   const columnList: any = [
     {
-      title: "name",
+      title: "Tên loại ghế",
       render: (item: any, index: any) => (
         <div className="flex">
           <p>{item.name}</p>
@@ -36,14 +36,16 @@ const ListSeatType = (props: Props) => {
         </div>
       ),
       height: "10",
+      width: "500px",
     },
     {
-      title: "extraPrice",
+      title: "Giá loại ghế",
       render: (item: any, index: any) => <p>{item.extraPrice} VNĐ</p>,
       height: "10",
+      width: "200px",
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       render: (_: any, item: any) => (
         <Space size="middle">
@@ -77,7 +79,7 @@ const ListSeatType = (props: Props) => {
     <>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
+          <Link to={configRoute.routes.adminSeatTypeAdd}>Tạo loại ghế</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminRooms}>Quản lí phòng chiếu</Link>

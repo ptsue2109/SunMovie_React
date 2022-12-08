@@ -13,35 +13,45 @@ const ListMovie = (props: Props) => {
   const dispatch = useAppDispatch();
   const { movie, errMess } = useAppSelector((state) => state.movie);
   const deleteUser = (data: string | undefined) => {
-    dispatch(removeMovieItem(data)).unwrap()
-      .then(() => { message.success({ content: "Xoá thành công", key: "handling" }) })
-      .catch(() => { message.error({ content: { errMess } }) });
+    dispatch(removeMovieItem(data))
+      .unwrap()
+      .then(() => {
+        message.success({ content: "Xoá thành công", key: "handling" });
+      })
+      .catch(() => {
+        message.error({ content: { errMess } });
+      });
   };
 
   const columnUserList: any = [
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
       fixed: "left",
-      render: (_: any, {image, _id}: any) => (
-       <Link to={_id}> <img width="50px" src={image} height="50px" /></Link>
+      render: (_: any, { image, _id }: any) => (
+        <Link to={_id}>
+          {" "}
+          <img width="50px" src={image} height="50px" />
+        </Link>
       ),
       width: 120,
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
-      render: (_: any, {name, _id}: any) => <Link to={_id}>{name}</Link>,
+      render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
-      title: "Run Time",
+      title: "Thời gian",
       dataIndex: "runTime",
-      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)}</p>,
+      render: (_: any, record: any) => (
+        <p>{convertMovieTime(record?.runTime)}</p>
+      ),
     },
 
     {
-      title: "Age Limit",
+      title: "Độ tuổi",
       key: "ageLimit",
       render: (_: any, record: any) => (
         <div>
@@ -50,7 +60,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "Release Date",
+      title: "Ngày phát hành",
       key: "releaseDate",
       render: (_: any, record: any) => (
         <div>
@@ -59,7 +69,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       fixed: "right",
       render: (_: any, record: any) => (
@@ -82,7 +92,7 @@ const ListMovie = (props: Props) => {
               <PlusOutlined
                 style={{ color: "var(--primary)", fontSize: "18px" }}
               />
-              showtime
+              Tạo suất chiếu
             </Link>
           </Button>
           <Button type="dashed" block>
@@ -118,7 +128,7 @@ const ListMovie = (props: Props) => {
     <div>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies/create">Create Movies</Link>
+          <Link to="/admin/movies/create">Thêm mới phim</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminMovieType}>

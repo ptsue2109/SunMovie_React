@@ -35,28 +35,28 @@ const CeateSeatType = (props: Props) => {
       >
         <Form.Item
           name="name"
-          label="Name"
+          label="Tên loại ghế"
           rules={[{ required: true, message: "Không được để trống! ", min: 5 }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="extraPrice"
-          label="ExtraPrice"
+          label="Giá loại ghế"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="color"
-          label="Color"
+          label="Màu ghế"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input type="color" style={{ width: "100px", height: "40px" }} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Lưu
           </Button>
         </Form.Item>
       </Form>

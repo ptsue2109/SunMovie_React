@@ -15,43 +15,52 @@ const FoodList = (props: Props) => {
   const deleteFood = (data: string | undefined) => {
     dispatch(removeFoodItem(data))
       .unwrap()
-      .then(() => { message.success({ content: "Xoá thành công", key: "handling" }) })
-      .catch(() => { message.error({ content: { errMess } }) });
+      .then(() => {
+        message.success({ content: "Xoá thành công", key: "handling" });
+      })
+      .catch(() => {
+        message.error({ content: { errMess } });
+      });
   };
   const columnUserList: any = [
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
-      render: (_: any, { image, _id }: any) => <Link to={_id}><img src={image} style={{ width: '40px', height: '40px' }} /></Link>,
-      width: 40
+      render: (_: any, { image, _id }: any) => (
+        <Link to={_id}>
+          <img src={image} style={{ width: "40px", height: "40px" }} />
+        </Link>
+      ),
+      width: 40,
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       render: (_: any, record: any) => <p>{formatCurrency(record?.price)}</p>,
-      width: 140
+      width: 140,
     },
 
     {
-      title: "Status",
+      title: "Trạng thái",
       dataIndex: "status",
-      render: (_: any, record: any) => <p>{record?.status===0 ? "Đang bán" : "Ngừng bán"}</p>,
+      render: (_: any, record: any) => (
+        <p>{record?.status === 0 ? "Đang bán" : "Ngừng bán"}</p>
+      ),
     },
     {
-      title: "Stock",
+      title: "Kho",
       dataIndex: "stock",
       render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
 
-
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       fixed: "right",
       width: "100px",
@@ -93,10 +102,7 @@ const FoodList = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/food/create">Create Food</Link>
       </Button>
-      <DataTable
-        column={columnUserList}
-        data={data}
-      />
+      <DataTable column={columnUserList} data={data} />
     </div>
   );
 };

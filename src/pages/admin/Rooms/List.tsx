@@ -51,7 +51,7 @@ const AdminRoomList = (props: Props) => {
   };
   const columns: any = [
     {
-      title: "NAME",
+      title: "Tên phòng",
       dataIndex: "name",
       key: "name",
       render: (_: any, record: any) => (
@@ -67,22 +67,22 @@ const AdminRoomList = (props: Props) => {
       ),
     },
     {
-      title: "QuantitySeat",
+      title: "Số lượng ghế",
       dataIndex: "tongGhe",
       key: "tongGhe",
     },
     {
-      title: "SeatColumn",
+      title: "Số hàng",
       dataIndex: "columns",
       key: "columns",
     },
     {
-      title: "SeatRow",
+      title: "Số cột",
       dataIndex: "rows",
       key: "rows",
     },
     {
-      title: "Status",
+      title: "Trạng thái",
       dataIndex: "status",
       key: "status",
       render: (_: any, record: any) => (
@@ -101,7 +101,7 @@ const AdminRoomList = (props: Props) => {
       ),
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
@@ -158,7 +158,7 @@ const AdminRoomList = (props: Props) => {
     <div>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="create">Add Rooms</Link>
+          <Link to="create">Tạo phòng</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>

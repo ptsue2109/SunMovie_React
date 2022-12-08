@@ -74,7 +74,7 @@ const RoomForm = ({
               <>
                 <Card className="col-2">
                   <Form.Item
-                    label="Tên rạp"
+                    label="Tên phòng"
                     name="name"
                     rules={[
                       {
@@ -186,7 +186,7 @@ const RoomForm = ({
             ) : (
               <Card className="col-12">
                 <Form.Item
-                  label="Tên rạp"
+                  label="Tên phòng"
                   name="name"
                   rules={[
                     {
@@ -202,7 +202,7 @@ const RoomForm = ({
                 </Form.Item>
 
                 <Form.Item
-                  label="Film Format"
+                  label="Định dạng phim"
                   name="formatId"
                   rules={[{ required: true }]}
                 >
@@ -217,7 +217,7 @@ const RoomForm = ({
                 </Form.Item>
                 {showSeatTye && (
                   <Form.Item
-                    label="seatTypeId"
+                    label="Loại ghế"
                     name="seatTypeId"
                     rules={[{ required: true }]}
                   >
@@ -233,7 +233,7 @@ const RoomForm = ({
                 )}
 
                 <Form.Item
-                  label="columns"
+                  label="Hàng"
                   name="rows"
                   rules={[{ required: true }]}
                 >
@@ -246,7 +246,7 @@ const RoomForm = ({
                   />
                 </Form.Item>
                 <Form.Item
-                  label="rows"
+                  label="Cột"
                   name="columns"
                   rules={[{ required: true }]}
                 >

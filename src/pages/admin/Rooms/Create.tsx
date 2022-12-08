@@ -38,7 +38,7 @@ const AdminRoomCreate = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={config.routes.adminRooms}>List Rooms</Link>
+        <Link to={config.routes.adminRooms}>Danh sách phòng</Link>
       </Button>
       <RoomForm
         onFinish={onFinish}

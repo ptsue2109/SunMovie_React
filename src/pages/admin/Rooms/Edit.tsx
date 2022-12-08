@@ -31,6 +31,7 @@ const AdminRoomEdit = (props: Props) => {
       const { payload } = await dispatch(getOneSBSTById(id));
       setSeats(payload);
     })();
+    setShowSeatTye(true);
   }, [id]);
 
   useEffect(() => {
@@ -42,7 +43,6 @@ const AdminRoomEdit = (props: Props) => {
       });
     }
   }, [dataSelected]);
-
   const onFinish = (data: any) => {
     data.seats = seatFile;
     data._id = id;
