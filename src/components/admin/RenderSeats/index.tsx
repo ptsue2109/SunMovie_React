@@ -185,7 +185,8 @@ const RenderSeats = ({
     for (let key in seatDetails) {
       let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
-          {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
+          {rowIndex === 0 && <span className={styles.colNameAd}>{key}</span>}
+          {rowIndex === 0 && <span className={styles.colNameAd2}>{key}</span>}
           <span
             className={getClassNameForSeats(seatValue?.status)}
             style={{ backgroundColor: `${seatValue?.seatTypeId?.color}` }}
