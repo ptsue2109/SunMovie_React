@@ -3,11 +3,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateRoom } from "../../../redux/slice/roomSlice";
-import RoomForm from '../../../components/admin/Form&Table/RoomForm';
+import RoomForm from "../../../components/admin/Form&Table/RoomForm";
 import config from "../../../config";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 
-type Props = {}
+type Props = {};
 
 const AdminRoomEdit = (props: Props) => {
   const [form] = Form.useForm();
@@ -30,7 +30,7 @@ const AdminRoomEdit = (props: Props) => {
       let a = payload[0]?.seatTypeId
       setSeatsEdit(a)
     })();
-
+    setShowSeatTye(true);
   }, [id]);
 
   useEffect(() => {
@@ -48,9 +48,27 @@ const AdminRoomEdit = (props: Props) => {
   const onFinish = (data: any) => {
     data.seatsEdit = seatFile;
     data._id = id;
-    dispatch(updateRoom(data)).unwrap()
-      .then(() => { message.success('Update thành công'); navigate(config.routes.adminRooms) })
-      .catch(() => message.error('Update thất bại'))
+    console.log(dataSelected, data);
+    if (data.rows < dataSelected.rows || data.columns < dataSelected.columns) {
+      if (data.rows < dataSelected.rows) {
+        message.error({
+          content: `Không nhập Row nhỏ hơn ${dataSelected.rows}`,
+        });
+      }
+      if (data.columns < dataSelected.columns) {
+        message.error({
+          content: `Không nhập Column nhỏ hơn ${dataSelected.columns}`,
+        });
+      }
+    } else {
+      dispatch(updateRoom(data))
+        .unwrap()
+        .then(() => {
+          message.success("Update thành công");
+          navigate(config.routes.adminRooms);
+        })
+        .catch(() => message.error("Update thất bại"));
+    }
   };
 
   return (
@@ -75,7 +93,7 @@ const AdminRoomEdit = (props: Props) => {
         showTable={false}
       />
     </div>
-  )
-}
+  );
+};
 
-export default AdminRoomEdit
+export default AdminRoomEdit;

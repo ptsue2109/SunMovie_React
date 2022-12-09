@@ -1,22 +1,26 @@
-import { useState } from "react"
+import { useState } from "react";
 import { Button, Card, DatePicker, Form, Input, Select, Skeleton } from "antd";
 import { useAppSelector } from "../../../redux/hook";
-import { MovieCountry, MoviLanguages, MovieLimitAge } from "../../../ultils/data";
+import {
+  MovieCountry,
+  MoviLanguages,
+  MovieLimitAge,
+} from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { convertMovieTime } from "../../../ultils";
 import ImageUpload from "../../../components/upload";
 
 type Props = {
-  form?: any,
-  onFinish?: any,
-  image: any,
-  setImage: any,
-  onReset: any
-}
+  form?: any;
+  onFinish?: any;
+  image: any;
+  setImage: any;
+  onReset: any;
+};
 
 const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
- 
+
   const validateRunTime = (rule: any, value: any, callback: any) => {
     if (value) {
       if (value >= 60 && value <= 180) {
@@ -29,12 +33,17 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
   };
   return (
     <>
-      <Form form={form} layout="vertical" onFinish={onFinish} validateMessages={validateMessages}>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        validateMessages={validateMessages}
+      >
         <div className="grid grid-flow-col overflow-scroll">
           {image ? (
             <>
               <Card className="col-6 w-full">
-                <Form.Item label="Image">
+                <Form.Item label="Ảnh">
                   <ImageUpload imageList={image} limit={1} key={1} />
                 </Form.Item>
                 <Form.Item name="name" label="Tên phim" rules={[{ required: true, min: 5 }]}   >
@@ -107,27 +116,26 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   <Input.TextArea />
                 </Form.Item>
 
-
-                <Form.Item >
+                <Form.Item>
                   <Button type="primary" htmlType="submit">
-                    Submit
+                    Lưu
                   </Button>
 
                   <Button htmlType="button" onClick={onReset} className="ml-3">
                     Nhập lại
                   </Button>
-
                 </Form.Item>
-
-
               </Card>
-
             </>
-          ) : (<><Skeleton /></>)}
+          ) : (
+            <>
+              <Skeleton />
+            </>
+          )}
         </div>
-      </Form >
+      </Form>
     </>
-  )
-}
+  );
+};
 
-export default MovieForm
+export default MovieForm;

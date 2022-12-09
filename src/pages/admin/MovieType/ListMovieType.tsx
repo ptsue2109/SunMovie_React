@@ -16,14 +16,15 @@ const ListMovieType = (props: Props) => {
   );
   const deleteUser = (id: any) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: "Bạn có muốn xóa không",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Đồng ý",
+      cancelButtonText: "Hủy",
     }).then((willDelete) => {
-      if (willDelete) {
+      if (willDelete.isConfirmed) {
         dispatch(removeMovieTypeItem(id))
           .unwrap()
           .then(() => {
@@ -40,12 +41,12 @@ const ListMovieType = (props: Props) => {
   };
   const columnList: any = [
     {
-      title: "name",
+      title: "Tên",
       render: (item: any, index: any) => <p>{item.movieName}</p>,
       height: "10",
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       height: "10",
       render: (_: any, item: any) => (
@@ -72,7 +73,7 @@ const ListMovieType = (props: Props) => {
   });
   return (
     <>
-     <div className="flex gap-5">
+      <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
           <Link to={configRoute.routes.adminMovieTypeAdd}>Thêm thể loại phim</Link>
         </Button>

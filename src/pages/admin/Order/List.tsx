@@ -1,16 +1,16 @@
-import { Button, Space } from 'antd';
-import { Link } from 'react-router-dom';
-import DataTable from '../../../components/admin/Form&Table/Table';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { formatCurrency, formatDate } from '../../../ultils';
+import { Button, Space } from "antd";
+import { Link } from "react-router-dom";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { formatCurrency, formatDate } from "../../../ultils";
 import { EditOutlined } from "@ant-design/icons";
-import configRoute from '../../../config';
+import configRoute from "../../../config";
 
-type Props = {}
+type Props = {};
 
 const AdminOrders = (props: Props) => {
-   document.title = "Admin | Orders";
-   const dispatch = useAppDispatch()
+  document.title = "Admin | Orders";
+  const dispatch = useAppDispatch();
 
    const { orders } = useAppSelector((state: any) => state.OrderReducer)
    let orderSuccess = orders.filter((item: any) => item?.status == 1);

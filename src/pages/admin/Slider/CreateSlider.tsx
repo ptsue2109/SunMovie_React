@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
@@ -28,6 +28,9 @@ const CreateSlider = (props: Props) => {
 
   return (
     <>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminSlider}>List Slider</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
@@ -57,9 +60,8 @@ const CreateSlider = (props: Props) => {
           label="Url"
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
-
         >
-         <Input />
+          <Input />
         </Form.Item>
 
         <Form.Item>

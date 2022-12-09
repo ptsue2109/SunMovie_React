@@ -1,13 +1,13 @@
-import { Button, Space } from 'antd'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import DataTable from '../../../components/admin/Form&Table/Table'
-import configRoute from '../../../config'
-import { useAppSelector } from '../../../redux/hook'
-import { formatCurrency, formatDate } from '../../../ultils'
+import { Button, Space } from "antd";
+import React from "react";
+import { Link } from "react-router-dom";
+import DataTable from "../../../components/admin/Form&Table/Table";
+import configRoute from "../../../config";
+import { useAppSelector } from "../../../redux/hook";
+import { formatCurrency, formatDate } from "../../../ultils";
 import { EditOutlined } from "@ant-design/icons";
 
-type Props = {}
+type Props = {};
 
 const FailedOrder = (props: Props) => {
    const { orders } = useAppSelector((state: any) => state.OrderReducer)

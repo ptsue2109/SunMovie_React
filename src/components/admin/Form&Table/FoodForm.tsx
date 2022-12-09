@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Button, DatePicker, Form, Input, InputNumber, message, Select } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Select,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { createFood } from "../../../redux/slice/FoodSlice";
 import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
-import { validateMessages } from "../../../ultils/FormMessage"
+import { validateMessages } from "../../../ultils/FormMessage";
 import ImageUpload from "../../../components/upload";
 import { defaultStatus } from "../../../ultils/data";
 
 type Props = {
-   onFinish: any,
-   form: any;
-   avatarList: any,
-   setAvatarList: any
-}
+  onFinish: any;
+  form: any;
+  avatarList: any;
+  setAvatarList: any;
+};
 
 const FoodForm = ({ onFinish, form, avatarList, setAvatarList }: Props) => {
    return (
@@ -56,17 +64,14 @@ const FoodForm = ({ onFinish, form, avatarList, setAvatarList }: Props) => {
                <InputNumber min={1} placeholder="Số lượng trong kho" style={{ width: '100%' }} />
             </Form.Item>
 
-            <Form.Item>
-               <Button type="primary" htmlType="submit">
-                  Submit
-               </Button>
-            </Form.Item>
-         </Form>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Lưu
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
+  );
+};
 
-
-
-      </>
-   )
-}
-
-export default FoodForm
+export default FoodForm;

@@ -102,7 +102,7 @@ const AdminRoomList = (props: Props) => {
       ),
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">

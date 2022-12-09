@@ -17,7 +17,9 @@ type Props = {};
 
 const AdminSlider = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { slider, errMess } = useAppSelector((state) => state.slider);
+  const { slider, errMess, isFetching } = useAppSelector(
+    (state) => state.slider
+  );
   const deleteSlider = (data: string | undefined) => {
     dispatch(removeSliderItem(data))
       .unwrap()
@@ -56,7 +58,9 @@ const AdminSlider = (props: Props) => {
       dataIndex: "url",
       render: (_: any, record: any) => <p>{record?.url}</p>,
     },
-  
+   
+    
+
     {
       title: "ACTION",
       key: "action",
@@ -90,11 +94,21 @@ const AdminSlider = (props: Props) => {
       title: item?.title,
       content: item?.content,
       url: item?.url,
-      
     };
   });
 
   return (
+    // <div>
+    //   <Button type="primary" style={{ marginBottom: "20px" }}>
+    //     <Link to="/admin/slider/create">Create Slider</Link>
+    //   </Button>
+    //   <DataTable
+    //     column={columnUserList}
+    //     data={data}
+    //     scrollWidth={{ x: 2000 }}
+    //     loading={isFetching}
+    //   />
+    // </div>
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/slider/create">Thêm Slider</Link>
@@ -102,6 +116,7 @@ const AdminSlider = (props: Props) => {
       <DataTable
         column={columnUserList}
         data={data}
+        scrollWidth={{ x: 2000 }}
       />
     </div>
   );

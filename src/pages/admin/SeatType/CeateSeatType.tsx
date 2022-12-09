@@ -56,7 +56,7 @@ const CeateSeatType = (props: Props) => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Lưu
           </Button>
         </Form.Item>
       </Form>

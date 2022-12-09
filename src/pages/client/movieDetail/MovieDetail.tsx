@@ -18,13 +18,16 @@ import { DatePicker, Space } from "antd";
 import styled from "styled-components";
 import RelateMovie from "../RelateMovie";
 import moment from "moment";
+import Comente from "../comment";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
   const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
+  const [cometArr, setComentArr] = useState([]);
   const Toggle = (number: any) => {
     setActive(number);
   };
@@ -53,13 +56,21 @@ const MovieDetail = (props: Props) => {
 
   useEffect(() => {
     dispatch(getOneMovie(slug));
-  }, []);
+  }, [slug]);
   useEffect(() => {
     dispatch(getAlSt({}));
   }, []);
 
   if (data == "") return <div>Loading...</div>;
-
+  const showModal2 = () => {
+    setIsModalOpen2(true);
+  };
+  const handleOk2 = () => {
+    setIsModalOpen2(false);
+  };
+  const handleCancel2 = () => {
+    setIsModalOpen2(false);
+  };
   const RenderShowTime = () => {
     const [idShowtime, setIdShowtime] = useState();
     const [dateChoose, setDateChoose] = useState();
@@ -197,14 +208,14 @@ const MovieDetail = (props: Props) => {
         title={data?.name}
         width={950}
         footer={null}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        open={isModalOpen2}
+        onOk={handleOk2}
+        onCancel={handleCancel2}
       >
         <iframe
           width="900"
           height="500"
-          src={`${data?.movie?.trailerUrl}`}
+          src={`https://www.youtube.com/embed/${data?.movie?.trailerUrl}`}
           title="YouTube video player"
           frameBorder={0}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -245,7 +256,7 @@ const MovieDetail = (props: Props) => {
                   {formatDate(data?.movie?.releaseDate)}
                 </p>
                 {data?.movie?.trailerUrl && (
-                  <button onClick={() => showModal()}>Xem trailer</button>
+                  <button onClick={() => showModal2()}>Xem trailer</button>
                 )}
               </div>
               <div className={styles.content_info_item_desc}>
@@ -271,10 +282,19 @@ const MovieDetail = (props: Props) => {
               <GiFilmSpool />
               <span>Các phim khác</span>
             </button>
+            <button
+              onClick={() => Toggle(3)}
+              className={isActive == 3 ? styles.showTimesBtnActive : ""}
+            >
+              <span>Binh luan</span>
+            </button>
           </div>
           <RenderShowTime />
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <RelateMovie data={relateArr} />
+          </div>
+          <div className={isActive == 3 ? styles.showFilmList : "hidden"}>
+            <Comente data={cometArr} />
           </div>
         </div>
       </div>

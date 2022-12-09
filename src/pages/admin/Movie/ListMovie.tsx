@@ -13,9 +13,14 @@ const ListMovie = (props: Props) => {
   const dispatch = useAppDispatch();
   const { movie, errMess } = useAppSelector((state) => state.movie);
   const deleteUser = (data: string | undefined) => {
-    dispatch(removeMovieItem(data)).unwrap()
-      .then(() => { message.success({ content: "Xoá thành công", key: "handling" }) })
-      .catch(() => { message.error({ content: { errMess } }) });
+    dispatch(removeMovieItem(data))
+      .unwrap()
+      .then(() => {
+        message.success({ content: "Xoá thành công", key: "handling" });
+      })
+      .catch(() => {
+        message.error({ content: { errMess } });
+      });
   };
 
   const columnUserList: any = [
@@ -23,15 +28,18 @@ const ListMovie = (props: Props) => {
       title: "Ảnh",
       dataIndex: "image",
       fixed: "left",
-      render: (_: any, {image, _id}: any) => (
-       <Link to={_id}> <img width="50px" src={image} height="50px" /></Link>
+      render: (_: any, { image, _id }: any) => (
+        <Link to={_id}>
+          {" "}
+          <img width="50px" src={image} height="50px" />
+        </Link>
       ),
       width: 120,
     },
     {
       title: "Tên",
       dataIndex: "name",
-      render: (_: any, {name, _id}: any) => <Link to={_id}>{name}</Link>,
+      render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
@@ -59,7 +67,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       fixed: "right",
       render: (_: any, record: any) => (
@@ -82,12 +90,17 @@ const ListMovie = (props: Props) => {
               <PlusOutlined
                 style={{ color: "var(--primary)", fontSize: "18px" }}
               />
-              showtime
+              Tạo suất chiếu
             </Link>
           </Button>
           <Button type="dashed" block>
             <Link to={`/admin/showTimes?movieId=${record?._id}`}>
               Danh sách giờ chiếu
+            </Link>
+          </Button>
+          <Button type="dashed" block>
+            <Link to={`/admin/movieComment/${record?._id}`}>
+              Đánh giá về phim
             </Link>
           </Button>
         </Space>

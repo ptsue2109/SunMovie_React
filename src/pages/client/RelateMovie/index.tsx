@@ -16,7 +16,7 @@ const RelateMovie = ({ data }: Props) => {
                 <img src={item?.image[0]?.url} alt="" />
               </div>
               <div className={styles.showFilmListItemInfo}>
-                <h3>{item?.slug}</h3>
+                <h3>{item?.name}</h3>
               </div>
             </Link>
           </div>

@@ -6,8 +6,9 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateSliderThunk } from "../../../redux/slice/Slider";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
+import { UpdateSliders } from "../../../redux/slice/Slider";
 
-type Props = {}; 
+type Props = {};
 
 const UpdateSlider = (props: Props) => {
   const [image, setImage] = useState<any[]>([]);
@@ -21,7 +22,7 @@ const UpdateSlider = (props: Props) => {
   
   useEffect(() => {
     if (data) {
-      setImage(data?.images as any);
+      setImage(data?.image);
       form.setFieldsValue({
         ...data,
         releaseDate: moment(data.releaseDate),
@@ -31,15 +32,16 @@ const UpdateSlider = (props: Props) => {
 
   const onFinish = async (values: any) => {
     values._id = id;
-    let avatarList = values?.avatarList?.fileList;
-    if (avatarList) values.images = avatarList;
-    else values.images = data?.images;
-   
-    dispatch(UpdateSliderThunk(values))
+    values.releaseDate = new Date(moment(values.releaseDate).format());
+    let imageOld = values.avatarList?.fileList;
+    if (imageOld) values.image = imageOld;
+    else values.image = values?.image;
+    delete values?.imageOld;
+    dispatch(UpdateSliders(values))
       .unwrap()
       .then(() => {
         message.success({ content: "Sửa thành công" });
-        navigate(configRoute.routes.adminSlider);
+        navigate(configRoute.routes.adminMovie);
       })
       .catch(() => {
         message.error({ content: "Thất bại" });
@@ -79,11 +81,16 @@ const UpdateSlider = (props: Props) => {
           label="Url"
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
-
         >
-         <Input />
+          <Input />
         </Form.Item>
-
+        <Form.Item
+          label="slug"
+          name="slug"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit

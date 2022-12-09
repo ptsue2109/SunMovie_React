@@ -11,8 +11,8 @@ type Props = {};
 
 const InfoUser = (props: Props) => {
   const [form] = Form.useForm();
-  const { currentUser } = useAppSelector((state:any) => state.authReducer);
-  const { users } = useAppSelector((state:any) => state.userReducer);
+  const { currentUser } = useAppSelector((state: any) => state.authReducer);
+  const { users } = useAppSelector((state: any) => state.userReducer);
   const id = currentUser._id;
   const data = users?.find((item: any) => item._id === id);
   const layout = {
@@ -121,8 +121,15 @@ const InfoUser = (props: Props) => {
           </Radio.Group>
         </Form.Item>
         <div className={styles.infoItems}>
-          <div>{data?.role == 1 ? "Admin" : "Thành viên"}</div>
-          <div>Trạng thái: Đã kích hoạt</div>
+          <div>Vai trò:{data?.role == 1 ? "Admin" : "Thành viên"}</div>
+          <div>
+            Trạng thái:
+            {data.status === 0
+              ? " Chưa xác thực"
+              : data.status === 1
+              ? " Đang hoạt động"
+              : " Dừng hoạt động"}
+          </div>
           <div>
             <span>Ngày đăng ký: {formatDate(data?.createdAt)}</span>-
             <span> Ngày sửa gần nhất: {formatDate(data?.updatedAt)}</span>

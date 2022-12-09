@@ -22,7 +22,7 @@ const CreateMovieType = (props: Props) => {
 
   return (
     <>
-    <div className="flex gap-5">
+      <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
           <Link to={configRoute.routes.adminMovieType}>DS Thể loại</Link>
         </Button>
@@ -45,7 +45,7 @@ const CreateMovieType = (props: Props) => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Lưu
           </Button>
         </Form.Item>
       </Form>
