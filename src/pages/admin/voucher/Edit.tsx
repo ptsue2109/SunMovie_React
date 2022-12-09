@@ -63,7 +63,7 @@ console.log(dataSelected);
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={config.routes.AdminVouchers}>List Voucher</Link>
+        <Link to={config.routes.AdminVouchers}>DS Voucher</Link>
       </Button>
       <VoucherForm
         form={form}

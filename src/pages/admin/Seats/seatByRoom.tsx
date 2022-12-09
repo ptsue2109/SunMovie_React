@@ -37,7 +37,7 @@ const SeatByRoom = (props: Props) => {
   return (
     <div>
       <Button>
-        <Link to="/admin/rooms">List room</Link>
+        <Link to="/admin/rooms">DS Phòng chiếu</Link>
       </Button>
       <Collapse
         bordered={false}

@@ -37,7 +37,7 @@ const AddPost = (props: Props) => {
    return (
       <>
          <Button type="primary" style={{ marginBottom: "20px" }}>
-            <Link to={config.routes.AdminPosts}>List Post</Link>
+            <Link to={config.routes.AdminPosts}>DS Bài viết</Link>
          </Button>
          <PostForm
             form={form}

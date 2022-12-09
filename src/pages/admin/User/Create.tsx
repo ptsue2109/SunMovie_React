@@ -40,7 +40,7 @@ const UserCreate = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={config.routes.adminUserList}>List users</Link>
+        <Link to={config.routes.adminUserList}>DS Người dùng</Link>
       </Button>
       <UserForm
         onFinish={onFinish}

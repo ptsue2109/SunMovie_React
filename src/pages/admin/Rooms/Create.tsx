@@ -13,19 +13,19 @@ const AdminRoomCreate = (props: Props) => {
   const [rowFile, setRowFile] = useState(0);
   const [colFile, setSColFile] = useState(0);
   const [blockSeat, setBlockSeat] = useState(0);
-  const [showSeatTye, setShowSeatTye] = useState(false);
+  const [showSeatTye, setShowSeatTye] = useState(true);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { errorMessage } = useAppSelector((state) => state.userReducer);
+  const { errorMessage } = useAppSelector((state) => state.roomReducer);
   const [seats, setSeats] = useState();
   const [adminRenderSeat, setAdminRenderSeat] = useState(false);
 
   const onFinish = (val: any) => {
-    console.log(seatFile);
     dispatch(createRooms(val))
       .unwrap()
-      .then(() => {
+      .then((payload:any) => {
+        
         message.success("tạo thành công");
         navigate(config.routes.adminRooms);
       })
@@ -38,7 +38,7 @@ const AdminRoomCreate = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to={config.routes.adminRooms}>Danh sách phòng</Link>
+        <Link to={config.routes.adminRooms}>DS Phòng chiếu</Link>
       </Button>
       <RoomForm
         onFinish={onFinish}
@@ -53,7 +53,8 @@ const AdminRoomCreate = (props: Props) => {
         setSeats={setSeats}
         showSeatTye={showSeatTye}
         adminRenderSeat={adminRenderSeat}
-        showTable={false}
+      
+
       />
     </div>
   );

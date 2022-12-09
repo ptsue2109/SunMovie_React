@@ -88,7 +88,7 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.email - b.email,
     },
     {
-      title: "Trạng thái",
+      title: "Trạng Thái",
       dataIndex: "status",
       key: "status",
       render: (_: any, { _id, status }: any) => (
@@ -153,7 +153,7 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.username - b.username,
     },
     {
-      title: "Số điện thoại",
+      title: "SDT",
       dataIndex: "phone",
       key: "phone",
       sorter: (a: any, b: any) => a.phone - b.phone,
@@ -192,7 +192,7 @@ const AdminUserList = (props: Props) => {
           </Link>
           {currentUser?._id !== record?._id && (
             <Popconfirm
-              title={`Delete ${record?.username ?? record?._id}?`}
+              title={`Xóa ${record?.username ?? record?._id}?`}
               okText="OK"
               cancelText="Cancel"
               onConfirm={() => deleteUser(record?._id)}
@@ -229,7 +229,7 @@ const AdminUserList = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Tạo tài khoản</Link>
+        <Link to="add">Thêm người dùng</Link>
       </Button>
       <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>

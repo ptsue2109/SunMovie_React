@@ -54,7 +54,7 @@ const FoodList = (props: Props) => {
       ),
     },
     {
-      title: "Kho",
+      title: "SL trong kho",
       dataIndex: "stock",
       render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
@@ -72,7 +72,7 @@ const FoodList = (props: Props) => {
             />
           </Link>
           <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
+            title={`Xóa ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteFood(record?._id)}
@@ -100,7 +100,7 @@ const FoodList = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/food/create">Create Food</Link>
+        <Link to="/admin/food/create">Tạo mới</Link>
       </Button>
       <DataTable column={columnUserList} data={data} />
     </div>

@@ -26,7 +26,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
       if (value >= 60 && value <= 180) {
         callback();
       } else {
-        callback(`RunTime must be greater than 60 and les than 180`);
+        callback(`Thời gian chiếu không hợp lệ `);
       }
     } else {
       callback();
@@ -57,7 +57,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
 
                 <Form.Item
                   name="runTime"
-                  label="Thời gian"
+                  label="Thời gian chiếu (dv: phút)"
                   rules={[
                     {
                       type: "number",
@@ -86,7 +86,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
 
                 <Form.Item
                   name="ageLimit"
-                  label="Độ tuổi"
+                  label="Độ tuổi giới hạn"
                   rules={[{ required: true }]}
                   className="w-full overflow-hidden"
                 >
@@ -101,7 +101,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
 
                 <Form.Item
                   name="languages"
-                  label="Ngôn ngữ"
+                  label="Loại hình chiếu"
                   rules={[{ required: true }]}
                 >
                   <Select>
@@ -116,7 +116,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
               <Card className="col-6 w-full mt-3">
                 <Form.Item
                   name="releaseDate"
-                  label="Ngày phát hành"
+                  label="Ngày ra mắt"
                   rules={[{ required: true }]}
                 >
                   <DatePicker format="DD-MM-YYYY" />
