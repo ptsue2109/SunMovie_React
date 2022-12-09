@@ -12,7 +12,7 @@ type Props = {};
 const FailedOrder = (props: Props) => {
    const { orders } = useAppSelector((state: any) => state.OrderReducer)
    let orderFailed = orders.filter((item: any) => item?.status !== 1);
-   console.log(orderFailed);
+
    const columns = [
       {
          title: "Mã đơn",

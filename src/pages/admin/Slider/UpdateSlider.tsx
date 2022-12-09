@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateSliderThunk } from "../../../redux/slice/Slider";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
-import { UpdateSliders } from "../../../redux/slice/Slider";
 
 type Props = {};
 
@@ -37,7 +36,7 @@ const UpdateSlider = (props: Props) => {
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
     delete values?.imageOld;
-    dispatch(UpdateSliders(values))
+    dispatch(UpdateSliderThunk(values))
       .unwrap()
       .then(() => {
         message.success({ content: "Sửa thành công" });
