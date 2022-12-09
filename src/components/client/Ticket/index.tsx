@@ -1,18 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { formatCurrency, formatDateString, formatTime } from '../../../ultils'
 import "./order.scss"
-import { Skeleton } from "antd"
+import { Button, notification, Skeleton } from "antd"
+import { useAppDispatch } from '../../../redux/hook'
+import { updateOrder } from '../../../redux/slice/OrdersSlice'
 type Props = {
    detail?: any,
    order?: any,
-   totalPriceFinal?: any
+   totalPriceFinal?: any,
+   showQR?: any,
+   closeModal?: any
 }
 
-const Ticket = ({ detail, order, totalPriceFinal }: Props) => {
+const Ticket = ({ detail, order, totalPriceFinal, showQR, closeModal }: Props) => {
+   const [qrActive, setQrActive] = useState<any>(false);
+   const dispatch = useAppDispatch();
+   console.log(order);
 
+   const handle = () => {
+      setQrActive(true)
+      let payload = {
+         _id: order?._id,
+         status: 3
+      }
+      dispatch(updateOrder(payload)).unwrap()
+         .then(() => {
+            setTimeout(() => {
+               notification.success({ message: "Voucher đã được quét" });
+               closeModal(false)
+            }, 3000);
+         })
+         .catch(() => {
+            setTimeout(() => {
+               notification.error({ message: "Lỗi, vui lòng thử lại sau" })
+            }, 3000);
+         })
+   }
+   const handleClose = () => {
+      setQrActive(false)
+
+   }
    return (
       <>
-         {detail &&  order ? (
+         {detail && order ? (
             <div className='cardContainer'>
                <div className="ticket">
                   <div className="ticket--start">
@@ -64,16 +94,26 @@ const Ticket = ({ detail, order, totalPriceFinal }: Props) => {
                      <div><img src="https://qidoon.com/assets/img/logo.svg" /></div>
                   </div>
                </div>
+               <div className="qr">
+                  <Button type='link' onClick={handle}>
+                     Quét mã QR ngay
+                  </Button>
+
+               </div>
+               {qrActive && (
+                  <>
+                     <Button type='link' onClick={handleClose}>
+                        Ẩn QR
+                     </Button>
+                     <img src={order?.qrCode} className="w-[460px] h-[460px]" />
+                  </>
+               )}
             </div>
          ) : (
             <>
                <Skeleton />
-               <p>Không thể xem chi tiết</p>
             </>
          )}
-
-
-
       </>
    )
 }

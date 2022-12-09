@@ -28,19 +28,19 @@ const VoucherForm = ({ setAvatarList,userId,voucherId, isCreate, avatarList, for
             {editData ? (
                <>
                   <Card className="col-6 w-full">
-                     <Form.Item label="Thumbnail" >
+                     <Form.Item label="Ảnh" >
                         <ImageUpload imageList={avatarList} limit={1} key={1} />
                      </Form.Item>
-                     <Form.Item label="Voucher Code" name="code" rules={[{ required: true }]}>
+                     <Form.Item label="Mã Code" name="code" rules={[{ required: true }]}>
                         <Input placeholder="Mã Voucher" />
                      </Form.Item>
-                     <Form.Item label="Voucher name" name="name" rules={[{ required: true }]}>
+                     <Form.Item label="Tên voucher" name="name" rules={[{ required: true }]}>
                         <Input placeholder="Tên Voucher" />
                      </Form.Item>
-                     <Form.Item label="Quantity" name="quantity" rules={[{ required: true }]} >
+                     <Form.Item label="Số lượng" name="quantity" rules={[{ required: true }]} >
                         <InputNumber style={{ width: '100%' }} placeholder="Nhập số lượng voucher" />
                      </Form.Item>
-                     <Form.Item label="Content" name="content" rules={[{ required: true }]} >
+                     <Form.Item label="Nội dung" name="content" rules={[{ required: true }]} >
                         <TextArea placeholder="Nhập nội dung" />
                      </Form.Item>
                      <Form.Item
@@ -51,20 +51,20 @@ const VoucherForm = ({ setAvatarList,userId,voucherId, isCreate, avatarList, for
                      </Form.Item>
                   </Card>
                   <Card className="col-6 w-full">
-                     <Form.Item label="shortDesc" name="shortDesc">
+                     <Form.Item label="Mô tả ngắn" name="shortDesc">
                         <Input />
                      </Form.Item>
-                     <Form.Item label="Condition" name="condition" rules={[{ required: true }]} >
+                     <Form.Item label="Điều kiện giảm" name="condition" rules={[{ required: true }]} >
                         <Select placeholder="Chọn điều kiện giảm">
                            <Option value={1}>Giảm theo tiền</Option>
                            <Option value={0}>Giảm theo %</Option>
                         </Select>
                      </Form.Item>
 
-                     <Form.Item label="Condition Number" name="conditionNumber" className='w-full' rules={[{ required: true }]} >
+                     <Form.Item label="Số tiền hoặc % giảm theo điều kiện" name="conditionNumber" className='w-full' rules={[{ required: true }]} >
                         <InputNumber style={{ width: '100%' }} placeholder="Số tiền hoặc % giảm theo điều kiện" />
                      </Form.Item>
-                     <Form.Item label="Conditon with voucher value" name="voucherVal" rules={[{ required: true }]}>
+                     <Form.Item label="Số tiền tối thiểu để giảm" name="voucherVal" rules={[{ required: true }]}>
                         <InputNumber
                            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                            parser={(value: any) => value!.replace(/\$\s?|(,*)/g, '')}
@@ -73,7 +73,7 @@ const VoucherForm = ({ setAvatarList,userId,voucherId, isCreate, avatarList, for
                            style={{ width: '100%' }}
                         />
                      </Form.Item>
-                     <Form.Item label="voucherLimit" name="voucherLimit">
+                     <Form.Item label="Giảm tối đa" name="voucherLimit">
                         <InputNumber
                            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                            parser={(value: any) => value!.replace(/\$\s?|(,*)/g, '')}
@@ -81,7 +81,7 @@ const VoucherForm = ({ setAvatarList,userId,voucherId, isCreate, avatarList, for
                            style={{ width: '100%' }}
                         />
                      </Form.Item>
-                     <Form.Item label="Status" name="status">
+                     <Form.Item label="Trạng thái" name="status">
                         <Select>
                            {defaultStatus.map((item: any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>

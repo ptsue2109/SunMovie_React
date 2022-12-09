@@ -45,7 +45,7 @@ const UpdateFood = (props: Props) => {
   return (
     <>
       <Button className="mb-3">
-        <Link to={configRoute.routes.adminFood}>List Food</Link>
+        <Link to={configRoute.routes.adminFood}>DS Đồ ăn</Link>
       </Button>
       <FoodForm onFinish={onFinish} form={form} avatarList={avatarList} setAvatarList={setAvatarList} />
     </>

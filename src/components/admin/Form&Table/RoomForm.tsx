@@ -88,11 +88,7 @@ const RoomForm = ({
                   >
                     <Input placeholder="Nhập vào" />
                   </Form.Item>
-                  <Form.Item
-                    label="Film Format"
-                    name="formatId"
-                    rules={[{ required: true }]}
-                  >
+                  <Form.Item label="Film Format" name="formatId" rules={[{ required: true }]}   >
                     <Select>
                       {filmFormats &&
                         filmFormats?.map((item: any) => (
@@ -103,11 +99,7 @@ const RoomForm = ({
                     </Select>
                   </Form.Item>
                   {showSeatTye && (
-                    <Form.Item
-                      label="seatTypeId"
-                      name="seatTypeId"
-                      rules={[{ required: true }]}
-                    >
+                    <Form.Item label="seatTypeId" name="seatTypeId" rules={[{ required: true }]}  >
                       <Select>
                         {seatType &&
                           seatType?.map((item: any) => (
@@ -118,29 +110,11 @@ const RoomForm = ({
                       </Select>
                     </Form.Item>
                   )}
-                  <Form.Item
-                    label="columns"
-                    name="rows"
-                    rules={[{ required: true }]}
-                  >
-                    <InputNumber
-                      min={column}
-                      max={20}
-                      placeholder="tạo số hàng"
-                      onChange={onChangeRow}
-                    />
+                  <Form.Item label="columns" name="rows" rules={[{ required: true }]}>
+                    <InputNumber min={column} max={20} placeholder="tạo số hàng" onChange={onChangeRow} />
                   </Form.Item>
-                  <Form.Item
-                    label="rows"
-                    name="columns"
-                    rules={[{ required: true }]}
-                  >
-                    <InputNumber
-                      min={row}
-                      max={20}
-                      placeholder="tạo số hàng"
-                      onChange={onChangeCols}
-                    />
+                  <Form.Item label="rows" name="columns" rules={[{ required: true }]}>
+                    <InputNumber min={row} max={20} placeholder="tạo số hàng" onChange={onChangeCols} />
                   </Form.Item>
                   <Card
                     style={{
@@ -176,9 +150,7 @@ const RoomForm = ({
                     column={column}
                     seatDetails={seatDetails}
                     setSeatDetails={setSeatDetails}
-                    seats={undefined}
-                    setSeats={undefined}
-                    roomId={undefined}
+
                     showTable={showTable}
                   />
                 </Card>
@@ -186,7 +158,7 @@ const RoomForm = ({
             ) : (
               <Card className="col-12">
                 <Form.Item
-                  label="Tên phòng"
+                  label="Tên rạp"
                   name="name"
                   rules={[
                     {
@@ -232,29 +204,11 @@ const RoomForm = ({
                   </Form.Item>
                 )}
 
-                <Form.Item
-                  label="Hàng"
-                  name="rows"
-                  rules={[{ required: true }]}
-                >
-                  <InputNumberCs
-                    min={1}
-                    max={20}
-                    placeholder="tạo số hàng"
-                    onChange={onChangeRow}
-                    className="w-full"
-                  />
+                <Form.Item label="columns" name="rows" rules={[{ required: true }]}>
+                  <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeRow} className="w-full" />
                 </Form.Item>
-                <Form.Item
-                  label="Cột"
-                  name="columns"
-                  rules={[{ required: true }]}
-                >
-                  <InputNumberCs
-                    min={1}
-                    max={20}
-                    placeholder="tạo số hàng"
-                    onChange={onChangeCols}
+                <Form.Item label="rows" name="columns" rules={[{ required: true }]}>
+                  <InputNumberCs min={1} max={20} placeholder="tạo số hàng" onChange={onChangeCols}
                   />
                 </Form.Item>
                 <Card

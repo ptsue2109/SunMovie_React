@@ -21,14 +21,13 @@ const AdminShowTimesCreate = (_props: Props) => {
   const [timeEnd, setTimeEnd] = useState();
   let movieId = searchParams.get("movieId");
 
-
   useEffect(() => { document.title = "Admin | Create - ShowTimes" }, [])
 
   const onFinish = async (values: any) => {
     values.startAt = new Date(moment(values.timeStart).format());
     values.endAt = new Date(moment(values.timeEnd).format());
     values.date = values.startAt
-
+    
     dispatch(createData(values)).unwrap()
       .then(() => {
         message.success('Tạo thành công');

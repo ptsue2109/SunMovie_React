@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { TbLogout } from "react-icons/tb";
 import { Button, Dropdown, Menu, message } from "antd";
 import { LogOut } from "../../../redux/slice/AuthSlice";
+import NavTop from "./NavTop";
 type Props = {};
 
 const ClientHeader = (props: Props) => {
@@ -70,6 +71,7 @@ const ClientHeader = (props: Props) => {
   );
   return (
     <>
+    <NavTop />
       <div className={styles.headerWap}>
         <div className={`${styles.header}`}>
           <div className={styles.logo}>

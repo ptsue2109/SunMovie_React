@@ -43,6 +43,7 @@ const Profile = (props: Props) => {
       setYourOrder(a);
     }
   }, [orders]);
+    console.log(yourOrder);
 
   useEffect(() => {
     dispatch(getOneOrder(orderID));
@@ -53,9 +54,7 @@ const Profile = (props: Props) => {
     if (order) {
       setOrderDetail(order?.order);
       setDetail(order?.detail);
-      let price =
-        (order?.order?.foodDetailId?.totalPrice || 0) +
-        order?.order?.totalPrice;
+      let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice);
       setTotalPriceFinal(price);
     }
   }, [order]);
@@ -71,15 +70,7 @@ const Profile = (props: Props) => {
       dataIndex: "shortId",
       render: (_: any, { shortId, _id }: any) => (
         <>
-          <Button
-            type="link"
-            onClick={() => {
-              handle(_id);
-              setOpen(true);
-            }}
-          >
-            {shortId}
-          </Button>
+          <Button type="link" onClick={() => { handle(_id); setOpen(true) }}>{shortId}</Button>
           <Modal
             title={`Đơn hàng ${shortId}`}
             centered
@@ -88,13 +79,7 @@ const Profile = (props: Props) => {
             onCancel={() => setOpen(false)}
             width={1000}
           >
-            {order && (
-              <Ticket
-                detail={detail}
-                order={orderDetail}
-                totalPriceFinal={totalPriceFinal}
-              />
-            )}
+            {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal}  />}
           </Modal>
         </>
       ),
@@ -107,9 +92,7 @@ const Profile = (props: Props) => {
     {
       title: "Trạng Thái",
       dataIndex: "status",
-      render: (_: any, record: any) => (
-        <p>{record?.status === 1 ? "Đã thanh toán" : "chưa thanh toán"}</p>
-      ),
+      render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 2 ? "Thanh toán Lỗi" : "Đã xuất vé"}</p>,
     },
   ];
   const data: any[] = yourOrder?.map((item: any, index: any) => {

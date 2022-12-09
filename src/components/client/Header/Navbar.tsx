@@ -15,9 +15,6 @@ const Navbar = (props: Props) => {
             <Link to={`#`}>Phim</Link>
           </li>
           <li>
-            <Link to={config.routes.bookChair}>Mua vé</Link>
-          </li>
-          <li>
             <Link to={config.routes.tickitPrice}>Giá vé</Link>
           </li>
           <li>
@@ -26,6 +23,7 @@ const Navbar = (props: Props) => {
           <li>
             <Link to={config.routes.contact}>Hỗ trợ</Link>
           </li>
+          
         </ul>
       </nav>
     </>

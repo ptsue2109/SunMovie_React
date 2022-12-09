@@ -69,13 +69,14 @@ import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
 import EditCategory from "../pages/admin/categories/Edit";
 import ListCommentMovie from "../pages/admin/comment";
-import ProfileOrder from "../pages/client/profile/ProfileOrder";
+
 import PaymentStep from "../components/client/PaymentStep";
 import ChooseCombo from "../components/client/ChooseCombo";
 import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
 import AdminOrders from "../pages/admin/Order/List";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import FailedOrder from "../pages/admin/Order/FailedOrder";
+import FindOrder from "../pages/client/findOrder";
 import PaymentStatus from "../components/client/PaymentStatus";
 type RoutesType = {
   path: string;
@@ -108,8 +109,8 @@ export const publicRoutes: RoutesType[] = [
   },
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
-  { path: configRoute.routes.step, component: PaymentStep },
-  { path: configRoute.routes.profileOrder, component: ProfileOrder },
+ { path: configRoute.routes.step, component: PaymentStep },
+ { path: configRoute.routes.findOrder, component: FindOrder },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

@@ -43,11 +43,9 @@ const ListMovie = (props: Props) => {
     },
 
     {
-      title: "Thời gian",
+      title: "Thời gian chiếu",
       dataIndex: "runTime",
-      render: (_: any, record: any) => (
-        <p>{convertMovieTime(record?.runTime)}</p>
-      ),
+      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)} h</p>,
     },
 
     {
@@ -60,7 +58,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "Ngày phát hành",
+      title: "Ngày khởi chiếu",
       key: "releaseDate",
       render: (_: any, record: any) => (
         <div>
@@ -133,7 +131,7 @@ const ListMovie = (props: Props) => {
     <div>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies/create">Thêm mới phim</Link>
+          <Link to="/admin/movies/create">Tạo Phim</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminMovieType}>

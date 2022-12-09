@@ -20,6 +20,8 @@ const UpdateMovies = (props: Props) => {
 
   const { movie } = useAppSelector((state) => state.movie);
   const data = movie?.find((item: any) => item._id === id);
+  console.log(data);
+  
   useEffect(() => {
     if (data) {
       setImage(data?.image as any[]);
@@ -54,7 +56,7 @@ const UpdateMovies = (props: Props) => {
   return (
     <>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/movies">List Movies</Link>
+        <Link to="/admin/movies">DS phim</Link>
       </Button>
       <MovieForm
         image={image}

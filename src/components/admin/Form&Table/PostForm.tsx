@@ -42,7 +42,7 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                         </Select>
                      </Form.Item>
 
-                     <Form.Item label="Status" name="status">
+                     <Form.Item label="Trạng thái" name="status">
                         <Select>
                            {defaultStatus.map((item: any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
@@ -50,7 +50,7 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                   </Card>
                   <Card className="col-6 w-full">
                      <Form.Item
-                        label="Description"
+                        label="Mô tả"
                         name="desc"
                         valuePropName="desc"
                         getValueFromEvent={(event, editor) => {
@@ -62,7 +62,7 @@ const PostForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = f
                      </Form.Item>
 
                      <Form.Item
-                        label="Content"
+                        label="Nội dung"
                         name="content"
                         valuePropName="content"
                         getValueFromEvent={(event, editor) => {

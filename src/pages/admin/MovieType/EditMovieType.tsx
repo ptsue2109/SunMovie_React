@@ -41,10 +41,10 @@ const EditMovieType = (props: Props) => {
     <>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminMovieType}>List Movie Type</Link>
+          <Link to={configRoute.routes.adminMovieType}>DS Thể loại</Link>
         </Button>
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminMovie}>List Film</Link>
+          <Link to={configRoute.routes.adminMovie}>DS phim</Link>
         </Button>
       </div>
       <Form
@@ -55,7 +55,7 @@ const EditMovieType = (props: Props) => {
       >
         <Form.Item
           name="movieName"
-          label="Name"
+          label="Tên phim"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
