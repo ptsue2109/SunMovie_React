@@ -36,7 +36,7 @@ const ListSeatType = (props: Props) => {
         </div>
       ),
       height: "10",
-      width: "500px",
+      width: "400px",
     },
     {
       title: "Giá loại ghế",
@@ -54,14 +54,14 @@ const ListSeatType = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${item?.movieName ?? item?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteUser(item?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
       width: 30,

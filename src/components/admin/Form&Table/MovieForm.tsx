@@ -25,9 +25,10 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
     if (value) {
       if (value >= 60 && value <= 180) {
         callback();
-      } else { callback(`Thời gian chiếu không hợp lệ `) }
-    }
-    else {
+      } else {
+        callback(`Thời gian chiếu không hợp lệ `);
+      }
+    } else {
       callback();
     }
   };
@@ -46,15 +47,33 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                 <Form.Item label="Ảnh">
                   <ImageUpload imageList={image} limit={1} key={1} />
                 </Form.Item>
-                <Form.Item name="name" label="Tên phim" rules={[{ required: true, min: 5 }]}   >
+                <Form.Item
+                  name="name"
+                  label="Tên phim"
+                  rules={[{ required: true, min: 5 }]}
+                >
                   <Input />
                 </Form.Item>
 
-                <Form.Item name="runTime" label="Thời gian chiếu (dv: phút)" rules={[{ type: "number",required: true, validator: validateRunTime }]}>
+                <Form.Item
+                  name="runTime"
+                  label="Thời gian chiếu (dv: phút)"
+                  rules={[
+                    {
+                      type: "number",
+                      required: true,
+                      validator: validateRunTime,
+                    },
+                  ]}
+                >
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="Thể loại" name="movieTypeId" rules={[{ required: true }]}   >
+                <Form.Item
+                  label="Thể loại"
+                  name="movieTypeId"
+                  rules={[{ required: true }]}
+                >
                   <Select mode="multiple">
                     {movieType &&
                       movieType?.map((item: any, index: any) => (
@@ -65,8 +84,13 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   </Select>
                 </Form.Item>
 
-                <Form.Item name="ageLimit" label="Độ tuổi giới hạn" rules={[{ required: true }]} className="w-full overflow-hidden">
-                  <Select >
+                <Form.Item
+                  name="ageLimit"
+                  label="Độ tuổi giới hạn"
+                  rules={[{ required: true }]}
+                  className="w-full overflow-hidden"
+                >
+                  <Select>
                     {MovieLimitAge?.map((item: any, index: any) => (
                       <Select.Option value={item?.name} key={index}>
                         {item.name} - {item?.desc}
@@ -75,7 +99,11 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   </Select>
                 </Form.Item>
 
-                <Form.Item name="languages" label="Loại hình chiếu" rules={[{ required: true }]}    >
+                <Form.Item
+                  name="languages"
+                  label="Loại hình chiếu"
+                  rules={[{ required: true }]}
+                >
                   <Select>
                     {MoviLanguages?.map((item: any, index: any) => (
                       <Select.Option value={item?.name} key={index}>
@@ -86,11 +114,18 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                 </Form.Item>
               </Card>
               <Card className="col-6 w-full mt-3">
-
-                <Form.Item name="releaseDate" label="Ngày ra mắt" rules={[{ required: true }]}  >
+                <Form.Item
+                  name="releaseDate"
+                  label="Ngày ra mắt"
+                  rules={[{ required: true }]}
+                >
                   <DatePicker format="DD-MM-YYYY" />
                 </Form.Item>
-                <Form.Item name="country" label="Quốc gia" rules={[{ required: true }]}    >
+                <Form.Item
+                  name="country"
+                  label="Quốc gia"
+                  rules={[{ required: true }]}
+                >
                   <Select>
                     {MovieCountry?.map((item: any, index: any) => (
                       <Select.Option value={item?.name} key={index}>
@@ -100,19 +135,31 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   </Select>
                 </Form.Item>
 
-                <Form.Item name="actor" label="Diễn viên" rules={[{ required: true }]}  >
+                <Form.Item
+                  name="actor"
+                  label="Diễn viên"
+                  rules={[{ required: true }]}
+                >
                   <Input />
                 </Form.Item>
 
-                <Form.Item name="director" label="Đạo diễn" rules={[{ required: true }]}     >
+                <Form.Item
+                  name="director"
+                  label="Đạo diễn"
+                  rules={[{ required: true }]}
+                >
                   <Input />
                 </Form.Item>
 
-                <Form.Item name="trailerUrl" label="Trailer" rules={[{ required: true, type: "url" }]}>
+                <Form.Item name="trailerUrl" label="Trailer">
                   <Input />
                 </Form.Item>
 
-                <Form.Item name="description" label="Mô tả" rules={[{ required: true }]}   >
+                <Form.Item
+                  name="description"
+                  label="Mô tả"
+                  rules={[{ required: true }]}
+                >
                   <Input.TextArea />
                 </Form.Item>
 

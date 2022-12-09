@@ -67,7 +67,7 @@ const AdminRoomEdit = (props: Props) => {
           message.success("Update thành công");
           navigate(config.routes.adminRooms);
         })
-        .catch(() => message.error("Update thất bại"));
+        .catch((err: any) => message.error(err));
     }
   };
 
