@@ -74,10 +74,10 @@ const ListMovieType = (props: Props) => {
     <>
      <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminMovieTypeAdd}>Add Movie Type</Link>
+          <Link to={configRoute.routes.adminMovieTypeAdd}>Thêm thể loại phim</Link>
         </Button>
         <Button>
-          <Link to={configRoute.routes.adminMovie}>List Film</Link>
+          <Link to={configRoute.routes.adminMovie}>DS Phim</Link>
         </Button>
       </div>
       <DataTable column={columnList} data={data} loading={isFetching} />

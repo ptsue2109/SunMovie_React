@@ -20,7 +20,7 @@ const ListMovie = (props: Props) => {
 
   const columnUserList: any = [
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
       fixed: "left",
       render: (_: any, {image, _id}: any) => (
@@ -29,19 +29,19 @@ const ListMovie = (props: Props) => {
       width: 120,
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       render: (_: any, {name, _id}: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
-      title: "Run Time",
+      title: "Thời gian chiếu",
       dataIndex: "runTime",
-      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)}</p>,
+      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)} h</p>,
     },
 
     {
-      title: "Age Limit",
+      title: "Độ tuổi",
       key: "ageLimit",
       render: (_: any, record: any) => (
         <div>
@@ -50,7 +50,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "Release Date",
+      title: "Ngày khởi chiếu",
       key: "releaseDate",
       render: (_: any, record: any) => (
         <div>
@@ -118,7 +118,7 @@ const ListMovie = (props: Props) => {
     <div>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies/create">Create Movies</Link>
+          <Link to="/admin/movies/create">Tạo Phim</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminMovieType}>

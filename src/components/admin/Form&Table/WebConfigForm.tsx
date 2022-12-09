@@ -34,7 +34,7 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, hid
                      <Form.Item label="Địa chỉ" name="address_text" rules={[{ required: true }]} >
                         <Input placeholder="Nhập nội dung" />
                      </Form.Item>
-                     <Form.Item label="phone" name="phone" rules={[{ required: true }]} >
+                     <Form.Item label="Số điện thoại" name="phone" rules={[{ required: true }]} >
                         <Input placeholder="Nhập nội dung" />
                      </Form.Item>
 

@@ -20,31 +20,31 @@ const FoodList = (props: Props) => {
   };
   const columnUserList: any = [
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
       render: (_: any, { image, _id }: any) => <Link to={_id}><img src={image} style={{ width: '40px', height: '40px' }} /></Link>,
       width: 40
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       render: (_: any, record: any) => <p>{formatCurrency(record?.price)}</p>,
       width: 140
     },
 
     {
-      title: "Status",
+      title: "Trạng thái",
       dataIndex: "status",
       render: (_: any, record: any) => <p>{record?.status===0 ? "Đang bán" : "Ngừng bán"}</p>,
     },
     {
-      title: "Stock",
+      title: "SL trong kho",
       dataIndex: "stock",
       render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
@@ -63,7 +63,7 @@ const FoodList = (props: Props) => {
             />
           </Link>
           <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
+            title={`Xóa ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteFood(record?._id)}
@@ -91,7 +91,7 @@ const FoodList = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/food/create">Create Food</Link>
+        <Link to="/admin/food/create">Tạo mới</Link>
       </Button>
       <DataTable
         column={columnUserList}

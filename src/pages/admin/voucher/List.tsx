@@ -62,13 +62,13 @@ const AdminVoucherList = (props: Props) => {
       width: 50
     },
     {
-      title: "quantity",
+      title: "SL",
       key: "quantity",
       dataIndex: "quantity",
       width: 50
     },
     {
-      title: "Instock Status",
+      title: "SL trong kho",
       key: "activeQuantity",
       dataIndex: "activeQuantity",
       render: (_: any, record: any) => (
@@ -106,7 +106,7 @@ const AdminVoucherList = (props: Props) => {
       ),
     },
     {
-      title: "Time",
+      title: "Thời gian áp dụng",
       key: "time",
       render: (_: any, record: any) => (
         <Text>
@@ -170,7 +170,7 @@ const AdminVoucherList = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Add New Voucher</Link>
+        <Link to="add">Thêm Voucher</Link>
       </Button>
       <DataTable column={columns} data={data} />
 

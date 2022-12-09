@@ -38,9 +38,7 @@ const Payment = (props: Props) => {
   const { movie } = useAppSelector((state: any) => state.movie)
   const upperText = (text: any) => { return text.toUpperCase() };
   const { state } = useLocation();
-  const [open, setOpen] = useState(false)
   let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
-
   useEffect(() => {
     if (state && movieSelect) {
       setInfo(state?.populatedDetail);
@@ -124,6 +122,7 @@ const Payment = (props: Props) => {
       language: "",
       foodDetailId: state?.foodDetailId,
     }
+
     Swal.fire({
       title: 'Bạn có chắc muốn thanh toán',
       text: "",
@@ -146,6 +145,7 @@ const Payment = (props: Props) => {
               quantity: voucherItem?.quantity - 1,
               userId: [...voucherItem?.userId, currentUser?._id]
             }
+        
             dispatch(updateData(voucherChange)).unwrap()
               .then(() => console.log('success'))
               .catch(() => console.log('errr'))

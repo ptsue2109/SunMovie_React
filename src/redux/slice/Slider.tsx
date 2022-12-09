@@ -36,7 +36,7 @@ export const removeSliderItem = createAsyncThunk(
     }
   }
 );
-export const UpdateSlider = createAsyncThunk(
+export const UpdateSliderThunk = createAsyncThunk(
   "slider/edit",
   async (items: any, { rejectWithValue }) => {
     try {
@@ -121,13 +121,13 @@ const sliderSlice = createSlice({
         (x: any) => x._id !== action.payload._id
       );
     });
-    builder.addCase(UpdateSlider.rejected, (state, action) => {
+    builder.addCase(UpdateSliderThunk.rejected, (state, action) => {
       state.errMess = true;
       //   state.isFetching = false;
       //   state.isSucess = false;
     });
     // update
-    builder.addCase(UpdateSlider.fulfilled, (state, action) => {
+    builder.addCase(UpdateSliderThunk.fulfilled, (state, action) => {
       state.errMess = action.payload;
       //   state.isFetching = false;
       //   state.isSucess = true;

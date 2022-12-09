@@ -32,7 +32,7 @@ const AdminOrdersDetail = (props: Props) => {
    return (
       <div>
          <Button type="primary" style={{ marginBottom: "20px" }}>
-            <Link to="/admin/orders">List orders</Link>
+            <Link to="/admin/orders">DS Orders</Link>
          </Button>
          {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal} />}
       </div>

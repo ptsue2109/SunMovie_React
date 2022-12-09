@@ -25,15 +25,7 @@ const CreateSlider = (props: Props) => {
       message.error(`${payload}`);
     }
   };
-  const config = {
-    rules: [
-      {
-        type: "object" as const,
-        required: true,
-        message: "Please select time!",
-      },
-    ],
-  };
+
   return (
     <>
       <Form
@@ -42,7 +34,7 @@ const CreateSlider = (props: Props) => {
         onFinish={onFinish}
         autoComplete="off"
       >
-        <Form.Item label="Image">
+        <Form.Item label="Ảnh">
           <ImageUpload imageList={image} limit={1} key={1} />
         </Form.Item>
         <Form.Item
@@ -54,7 +46,7 @@ const CreateSlider = (props: Props) => {
         </Form.Item>
 
         <Form.Item
-          name="content"
+          name="Nội dung"
           label="Content"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >

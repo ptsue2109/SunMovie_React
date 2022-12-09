@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   removeRoom,
   updateRoom,
@@ -28,7 +28,8 @@ const AdminRoomList = (props: Props) => {
   const { rooms, isFetching, isErr, errorMessage } = useAppSelector(
     (state: { roomReducer: any }) => state.roomReducer
   );
-  useEffect(() => {
+  
+   useEffect(() => {
     document.title = "Admin | Rooms";
     dispatch(getRooms());
   }, [dispatch]);
@@ -51,7 +52,7 @@ const AdminRoomList = (props: Props) => {
   };
   const columns: any = [
     {
-      title: "NAME",
+      title: "Tên phòng chiếu",
       dataIndex: "name",
       key: "name",
       render: (_: any, record: any) => (
@@ -67,22 +68,22 @@ const AdminRoomList = (props: Props) => {
       ),
     },
     {
-      title: "QuantitySeat",
+      title: "Tổng ghế",
       dataIndex: "tongGhe",
       key: "tongGhe",
     },
     {
-      title: "SeatColumn",
+      title: "Số cột",
       dataIndex: "columns",
       key: "columns",
     },
     {
-      title: "SeatRow",
+      title: "Số hàng",
       dataIndex: "rows",
       key: "rows",
     },
     {
-      title: "Status",
+      title: "Trạng thái",
       dataIndex: "status",
       key: "status",
       render: (_: any, record: any) => (
@@ -106,7 +107,7 @@ const AdminRoomList = (props: Props) => {
       render: (_: any, record: any) => (
         <Space size="middle">
           <Tooltip title="Chỉnh sửa ">
-            <Link to={`${record?._id}`}>
+            <Link to={`${record?._id}?seatTypeId=${'123'}`}>
               <EditOutlined
                 style={{ color: "var(--primary)", fontSize: "18px" }}
               />
@@ -158,7 +159,7 @@ const AdminRoomList = (props: Props) => {
     <div>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="create">Add Rooms</Link>
+          <Link to="create">Thêm Phòng chiếu</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>

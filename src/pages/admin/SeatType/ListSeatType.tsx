@@ -77,7 +77,7 @@ const ListSeatType = (props: Props) => {
     <>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminSeatTypeAdd}>Add Seat Type</Link>
+          <Link to={configRoute.routes.adminSeatTypeAdd}>Thêm Loại Ghế</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminRooms}>Quản lí phòng chiếu</Link>

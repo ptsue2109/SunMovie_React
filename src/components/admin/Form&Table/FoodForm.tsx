@@ -25,19 +25,19 @@ const FoodForm = ({ onFinish, form, avatarList, setAvatarList }: Props) => {
             autoComplete="off"
             validateMessages={validateMessages}
          >
-            <Form.Item label="Avatar" >
+            <Form.Item label="Ảnh" >
                <ImageUpload imageList={avatarList} limit={1} />
                <small>(Tải lên ít nhất 1 ảnh )</small>
             </Form.Item>
             <Form.Item
                name="name"
-               label="Name"
+               label="Tên"
                rules={[{ required: true }]}
             >
                <Input placeholder="Tên" />
             </Form.Item>
 
-            <Form.Item label="price" name="price" rules={[{ required: true, type: "number", min: 10000 }]}>
+            <Form.Item label="Giá bán" name="price" rules={[{ required: true, type: "number", min: 10000 }]}>
                <InputNumber
                   formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={(value: any) => value!.replace(/\$\s?|(,*)/g, '')}
@@ -46,13 +46,13 @@ const FoodForm = ({ onFinish, form, avatarList, setAvatarList }: Props) => {
                />
             </Form.Item>
 
-            <Form.Item label="Status" name="status" rules={[{ required: true }]}>
+            <Form.Item label="Trạng thái" name="status" rules={[{ required: true }]}>
                <Select>
                   {defaultStatus.map((item: any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                </Select>
             </Form.Item>
 
-            <Form.Item label="stock" name="stock" rules={[{ required: true }]}>
+            <Form.Item label="Số lượng trong kho" name="stock" rules={[{ required: true }]}>
                <InputNumber min={1} placeholder="Số lượng trong kho" style={{ width: '100%' }} />
             </Form.Item>
 

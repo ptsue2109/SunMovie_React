@@ -56,7 +56,7 @@ const UserEdit = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/users">List users</Link>
+        <Link to="/admin/users">DS Người dùng</Link>
       </Button>
       <UserForm
         onFinish={onFinish}

@@ -52,21 +52,21 @@ const UploadSeatType = (props: Props) => {
       >
         <Form.Item
           name="name"
-          label="Name"
+          label="Tên"
           rules={[{ required: true, message: "Không được để trống! ", min: 5 }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="extraPrice"
-          label="extraPrice"
+          label="Giá Extra"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="color"
-          label="Color"
+          label="Màu ghế"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input type="color" style={{ width: "100px", height: "40px" }} />

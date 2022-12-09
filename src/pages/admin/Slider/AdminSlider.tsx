@@ -33,22 +33,20 @@ const AdminSlider = (props: Props) => {
       title: "Image",
       dataIndex: "image",
       fixed: "left",
-      // key: "image",
       render: (_: any, record: any) => (
-        <img width="150px" src={record?.image} alt="" />
+        <img  src={record?.image}  style={{width: '50px' , height: '50px' }}/>
       ),
       width: "200px",
     },
     {
       title: "Title",
       dataIndex: "title",
-      // key: "image",
       render: (_: any, record: any) => <p>{record?.title}</p>,
       width: "200px",
     },
 
     {
-      title: "Content",
+      title: "Nội dung",
       dataIndex: "content",
       render: (_: any, record: any) => <p>{record?.content}</p>,
       width: "200px",
@@ -58,9 +56,7 @@ const AdminSlider = (props: Props) => {
       dataIndex: "url",
       render: (_: any, record: any) => <p>{record?.url}</p>,
     },
-   
-    
-
+  
     {
       title: "ACTION",
       key: "action",
@@ -101,12 +97,11 @@ const AdminSlider = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/slider/create">Create Slider</Link>
+        <Link to="/admin/slider/create">Thêm Slider</Link>
       </Button>
       <DataTable
         column={columnUserList}
         data={data}
-        scrollWidth={{ x: 2000 }}
       />
     </div>
   );

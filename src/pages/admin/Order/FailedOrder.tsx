@@ -12,35 +12,36 @@ type Props = {}
 const FailedOrder = (props: Props) => {
    const { orders } = useAppSelector((state: any) => state.OrderReducer)
    let orderFailed = orders.filter((item: any) => item?.status !== 1);
+   console.log(orderFailed);
    const columns = [
       {
-         title: "Order Code",
+         title: "Mã đơn",
          dataIndex: "code",
          render: (_: any, { code, _id }: any) => <Link to={`/admin/orders/${_id}`}>{code}</Link>,
 
       },
       {
-         title: "status",
+         title: "Trạng thái",
          dataIndex: "status",
-         render: (_: any, record: any) => <p>{record?.status === 1 ? 'Đã thanh toán' : "chưa thanh toán"}</p>,
+         render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 2 ? "Thanh toán Lỗi" : "Đã xuất vé"}</p>,
       },
       {
-         title: "createdAt",
+         title: "Ngày tạo",
          dataIndex: "createdAt",
          render: (_: any, { createdAt }: any) => <p>{formatDate(createdAt)}</p>,
       },
       {
-         title: "totalPrice",
+         title: "Tổng tiền",
          dataIndex: "totalPrice",
          render: (_: any, { totalPrice }: any) => formatCurrency(totalPrice),
       },
       {
-         title: "User",
+         title: "Người đặt",
          dataIndex: "userId",
          render: (_: any, { userId }: any) => <Link to={`/admin/users/${userId?._id}`}>{userId?.email}</Link>,
       },
       {
-         title: "Ticket",
+         title: "Vé",
          dataIndex: "ticket",
       },
       {

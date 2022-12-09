@@ -66,7 +66,7 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.email - b.email,
     },
     {
-      title: "STATUS",
+      title: "Trạng Thái",
       dataIndex: "status",
       key: "status",
       render: (_: any, { _id, status }: any) => (
@@ -114,7 +114,7 @@ const AdminUserList = (props: Props) => {
       width: 30,
     },
     {
-      title: "NAME",
+      title: "Tên",
       dataIndex: "username",
       key: "username",
       render: (_: any, record: any) => (
@@ -131,13 +131,13 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.username - b.username,
     },
     {
-      title: "Phone",
+      title: "SDT",
       dataIndex: "phone",
       key: "phone",
       sorter: (a: any, b: any) => a.phone - b.phone,
     },
     {
-      title: "Address",
+      title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
       render: (_: any, { address, _id }: any) => (
@@ -170,7 +170,7 @@ const AdminUserList = (props: Props) => {
           </Link>
           {(currentUser?._id !== record?._id) && (
             <Popconfirm
-              title={`Delete ${record?.username ?? record?._id}?`}
+              title={`Xóa ${record?.username ?? record?._id}?`}
               okText="OK"
               cancelText="Cancel"
               onConfirm={() => deleteUser(record?._id)}
@@ -207,7 +207,7 @@ const AdminUserList = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Add Users</Link>
+        <Link to="add">Thêm người dùng</Link>
       </Button>
       <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>

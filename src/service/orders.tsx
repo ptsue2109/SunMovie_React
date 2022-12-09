@@ -17,4 +17,7 @@ export const orderApi = {
   getByShortId(input:any): Promise<any> {
     return axiosClient.get(`/orderByShortId?shortId=${input}`);
   },
+  updateOrder(input:any): Promise<any> {
+    return axiosClient.get(`/order/${input?._id}`);
+  },
 };

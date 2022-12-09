@@ -4,13 +4,14 @@ import { Button, message, Steps, Skeleton, Avatar, Divider, List, Form, Select, 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { formatCurrency, formatDateString, formatTime } from '../../../ultils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { validateMessages } from '../../../ultils/FormMessage';
 import { createFD } from '../../../redux/slice/FoodDetail';
 type Props = {}
 
 
 const ChooseCombo = (props: Props) => {
    const { food } = useAppSelector((state) => state.food);
+   let foodActive = food?.filter((item:any) => item?.status == 0)
+   
    const [initLoading, setInitLoading] = useState(true);
    const [list, setList] = useState<any[]>([]);
    const [keyboard, setKeyboard] = useState(true);
@@ -21,131 +22,68 @@ const ChooseCombo = (props: Props) => {
    const { state } = useLocation();
    const [foodOrder, setFoodOrder] = useState<any[]>([]);
    const [foodPrice, setFoodPrice] = useState<any>(0);
+   const [cart, setCart] = useState<any[]>([]);
    const dispatch = useAppDispatch();
    const navigate = useNavigate()
    let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
-   let payload =
-      [
-         {
-            foodId: {
-               _id: "638f88e0f4c69a6585da2b0e",
-               name: "bim bim",
-               price: 12000,
-               status: 0,
-               stock: 12,
-               image: [
-                  {
-                     uid: "rc-upload-1670350634255-9",
-                     url: "http://res.cloudinary.com/asm-ph13269/image/upload/v1670351062/cdx1d3h0wxbxefgrv9t5.png",
-                     thumbUrl: null,
-                     lastModified: 1670345632990,
-                     lastModifiedDate: "2022-12-06T16:53:52.990Z",
-                     name: "unnamed (1).png",
-                     size: 85871,
-                     type: "image/png",
-                     percent: 100,
-                     originFileObj: {
-                        uid: "rc-upload-1670350634255-9",
-                        url: "http://res.cloudinary.com/asm-ph13269/image/upload/v1670351062/cdx1d3h0wxbxefgrv9t5.png",
-                        thumbUrl: null
-                     },
-                     status: "done",
-                     response: "ok"
-                  }
-               ],
-               createdAt: "2022-12-04T10:18:36.357Z",
-               updatedAt: "2022-12-04T10:20:32.030Z",
-               __v: 0
-            },
-            quantity: 1,
-            price: 12000
-
-         },
-         {
-            foodId: {
-               _id: "639012eb754c6a2d91cd64ff",
-               name: "Bắp rang bơ",
-               price: 12000,
-               status: 0,
-               stock: 12,
-               image: [
-                  {
-                     uid: "rc-upload-1670350634255-9",
-                     url: "http://res.cloudinary.com/asm-ph13269/image/upload/v1670386400/bpnygku1mymhy6aymkel.png",
-                     thumbUrl: null,
-                     lastModified: 1670345632990,
-                     lastModifiedDate: "2022-12-06T16:53:52.990Z",
-                     name: "unnamed (1).png",
-                     size: 85871,
-                     type: "image/png",
-                     percent: 100,
-                     originFileObj: {
-                        uid: "rc-upload-1670350634255-9",
-                        url: "http://res.cloudinary.com/asm-ph13269/image/upload/v1670351062/cdx1d3h0wxbxefgrv9t5.png",
-                        thumbUrl: null
-                     },
-                     status: "done",
-                     response: "ok"
-                  }
-               ],
-               createdAt: "2022-12-04T10:18:36.357Z",
-               updatedAt: "2022-12-04T10:20:32.030Z",
-               __v: 0
-            },
-            quantity: 1,
-            price: 12000
-
-         }
-
-      ];
-   // console.log(payload);
 
    useEffect(() => {
-      if (food) { setInitLoading(false); setList(food) }
+      if (foodActive) { setInitLoading(false); setList(foodActive) }
       document.title = "Choose Combo";
-   }, [food]);
+   }, [foodActive]);
 
    useEffect(() => {
       if (state && movieSelect) { setInfo(state?.populatedDetail); setTempPrice(state?.ticket?.totalPrice) }
    }, [state, movieSelect]);
 
    useEffect(() => {
-      if (payload) {
-         const totalPrice = payload.reduce((total, currentValue) => {
+      if (foodOrder) {
+         const totalPrice = foodOrder.reduce((total, currentValue) => {
             return total + currentValue.price * currentValue.quantity
          }, 0);
          setFoodPrice(totalPrice)
       }
-   }, [])
+   }, [foodOrder])
 
    const handleFood = (qt: any, val: any) => {
-      console.log(qt, val);
-      let chooseArr: any[] = []
-      const existFood = chooseArr?.find((item: any) => item?.foodId?._id === val?._id);
       let foodprice = val?.price * qt
-      if (existFood) {
-         chooseArr.push( { foodId: val, quantity: qt, price: foodprice })
-      } else {
-         chooseArr = [...chooseArr, { foodId: val, quantity: qt, price: foodprice }]
-      }
-      console.log(chooseArr);
-
+      let pl = { foodId: val, quantity: qt, price: foodprice };
+      setCart([...cart, pl]);
    }
+
+   useEffect(() => {
+      if (cart) {
+         const arrayFiltered: any[] = [];
+         cart.forEach((obj: any) => {
+            const item = arrayFiltered.find(thisItem => thisItem.foodId?._id === obj.foodId?._id);
+            if (item) {
+               if (item.quantity < obj.quantity) {
+                  item.quantity = obj.quantity;
+               }
+               return;
+            }
+            arrayFiltered.push(obj);
+         });
+         setFoodOrder(arrayFiltered)
+
+      }
+   }, [cart])
+
    const nextStep = () => {
-      dispatch(createFD(payload)).unwrap()
+      dispatch(createFD(foodOrder)).unwrap()
          .then((data: any) => {
             let stateToNextStep = {
                ...state,
                finalPrice: tempPrice + foodPrice,
                foodDetailId: data?._id,
-               foodDetail: payload
+               foodDetail: foodOrder
             }
             navigate('/payment', { state: stateToNextStep })
          })
    }
    return (
       <>
-         {food ? (
+         {foodActive ? (
             <div className="flex flex-row justify-center mt-16 ">
                <div className="w-[55%]">
                   <div className="bg-[#f6710d] h-[580px] ">
@@ -168,7 +106,7 @@ const ChooseCombo = (props: Props) => {
                                        title={<b className='uppercase'>{item?.name}</b>}
                                        description={`stock: ${item?.stock} , price: ${formatCurrency(item?.price)}`}
                                     />
-                                    <InputNumber min={0} defaultValue={0} keyboard={keyboard} max={item?.stock} onChange={(val: any) => { handleFood(val, item) }} />
+                                    <InputNumber min={0} defaultValue={0} max={item?.stock} onChange={(val: any) => { handleFood(val, item) }} />
 
                                  </Skeleton>
                               </List.Item>
@@ -197,7 +135,11 @@ const ChooseCombo = (props: Props) => {
                               <b>Suất chiếu</b>:  {info && formatTime(info[0]?.showTimeId?.startAt)} |  {formatDateString(info[0]?.showTimeId?.date)}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Food</b> : {payload?.map((item: any) => item?.foodId?.name)}
+                              <b>Food</b> : {foodOrder?.map((item: any) => (
+                                 <span key={item?.foodId?._id}>
+                                    {item?.foodId?.name}{`(${item?.quantity})`}
+                                 </span>
+                              ))}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
                               <b>Ghế</b>: {info && info?.map((item: any) => (
