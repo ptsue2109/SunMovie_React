@@ -61,25 +61,6 @@ function App() {
           } else if (route.layout === null) {
             Layout = Fragment;
           }
-
-          // if (route.path.startsWith("/profile")) {
-          //   return (
-          //     <Route
-          //       key={index}
-          //       path={route.path}
-          //       element={
-          //         <Maintain isMaintain={isMaintain}>
-          //           <PrivateRoute acceptRole={0}>
-          //             <Layout>
-          //               <Page />
-          //             </Layout>
-          //           </PrivateRoute>
-          //         </Maintain>
-          //       }
-          //     />
-          //   );
-          // }
-
           return (
             <Route
               key={index}

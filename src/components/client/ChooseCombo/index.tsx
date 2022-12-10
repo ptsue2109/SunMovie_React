@@ -10,8 +10,8 @@ type Props = {}
 
 const ChooseCombo = (props: Props) => {
    const { food } = useAppSelector((state) => state.food);
-   let foodActive = food?.filter((item:any) => item?.status == 0)
-   
+   let foodActive = food?.filter((item: any) => item?.status == 0)
+
    const [initLoading, setInitLoading] = useState(true);
    const [list, setList] = useState<any[]>([]);
    const [keyboard, setKeyboard] = useState(true);
@@ -28,9 +28,10 @@ const ChooseCombo = (props: Props) => {
    let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
 
    useEffect(() => {
-      if (foodActive) { setInitLoading(false); setList(foodActive) }
-      document.title = "Choose Combo";
-   }, [foodActive]);
+      document.title = "Choose Combo"; 
+      if (foodActive) { setInitLoading(false); 
+         setList(foodActive) }
+   }, [food]);
 
    useEffect(() => {
       if (state && movieSelect) { setInfo(state?.populatedDetail); setTempPrice(state?.ticket?.totalPrice) }

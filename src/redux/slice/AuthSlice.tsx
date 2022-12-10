@@ -22,7 +22,6 @@ export const authAsyncLogin = createAsyncThunk<
 >("auth/authAsyncLogin", async (loginData, { rejectWithValue }) => {
   try {
     const { data } = await AuthApi.login(loginData);
-    console.log(data);
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
@@ -32,7 +31,6 @@ export const getCurrentUser = createAsyncThunk<
   any, any, { rejectValue: string }>("auth/getCurrentUser", async (_: any, { rejectWithValue }) => {
     try {
       const { data } = await AuthApi.getCurrentUser();
-      console.log(data);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

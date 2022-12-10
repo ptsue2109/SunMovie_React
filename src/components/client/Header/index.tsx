@@ -69,6 +69,8 @@ const ClientHeader = (props: Props) => {
       ]}
     />
   );
+
+  
   return (
     <>
     <NavTop />
