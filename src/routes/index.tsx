@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, Fragment } from "react";
 import configRoute from "../config";
 import { AuthTheme } from "../themes";
 
@@ -103,14 +103,11 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
-  {
-    path: configRoute.routes.loadingPushAccountInLocalStorage,
-    component: LoadingPushAccountInLocalStorage,
-  },
+  { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage ,layout: AuthTheme},
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
- { path: configRoute.routes.step, component: PaymentStep },
- { path: configRoute.routes.findOrder, component: FindOrder },
+  { path: configRoute.routes.step, component: PaymentStep },
+  { path: configRoute.routes.findOrder, component: FindOrder },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 

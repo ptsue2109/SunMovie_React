@@ -8,8 +8,7 @@ type Props = {
 }
 
 const AuthForm = ({ onFinish, form, name, isSignUp, sign }: Props) => {
-   console.log(name, isSignUp, sign );
-   
+
    return (
       <div className="auth_container ">
          <div className="auth_container--title">

@@ -65,11 +65,24 @@ export const updateOrder = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
+  },
+);
+
+export const getDashboardData = createAsyncThunk(
+  "order/getDashboardData",
+  async (_: any, { rejectWithValue }) => {
+    try {
+      const { data } = await orderApi.getDashBoardData();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 const initialState: any = {
   orders: [],
-  order: {}
+  order: {},
+  dataPayload: []
 };
 const OrderSlice = createSlice({
   name: "orders",
@@ -95,6 +108,9 @@ const OrderSlice = createSlice({
     });
     builder.addCase(updateOrder.fulfilled, (state, action) => {
       state.orders = state.orders.filter((item:any) => item._id !== action?.payload._id);
+    });
+    builder.addCase(getDashboardData.fulfilled, (state, action) => {
+      state.dataPayload = action.payload;
     });
   },
 });

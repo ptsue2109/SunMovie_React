@@ -20,4 +20,8 @@ export const orderApi = {
   updateOrder(input:any): Promise<any> {
     return axiosClient.get(`/order/${input?._id}`);
   },
+  getDashBoardData() {
+    let url = "/dashboard";
+    return axiosClient.get(url);
+  },
 };
