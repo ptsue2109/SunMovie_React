@@ -28,6 +28,7 @@ const UpdateMovies = (props: Props) => {
       form.setFieldsValue({
         ...data,
         releaseDate: moment(data.releaseDate),
+        movieTypeId: data?.movieTypeId?.map((item:any) => item?._id)
       });
     }
   }, [data]);

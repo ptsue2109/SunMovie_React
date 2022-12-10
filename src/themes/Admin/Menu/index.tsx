@@ -10,7 +10,6 @@ import config from "../../../config";
 import { LogOut } from "../../../redux/slice/AuthSlice";
 import { useAppDispatch } from "../../../redux/hook";
 import configRoute from "../../../config";
-import BreadCrumbCustom from "../../../components/Breadcrumb";
 type MenuItem = Required<any>["items"][number];
 
 function getItem(

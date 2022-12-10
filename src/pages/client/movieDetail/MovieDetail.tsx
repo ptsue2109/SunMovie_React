@@ -27,7 +27,7 @@ const MovieDetail = (props: Props) => {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
-  const [cometArr, setComentArr] = useState([]);
+
   const Toggle = (number: any) => {
     setActive(number);
   };
@@ -44,6 +44,7 @@ const MovieDetail = (props: Props) => {
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
+  console.log('data', data);
 
   let movieSelectId = data?.movie?._id;
 
@@ -296,7 +297,7 @@ const MovieDetail = (props: Props) => {
             <RelateMovie data={relateArr} />
           </div>
           <div className={isActive == 3 ? styles.showFilmList : "hidden"}>
-            <Comente data={cometArr} />
+            <Comente data={''} />
           </div>
         </div>
       </div>

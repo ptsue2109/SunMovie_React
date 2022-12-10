@@ -24,8 +24,8 @@ const Comente = (props: Props) => {
   const [flag, setFlag] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const onFinish = async (values: any) => {
-    values.movie = data.movie._id;
-    values.user = currentUser._id;
+    values.movieId = data.movie._id;
+    values.userId = currentUser._id;
     const { meta, payload } = await dispatch(comenteCreate(values));
 
     if (meta.requestStatus == "fulfilled") {
@@ -36,13 +36,13 @@ const Comente = (props: Props) => {
   };
   // console.log(data.movie._id);
   // console.log(currentUser._id);
-  console.log(data);
-  console.log("movie: ", data.movie);
-  console.log("comment: ", data.comment);
-  console.log(
-    "data user: ",
-    data.comment.map((item: any) => item.user)
-  );
+  // console.log('data', data);
+  // console.log("movie: ", data.movie);
+  // console.log("comment: ", data.comment);
+  // console.log(
+  //   "data user: ",
+  //   data.comment.map((item: any) => item.user)
+  // );
   // console.log(data.movie.comment.user);
 
   return (
@@ -81,7 +81,7 @@ const Comente = (props: Props) => {
                         { required: true, message: "Không được để trống! " },
                       ]}
                     >
-                      <Rate className="" defaultValue={5} />
+                      <Rate  />
                     </Form.Item>
                   </div>
                   <button
@@ -97,7 +97,7 @@ const Comente = (props: Props) => {
                 <p className="text-normal text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 mt-2">
                   Nội dung bình luận chỉ mang tính chất tham khảo
                 </p>
-
+{/* 
                 {data.comment.map((item: any, index: any) => (
                   <div
                     className="flex items-center mt-4 text-gray-600 dark:text-gray-400"
@@ -113,7 +113,7 @@ const Comente = (props: Props) => {
                       <p>{item.content}</p>
                     </Link>
                   </div>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>

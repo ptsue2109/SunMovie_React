@@ -7,7 +7,6 @@ import {
   MovieLimitAge,
 } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { convertMovieTime } from "../../../ultils";
 import ImageUpload from "../../../components/upload";
 
 type Props = {
@@ -21,17 +20,7 @@ type Props = {
 const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
 
-  const validateRunTime = (rule: any, value: any, callback: any) => {
-    if (value) {
-      if (value >= 60 && value <= 180) {
-        callback();
-      } else {
-        callback(`Thời gian chiếu không hợp lệ `);
-      }
-    } else {
-      callback();
-    }
-  };
+ 
   return (
     <>
       <Form
@@ -60,9 +49,9 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   label="Thời gian chiếu (dv: phút)"
                   rules={[
                     {
-                      type: "number",
+                    
                       required: true,
-                      validator: validateRunTime,
+                    
                     },
                   ]}
                 >
@@ -77,7 +66,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   <Select mode="multiple">
                     {movieType &&
                       movieType?.map((item: any, index: any) => (
-                        <Select.Option value={item._id} key={index}>
+                        <Select.Option value={item._id} key={item._id}>
                           {item.movieName}
                         </Select.Option>
                       ))}
