@@ -13,7 +13,7 @@ import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 import Complete from "../pages/auth/complete";
 // admin
-import Dashboard from "../pages/admin/Dashboard";
+import Dashboard from "../pages/admin/Dashboard/DashBoard";
 
 import AdminUserList from "../pages/admin/User/List";
 import UserCreate from "../pages/admin/User/Create";
@@ -103,7 +103,11 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
-  { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage ,layout: AuthTheme},
+  {
+    path: configRoute.routes.loadingPushAccountInLocalStorage,
+    component: LoadingPushAccountInLocalStorage,
+    layout: AuthTheme,
+  },
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
   { path: configRoute.routes.step, component: PaymentStep },

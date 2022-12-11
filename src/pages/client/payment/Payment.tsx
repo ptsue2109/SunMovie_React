@@ -1,13 +1,34 @@
-import { Button, Form, Input, message, notification, Popconfirm, Select, Steps } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  message,
+  notification,
+  Popconfirm,
+  Select,
+  Steps,
+} from "antd";
 import style from "./Payment.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import React, { useState, useEffect } from "react";
-import { discountPercent, formatCurrency, formatDate, formatDateString, formatTime } from "../../../ultils";
+import {
+  discountPercent,
+  formatCurrency,
+  formatDate,
+  formatDateString,
+  formatTime,
+} from "../../../ultils";
 import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { createOrder, createPaymeny } from "../../../redux/slice/OrdersSlice";
-import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { getticketDetailById } from "../../../redux/slice/ticketSlice";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
@@ -23,93 +44,97 @@ const Payment = (props: Props) => {
 
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
-  const [tempPrice, setTempPrice] = useState<any>()
+  const [tempPrice, setTempPrice] = useState<any>();
   const [voucherMess, setVoucherMess] = useState<any>("");
   const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
   const [priceAfterDiscount, setPriceAfterDiscount] = useState<number>();
-  const [CODE, setCODE] = useState<any>('');
+  const [CODE, setCODE] = useState<any>("");
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
   const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-  const { movie } = useAppSelector((state: any) => state.movie)
-  const upperText = (text: any) => { return text.toUpperCase() };
+  const { movie } = useAppSelector((state: any) => state.movie);
+  const upperText = (text: any) => {
+    return text.toUpperCase();
+  };
   const { state } = useLocation();
-  let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
+  let movieSelect = movie?.find(
+    (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
+  );
   useEffect(() => {
     if (state && movieSelect) {
       setInfo(state?.populatedDetail);
-      setData(state?.ticket)
+      setData(state?.ticket);
       setTempPrice(state?.finalPrice);
       setPriceAfterDiscount(state?.finalPrice);
       setMovieDetail(movieSelect);
     }
-  }, [state, movieSelect])
+  }, [state, movieSelect]);
 
   useEffect(() => {
     form.setFieldsValue({
       username: currentUser?.fullname ?? currentUser?.username,
       email: currentUser?.email,
       phone: currentUser?.phone,
-      paymentType: '',
-      voucherCode: ''
+      paymentType: "",
+      voucherCode: "",
     });
   }, []);
 
   const checkCode = (codeVal: any, e: Event) => {
     e.preventDefault();
-    e.stopPropagation()
+    e.stopPropagation();
     if (codeVal.length >= 1) {
-      setCODE(codeVal)
+      setCODE(codeVal);
     } else {
-      setCODE("")
-      setVoucherMess("")
-      setPriceAfterDiscount(tempPrice)
+      setCODE("");
+      setVoucherMess("");
+      setPriceAfterDiscount(tempPrice);
     }
   };
-
 
   const handle = () => {
     if (CODE) {
       let upper = upperText(CODE);
       let item = vouchers.find((item: any) => item?.code === upper);
-      let checkUsed = item?.userId?.find((val: any) => val?._id === currentUser?._id)
+      let checkUsed = item?.userId?.find(
+        (val: any) => val?._id === currentUser?._id
+      );
       if (item === undefined) {
         setVoucherMess("Không tìm thấy mã voucher");
       } else if (isPast(parseISO(item?.timeEnd))) {
         setVoucherMess("Voucher đã hết hạn sử dụng");
       } else if (isFuture(parseISO(item?.timeStart))) {
-        setVoucherMess(`Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`);
-      }
-      else {
+        setVoucherMess(
+          `Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`
+        );
+      } else {
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
         if (tempPrice < vcValue) {
           setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
         } else if (checkUsed) {
           setVoucherMess("bạn đã sử dụng voucher này");
-        }
-        else {
-
+        } else {
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
           } else {
-            let price: any = discountPercent(tempPrice, vcDiscount)
+            let price: any = discountPercent(tempPrice, vcDiscount);
             setPriceAfterDiscount(price);
           }
-          message.info("Đã áp dụng mã giảm giá")
+          message.info("Đã áp dụng mã giảm giá");
         }
 
-        setVoucherMess("")
+        setVoucherMess("");
       }
     } else {
-      setVoucherMess("")
-      setPriceAfterDiscount(tempPrice)
+      setVoucherMess("");
+      setPriceAfterDiscount(tempPrice);
     }
-  }
+  };
 
   const onFinish = (val: any) => {
     let payload = {
@@ -121,42 +146,42 @@ const Payment = (props: Props) => {
       orderType: "billpayment",
       language: "",
       foodDetailId: state?.foodDetailId,
-    }
+    };
 
     Swal.fire({
-      title: 'Bạn có chắc muốn thanh toán',
+      title: "Bạn có chắc muốn thanh toán",
       text: "",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          '', '',
-          'success'
-        )
-        dispatch(createPaymeny(payload)).unwrap()
+        dispatch(createPaymeny(payload))
+          .unwrap()
           .then((res: any) => {
+            Swal.fire({
+              title: "Thành công",
+              icon: "success",
+              showConfirmButton: false,
+            });
             window.location.href = `${res}`;
             let voucherChange = {
               _id: voucherItem?._id,
               quantity: voucherItem?.quantity - 1,
-              userId: [...voucherItem?.userId, currentUser?._id]
-            }
-        
-            dispatch(updateData(voucherChange)).unwrap()
-              .then(() => console.log('success'))
-              .catch(() => console.log('errr'))
+              userId: [...voucherItem?.userId, currentUser?._id],
+            };
+
+            dispatch(updateData(voucherChange))
+              .unwrap()
+              .then(() => console.log("success"))
+              .catch(() => console.log("errr"));
           })
-          .catch((err: any) => message.error(`${err}`))
+          .catch((err: any) => message.error(`${err}`));
       }
-    })
-
-
-  }
-
+    });
+  };
 
   return (
     <div className="flex flex-row justify-center mt-16 ">
@@ -172,34 +197,57 @@ const Payment = (props: Props) => {
               onFinish={onFinish}
               validateMessages={validateMessages}
             >
-              <Form.Item name="paymentType" label="Hình thức thanh toán" rules={[{ required: true }]} >
+              <Form.Item
+                name="paymentType"
+                label="Hình thức thanh toán"
+                rules={[{ required: true }]}
+              >
                 <Select placeholder="Chọn ngân hàng" allowClear>
                   {banks?.map((item, index: any) => (
                     <Select.Option key={index} value={item?.value}>
                       <div className="flex justify-between">
                         {item?.name}
-                        <img src={item?.image} alt="" width="25px" height="25px" />
+                        <img
+                          src={item?.image}
+                          alt=""
+                          width="25px"
+                          height="25px"
+                        />
                       </div>
                     </Select.Option>
                   ))}
                 </Select>
               </Form.Item>
 
-              <Form.Item name="username" label="Họ và tên" rules={[{ required: true, min: 5, whitespace: true }]}>
+              <Form.Item
+                name="username"
+                label="Họ và tên"
+                rules={[{ required: true, min: 5, whitespace: true }]}
+              >
                 <Input />
               </Form.Item>
 
-              <Form.Item name="email" label="Email" rules={[{ required: true }]} >
+              <Form.Item
+                name="email"
+                label="Email"
+                rules={[{ required: true }]}
+              >
                 <Input disabled />
               </Form.Item>
 
-              <Form.Item name="phone" label="Số điện thoại" rules={[{ required: true, whitespace: true, len: 10 }]}>
+              <Form.Item
+                name="phone"
+                label="Số điện thoại"
+                rules={[{ required: true, whitespace: true, len: 10 }]}
+              >
                 <Input />
               </Form.Item>
 
               <div className="">
-                <Form.Item name="voucherCode" label="Mã giảm giá" >
-                  <Input onChange={(e: any) => checkCode(e?.target?.value, e)} />
+                <Form.Item name="voucherCode" label="Mã giảm giá">
+                  <Input
+                    onChange={(e: any) => checkCode(e?.target?.value, e)}
+                  />
                 </Form.Item>
                 <small className="text-danger ml-[170px]">{voucherMess}</small>
               </div>
@@ -218,9 +266,9 @@ const Payment = (props: Props) => {
                 </Button>
                 <p className="text-xs mt-2 ">
                   (*) Bằng việc click/chạm vào THANH TOÁN, bạn đã xác nhận hiểu
-                  rõ các Quy Định Giao Dịch Trực Tuyến của {webConfigs[0]?.storeName}.
+                  rõ các Quy Định Giao Dịch Trực Tuyến của{" "}
+                  {webConfigs[0]?.storeName}.
                 </p>
-
 
                 <div className="flex">
                   <Button
@@ -256,32 +304,38 @@ const Payment = (props: Props) => {
       </div>
       <div className="w-[20%] bg-white ml-10 h-[580px] ">
         <div className="w-[80%] mx-auto p-2">
-          <img
-            src={movieSelect?.image[0]?.url}
-            alt=""
-            className=" h-[140px]"
-          />
+          <img src={movieSelect?.image[0]?.url} alt="" className=" h-[140px]" />
         </div>
         <h1 className="font-bold uppercase px-4 pt-2">{movieSelect?.name}</h1>
         {info && (
           <>
             <ul className="px-4 py-3">
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Rạp</b>: {webConfigs[0]?.storeName} |  {info && (<>{info[0]?.seatId?.roomId?.name}</>)}
+                <b>Rạp</b>: {webConfigs[0]?.storeName} |{" "}
+                {info && <>{info[0]?.seatId?.roomId?.name}</>}
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Suất chiếu</b>:  {info && formatTime(info[0]?.showTimeId?.startAt)} |  {formatDateString(info[0]?.showTimeId?.date)}
+                <b>Suất chiếu</b>:{" "}
+                {info && formatTime(info[0]?.showTimeId?.startAt)} |{" "}
+                {formatDateString(info[0]?.showTimeId?.date)}
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Combo</b>: {state?.foodDetail?.map((item: any) => (
-                  <span key={item?.foodId?._id}>{item?.foodId?.name}({item?.quantity}) </span>
+                <b>Combo</b>:{" "}
+                {state?.foodDetail?.map((item: any) => (
+                  <span key={item?.foodId?._id}>
+                    {item?.foodId?.name}({item?.quantity}){" "}
+                  </span>
                 ))}
-
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Ghế</b>: {info && info?.map((item: any) => (
-                  <span key={item?._id}>{item?.seatId?.row}{item?.seatId?.column},</span>
-                ))}
+                <b>Ghế</b>:{" "}
+                {info &&
+                  info?.map((item: any) => (
+                    <span key={item?._id}>
+                      {item?.seatId?.row}
+                      {item?.seatId?.column},
+                    </span>
+                  ))}
               </li>
             </ul>
           </>
