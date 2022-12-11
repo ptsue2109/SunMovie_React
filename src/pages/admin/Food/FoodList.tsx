@@ -71,14 +71,14 @@ const FoodList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Xóa ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteFood(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
     },

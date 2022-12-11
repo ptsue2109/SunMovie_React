@@ -10,7 +10,6 @@ const Topmovie = (props: Props) => {
     labels: dashboard?.topMovieProfit
       ?.slice(0, 10)
       .map((item: any) => item.name),
-
     datasets: [
       {
         label: "Doanh thu của phim (vnđ)",
@@ -22,8 +21,20 @@ const Topmovie = (props: Props) => {
         data: dashboard?.topMovieProfit
           ?.slice(0, 10)
           .map((item: any) => item.profit),
+        barPercentage: 0.5,
       },
     ],
+    options: {
+      aspectRatio: 1,
+      scales: {
+        x: {
+          max: 200,
+        },
+        y: {
+          max: 200,
+        },
+      },
+    },
   };
   return (
     <>

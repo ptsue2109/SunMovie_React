@@ -79,14 +79,14 @@ const ListMovie = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteUser(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
           <Button type="dashed" block>
             <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
               <PlusOutlined
