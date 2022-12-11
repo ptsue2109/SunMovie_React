@@ -125,14 +125,14 @@ const FilmFormatList = (props: Props) => {
             style={{ color: "var(--primary)", fontSize: "18px" }}
             onClick={() => onFinish(record?._id)}
           />
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => removeFormat(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
       width: 30,
