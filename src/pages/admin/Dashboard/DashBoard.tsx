@@ -17,6 +17,9 @@ import {
   LineElement,
 } from "chart.js";
 import Topmovie from "./Topmovie";
+import MonthRevenue from "./MonthRevenue";
+import { getdashBoard } from "../../../redux/slice/DashBoard";
+import { useAppDispatch } from "../../../redux/hook";
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +39,11 @@ const Dashboard = (props: Props) => {
   const [totalUser, setTotalUser] = useState(0);
   const [totalPost, setTotalPost] = useState(0);
   const [dataOrders, setDataOrder] = useState([]);
-
+  const [active, setActive] = useState(0);
+  const dispatch = useAppDispatch();
+  const onToggle = (number: number) => {
+    setActive(number);
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -58,7 +65,9 @@ const Dashboard = (props: Props) => {
       }
     })();
   }, []);
-
+  useEffect(() => {
+    dispatch(getdashBoard());
+  }, [dispatch]);
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -89,7 +98,34 @@ const Dashboard = (props: Props) => {
           </div>
         </div>
       </div>
-      <Topmovie />
+      <div className="my-10">
+        <button
+          onClick={() => onToggle(2)}
+          className={
+            active == 2
+              ? "px-7 bg-green-600 text-white h-[50px] mx-10 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-10 rounded"
+          }
+        >
+          Doanh thu phim theo tháng
+        </button>
+        <button
+          onClick={() => onToggle(1)}
+          className={
+            active == 1
+              ? "px-7 bg-green-600 text-white h-[50px] mx-10 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-10 rounded"
+          }
+        >
+          Doanh thu phim
+        </button>
+      </div>
+      <div className={active == 1 ? "" : "hidden"}>
+        <Topmovie />
+      </div>
+      <div className={active == 2 ? "" : "hidden"}>
+        <MonthRevenue />
+      </div>
     </>
   );
 };

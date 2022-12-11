@@ -1,15 +1,11 @@
 import React from "react";
 import { Bar, Line, Radar } from "react-chartjs-2";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { getdashBoard } from "../../../redux/slice/DashBoard";
+import { useAppSelector } from "../../../redux/hook";
 type Props = {};
 
 const Topmovie = (props: Props) => {
-  const dispatch = useAppDispatch();
   const { dashboard } = useAppSelector((state) => state.DashboardReducer);
-  React.useEffect(() => {
-    dispatch(getdashBoard());
-  }, [dispatch]);
+
   const barDataTopMovie = {
     labels: dashboard?.topMovieProfit
       ?.slice(0, 10)

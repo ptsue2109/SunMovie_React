@@ -75,3 +75,18 @@ export const MoviLanguages = [
   { name: "Lồng tiếng" },
   { name: "Thuyết minh" },
 ];
+
+export let dateFake = [
+  { profit: 0, date: "01" },
+  { profit: 0, date: "02" },
+  { profit: 0, date: "03" },
+  { profit: 0, date: "04" },
+  { profit: 0, date: "05" },
+  { profit: 0, date: "06" },
+  { profit: 0, date: "07" },
+  { profit: 0, date: "08" },
+  { profit: 0, date: "09" },
+  { profit: 0, date: "10" },
+  { profit: 0, date: "11" },
+  { profit: 0, date: "12" },
+];
