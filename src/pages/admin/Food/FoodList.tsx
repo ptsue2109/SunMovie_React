@@ -28,10 +28,10 @@ const FoodList = (props: Props) => {
       dataIndex: "image",
       render: (_: any, { image, _id }: any) => (
         <Link to={_id}>
-          <img src={image} style={{ width: "40px", height: "40px" }} />
+          <img src={image} style={{ width: "100%" }} />
         </Link>
       ),
-      width: 40,
+      width: 120,
     },
     {
       title: "Tên",
