@@ -28,8 +28,8 @@ const AdminRoomList = (props: Props) => {
   const { rooms, isFetching, isErr, errorMessage } = useAppSelector(
     (state: { roomReducer: any }) => state.roomReducer
   );
-  
-   useEffect(() => {
+
+  useEffect(() => {
     document.title = "Admin | Rooms";
     dispatch(getRooms());
   }, [dispatch]);
@@ -108,7 +108,7 @@ const AdminRoomList = (props: Props) => {
       render: (_: any, record: any) => (
         <Space size="middle">
           <Tooltip title="Chỉnh sửa ">
-            <Link to={`${record?._id}?seatTypeId=${'123'}`}>
+            <Link to={`${record?._id}?seatTypeId=${"123"}`}>
               <EditOutlined
                 style={{ color: "var(--primary)", fontSize: "18px" }}
               />
@@ -164,6 +164,11 @@ const AdminRoomList = (props: Props) => {
         </Button>
         <Button>
           <Link to={configRoute.routes.adminSeatType}>Quản lí loại ghế</Link>
+        </Button>
+        <Button className="mb-5">
+          <Link to={configRoute.routes.AdminFilmFormat}>
+            Quản lí format film
+          </Link>
         </Button>
       </div>
       <DataTable column={columns} data={data} loading={isFetching} />

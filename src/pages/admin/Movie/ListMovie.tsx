@@ -45,7 +45,9 @@ const ListMovie = (props: Props) => {
     {
       title: "Thời gian chiếu",
       dataIndex: "runTime",
-      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)} h</p>,
+      render: (_: any, record: any) => (
+        <p>{convertMovieTime(record?.runTime)} h</p>
+      ),
     },
 
     {
@@ -136,11 +138,6 @@ const ListMovie = (props: Props) => {
         <Button>
           <Link to={configRoute.routes.adminMovieType}>
             Quản lí thể loại phim
-          </Link>
-        </Button>
-        <Button className="mb-5">
-          <Link to={configRoute.routes.AdminFilmFormat}>
-            Quản lí format film
           </Link>
         </Button>
       </div>
