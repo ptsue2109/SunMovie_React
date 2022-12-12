@@ -44,8 +44,6 @@ const MovieDetail = (props: Props) => {
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
-  console.log('data', data);
-
   let movieSelectId = data?.movie?._id;
 
   useEffect(() => {
@@ -296,8 +294,8 @@ const MovieDetail = (props: Props) => {
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <RelateMovie data={relateArr} />
           </div>
-          <div className={isActive == 3 ? styles.showFilmList : "hidden"}>
-            <Comente data={''} />
+          <div className={isActive == 3 ? styles.noTheme : "hidden"}>
+            <Comente data={data} />
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from "
 import { getticketDetailById } from "../../../redux/slice/ticketSlice";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
+import CountdownComp from "../../../components/client/Countdown";
 const layout = {
   labelCol: { span: 7 },
   wrapperCol: { span: 12 },
@@ -122,7 +123,8 @@ const Payment = (props: Props) => {
       language: "",
       foodDetailId: state?.foodDetailId,
     }
-
+    console.log(payload);
+    
     Swal.fire({
       title: 'Bạn có chắc muốn thanh toán',
       text: "",
@@ -137,20 +139,21 @@ const Payment = (props: Props) => {
           '', '',
           'success'
         )
-        dispatch(createPaymeny(payload)).unwrap()
-          .then((res: any) => {
-            window.location.href = `${res}`;
-            let voucherChange = {
-              _id: voucherItem?._id,
-              quantity: voucherItem?.quantity - 1,
-              userId: [...voucherItem?.userId, currentUser?._id]
-            }
-        
-            dispatch(updateData(voucherChange)).unwrap()
-              .then(() => console.log('success'))
-              .catch(() => console.log('errr'))
-          })
-          .catch((err: any) => message.error(`${err}`))
+        console.log(payload);
+        // dispatch(createPaymeny(payload)).unwrap()
+        //   .then((res: any) => {
+        //     window.location.href = `${res}`;
+        //     let voucherChange = {
+        //       _id: voucherItem?._id,
+        //       quantity: voucherItem?.quantity - 1,
+        //       userId: [...voucherItem?.userId, currentUser?._id]
+        //     }
+
+        //     dispatch(updateData(voucherChange)).unwrap()
+        //       .then(() => console.log('success'))
+        //       .catch(() => console.log('errr'))
+        //   })
+        //   .catch((err: any) => message.error(`${err}`))
       }
     })
 
@@ -162,7 +165,12 @@ const Payment = (props: Props) => {
     <div className="flex flex-row justify-center mt-16 ">
       <div className="w-[55%]">
         <div className="bg-[#f6710d] h-[650px] ">
-          <h1 className="text-3xl p-3 text-white ">VUI LÒNG THANH TOÁN</h1>
+          <div className="flex items-center justify-between p-2">
+            <h1 className="text-3xl p-3 text-white ">Vui lòng thanh toán </h1>
+            <div className="">
+              <CountdownComp timer={(Date.now() + 300000)} />
+            </div>
+          </div>
           <div className="bg-[#ffffff] h-[550px] w-[98%] mx-auto ">
             <Form
               {...layout}

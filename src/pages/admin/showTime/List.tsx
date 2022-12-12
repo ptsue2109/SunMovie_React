@@ -72,7 +72,7 @@ const AdminShowTimeList = (props: Props) => {
               <div>Phòng chiếu :
                 {item?.roomId?.map((roomItem: any) => (
                   <Button key={roomItem?._id}>
-                    <Link to={`/showTimes?date=${formatDate(item?.date)}?movieId=${item?._id}?roomId=${roomItem?._id}`}>
+                    <Link to={`/book-chair=${formatDate(item?.date)}?movieId=${item?._id}?roomId=${roomItem?._id}`}>
                       {roomItem?.name}
                     </Link>
                   </Button>

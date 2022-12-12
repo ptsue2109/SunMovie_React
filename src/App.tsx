@@ -94,7 +94,7 @@ function App() {
                   <Layout>
                     <Page />
                   </Layout>
-                </PrivateRoute>
+                 </PrivateRoute>
               }
             />
           );
