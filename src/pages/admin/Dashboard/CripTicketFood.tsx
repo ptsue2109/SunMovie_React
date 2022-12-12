@@ -8,7 +8,6 @@ type Props = {};
 ChartJS.register(ArcElement, Tooltip, Legend);
 const CripTicketFood = (props: Props) => {
   const { dashboard } = useAppSelector((state) => state.DashboardReducer);
-  console.log(dashboard?.companyProfit);
 
   const data = {
     labels: ["Doanh thu vé (%)", "Doanh thu đồ ăn (%)"],
@@ -16,14 +15,18 @@ const CripTicketFood = (props: Props) => {
       {
         label: "My First Dataset",
         data: [
-          (dashboard?.companyProfit[0]?.ticketTotal /
-            (dashboard?.companyProfit[0]?.ticketTotal +
-              dashboard?.companyProfit[0]?.foodTotal)) *
-            100,
-          (dashboard?.companyProfit[0]?.foodTotal /
-            (dashboard?.companyProfit[0]?.ticketTotal +
-              dashboard?.companyProfit[0]?.foodTotal)) *
-            100,
+          dashboard.length !== 0
+            ? (dashboard?.companyProfit[0]?.ticketTotal /
+                (dashboard?.companyProfit[0]?.ticketTotal +
+                  dashboard?.companyProfit[0]?.foodTotal)) *
+              100
+            : "",
+          dashboard.length !== 0
+            ? (dashboard?.companyProfit[0]?.foodTotal /
+                (dashboard?.companyProfit[0]?.ticketTotal +
+                  dashboard?.companyProfit[0]?.foodTotal)) *
+              100
+            : "",
         ],
         backgroundColor: [
           "rgb(255, 99, 132)",
@@ -53,7 +56,6 @@ const CripTicketFood = (props: Props) => {
       ticketTotal: item.ticketTotal,
     };
   });
-  console.log(dataTable);
 
   return (
     <>

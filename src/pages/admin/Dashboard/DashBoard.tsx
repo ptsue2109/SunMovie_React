@@ -22,6 +22,7 @@ import { getdashBoard } from "../../../redux/slice/DashBoard";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getTicketDetails } from "../../../redux/slice/TicketDetailSlice";
 import CripTicketFood from "./CripTicketFood";
+import { formatCurrency } from "../../../ultils";
 
 ChartJS.register(
   CategoryScale,
@@ -43,15 +44,18 @@ const Dashboard = (props: Props) => {
   const [dataOrders, setDataOrder] = useState([]);
   const [active, setActive] = useState(0);
   const dispatch = useAppDispatch();
+  const { dashboard } = useAppSelector((state) => state.DashboardReducer);
   const { ticketDetails } = useAppSelector(
     (state) => state.TicketDetailReducer
   );
+  console.log(dashboard?.monthProfit);
+
   const onToggle = (number: number) => {
     setActive(number);
   };
-  let count = 0;
-  const countTicket = ticketDetails.filter((item: any) => !item.expireAt);
-  countTicket?.map((item: any, index: number) => (count = index + 1));
+  // let count = 0;
+  // const countTicket = ticketDetails.filter((item: any) => !item.expireAt);
+  // countTicket?.map((item: any, index: number) => (count = index + 1));
   useEffect(() => {
     (async () => {
       try {
@@ -81,17 +85,23 @@ const Dashboard = (props: Props) => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
-          <RiMovie2Fill className="w-10 h-10 px-1" />
+          {/* <RiMovie2Fill className="w-10 h-10 px-1" /> */}
           <div className="text-center">
-            <span className="block text-black font-semibold">{count}</span>
-            <span className="text-sm font-semibold">Tổng số vé bán được</span>
+            <span className="block text-black font-semibold">
+              {dashboard.length !== 0
+                ? formatCurrency(dashboard?.monthProfit[0]?.mothTotal)
+                : ""}
+            </span>
+            <span className="text-sm font-semibold">Doanh thu tháng này</span>
           </div>
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <RiUserLine className="w-10 h-10 px-1" />
           <div className="text-center">
             <span className="block text-black font-semibold">{totalUser}</span>
-            <span className="text-sm font-semibold">Số tài khoản hiện có</span>
+            <span className="text-sm font-semibold">
+              Số tài khoản hiện có(hùng dẹp trai)
+            </span>
           </div>
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
