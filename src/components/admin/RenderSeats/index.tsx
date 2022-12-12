@@ -3,6 +3,7 @@ import {
   Card,
   Collapse,
   Form,
+  Input,
   message,
   Modal,
   Select,
@@ -17,15 +18,15 @@ import styles from "../Form&Table/room.module.scss";
 import configRoute from "../../../config";
 import { useNavigate } from "react-router-dom";
 type Props = {
-  row: any;
-  column: any;
-  seatDetails: any;
-  setSeatDetails: any;
-  seatFile: any;
-  setSeatFile: any;
-  seats: any;
-  setSeats: any;
-  roomId: any;
+  row?: any;
+  column?: any;
+  seatDetails?: any;
+  setSeatDetails?: any;
+  seatFile?: any;
+  setSeatFile?: any;
+  seats?: any;
+  setSeats?: any;
+  roomId?: any;
   showTable?: any;
 };
 const { Option } = Select;
@@ -61,39 +62,41 @@ const RenderSeats = ({
     if (seatValue == 0) {
       // Not booked
       dynamicClass = styles.seatNotBooked;
-    } else if (seatValue == 1) {
+    } else if (seatValue == 1 || seatValue == null) {
       // booked
-      dynamicClass = styles.seatBooked;
+      dynamicClass = styles.seatBlocked;
     } else if (seatValue == 2) {
       // Seat Selected
       dynamicClass = styles.seatSelected;
-    } else {
-      // Seat Blocked
-      dynamicClass = styles.seatBlocked;
     }
     return `${styles.seats} ${dynamicClass}`;
   };
   const handleSubmit = () => {
-    const groupByRowName = seats?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = arrayItem.row;
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
+    if (seats) {
+      const groupByRowName = seats?.reduce(
+        (accumulator: any, arrayItem: any) => {
+          let rowName = arrayItem.row;
+          if (accumulator[rowName] == null) {
+            accumulator[rowName] = [];
+          }
+          accumulator[rowName].push(arrayItem);
+          return accumulator;
+        },
+        {}
+      );
 
-    setSeatDetails({ ...groupByRowName });
-    setSeatFile({ ...groupByRowName });
+      setSeatDetails({ ...groupByRowName });
+      setSeatFile({ ...groupByRowName });
+    }
   };
 
   const onSeatClick = (seatValue: any, rowIndex: any, key: any) => {
     let item = JSON.parse(JSON.stringify(seatValue));
-    if (item?.status === 1) {
+    if (item?.status === 1 || item?.status == null) {
       return;
     } else if (item?.status === 0) {
-      item["status"] = 3;
-    } else {
+      item["status"] = 2;
+    } else if (item?.status === 2) {
       item["status"] = 0;
     }
     seatDetails[key][rowIndex] = { ...item };
@@ -105,7 +108,7 @@ const RenderSeats = ({
     let arr: any = [];
     for (const key in seatDetails) {
       let colVal = seatDetails[key]?.filter(
-        (seatVal: any) => seatVal?.status == 3
+        (seatVal: any) => seatVal?.status == 2
       );
       arr = [...arr, colVal];
     }
@@ -115,10 +118,8 @@ const RenderSeats = ({
     return flatten;
   };
   const info = (val: any) => {
-    console.log(val);
-
     Modal.info({
-      title: `Seat infomatio`,
+      title: `Seat infomation`,
       content: (
         <div>
           <div>Id : {val?._id}</div>
@@ -184,9 +185,11 @@ const RenderSeats = ({
     for (let key in seatDetails) {
       let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
-          {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
+          {rowIndex === 0 && <span className={styles.colNameAd}>{key}</span>}
+          {rowIndex === 0 && <span className={styles.colNameAd2}>{key}</span>}
           <span
             className={getClassNameForSeats(seatValue?.status)}
+            style={{ backgroundColor: `${seatValue?.seatTypeId?.color}` }}
             onClick={() => {
               onSeatClick(seatValue, rowIndex, key);
             }}
@@ -199,7 +202,8 @@ const RenderSeats = ({
 
           {seatDetails && rowIndex === seatDetails[key].length - 1 && (
             <>
-              <br /> <br />
+              <br />
+              <br />
             </>
           )}
         </span>
@@ -235,7 +239,6 @@ const RenderSeats = ({
     selectedRowKeys,
     onChange: onSelectChange,
   };
-  console.log("hihi", defaultStatus);
   const renderChoice = () => {
     const showModal = () => {
       setIsModalOpen(true);
@@ -249,13 +252,19 @@ const RenderSeats = ({
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
       };
-      dispatch(updateSeatThunk(payload))
-        .unwrap()
-        .then(() => {
-          message.success("Update thành công");
-          navigate(configRoute.routes.adminRooms);
-        })
-        .catch(() => message.error("Lỗi update"));
+      console.log(optionsSeatTpe, optionsStatus);
+
+      if (optionsSeatTpe === undefined || optionsStatus === undefined) {
+        message.error({ content: "Thêm đẩy đủ trường" });
+      } else {
+        dispatch(updateSeatThunk(payload))
+          .unwrap()
+          .then(() => {
+            message.success("Update thành công");
+            navigate(configRoute.routes.adminRooms);
+          })
+          .catch(() => message.error("Lỗi update"));
+      }
     };
     const getStatusChoice = (val: any) => {
       setOptionsStatus(val);
@@ -279,7 +288,8 @@ const RenderSeats = ({
             <div>
               Trạng thái ghế:
               <Select
-                defaultValue={defaultStatus[0]?.name}
+                placeholder="Vui lòng chọn trạng thái ghế"
+                style={{ width: "200px" }}
                 onChange={(value: any) => getStatusChoice(value)}
               >
                 {defaultStatus?.map((item: any) => (
@@ -289,10 +299,11 @@ const RenderSeats = ({
                 ))}
               </Select>
             </div>
-            <div>
+            <div className="mt-2">
               Loại ghế:
               <Select
-                defaultValue={seatType[0]?.name}
+                placeholder="Vui lòng chọn loại ghế"
+                style={{ width: "200px" }}
                 onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
@@ -302,7 +313,13 @@ const RenderSeats = ({
                 ))}
               </Select>
             </div>
-            <Button htmlType="submit">Change all items</Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ marginTop: "20px" }}
+            >
+              Change all items
+            </Button>
           </Form>
         </Modal>
       </>

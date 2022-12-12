@@ -15,10 +15,10 @@ const Navbar = (props: Props) => {
             <Link to={`#`}>Phim</Link>
           </li>
           <li>
-            <Link to={config.routes.bookChair}>Mua vé</Link>
+            <Link to={`#`}>Mua vé</Link>
           </li>
           <li>
-            <Link to={config.routes.tickitPrice}>Giá vé</Link>
+            <Link to={`#`}>Giá vé</Link>
           </li>
           <li>
             <Link to={config.routes.news}>Tin tức</Link>

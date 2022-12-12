@@ -89,7 +89,7 @@ const Dashboard = (props: Props) => {
   const { tickets } = useAppSelector((state: any) => state.ticketReducer);
 
   const dataMovie = {
-    labels: tickets.map((item: any) => item.quantity),
+    labels: tickets.map((item: any) => `Số lượng vé ${item.quantity}`),
     datasets: [
       {
         label: "Ticket",
@@ -112,7 +112,7 @@ const Dashboard = (props: Props) => {
   });
   const dataUser = {
     labels: Array.apply(null, new Array(users.length)).map(
-      (_, index) => `${++index}`
+      (_, index) => `Số lượng user ${++index}`
     ),
     datasets: [
       {
@@ -138,9 +138,10 @@ const Dashboard = (props: Props) => {
     return new Date(item.createdAt);
   });
 
+  console.log(dataOrders.map((item: any) => item.ticketId));
   const dataOrder = {
     labels: yearsOrder.map((item: any) => {
-      return item.getFullYear();
+      return `Năm ${item.getFullYear()}`;
     }),
     datasets: [
       {
@@ -172,7 +173,7 @@ const Dashboard = (props: Props) => {
 
         // order
         const { data: orderData, status: orderStatus } =
-          await orderApi.getAll();
+          await orderApi.getAllOrder();
         setDataOrder(orderData);
         if (orderStatus == 200) setTotalPost(orderData?.length);
       } catch (error) {

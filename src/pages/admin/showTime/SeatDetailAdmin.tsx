@@ -7,7 +7,6 @@ import { getAllSBST, updateSBST } from "../../../redux/slice/SeatBySTSlice";
 import styles from "./Seats.module.scss";
 import { formatCurrency, formatDate, formatTime } from "../../../ultils";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
-import ApplyVoucher from "../../../components/client/ApplyVoucher";
 import Swal from "sweetalert2";
 import { getAllData } from "../../../redux/slice/FilmFormatSlice";
 import { createTicket } from "../../../redux/slice/ticketSlice";
@@ -180,7 +179,7 @@ const AdminSeatRenderDetail = (props: Props) => {
         <h2 className="mt-1 uppercase text-gray-500">{movie?.name}</h2>
         <div className=" text-xs flex ">
           <div className="bg-orange-600 w-[30px] h-[20px] text-slate-100 text-center ">
-            {`C${movie?.ageLimit}`}
+            {`${movie?.ageLimit}`}
           </div>
           <div className="pl-[3px]">
             <p className="text-danger text-[12px]">
@@ -202,7 +201,7 @@ const AdminSeatRenderDetail = (props: Props) => {
         </div>
         <div className="">
           <span className="font-bold">Voucher</span>
-          <ApplyVoucher tempPrice={tempPrice} />
+          
         </div>
         <div className="">
           <span className="font-bold">Tạm Tính : </span>

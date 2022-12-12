@@ -1,11 +1,8 @@
-import { message, notification, Spin } from "antd";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { notification } from "antd";
+import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppSelector } from "../../../redux/hook";
-import { AuthApi } from "../../../service/authApi";
-import Contact from "../Contact";
 
 type PrivateRouteProps = {
    children: JSX.Element;
@@ -21,11 +18,11 @@ const PrivateRoute = ({ children, acceptRole }: PrivateRouteProps) => {
       if (isLogged === false) {
          notification.info({ message: 'Đăng nhập trước khi thực hiện chức năng này' });
 
-      } else if (isLogged && (userLogin?.status === 3 || userLogin?.status === 0)) {
+      } else if (isLogged && (userLogin?.status !== 1)) {
          notification.info({ message: 'Tài khoản của bạn đã bị khóa hoặc chưa đươck xác thực , hãy liên hệ với quản trị viên !!' });
          setTimeout(() => { navigate(configRoute.routes.contact) }, 2000);
 
-      } else if (isLogged && userLogin?.status === 3 && userLogin?.role !== acceptRole) {
+      } else if (isLogged && userLogin?.status === 3 && userLogin?.role !== 1) {
          navigate(configRoute.routes.home)
          notification.info({ message: 'Hãy đăng nhập với tư cách quản trị viên !!' });
       }
@@ -41,7 +38,7 @@ const PrivateRoute = ({ children, acceptRole }: PrivateRouteProps) => {
          <Navigate to={configRoute.routes.dashboard} />
       )
    }
-   else if (isLogged && userLogin?.status === 3 && (userLogin?.role !== acceptRole )) {
+   else if (isLogged && userLogin?.status === 3 && (userLogin?.role !== acceptRole)) {
       return (<React.Fragment> </React.Fragment>)
    }
    return children;

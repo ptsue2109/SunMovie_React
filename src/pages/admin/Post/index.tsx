@@ -54,7 +54,7 @@ const AdminPosts = (props: Props) => {
       width: 220
     },
     {
-      title: "Desc",
+      title: "Mô tả",
       key: "desc",
       dataIndex: "desc",
       render: (_: any, { desc }: any) => (
@@ -64,7 +64,7 @@ const AdminPosts = (props: Props) => {
       width: 220
     },
     {
-      title: "Author",
+      title: "Người viết",
       key: "author",
       dataIndex: "author",
       render: (_: any, { author }: any) => (
@@ -73,13 +73,13 @@ const AdminPosts = (props: Props) => {
       width: 220
     },
     {
-      title: "Category",
+      title: "Danh mục",
       key: "category",
       dataIndex: "category",
       width: 220
     },
     {
-      title: "Status",
+      title: "Trạng thái",
       key: "status",
       dataIndex: "status",
       render: (_: any, { _id, status }: any) => (
@@ -92,13 +92,13 @@ const AdminPosts = (props: Props) => {
       ),
     },
     {
-      title: "Create At",
+      title: "Ngày tạo",
       key: "create",
       dataIndex: "create",
       width: 120
     },
     {
-      title: "Last Update",
+      title: "Ngày sửa gần nhất",
       key: "update",
       dataIndex: "update",
       width: 120
@@ -127,8 +127,6 @@ const AdminPosts = (props: Props) => {
   ];
 
   const data: Props[] = posts?.map((item: any, index: any) => {
-    console.log('item', item);
-
     return {
       key: index + 1,
       _id: item?._id,
@@ -146,7 +144,7 @@ const AdminPosts = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Add New Post</Link>
+        <Link to="add">Tạo Bài viết</Link>
       </Button>
       <DataTable column={columns} data={data} />
 

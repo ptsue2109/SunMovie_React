@@ -28,7 +28,7 @@ const SeatByRoom = (props: Props) => {
 
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const roomSelect = rooms?.find((item) => item?._id === id);
-
+  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   useEffect(() => {
     setColumn(roomSelect?.columns);
     setRow(roomSelect?.rows);
@@ -37,7 +37,7 @@ const SeatByRoom = (props: Props) => {
   return (
     <div>
       <Button>
-        <Link to="/admin/rooms">List room</Link>
+        <Link to="/admin/rooms">DS Phòng chiếu</Link>
       </Button>
       <Collapse
         bordered={false}
@@ -55,7 +55,7 @@ const SeatByRoom = (props: Props) => {
           <p>Tên rạp: {roomSelect?.name} </p>
           <p>
             Trạng thái rạp:{" "}
-            {roomSelect?.status ? "Đang hoạt động" : "Dừng hoạt động"}
+            {roomSelect?.status == 0 ? "Đang hoạt động" : "Dừng hoạt động"}
           </p>
           <p>Số lượng ghế: {roomSelect?.rows * roomSelect?.columns}</p>
         </Panel>
@@ -77,6 +77,24 @@ const SeatByRoom = (props: Props) => {
           />
         </Panel>
       </Collapse>
+      <div className="">
+        <div className="mb-10 flex justify-around mx-20">
+          {seatType?.map((item: any) => (
+            <div className="flex" key={item._id}>
+              <p
+                className={`w-5 h-5 border-2 border-black`}
+                style={{ backgroundColor: `${item.color}` }}
+              ></p>
+              <span className="text-black pl-2 capitalize  ">{item.name}</span>
+            </div>
+          ))}
+
+          <div className="flex">
+            <p className="w-5 h-5 bg-[#35d406]"></p>
+            <span className="text-black pl-2"> Ghế Đang Chọn</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

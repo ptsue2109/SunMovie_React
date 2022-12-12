@@ -19,7 +19,7 @@ import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { userRole, userStatus } from "../../../ultils/data";
 import { provices } from "../../../redux/slice/Provider";
-import { formatDate } from "../../../ultils";
+
 type Props = {};
 const { Option } = Select;
 const AdminUserList = (props: Props) => {
@@ -28,37 +28,29 @@ const AdminUserList = (props: Props) => {
     document.title = "Admin | Users";
     dispatch(getUsers());
   }, [dispatch]);
-
-  const { users, isFetching, isErr, errorMessage } = useAppSelector( (state:any) => state.userReducer);
-  const { currentUser } = useAppSelector((state: any) => state.authReducer)
+  const { users, isFetching, isErr, errorMessage } = useAppSelector(
+    (state: any) => state.userReducer
+  );
+  const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const deleteUser = (data: string | undefined) => {
     dispatch(removeUser(data))
       .unwrap()
       .then(() => {
-        message.success({
-          content: "Xoá thành công",
-          key: "handling",
-        });
+        message.success({ content: "Xoá thành công", key: "handling" });
       })
       .catch(() => {
         message.error({ content: { errorMessage } });
       });
   };
   const changeRole = (id: any, value: any) => {
-    console.log(id, value);
-    
     dispatch(updateUser({ _id: id, role: value }))
       .unwrap()
       .then(() => message.success("Thay đổi quyền thành công"));
   };
   const changeStatus = (id: any, value: any) => {
-    console.log(id, value);
-    
     dispatch(updateUser({ _id: id, status: value }))
       .unwrap()
-      .then(() =>
-        message.success("Thay đổi trạng thái thành công")
-      );
+      .then(() => message.success("Thay đổi trạng thái thành công"));
   };
   const changeAddress = (id: any, value: any) => {
     dispatch(updateUser({ _id: id, address: value }))
@@ -67,7 +59,7 @@ const AdminUserList = (props: Props) => {
   };
   const columnUserList: any = [
     {
-      title: "IMAGE",
+      title: "Ảnh",
       dataIndex: "image",
       key: "image",
       render: (_: any, record: any) => (
@@ -96,7 +88,7 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.email - b.email,
     },
     {
-      title: "STATUS",
+      title: "Trạng Thái",
       dataIndex: "status",
       key: "status",
       render: (_: any, { _id, status }: any) => (
@@ -105,8 +97,8 @@ const AdminUserList = (props: Props) => {
             status === 0
               ? "Chưa xác thực"
               : status === 1
-                ? "Đang hoạt động"
-                : "Dừng hoạt động"
+              ? "Đang hoạt động"
+              : "Dừng hoạt động"
           }
           onChange={(value: any) => {
             changeStatus(_id, value);
@@ -123,7 +115,7 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.status - b.status,
     },
     {
-      title: "ROLE",
+      title: "Vai trò",
       dataIndex: "role",
       key: "role",
       render: (_: any, { role, _id }: any) => (
@@ -144,7 +136,7 @@ const AdminUserList = (props: Props) => {
       width: 30,
     },
     {
-      title: "NAME",
+      title: "Tên",
       dataIndex: "username",
       key: "username",
       render: (_: any, record: any) => (
@@ -161,13 +153,13 @@ const AdminUserList = (props: Props) => {
       sorter: (a: any, b: any) => a.username - b.username,
     },
     {
-      title: "Phone",
+      title: "SDT",
       dataIndex: "phone",
       key: "phone",
       sorter: (a: any, b: any) => a.phone - b.phone,
     },
     {
-      title: "Address",
+      title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
       render: (_: any, { address, _id }: any) => (
@@ -189,7 +181,7 @@ const AdminUserList = (props: Props) => {
       width: 30,
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
@@ -198,16 +190,16 @@ const AdminUserList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {(currentUser?._id !== record?._id)  && (
+          {/* {currentUser?._id !== record?._id && (
             <Popconfirm
-              title={`Delete ${record?.username ?? record?._id}?`}
+              title={`Xóa ${record?.username ?? record?._id}?`}
               okText="OK"
               cancelText="Cancel"
               onConfirm={() => deleteUser(record?._id)}
             >
               <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
             </Popconfirm>
-          )}
+          )} */}
         </Space>
       ),
       width: 30,
@@ -237,7 +229,7 @@ const AdminUserList = (props: Props) => {
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Add Users</Link>
+        <Link to="add">Thêm người dùng</Link>
       </Button>
       <DataTable column={columnUserList} data={data} loading={isFetching} />
     </div>

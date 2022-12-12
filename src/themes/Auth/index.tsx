@@ -27,7 +27,7 @@ const AuthCore = ({ children }: Props) => {
     navigate(configRoute.routes.signin)
   }
   return (
-    <section className="container max-w-6xl px-3 mx-auto justify-center h-[550px] sm:h-auto border border-solid border-gray-600 shadow-lg rounded-md">
+    <section className="container max-w-6xl px-3 mx-auto justify-center h-[550px] sm:h-auto  shadow-lg rounded-md">
       <div className="w-full h-full">
         <div className="grid lg:grid-cols-2  sm:grid sm:grid-cols-1">
           <div className=" w-[608px] p-[30px] sm:place-items-center">

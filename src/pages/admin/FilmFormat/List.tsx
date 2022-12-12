@@ -102,7 +102,7 @@ const FilmFormatList = (props: Props) => {
 
   const columns: any = [
     {
-      title: "NAME",
+      title: "Tên",
       dataIndex: "name",
       key: "name",
       render: (_: any, record: any) => (
@@ -112,7 +112,7 @@ const FilmFormatList = (props: Props) => {
       ),
     },
     {
-      title: "extraPrice",
+      title: "Giá extra",
       dataIndex: "extraPrice",
       key: "extraPrice",
     },
@@ -125,14 +125,14 @@ const FilmFormatList = (props: Props) => {
             style={{ color: "var(--primary)", fontSize: "18px" }}
             onClick={() => onFinish(record?._id)}
           />
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => removeFormat(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
       width: 30,
@@ -151,7 +151,7 @@ const FilmFormatList = (props: Props) => {
     <div className="flex  gap-3">
       <div className="col-5">
         <Button className="mb-5">
-          <Link to={configRoute.routes.adminMovie}>Movie List</Link>
+          <Link to={configRoute.routes.adminMovie}>Danh sách phim</Link>
         </Button>
         <DataTable column={columns} data={data} loading={isFetching} />
       </div>
@@ -177,7 +177,7 @@ const FilmFormatList = (props: Props) => {
               <Input />
             </Form.Item>
             <Form.Item
-              label="extraPrice"
+              label="Giá Extra"
               name="extraPrice"
               rules={[
                 {

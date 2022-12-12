@@ -74,8 +74,9 @@ export const RenderInfoSeats = ({
     dispatch(createTicket(ticket))
       .unwrap()
       .then((payload: any) => {
-        let ticketId = payload?.ticket?._id;
-        navigate(`/payment?id=${ticketId}`);
+        console.log(payload);
+        //@ts-ignore
+        navigate("/combo", { state: payload });
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {
@@ -114,7 +115,7 @@ export const RenderInfoSeats = ({
               onClick={() => onSubmit()}
               className="rounded-3xl my-5 bg-red-600 border border-white text-white w-36 h-12"
             >
-              Thanh Toán
+              Tiếp tục
             </button>
           )}
         </div>
@@ -242,6 +243,7 @@ export const RenderSeatClient = ({
               <br />
             </>
           )}
+          {rowIndex === 0 && <span className={styles.colName2}>{key}</span>}
         </span>
       ));
       seatArray.push(colValue);

@@ -7,7 +7,6 @@ import ScrollToTop from "./ultils/ScrollToTop";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 import { getMovieType } from "./redux/slice/movieTypeSlice";
 import { getTicket } from "./redux/slice/ticketSlice";
-import { getTicketPrice } from "./redux/slice/ticketPriceSlice";
 import { getSeatType } from "./redux/slice/SeatTypeSlice";
 import { getCategories } from "./redux/slice/CategorySlice";
 import { getMovie } from "./redux/slice/Movie";
@@ -24,17 +23,15 @@ import { getAlPost } from "./redux/slice/PostSlice";
 import { getAllSeats } from "./redux/slice/SeatSlice";
 import PrivateRoute from "./components/client/PrivateRouter";
 import { getAllOrders } from "./redux/slice/OrdersSlice";
+import { getComente } from "./redux/slice/ComenteSlice";
 function App() {
   const dispatch = useAppDispatch();
-  const { currentUser } = useAppSelector((state: any) => state.authReducer);
-  const { loading, webConfigs } = useAppSelector(
-    (state: any) => state.WebConfigReducer
+  const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer
   );
   const isMaintain = webConfigs[0]?.isMaintaince;
   useEffect(() => {
     dispatch(getMovieType());
     dispatch(getTicket());
-    dispatch(getTicketPrice());
     dispatch(getSeatType());
     dispatch(getCategories());
     dispatch(getMovie());
@@ -48,7 +45,8 @@ function App() {
     dispatch(getAlVc());
     dispatch(getAlPost());
     dispatch(getAllSeats({}));
-    dispatch(getAllOrders({}))
+    dispatch(getAllOrders({}));
+    dispatch(getComente());
   }, [dispatch]);
 
   return (
@@ -63,25 +61,6 @@ function App() {
           } else if (route.layout === null) {
             Layout = Fragment;
           }
-
-          if (route.path.startsWith("/profile")) {
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <Maintain isMaintain={isMaintain}>
-                    <PrivateRoute acceptRole={0}>
-                      <Layout>
-                        <Page />
-                      </Layout>
-                    </PrivateRoute>
-                  </Maintain>
-                }
-              />
-            );
-          }
-
           return (
             <Route
               key={index}

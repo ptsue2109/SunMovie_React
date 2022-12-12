@@ -1,13 +1,13 @@
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { UpdateMovie } from "../../../redux/slice/Movie";
+import { UpdateSliderThunk } from "../../../redux/slice/Slider";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
 
-type Props = {}; 
+type Props = {};
 
 const UpdateSlider = (props: Props) => {
   const [image, setImage] = useState<any[]>([]);
@@ -18,6 +18,7 @@ const UpdateSlider = (props: Props) => {
 
   const { slider, errMess } = useAppSelector((state) => state.slider);
   const data = slider.find((item: any) => item._id === id);
+  
   useEffect(() => {
     if (data) {
       setImage(data?.image);
@@ -35,7 +36,7 @@ const UpdateSlider = (props: Props) => {
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
     delete values?.imageOld;
-    dispatch(UpdateMovie(values))
+    dispatch(UpdateSliderThunk(values))
       .unwrap()
       .then(() => {
         message.success({ content: "Sửa thành công" });
@@ -47,6 +48,9 @@ const UpdateSlider = (props: Props) => {
   };
   return (
     <>
+    <Button className="mb-3">
+      <Link to={configRoute.routes.adminSlider}>DS Slider</Link>
+    </Button>
       <Form
         form={form}
         layout="vertical"
@@ -58,7 +62,7 @@ const UpdateSlider = (props: Props) => {
         </Form.Item>
         <Form.Item
           name="title"
-          label="Title"
+          label="Tên"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
@@ -66,7 +70,7 @@ const UpdateSlider = (props: Props) => {
 
         <Form.Item
           name="content"
-          label="Content"
+          label="Nội dung"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
@@ -76,11 +80,16 @@ const UpdateSlider = (props: Props) => {
           label="Url"
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
-
         >
-         <Input />
+          <Input />
         </Form.Item>
-
+        <Form.Item
+          label="slug"
+          name="slug"
+          rules={[{ required: true, message: "Không được để trống! " }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit

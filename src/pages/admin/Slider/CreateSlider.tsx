@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, DatePicker, Form, Input, message, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import moment from "moment";
 import ImageUpload from "../../../components/upload";
@@ -25,24 +25,19 @@ const CreateSlider = (props: Props) => {
       message.error(`${payload}`);
     }
   };
-  const config = {
-    rules: [
-      {
-        type: "object" as const,
-        required: true,
-        message: "Please select time!",
-      },
-    ],
-  };
+
   return (
     <>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminSlider}>List Slider</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
         onFinish={onFinish}
         autoComplete="off"
       >
-        <Form.Item label="Image">
+        <Form.Item label="Ảnh">
           <ImageUpload imageList={image} limit={1} key={1} />
         </Form.Item>
         <Form.Item
@@ -54,7 +49,7 @@ const CreateSlider = (props: Props) => {
         </Form.Item>
 
         <Form.Item
-          name="content"
+          name="Nội dung"
           label="Content"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
@@ -65,9 +60,8 @@ const CreateSlider = (props: Props) => {
           label="Url"
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
-
         >
-         <Input />
+          <Input />
         </Form.Item>
 
         <Form.Item>

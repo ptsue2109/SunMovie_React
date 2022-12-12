@@ -1,4 +1,5 @@
 
+import axiosClient from "./instance";
 import AxiosRequest from "./instance";
 
 
@@ -20,7 +21,14 @@ export const AuthApi = {
     );
   },
   async forgotPassword(data: any): Promise<any> {
-    const url = "forgotPassword"
+    const url = "users_forgot_password"
     return AxiosRequest.post(url, data);
+  },
+  async getCurrentUser(): Promise<any> {
+    const url = "current_user"
+    return AxiosRequest.get(url, {
+      withCredentials: true,    // IMPORTANT!!!
+    }
+    );
   },
 };

@@ -2,7 +2,6 @@ import React from 'react'
 import { Button, Card, Form, FormInstance, Input, message, DatePicker, Select, Upload, Skeleton, InputNumber, Switch, Space } from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
 import ImageUpload from "../../upload"
-import { defaultStatus } from "../../../ultils/data"
 import TextArea from 'antd/lib/input/TextArea';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 interface WebConfigFormProps {
@@ -14,10 +13,11 @@ interface WebConfigFormProps {
    edit?: boolean;
    editData?: boolean;
    loading?: boolean;
+   hiddenBtn?: boolean
 }
 
 const { Option } = Select;
-const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edit = false, loading = false, editData = true }: WebConfigFormProps) => {
+const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, hiddenBtn, editData = true }: WebConfigFormProps) => {
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
          <div className="grid grid-flow-col">
@@ -34,7 +34,7 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edi
                      <Form.Item label="Địa chỉ" name="address_text" rules={[{ required: true }]} >
                         <Input placeholder="Nhập nội dung" />
                      </Form.Item>
-                     <Form.Item label="phone" name="phone" rules={[{ required: true }]} >
+                     <Form.Item label="Số điện thoại" name="phone" rules={[{ required: true }]} >
                         <Input placeholder="Nhập nội dung" />
                      </Form.Item>
 
@@ -50,9 +50,9 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edi
                         <TextArea placeholder="Nhập nội dung" />
                      </Form.Item>
 
-                    <p className='social_webconfig mb-3 before:mr-1'>Chọn mạng xã hội</p>
+                     <p className='social_webconfig mb-3 before:mr-1'>Chọn mạng xã hội</p>
                      <Form.List name="social">
-                     
+
                         {(fields, { add, remove }) => (
                            <>
                               {fields.map(({ key, name, ...restField }) => (
@@ -64,6 +64,7 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edi
                                        <Select placeholder="Chọn nội dung">
                                           <Option value="Facebook">Facebook</Option>
                                           <Option value="Instagram">Instagram</Option>
+                                          <Option value="Email">Email</Option>
                                        </Select>
                                     </Form.Item>
                                     <Form.Item
@@ -90,7 +91,7 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, edi
                               {onReset && (
                                  <Button htmlType="button" onClick={onReset}>  Nhập lại  </Button>
                               )}
-                              <Button htmlType="submit" type="primary" style={{ minWidth: 150 }} >
+                              <Button htmlType="submit" type="primary" style={{ minWidth: 150 }} disabled={hiddenBtn}>
                                  Lưu
                               </Button>
                            </div>

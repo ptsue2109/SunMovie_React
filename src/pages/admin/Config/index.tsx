@@ -32,35 +32,35 @@ const WebConfig = (props: Props) => {
       width: 100,
     },
     {
-      title: "storeName",
+      title: "Tên",
       key: "storeName",
       dataIndex: "storeName",
     },
     {
-      title: "address",
+      title: "Địa chỉ",
       key: "address",
       dataIndex: "address",
     },
 
     {
-      title: "Status",
+      title: "Trạng thái",
       key: "status",
       dataIndex: "status",
-      render: (_: any, {isMaintaince}: any) => (
+      render: (_: any, { isMaintaince }: any) => (
         <Tag color={isMaintaince === false ? "blue" : "red"}>
-          {isMaintaince === false ? `Đang hoạt động` : ` Đang bảo trì` }
+          {isMaintaince === false ? `Đang hoạt động` : ` Đang bảo trì`}
         </Tag>
       ),
       width: 150,
     },
     {
-      title: "Phone",
+      title: "SDT",
       key: "phone",
       dataIndex: "phone",
       width: 150
     },
     {
-      title: "social",
+      title: "MXH",
       key: "social",
       dataIndex: "social"
     },
@@ -75,7 +75,7 @@ const WebConfig = (props: Props) => {
             />
           </Link>
           <Popconfirm
-            title={`Delete ${record?.storeName ?? record?._id}?`}
+            title={`Xóa ${record?.storeName ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={confirm}

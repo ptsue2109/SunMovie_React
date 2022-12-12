@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, Fragment } from "react";
 import configRoute from "../config";
 import { AuthTheme } from "../themes";
 
@@ -13,7 +13,7 @@ import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 import Complete from "../pages/auth/complete";
 // admin
-import Dashboard from "../pages/admin/Dashboard";
+import Dashboard from "../pages/admin/Dashboard/DashBoard";
 
 import AdminUserList from "../pages/admin/User/List";
 import UserCreate from "../pages/admin/User/Create";
@@ -21,13 +21,6 @@ import UserEdit from "../pages/admin/User/Update";
 
 import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
 import ListMovieType from "../pages/admin/MovieType/ListMovieType";
-
-import ListAddminTicket from "../pages/admin/Ticket/ListTicket";
-import CreateTicket from "../pages/admin/Ticket/Create";
-import UploadTicket from "../pages/admin/Ticket/Upload";
-import ListTicketPrice from "../pages/admin/Ticket/ListTicketPrice";
-import CreateTicketPrice from "../pages/admin/Ticket/CreateTicketPrice";
-import UploadTicketPrice from "../pages/admin/Ticket/UploadTicketPrice";
 
 import ListSeatType from "../pages/admin/SeatType/ListSeatType";
 import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
@@ -75,6 +68,16 @@ import Payment from "../pages/client/payment/Payment";
 import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
 import EditCategory from "../pages/admin/categories/Edit";
+import ListCommentMovie from "../pages/admin/comment";
+
+import PaymentStep from "../components/client/PaymentStep";
+import ChooseCombo from "../components/client/ChooseCombo";
+import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
+import AdminOrders from "../pages/admin/Order/List";
+import AdminOrdersDetail from "../pages/admin/Order/Detail";
+import FailedOrder from "../pages/admin/Order/FailedOrder";
+import FindOrder from "../pages/client/findOrder";
+import PaymentStatus from "../components/client/PaymentStatus";
 type RoutesType = {
   path: string;
   component: any;
@@ -100,6 +103,15 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
+  {
+    path: configRoute.routes.loadingPushAccountInLocalStorage,
+    component: LoadingPushAccountInLocalStorage,
+    layout: AuthTheme,
+  },
+  { path: configRoute.routes.chooseCombo, component: ChooseCombo },
+  { path: configRoute.routes.paymentStatus, component: PaymentStatus },
+  { path: configRoute.routes.step, component: PaymentStep },
+  { path: configRoute.routes.findOrder, component: FindOrder },
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -121,21 +133,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminSlider, component: AdminSlider },
   { path: configRoute.routes.adminSliderCreate, component: CreateSlider },
   { path: configRoute.routes.adminSliderUpdate, component: UpdateSlider },
-
-  { path: configRoute.routes.adminListTicket, component: ListAddminTicket },
-  { path: configRoute.routes.adminTicketAdd, component: CreateTicket },
-  { path: configRoute.routes.adminTicketUpdate, component: UploadTicket },
-
-  { path: configRoute.routes.adminTicketPrice, component: ListTicketPrice },
-
-  {
-    path: configRoute.routes.adminTicketPriceUpdate,
-    component: UploadTicketPrice,
-  },
-  {
-    path: configRoute.routes.adminTicketPriceAdd,
-    component: CreateTicketPrice,
-  },
 
   { path: configRoute.routes.adminSeatType, component: ListSeatType },
   { path: configRoute.routes.adminSeatTypeAdd, component: CeateSeatType },
@@ -182,4 +179,13 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
+
+  { path: configRoute.routes.adminOrders, component: AdminOrders },
+  { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
+  { path: configRoute.routes.adminOrderFailed, component: FailedOrder },
+
+  {
+    path: configRoute.routes.adminListCommentMovie,
+    component: ListCommentMovie,
+  },
 ];

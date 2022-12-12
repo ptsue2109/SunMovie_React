@@ -22,12 +22,12 @@ const CreateMovieType = (props: Props) => {
 
   return (
     <>
-    <div className="flex gap-5">
+      <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminMovieType}>List Movie Type</Link>
+          <Link to={configRoute.routes.adminMovieType}>DS Thể loại</Link>
         </Button>
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminMovie}>List Film</Link>
+          <Link to={configRoute.routes.adminMovie}>DS Phim</Link>
         </Button>
       </div>
       <Form
@@ -38,14 +38,14 @@ const CreateMovieType = (props: Props) => {
       >
         <Form.Item
           name="movieName"
-          label="Name"
+          label="Tên phim"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Lưu
           </Button>
         </Form.Item>
       </Form>

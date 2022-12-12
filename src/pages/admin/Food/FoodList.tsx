@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Image,
-} from "antd";
+import { Button, message, Popconfirm, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeFoodItem } from "../../../redux/slice/FoodSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { formatCurrency } from "../../../ultils";
 
 type Props = {};
 
@@ -31,38 +24,43 @@ const FoodList = (props: Props) => {
   };
   const columnUserList: any = [
     {
-      title: "Name",
+      title: "Ảnh",
+      dataIndex: "image",
+      render: (_: any, { image, _id }: any) => (
+        <Link to={_id}>
+          <img src={image} style={{ width: "100%" }} />
+        </Link>
+      ),
+      width: 120,
+    },
+    {
+      title: "Tên",
       dataIndex: "name",
-      render: (_: any, record: any) => <p>{record?.name}</p>,
-      width: "200px",
+      render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
-      render: (_: any, record: any) => <p>{record?.price}</p>,
-      width: "200px",
+      render: (_: any, record: any) => <p>{formatCurrency(record?.price)}</p>,
+      width: 140,
     },
 
     {
-      title: "Status",
+      title: "Trạng thái",
       dataIndex: "status",
-      render: (_: any, record: any) => <p>{record?.status}</p>,
-      width: "200px",
+      render: (_: any, record: any) => (
+        <p>{record?.status === 0 ? "Đang bán" : "Ngừng bán"}</p>
+      ),
     },
     {
-      title: "Stock",
+      title: "SL trong kho",
       dataIndex: "stock",
       render: (_: any, record: any) => <p>{record?.stock}</p>,
     },
-    {
-      title: "Size",
-      dataIndex: "size",
-      render: (_: any, record: any) => <p>{record?.size}</p>,
-    },
 
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       fixed: "right",
       width: "100px",
@@ -73,14 +71,14 @@ const FoodList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
+          {/* <Popconfirm
+            title={`Xóa ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteFood(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
     },
@@ -93,22 +91,18 @@ const FoodList = (props: Props) => {
       name: item?.name,
       price: item?.price,
       stock: item?.stock,
-      size: item?.size,
       status: item?.status,
+      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
     };
   });
- console.log(data);
- 
+  console.log(data);
+
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/food/create">Create Food</Link>
+        <Link to="/admin/food/create">Tạo mới</Link>
       </Button>
-      <DataTable
-        column={columnUserList}
-        data={data}
-        scrollWidth={{ x: 2000 }}
-      />
+      <DataTable column={columnUserList} data={data} />
     </div>
   );
 };

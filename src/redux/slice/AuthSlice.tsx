@@ -22,12 +22,20 @@ export const authAsyncLogin = createAsyncThunk<
 >("auth/authAsyncLogin", async (loginData, { rejectWithValue }) => {
   try {
     const { data } = await AuthApi.login(loginData);
-    console.log(data);
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
   }
 });
+export const getCurrentUser = createAsyncThunk<
+  any, any, { rejectValue: string }>("auth/getCurrentUser", async (_: any, { rejectWithValue }) => {
+    try {
+      const { data } = await AuthApi.getCurrentUser();
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  });
 
 //slice
 type AuthState = {
@@ -54,6 +62,11 @@ const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(authAsyncLogin.fulfilled, (state, action) => {
+      state.isLogged = true;
+      state.accessToken = action.payload.accessToken;
+      state.currentUser = action.payload.user;
+    });
+    builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.isLogged = true;
       state.accessToken = action.payload.accessToken;
       state.currentUser = action.payload.user;

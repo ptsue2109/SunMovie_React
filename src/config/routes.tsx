@@ -14,11 +14,18 @@ const routes = {
   profile: "/profile",
   verify: "/verify",
   voucherDetail: "/voucher/:id",
-  payment:"/payment",
+  payment: "/payment",
   forgotPass: "/forgot-password",
   resetPassword: "/reset-password",
   contact: "/contact",
   successPayment: "/success",
+  loadingPushAccountInLocalStorage: "/loading",
+  chooseCombo: "/combo",
+  paymentStatus: "/payment-status",
+  step: "/step",
+  profileOrder: "/profile/orders/:id",
+  checkOrder: "/checkOrder",
+  findOrder: "/findOrder",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",
@@ -69,12 +76,16 @@ const routes = {
   AdminPostsCreate: "/admin/posts/add",
   AdminPostsEdit: "/admin/posts/:id",
   renderSeatAdmin: "/admin/seats/_v=:id",
-  chooseCombo: "/admin/choose-combo",
   webConfig: "/admin/webConfig",
   webConfigAdd: "/admin/webConfig/create",
   webConfigEdit: "/admin/webConfig/:id",
   AdminSeatByRoom: "/admin/seatsByRoom/:id",
-  adminCategoryEdit: "/admin/categories/:id"
+  adminCategoryEdit: "/admin/categories/:id",
+
+  adminOrders: "/admin/orders",
+  adminOrdersDetail: "/admin/orders/:id",
+  adminOrderFailed: "/admin/orders/failed",
+  adminListCommentMovie: "/admin/movieComment/:id",
 };
 
 export default routes;

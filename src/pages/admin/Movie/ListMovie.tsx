@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Image,
-} from "antd";
+import { Button, message, Popconfirm, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeMovieItem } from "../../../redux/slice/Movie";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { formatDate } from "../../../ultils";
+import { formatDate, convertMovieTime } from "../../../ultils";
 import configRoute from "../../../config";
+
 type Props = {};
 
 const ListMovie = (props: Props) => {
@@ -33,30 +25,33 @@ const ListMovie = (props: Props) => {
 
   const columnUserList: any = [
     {
-      title: "Image",
+      title: "Ảnh",
       dataIndex: "image",
       fixed: "left",
-      // key: "image",
-      render: (_: any, record: any) => (
-        <img width="50px" src={record?.image} height="50px" alt="" />
+      render: (_: any, { image, _id }: any) => (
+        <Link to={_id}>
+          {" "}
+          <img width="50px" src={image} height="50px" />
+        </Link>
       ),
       width: 120,
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
-      // key: "image",
-      render: (_: any, record: any) => <p>{record?.name}</p>,
+      render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
 
     {
-      title: "Run Time",
+      title: "Thời gian chiếu",
       dataIndex: "runTime",
-      render: (_: any, record: any) => <p>{record?.runTime}</p>,
+      render: (_: any, record: any) => (
+        <p>{convertMovieTime(record?.runTime)} h</p>
+      ),
     },
 
     {
-      title: "Age Limit",
+      title: "Độ tuổi",
       key: "ageLimit",
       render: (_: any, record: any) => (
         <div>
@@ -65,7 +60,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "Release Date",
+      title: "Ngày khởi chiếu",
       key: "releaseDate",
       render: (_: any, record: any) => (
         <div>
@@ -74,7 +69,7 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
-      title: "ACTION",
+      title: "Hành động",
       key: "action",
       fixed: "right",
       render: (_: any, record: any) => (
@@ -84,25 +79,30 @@ const ListMovie = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteUser(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
           <Button type="dashed" block>
             <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
               <PlusOutlined
                 style={{ color: "var(--primary)", fontSize: "18px" }}
               />
-              showtime
+              Tạo suất chiếu
             </Link>
           </Button>
           <Button type="dashed" block>
             <Link to={`/admin/showTimes?movieId=${record?._id}`}>
               Danh sách giờ chiếu
+            </Link>
+          </Button>
+          <Button type="dashed" block>
+            <Link to={`/admin/movieComment/${record?._id}`}>
+              Đánh giá về phim
             </Link>
           </Button>
         </Space>
@@ -133,16 +133,11 @@ const ListMovie = (props: Props) => {
     <div>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies/create">Create Movies</Link>
+          <Link to="/admin/movies/create">Tạo Phim</Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminMovieType}>
             Quản lí thể loại phim
-          </Link>
-        </Button>
-        <Button className="mb-5">
-          <Link to={configRoute.routes.AdminFilmFormat}>
-            Quản lí format film
           </Link>
         </Button>
       </div>

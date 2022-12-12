@@ -1,6 +1,4 @@
 import moment from "moment";
-import isBefore from "date-fns/isBefore";
-import { formatDistance, isEqual, parseISO } from "date-fns";
 
 export const formatCurrency = (money?: number) => {
   let newMoney;
@@ -22,9 +20,8 @@ export const formatDateNew = (dateString: Date) => {
 };
 export const formatDateString = (dateString: Date) => {
   const date = new Date(dateString || "");
-  return `${date.getDate()} Tháng ${
-    date.getMonth() + 1
-  }, ${date.getFullYear()}`;
+  return `${date.getDate()} Tháng ${date.getMonth() + 1
+    }, ${date.getFullYear()}`;
 };
 
 export const convertDate = (date: any) => {
@@ -66,7 +63,3 @@ export const convertMovieTime = (seconds: any) => {
   return result;
 };
 
-export function addDays(dateObj: any, numDays: any) {
-  dateObj.setDate(dateObj.getDate() + numDays);
-  return dateObj;
-}
