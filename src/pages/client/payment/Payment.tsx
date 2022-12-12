@@ -135,25 +135,20 @@ const Payment = (props: Props) => {
       confirmButtonText: 'Yes'
     }).then((result: any) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          '', '',
-          'success'
-        )
-        console.log(payload);
-        // dispatch(createPaymeny(payload)).unwrap()
-        //   .then((res: any) => {
-        //     window.location.href = `${res}`;
-        //     let voucherChange = {
-        //       _id: voucherItem?._id,
-        //       quantity: voucherItem?.quantity - 1,
-        //       userId: [...voucherItem?.userId, currentUser?._id]
-        //     }
+        dispatch(createPaymeny(payload)).unwrap()
+          .then((res: any) => {
+            window.location.href = `${res}`;
+            let voucherChange = {
+              _id: voucherItem?._id,
+              quantity: voucherItem?.quantity - 1,
+              userId: [...voucherItem?.userId, currentUser?._id]
+            }
 
-        //     dispatch(updateData(voucherChange)).unwrap()
-        //       .then(() => console.log('success'))
-        //       .catch(() => console.log('errr'))
-        //   })
-        //   .catch((err: any) => message.error(`${err}`))
+            dispatch(updateData(voucherChange)).unwrap()
+              .then(() => console.log('success'))
+              .catch(() => console.log('errr'))
+          })
+          .catch((err: any) => message.error(`${err}`))
       }
     })
 

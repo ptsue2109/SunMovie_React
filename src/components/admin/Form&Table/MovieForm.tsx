@@ -66,8 +66,8 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   <Select mode="multiple">
                     {movieType &&
                       movieType?.map((item: any, index: any) => (
-                        <Select.Option value={item._id} key={item._id}>
-                          {item.movieName}
+                        <Select.Option value={item._id} key={index}>
+                          {item?.movieName}
                         </Select.Option>
                       ))}
                   </Select>
