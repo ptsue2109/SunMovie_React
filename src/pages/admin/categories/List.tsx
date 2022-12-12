@@ -22,7 +22,11 @@ const ListCategories = (props: Props) => {
   const columnList: any = [
     {
       title: "Name",
-      render: (item: any, index: any) => <Link to={item?._id} className="text-black">{item.title}</Link>,
+      render: (item: any, index: any) => (
+        <Link to={item?._id} className="text-black">
+          {item.title}
+        </Link>
+      ),
       height: "10",
     },
     {
@@ -36,14 +40,14 @@ const ListCategories = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${item?.title ?? item?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => remove(item?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
       width: 30,

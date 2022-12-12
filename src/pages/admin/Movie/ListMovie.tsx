@@ -1,4 +1,4 @@
-import { Button, message, Popconfirm, Space } from "antd";
+import { Button, message, Popconfirm, Space, Table } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeMovieItem } from "../../../redux/slice/Movie";
@@ -45,7 +45,9 @@ const ListMovie = (props: Props) => {
     {
       title: "Thời gian chiếu",
       dataIndex: "runTime",
-      render: (_: any, record: any) => <p>{convertMovieTime(record?.runTime)} h</p>,
+      render: (_: any, record: any) => (
+        <p>{convertMovieTime(record?.runTime)} h</p>
+      ),
     },
 
     {
@@ -77,14 +79,14 @@ const ListMovie = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Delete ${record?.name ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={() => deleteUser(record?._id)}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
           <Button type="dashed" block>
             <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
               <PlusOutlined
@@ -138,13 +140,8 @@ const ListMovie = (props: Props) => {
             Quản lí thể loại phim
           </Link>
         </Button>
-        <Button className="mb-5">
-          <Link to={configRoute.routes.AdminFilmFormat}>
-            Quản lí format film
-          </Link>
-        </Button>
       </div>
-      <DataTable column={columnUserList} data={data} />
+      <Table columns={columnUserList} dataSource={data} />
     </div>
   );
 };

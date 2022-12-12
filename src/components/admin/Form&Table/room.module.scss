@@ -52,7 +52,22 @@
   padding-right: 5px;
   float: right;
 }
-
+.colNameAd {
+  color: black;
+  font-weight: 700;
+  // margin-right: 20px;
+  // border: 2px solid rebeccapurple;
+  padding-right: 5px;
+  float: left;
+}
+.colNameAd2 {
+  color: black;
+  font-weight: 700;
+  // margin-right: 20px;
+  // border: 2px solid rebeccapurple;
+  padding-right: 5px;
+  float: right;
+}
 .seatNotBooksed {
   background-color: white;
 }
@@ -93,7 +108,7 @@
  }
  .seatBlocked {
    color: #fff !important;
-   background: rgb(69, 69, 69);
+   background: rgb(69, 69, 69) !important;
    }
  .seatBlockedClient{
   visibility: hidden !important;

@@ -190,7 +190,7 @@ const AdminUserList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {currentUser?._id !== record?._id && (
+          {/* {currentUser?._id !== record?._id && (
             <Popconfirm
               title={`Xóa ${record?.username ?? record?._id}?`}
               okText="OK"
@@ -199,7 +199,7 @@ const AdminUserList = (props: Props) => {
             >
               <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
             </Popconfirm>
-          )}
+          )} */}
         </Space>
       ),
       width: 30,

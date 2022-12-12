@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.css";
 import { BsCalendar } from "react-icons/bs";
 import { GiFilmSpool } from "react-icons/gi";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
 import {
@@ -19,6 +19,8 @@ import styled from "styled-components";
 import RelateMovie from "../RelateMovie";
 import moment from "moment";
 import Comente from "../comment";
+import Swal from "sweetalert2";
+import configRoute from "../../../config";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -28,6 +30,9 @@ const MovieDetail = (props: Props) => {
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
 
+  const [cometArr, setComentArr] = useState([]);
+  const { currentUser } = useAppSelector((state) => state.authReducer);
+  const { users } = useAppSelector((state) => state.userReducer);
   const Toggle = (number: any) => {
     setActive(number);
   };
@@ -40,7 +45,7 @@ const MovieDetail = (props: Props) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  const navigate = useNavigate();
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
@@ -121,7 +126,25 @@ const MovieDetail = (props: Props) => {
     showtime = showtime
       .sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
       .filter((item: any) => convertDate(today) < convertDate(item.startAt));
-
+    const checkUser = (id: any) => {
+      let exitsUser = users.find((item: any) => item._id === currentUser._id);
+      if (exitsUser) {
+        showModal(id);
+      } else {
+        Swal.fire({
+          title: "Vui lòng đăng nhập để đặt vé",
+          icon: "warning",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Đăng nhập",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate(configRoute.routes.signin);
+          }
+        });
+      }
+    };
     if (!showTimeList) return <div>Loading...</div>;
 
     return (
@@ -183,7 +206,7 @@ const MovieDetail = (props: Props) => {
                       {showtime.map((item: any) => (
                         <span
                           key={item._id}
-                          onClick={() => showModal(item._id)}
+                          onClick={() => checkUser(item._id)}
                           className="cursor-pointer"
                         >
                           {formatTime(item.startAt)}

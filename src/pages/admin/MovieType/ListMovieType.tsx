@@ -56,10 +56,10 @@ const ListMovieType = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <DeleteOutlined
+          {/* <DeleteOutlined
             onClick={() => deleteUser(item?._id)}
             style={{ color: "red", fontSize: "18px" }}
-          />
+          /> */}
         </Space>
       ),
       width: 30,
@@ -75,7 +75,9 @@ const ListMovieType = (props: Props) => {
     <>
       <div className="flex gap-5">
         <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to={configRoute.routes.adminMovieTypeAdd}>Thêm thể loại phim</Link>
+          <Link to={configRoute.routes.adminMovieTypeAdd}>
+            Thêm thể loại phim
+          </Link>
         </Button>
         <Button>
           <Link to={configRoute.routes.adminMovie}>DS Phim</Link>

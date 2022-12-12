@@ -23,12 +23,13 @@ const AdminShowTimeList = (props: Props) => {
 
   const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
   const { movie } = useAppSelector((state) => state.movie);
-  
+
   const [showByDate, setShowByDate] = useState([])
   const [searchParams, setSearchParams] = useSearchParams();
   let movieId = searchParams.get("movieId");
   let movieSelect = movie?.find((item: any) => item?._id === movieId);
-    const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId && item?.status == 0));
+  const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId && item?.status == 0));
+  console.log('showTimeByMovieId', showTimeByMovieId);
 
   // get by date
   const handleSubmit = () => {
@@ -43,7 +44,7 @@ const AdminShowTimeList = (props: Props) => {
     setShowByDate({ ...groupByDate });
 
   };
- 
+
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
@@ -72,7 +73,7 @@ const AdminShowTimeList = (props: Props) => {
               <div>Phòng chiếu :
                 {item?.roomId?.map((roomItem: any) => (
                   <Button key={roomItem?._id}>
-                    <Link to={`/book-chair=${formatDate(item?.date)}?movieId=${item?._id}?roomId=${roomItem?._id}`}>
+                    <Link to={`/book-chair?room=${roomItem?._id}&showtime=${item?._id}`}>
                       {roomItem?.name}
                     </Link>
                   </Button>

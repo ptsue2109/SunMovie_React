@@ -13,7 +13,7 @@ import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 import Complete from "../pages/auth/complete";
 // admin
-import Dashboard from "../pages/admin/Dashboard";
+import Dashboard from "../pages/admin/Dashboard/DashBoard";
 
 import AdminUserList from "../pages/admin/User/List";
 import UserCreate from "../pages/admin/User/Create";
