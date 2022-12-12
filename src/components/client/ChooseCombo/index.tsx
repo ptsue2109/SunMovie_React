@@ -5,13 +5,16 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { formatCurrency, formatDateString, formatTime } from '../../../ultils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { createFD } from '../../../redux/slice/FoodDetail';
+import Countdown from 'react-countdown';
+import CountdownComp from '../Countdown';
+
 type Props = {}
 
 
 const ChooseCombo = (props: Props) => {
    const { food } = useAppSelector((state) => state.food);
    let foodActive = food?.filter((item: any) => item?.status == 0)
-
+   const [countdown, setCountDown] = useState<any>(10)
    const [initLoading, setInitLoading] = useState(true);
    const [list, setList] = useState<any[]>([]);
    const [keyboard, setKeyboard] = useState(true);
@@ -28,9 +31,11 @@ const ChooseCombo = (props: Props) => {
    let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
 
    useEffect(() => {
-      document.title = "Choose Combo"; 
-      if (foodActive) { setInitLoading(false); 
-         setList(foodActive) }
+      document.title = "Choose Combo";
+      if (foodActive) {
+         setInitLoading(false);
+         setList(foodActive)
+      }
    }, [food]);
 
    useEffect(() => {
@@ -84,11 +89,17 @@ const ChooseCombo = (props: Props) => {
    }
    return (
       <>
+
          {foodActive ? (
             <div className="flex flex-row justify-center mt-16 ">
                <div className="w-[55%]">
                   <div className="bg-[#f6710d] h-[580px] ">
-                     <h1 className="text-3xl p-3 text-white ">Choose your favorite food</h1>
+                     <div className="flex items-center justify-between p-2">
+                        <h1 className="text-3xl p-3 text-white ">Choose your favorite food</h1>
+                        <div className="">
+                           <CountdownComp timer={(Date.now() + 300000)}/>
+                        </div>
+                     </div>
                      <div className="bg-[#ffffff] h-[480px] w-[98%] mx-auto p-3">
                         <List
                            className="demo-loadmore-list"

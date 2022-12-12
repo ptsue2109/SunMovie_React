@@ -29,6 +29,7 @@ const MovieDetail = (props: Props) => {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
+
   const [cometArr, setComentArr] = useState([]);
   const { currentUser } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
@@ -48,7 +49,6 @@ const MovieDetail = (props: Props) => {
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
-
   let movieSelectId = data?.movie?._id;
 
   useEffect(() => {
@@ -317,8 +317,8 @@ const MovieDetail = (props: Props) => {
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <RelateMovie data={relateArr} />
           </div>
-          <div className={isActive == 3 ? styles.showFilmList : "hidden"}>
-            <Comente data={cometArr} />
+          <div className={isActive == 3 ? styles.noTheme : "hidden"}>
+            <Comente data={data} />
           </div>
         </div>
       </div>

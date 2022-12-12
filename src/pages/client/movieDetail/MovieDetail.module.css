@@ -145,3 +145,7 @@
 .showFilmListItem:hover h3{
     color: #2055b1;
 }
+.noTheme{
+    height: auto;
+    overflow-y: scroll;
+}

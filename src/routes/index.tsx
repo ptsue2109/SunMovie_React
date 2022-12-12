@@ -103,11 +103,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.forgotPass, component: ForgotPass },
   { path: configRoute.routes.resetPassword, component: ForgotPass },
   { path: configRoute.routes.contact, component: Contact },
-  {
-    path: configRoute.routes.loadingPushAccountInLocalStorage,
-    component: LoadingPushAccountInLocalStorage,
-    layout: AuthTheme,
-  },
+  { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage},
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
   { path: configRoute.routes.step, component: PaymentStep },

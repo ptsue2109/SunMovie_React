@@ -195,10 +195,7 @@ const AdminSeatRenderDetail = (props: Props) => {
           {formatTime(seat?.showTimeId?.startAt)} --
           {formatDate(seat?.showTimeId?.startAt)}
         </div>
-        <div className="max-w-[300px]">
-          <span className="font-bold">Ghế : </span>
-          <RenderSeatSelected />
-        </div>
+       
         <div className="">
           <span className="font-bold">Voucher</span>
           

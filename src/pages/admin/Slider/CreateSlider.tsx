@@ -49,7 +49,7 @@ const CreateSlider = (props: Props) => {
         </Form.Item>
 
         <Form.Item
-          name="Nội dung"
+          name="content"
           label="Content"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
