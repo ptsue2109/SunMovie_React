@@ -21,6 +21,7 @@ import MonthRevenue from "./MonthRevenue";
 import { getdashBoard } from "../../../redux/slice/DashBoard";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getTicketDetails } from "../../../redux/slice/TicketDetailSlice";
+import CripTicketFood from "./CripTicketFood";
 
 ChartJS.register(
   CategoryScale,
@@ -125,12 +126,25 @@ const Dashboard = (props: Props) => {
         >
           Doanh thu phim
         </button>
+        <button
+          onClick={() => onToggle(3)}
+          className={
+            active == 3
+              ? "px-7 bg-green-600 text-white h-[50px] mx-10 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-10 rounded"
+          }
+        >
+          Doanh thu vé, đồ ăn
+        </button>
       </div>
       <div className={active == 1 ? "" : "hidden"}>
         <Topmovie />
       </div>
       <div className={active == 2 ? "" : "hidden"}>
         <MonthRevenue />
+      </div>
+      <div className={active == 3 ? "" : "hidden"}>
+        <CripTicketFood />
       </div>
     </>
   );

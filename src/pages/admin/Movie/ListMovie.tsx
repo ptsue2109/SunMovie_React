@@ -1,4 +1,4 @@
-import { Button, message, Popconfirm, Space } from "antd";
+import { Button, message, Popconfirm, Space, Table } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { removeMovieItem } from "../../../redux/slice/Movie";
@@ -141,7 +141,7 @@ const ListMovie = (props: Props) => {
           </Link>
         </Button>
       </div>
-      <DataTable column={columnUserList} data={data} />
+      <Table columns={columnUserList} dataSource={data} />
     </div>
   );
 };
