@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { formatCurrency, formatDateString, formatTime } from '../../../ultils'
 import "./order.scss"
 import { Button, notification, Skeleton } from "antd"
-import { useAppDispatch } from '../../../redux/hook'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { updateOrder } from '../../../redux/slice/OrdersSlice'
 type Props = {
    detail?: any,
@@ -15,8 +15,14 @@ type Props = {
 const Ticket = ({ detail, order, totalPriceFinal, showQR, closeModal }: Props) => {
    const [qrActive, setQrActive] = useState<any>(false);
    const dispatch = useAppDispatch();
-   console.log(order);
 
+   console.log(order);
+   const { currentUser } = useAppSelector((state) => state?.authReducer)
+   // useEffect(() => {
+   //    if (currentUser) {
+
+   //    }
+   // }, [currentUser])
    const handle = () => {
       setQrActive(true)
       let payload = {
@@ -86,28 +92,33 @@ const Ticket = ({ detail, order, totalPriceFinal, showQR, closeModal }: Props) =
                            <span className="ticket--info--subtitle">{` price: ${formatCurrency(totalPriceFinal)}`}</span>
                            <span className="ticket--info--content">{` status: ${order?.status === 1 ? "Đã thanh toán" : "Chưa thanh toán"}`}</span>
                         </div>
+                        {currentUser?.role ===1 ? (
+                           <>
+                              <div className="qr">
+                                 <Button type='link' onClick={handle}>
+                                    Quét mã QR ngay
+                                 </Button>
 
+                              </div>
+                              {qrActive && (
+                                 <>
+                                    <Button type='link' onClick={handleClose}>
+                                       Ẩn QR
+                                    </Button>
+                                    <img src={order?.qrCode} className="w-[460px] h-[460px]" />
+                                 </>
+                              )}
+
+                              <div className="ticket--end">
+                                 <div><img src={order?.qrCode} /></div>
+                                 <div><img src="https://qidoon.com/assets/img/logo.svg" /></div>
+                              </div>  </>
+                        ) : ""}
                      </div>
                   </div>
-                  <div className="ticket--end">
-                     <div><img src={order?.qrCode} /></div>
-                     <div><img src="https://qidoon.com/assets/img/logo.svg" /></div>
-                  </div>
-               </div>
-               <div className="qr">
-                  <Button type='link' onClick={handle}>
-                     Quét mã QR ngay
-                  </Button>
 
                </div>
-               {qrActive && (
-                  <>
-                     <Button type='link' onClick={handleClose}>
-                        Ẩn QR
-                     </Button>
-                     <img src={order?.qrCode} className="w-[460px] h-[460px]" />
-                  </>
-               )}
+
             </div>
          ) : (
             <>

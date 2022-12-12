@@ -26,7 +26,7 @@ const AdminOrders = (props: Props) => {
       {
          title: "Trạng thái",
          dataIndex: "status",
-         render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 2 ? "Thanh toán Lỗi" : "Đã xuất vé"}</p>,
+         render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 1 ? "Đã thanh toán" : "Đã xuất vé"}</p>,
       },
       {
          title: "Ngày tạo",
