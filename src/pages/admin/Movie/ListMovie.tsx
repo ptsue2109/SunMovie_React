@@ -12,17 +12,17 @@ type Props = {};
 const ListMovie = (props: Props) => {
   const dispatch = useAppDispatch();
   const { movie, errMess } = useAppSelector((state) => state.movie);
-  const deleteUser = (data: string | undefined) => {
-    dispatch(removeMovieItem(data))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errMess } });
-      });
-  };
-
+  // const deleteUser = (data: string | undefined) => {
+  //   dispatch(removeMovieItem(data))
+  //     .unwrap()
+  //     .then(() => {
+  //       message.success({ content: "Xoá thành công", key: "handling" });
+  //     })
+  //     .catch(() => {
+  //       message.error({ content: { errMess } });
+  //     });
+  // };
+  document.title = "Admin | DS Phim"
   const columnUserList: any = [
     {
       title: "Ảnh",
