@@ -23,6 +23,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getTicketDetails } from "../../../redux/slice/TicketDetailSlice";
 import CripTicketFood from "./CripTicketFood";
 import { formatCurrency } from "../../../ultils";
+import YearRevenue from "./YearRevenue";
 
 ChartJS.register(
   CategoryScale,
@@ -48,7 +49,6 @@ const Dashboard = (props: Props) => {
   const { ticketDetails } = useAppSelector(
     (state) => state.TicketDetailReducer
   );
-  console.log(dashboard?.monthProfit);
 
   const onToggle = (number: number) => {
     setActive(number);
@@ -57,6 +57,7 @@ const Dashboard = (props: Props) => {
   // const countTicket = ticketDetails.filter((item: any) => !item.expireAt);
   // countTicket?.map((item: any, index: number) => (count = index + 1));
   useEffect(() => {
+    document.title = "DashBoard";
     (async () => {
       try {
         // phim
@@ -83,7 +84,18 @@ const Dashboard = (props: Props) => {
   }, [dispatch]);
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
+          {/* <RiUserLine className="w-10 h-10 px-1" /> */}
+          <div className="text-center">
+            <span className="block text-black font-semibold">
+              {dashboard.length !== 0
+                ? formatCurrency(dashboard?.weekProfit[0]?.weekTotal)
+                : ""}
+            </span>
+            <span className="text-sm font-semibold">Doanh thu tuần</span>
+          </div>
+        </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           {/* <RiMovie2Fill className="w-10 h-10 px-1" /> */}
           <div className="text-center">
@@ -96,12 +108,14 @@ const Dashboard = (props: Props) => {
           </div>
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
-          <RiUserLine className="w-10 h-10 px-1" />
+          {/* <RiUserLine className="w-10 h-10 px-1" /> */}
           <div className="text-center">
-            <span className="block text-black font-semibold">{totalUser}</span>
-            <span className="text-sm font-semibold">
-              Số tài khoản hiện có(hùng dẹp trai)
+            <span className="block text-black font-semibold">
+              {dashboard.length !== 0
+                ? formatCurrency(dashboard?.yearProfit[0]?.yearTotal)
+                : ""}
             </span>
+            <span className="text-sm font-semibold">Doanh thu năm nay</span>
           </div>
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
@@ -115,45 +129,58 @@ const Dashboard = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="my-10">
+      <div className="my-10 ml-8">
         <button
-          onClick={() => onToggle(2)}
+          onClick={() => onToggle(1)}
           className={
-            active == 2
-              ? "px-7 bg-green-600 text-white h-[50px] mx-10 rounded"
-              : "px-7 border border-green-600 text-green-600 h-[50px] mx-10 rounded"
+            active == 1
+              ? "px-7 bg-green-600 text-white h-[50px] mx-2 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
           }
         >
           Doanh thu của rạp theo tháng
         </button>
         <button
-          onClick={() => onToggle(1)}
+          onClick={() => onToggle(2)}
           className={
-            active == 1
-              ? "px-7 bg-green-600 text-white h-[50px] mx-10 rounded"
-              : "px-7 border border-green-600 text-green-600 h-[50px] mx-10 rounded"
+            active == 2
+              ? "px-7 bg-green-600 text-white h-[50px] mx-2 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
           }
         >
-          Doanh thu phim
+          Doanh thu của rạp theo năm
         </button>
         <button
           onClick={() => onToggle(3)}
           className={
             active == 3
-              ? "px-7 bg-green-600 text-white h-[50px] mx-10 rounded"
-              : "px-7 border border-green-600 text-green-600 h-[50px] mx-10 rounded"
+              ? "px-7 bg-green-600 text-white h-[50px] mx-2 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
           }
         >
-          Doanh thu vé, đồ ăn
+          Doanh thu phim
+        </button>
+        <button
+          onClick={() => onToggle(4)}
+          className={
+            active == 4
+              ? "px-7 bg-green-600 text-white h-[50px] mx-2 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
+          }
+        >
+          Doanh thu vé, đồ ăn của rạp
         </button>
       </div>
       <div className={active == 1 ? "" : "hidden"}>
-        <Topmovie />
-      </div>
-      <div className={active == 2 ? "" : "hidden"}>
         <MonthRevenue />
       </div>
+      <div className={active == 2 ? "" : "hidden"}>
+        <YearRevenue />
+      </div>
       <div className={active == 3 ? "" : "hidden"}>
+        <Topmovie />
+      </div>
+      <div className={active == 4 ? "" : "hidden"}>
         <CripTicketFood />
       </div>
     </>

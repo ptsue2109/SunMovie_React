@@ -13,6 +13,9 @@ import News from "../News/News";
 type Props = {};
 
 const Home = (props: Props) => {
+  useEffect(() => {
+    document.title = "Trang chủ";
+  }, []);
   const [isAcive, setActive] = useState(1);
   const Toggle = (number: number) => {
     setActive(number);
@@ -29,11 +32,6 @@ const Home = (props: Props) => {
   });
   const data1 = data.filter((item: any) => item.releaseDate <= dateToday);
   const data2 = data.filter((item: any) => item.releaseDate > dateToday);
-
-
-
-
-
   return (
     <>
       <SlideShow />
@@ -69,7 +67,10 @@ const Home = (props: Props) => {
                   </div>
                   <div className={styles.content_list_item_info}>
                     <h3>{item.name}</h3>
-                    <p>Thể loại: Kinh dị</p>
+                    <p>
+                      Thể loại:{" "}
+                      {item.movieTypeId?.map((x: any) => x.movieName + ", ")}
+                    </p>
                     <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
                     <button>Đặt vé</button>
                   </div>
@@ -97,7 +98,10 @@ const Home = (props: Props) => {
                   </div>
                   <div className={styles.content_list_item_info}>
                     <h3>{item.name}</h3>
-                    <p>Thể loại: Kinh dị</p>
+                    <p>
+                      Thể loại:{" "}
+                      {item.movieTypeId?.map((x: any) => x.movieName + ", ")}
+                    </p>
                     <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
                     <button>Đặt vé</button>
                   </div>
@@ -120,9 +124,9 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Tin tức</h3>
-            <News  activeNav={true}/>
+            <News activeNav={true} />
           </div>
-          
+
           {/* <div className={styles.content_cmt}>
             <h3>Bình luận phim</h3>
           </div> */}
@@ -131,9 +135,8 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Khuyến mãi mới</h3>
-            <Voucher  activeNav={true}/>
+            <Voucher activeNav={true} />
           </div>
-          
         </div>
       </div>
     </>

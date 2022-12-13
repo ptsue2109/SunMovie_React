@@ -43,13 +43,17 @@ const BookChair = (props: Props) => {
     setRow(roomSelect?.rows);
   }, []);
   let { currentUser } = useAppSelector((state) => state.authReducer);
+  console.log(roomSelect);
   return (
     <>
       <div className="container">
         <div className="title">
           <h3>Chọn ghế</h3>
           <p>
-            Bạn đã chọn: <span>{showtime?.movieId?.name}</span>
+            Bạn đã chọn:{" "}
+            <span>
+              {showtime?.movieId?.name} - {roomSelect?.formatId?.name}
+            </span>
           </p>
           <p>Phòng chiếu: {roomSelect?.name}</p>
           <p>
