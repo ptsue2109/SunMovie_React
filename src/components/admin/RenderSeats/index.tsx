@@ -117,6 +117,13 @@ const RenderSeats = ({
     });
     return flatten;
   };
+
+
+
+
+
+
+
   const info = (val: any) => {
     Modal.info({
       title: `Seat infomation`,
@@ -251,8 +258,9 @@ const RenderSeats = ({
         status: Number(optionsStatus),
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
+        _id: seatArr[0]?.roomId
       };
-      console.log(optionsSeatTpe, optionsStatus);
+  
 
       if (optionsSeatTpe === undefined || optionsStatus === undefined) {
         message.error({ content: "Thêm đẩy đủ trường" });
