@@ -16,16 +16,20 @@ const CripTicketFood = (props: Props) => {
         label: "My First Dataset",
         data: [
           dashboard.length !== 0
-            ? (dashboard?.companyProfit[0]?.ticketTotal /
-                (dashboard?.companyProfit[0]?.ticketTotal +
-                  dashboard?.companyProfit[0]?.foodTotal)) *
-              100
+            ? (
+                (dashboard?.companyProfit[0]?.ticketTotal /
+                  (dashboard?.companyProfit[0]?.ticketTotal +
+                    dashboard?.companyProfit[0]?.foodTotal)) *
+                100
+              ).toFixed(2)
             : "",
           dashboard.length !== 0
-            ? (dashboard?.companyProfit[0]?.foodTotal /
-                (dashboard?.companyProfit[0]?.ticketTotal +
-                  dashboard?.companyProfit[0]?.foodTotal)) *
-              100
+            ? (
+                (dashboard?.companyProfit[0]?.foodTotal /
+                  (dashboard?.companyProfit[0]?.ticketTotal +
+                    dashboard?.companyProfit[0]?.foodTotal)) *
+                100
+              ).toFixed(2)
             : "",
         ],
         backgroundColor: [
