@@ -78,6 +78,7 @@ import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import FailedOrder from "../pages/admin/Order/FailedOrder";
 import FindOrder from "../pages/client/findOrder";
 import PaymentStatus from "../components/client/PaymentStatus";
+import OrderPaymented from "../pages/admin/Order/OrderPaymented";
 type RoutesType = {
   path: string;
   component: any;
@@ -179,7 +180,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminOrders, component: AdminOrders },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
   { path: configRoute.routes.adminOrderFailed, component: FailedOrder },
-
+  { path: configRoute.routes.adminOrderPaymented, component: OrderPaymented },
   {
     path: configRoute.routes.adminListCommentMovie,
     component: ListCommentMovie,

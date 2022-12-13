@@ -72,7 +72,7 @@ const RoomForm = ({
           >
             {adminRenderSeat ? (
               <>
-                <Card className="col-2">
+                <Card className="col-12">
                   <Form.Item
                     label="Tên phòng"
                     name="name"
@@ -142,7 +142,7 @@ const RoomForm = ({
                     </div>
                   </Card>
                 </Card>
-                <Card className="col-10 ">
+                {/* <Card className="col-10 ">
                   <RenderSeats
                     setSeatFile={setSeatFile}
                     seatFile={seatFile}
@@ -153,12 +153,12 @@ const RoomForm = ({
 
                     showTable={showTable}
                   />
-                </Card>
+                </Card> */}
               </>
             ) : (
               <Card className="col-12">
                 <Form.Item
-                  label="Tên rạp"
+                  label="Tên phòng"
                   name="name"
                   rules={[
                     {

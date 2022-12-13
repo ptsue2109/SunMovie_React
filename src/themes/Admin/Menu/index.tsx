@@ -33,7 +33,7 @@ const MenuAdminLayout = (props: Props) => {
     navigate(configRoute.routes.signin);
   };
   const items: any[] = [
-    getItem(<Link to="/admin">Thống kê</Link>, "link", <PieChartOutlined />),
+    getItem(<Link to={config.routes.dashboard}>Thống kê</Link>, "link", <PieChartOutlined />),
     getItem("Quản lí người dùng", "adminUser", <UserOutlined />, [
       getItem(<Link to={config.routes.adminUserList}> Danh sách người dùng</Link>, "adminUser1"),
       getItem(<Link to={config.routes.adminUserAdd}> Thêm người dùng</Link>, "adminUser2"),

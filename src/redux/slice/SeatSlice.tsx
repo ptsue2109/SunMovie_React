@@ -10,7 +10,7 @@ export const updateSeatThunk = createAsyncThunk<
     const { data } = await SeatApi.updateSeat(input);
     return data;
   } catch (error: any) {
-    return rejectWithValue(error.response.data);
+    return rejectWithValue(error.response.data.message);
   }
 });
 

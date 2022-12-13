@@ -55,9 +55,6 @@ export const RenderInfoSeats = ({
     "cart",
     JSON.stringify({
       cart: arrSeats,
-      userId: userId,
-      roomId: roomId,
-      showtimeId: showtime,
     })
   );
   cart = JSON.parse(localStorage.getItem("cart") as string);
@@ -74,7 +71,6 @@ export const RenderInfoSeats = ({
     dispatch(createTicket(ticket))
       .unwrap()
       .then((payload: any) => {
-        console.log(payload);
         //@ts-ignore
         navigate("/combo", { state: payload });
         dispatch(removeArrSeats());
