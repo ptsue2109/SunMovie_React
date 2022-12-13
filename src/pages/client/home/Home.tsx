@@ -13,6 +13,9 @@ import News from "../News/News";
 type Props = {};
 
 const Home = (props: Props) => {
+  useEffect(() => {
+    document.title = "Trang chủ";
+  }, []);
   const [isAcive, setActive] = useState(1);
   const Toggle = (number: number) => {
     setActive(number);
