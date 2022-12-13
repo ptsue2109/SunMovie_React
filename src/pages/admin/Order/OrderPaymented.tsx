@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { formatCurrency, formatDate } from "../../../ultils";
 import { EditOutlined } from "@ant-design/icons";
 import configRoute from "../../../config";
-import SearchOrder from "./SearchOrder";
 
 type Props = {};
 
@@ -87,7 +86,6 @@ const OrderPaymented = (props: Props) => {
          <Button type='primary' danger className='mb-3'><Link to={configRoute.routes.adminOrderFailed}>Order thanh toán không thành công</Link></Button>
          <div className="flex justify-between">
             <h1 className="text-[20px]" > Order đã xuất vé</h1>
-            <SearchOrder />
          </div>
          <DataTable column={columns} data={data} />
       </>
