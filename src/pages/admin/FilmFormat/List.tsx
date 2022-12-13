@@ -148,14 +148,14 @@ const FilmFormatList = (props: Props) => {
   });
 
   return (
-    <div className="flex  gap-3">
-      <div className="col-5">
+    <div className="flex gap-3">
+      <div className="col-6 w-full">
         <Button className="mb-5">
           <Link to={configRoute.routes.adminMovie}>Danh sách phim</Link>
         </Button>
         <DataTable column={columns} data={data} loading={isFetching} />
       </div>
-      <div className="col-7">
+      <div className="col-6 w-full">
         <Card>
           <Form
             form={form}

@@ -9,10 +9,11 @@ type Props = {
    order?: any,
    totalPriceFinal?: any,
    showQR?: any,
-   closeModal?: any
+   closeModal?: any,
+   isAdmin?:any
 }
 
-const Ticket = ({ detail, order, totalPriceFinal, showQR, closeModal }: Props) => {
+const Ticket = ({ detail, order, totalPriceFinal, showQR, closeModal, isAdmin }: Props) => {
    const [qrActive, setQrActive] = useState<any>(false);
    const dispatch = useAppDispatch();
 
@@ -92,7 +93,7 @@ const Ticket = ({ detail, order, totalPriceFinal, showQR, closeModal }: Props) =
                            <span className="ticket--info--subtitle">{` price: ${formatCurrency(totalPriceFinal)}`}</span>
                            <span className="ticket--info--content">{` status: ${order?.status === 1 ? "Đã thanh toán" : "Chưa thanh toán"}`}</span>
                         </div>
-                        {currentUser?.role ===1 ? (
+                        {isAdmin? (
                            <>
                               <div className="qr">
                                  <Button type='link' onClick={handle}>

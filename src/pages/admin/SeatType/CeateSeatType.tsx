@@ -34,15 +34,15 @@ const CeateSeatType = (props: Props) => {
         autoComplete="off"
       >
         <Form.Item
-          name="Tên "
-          label="Name"
+          name="name"
+          label="Tên"
           rules={[{ required: true, message: "Không được để trống! ", min: 5 }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name="Giá Extra"
-          label="ExtraPrice"
+          name="extraPrice"
+          label="Giá Thêm"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />

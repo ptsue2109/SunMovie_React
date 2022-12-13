@@ -73,12 +73,10 @@ import ListCommentMovie from "../pages/admin/comment";
 import PaymentStep from "../components/client/PaymentStep";
 import ChooseCombo from "../components/client/ChooseCombo";
 import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
-import AdminOrders from "../pages/admin/Order/List";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
-import FailedOrder from "../pages/admin/Order/FailedOrder";
 import FindOrder from "../pages/client/findOrder";
 import PaymentStatus from "../components/client/PaymentStatus";
-import OrderPaymented from "../pages/admin/Order/OrderPaymented";
+import OrderTab from "../pages/admin/Order/OrderTab";
 type RoutesType = {
   path: string;
   component: any;
@@ -177,10 +175,8 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
 
-  { path: configRoute.routes.adminOrders, component: AdminOrders },
+  { path: configRoute.routes.adminOrders, component: OrderTab },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
-  { path: configRoute.routes.adminOrderFailed, component: FailedOrder },
-  { path: configRoute.routes.adminOrderPaymented, component: OrderPaymented },
   {
     path: configRoute.routes.adminListCommentMovie,
     component: ListCommentMovie,

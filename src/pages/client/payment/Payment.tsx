@@ -250,7 +250,7 @@ const Payment = (props: Props) => {
                     onChange={(e: any) => checkCode(e?.target?.value, e)}
                   />
                 </Form.Item>
-                <small className="text-danger ml-[170px]">{voucherMess}</small>
+                <small className="text-red-500 ml-[170px]">{voucherMess}</small>
               </div>
               <div className=" w-[280px] justify-center flex flex-col ml-[160px]">
                 <Button
