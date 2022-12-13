@@ -1,10 +1,9 @@
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { MovieApi } from "../../../service/MovieApi";
 import { orderApi } from "../../../service/orders";
 import { UserApi } from "../../../service/userApi";
 import { RiMovie2Fill, RiUserLine } from "react-icons/ri";
+import {FaMoneyCheckAlt} from "react-icons/fa"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -120,7 +119,7 @@ const Dashboard = (props: Props) => {
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <div>
-            <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" />
+            <FaMoneyCheckAlt size={30} />
           </div>
 
           <div className="text-center">
