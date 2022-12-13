@@ -1,67 +1,87 @@
-import React, { useState, useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { Button, message, Steps, Skeleton, Avatar, Divider, List, Form, Select, Input, InputNumber, Space, } from 'antd';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { formatCurrency, formatDateString, formatTime } from '../../../ultils';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { createFD } from '../../../redux/slice/FoodDetail';
-import Countdown from 'react-countdown';
-import CountdownComp from '../Countdown';
+import React, { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import {
+   Button,
+   message,
+   Steps,
+   Skeleton,
+   Avatar,
+   Divider,
+   List,
+   Form,
+   Select,
+   Input,
+   InputNumber,
+   Space,
+   Statistic
+} from "antd";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { formatCurrency, formatDateString, formatTime } from "../../../ultils";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { createFD } from "../../../redux/slice/FoodDetail";
+import CountdownComp from "../Countdown";
 
-type Props = {}
 
+type Props = {};
+const { Countdown } = Statistic;
 
 const ChooseCombo = (props: Props) => {
+   const deadline = Date.now() + 1000 * 60 * 10;
    const { food } = useAppSelector((state) => state.food);
-   let foodActive = food?.filter((item: any) => item?.status == 0)
-   const [countdown, setCountDown] = useState<any>(10)
+   let foodActive = food?.filter((item: any) => item?.status == 0);
    const [initLoading, setInitLoading] = useState(true);
    const [list, setList] = useState<any[]>([]);
-   const [keyboard, setKeyboard] = useState(true);
    const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
    const [tempPrice, setTempPrice] = useState<any>();
    const [info, setInfo] = useState<any>();
-   const { movie } = useAppSelector((state) => state.movie)
+   const { movie } = useAppSelector((state) => state.movie);
    const { state } = useLocation();
    const [foodOrder, setFoodOrder] = useState<any[]>([]);
    const [foodPrice, setFoodPrice] = useState<any>(0);
    const [cart, setCart] = useState<any[]>([]);
    const dispatch = useAppDispatch();
-   const navigate = useNavigate()
-   let movieSelect = movie?.find((item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId)
+   const navigate = useNavigate();
+   let movieSelect = movie?.find(
+      (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
+   );
 
    useEffect(() => {
       document.title = "Choose Combo";
       if (foodActive) {
          setInitLoading(false);
-         setList(foodActive)
+         setList(foodActive);
       }
    }, [food]);
 
    useEffect(() => {
-      if (state && movieSelect) { setInfo(state?.populatedDetail); setTempPrice(state?.ticket?.totalPrice) }
+      if (state && movieSelect) {
+         setInfo(state?.populatedDetail);
+         setTempPrice(state?.ticket?.totalPrice);
+      }
    }, [state, movieSelect]);
 
    useEffect(() => {
       if (foodOrder) {
          const totalPrice = foodOrder.reduce((total, currentValue) => {
-            return total + currentValue.price * currentValue.quantity
+            return total + currentValue.price * currentValue.quantity;
          }, 0);
-         setFoodPrice(totalPrice)
+         setFoodPrice(totalPrice);
       }
-   }, [foodOrder])
+   }, [foodOrder]);
 
    const handleFood = (qt: any, val: any) => {
-      let foodprice = val?.price * qt
+      let foodprice = val?.price * qt;
       let pl = { foodId: val, quantity: qt, price: foodprice };
       setCart([...cart, pl]);
-   }
+   };
 
    useEffect(() => {
       if (cart) {
          const arrayFiltered: any[] = [];
          cart.forEach((obj: any) => {
-            const item = arrayFiltered.find(thisItem => thisItem.foodId?._id === obj.foodId?._id);
+            const item = arrayFiltered.find(
+               (thisItem) => thisItem.foodId?._id === obj.foodId?._id
+            );
             if (item) {
                if (item.quantity < obj.quantity) {
                   item.quantity = obj.quantity;
@@ -70,61 +90,75 @@ const ChooseCombo = (props: Props) => {
             }
             arrayFiltered.push(obj);
          });
-         setFoodOrder(arrayFiltered)
-
+         setFoodOrder(arrayFiltered);
       }
-   }, [cart])
+   }, [cart]);
 
    const nextStep = () => {
-      dispatch(createFD(foodOrder)).unwrap()
+      dispatch(createFD(foodOrder))
+         .unwrap()
          .then((data: any) => {
             let stateToNextStep = {
                ...state,
                finalPrice: tempPrice + foodPrice,
                foodDetailId: data?._id,
-               foodDetail: foodOrder
-            }
-            navigate('/payment', { state: stateToNextStep })
-         })
+               foodDetail: foodOrder,
+            };
+            navigate("/payment", { state: stateToNextStep });
+         });
+   };
+
+   const listRender = () => {
+      return (
+         <List
+            className="demo-loadmore-list"
+            loading={initLoading}
+            itemLayout="horizontal"
+            dataSource={list}
+            renderItem={(item: any) => (
+               <List.Item actions={[<a key="list-loadmore-edit"></a>]}>
+                  <Skeleton
+                     avatar
+                     title={false}
+                     loading={item.loading}
+                     active
+                  >
+                     <List.Item.Meta
+                        avatar={<Avatar src={item?.image[0]?.url} />}
+                        title={<b className="uppercase">{item?.name}</b>}
+                        description={`stock: ${item?.stock
+                           } , price: ${formatCurrency(item?.price)}`}
+                     />
+                     <InputNumber
+                        min={0}
+                        defaultValue={0}
+                        max={item?.stock}
+                        onChange={(val: any) => {
+                           handleFood(val, item);
+                        }}
+                     />
+                  </Skeleton>
+               </List.Item>
+            )}
+         />
+      )
    }
    return (
       <>
-
          {foodActive ? (
             <div className="flex flex-row justify-center mt-16 ">
                <div className="w-[55%]">
                   <div className="bg-[#f6710d] h-[580px] ">
                      <div className="flex items-center justify-between p-2">
-                        <h1 className="text-3xl p-3 text-white ">Choose your favorite food</h1>
+                        <h1 className="text-3xl p-3 text-white ">
+                           Choose your favorite food
+                        </h1>
                         <div className="">
-                           <CountdownComp timer={(Date.now() + 300000)}/>
+                           <CountdownComp deadline={deadline} />
                         </div>
                      </div>
                      <div className="bg-[#ffffff] h-[480px] w-[98%] mx-auto p-3">
-                        <List
-                           className="demo-loadmore-list"
-                           loading={initLoading}
-                           itemLayout="horizontal"
-
-                           dataSource={list}
-                           renderItem={(item: any) => (
-                              <List.Item
-                                 actions={[<a key="list-loadmore-edit"></a>]}
-                              >
-                                 <Skeleton avatar title={false} loading={item.loading} active>
-                                    <List.Item.Meta
-                                       avatar={<Avatar src={item?.image[0]?.url} />}
-
-                                       title={<b className='uppercase'>{item?.name}</b>}
-                                       description={`stock: ${item?.stock} , price: ${formatCurrency(item?.price)}`}
-                                    />
-                                    <InputNumber min={0} defaultValue={0} max={item?.stock} onChange={(val: any) => { handleFood(val, item) }} />
-
-                                 </Skeleton>
-                              </List.Item>
-                           )}
-                        />
-
+                        {listRender()}
                      </div>
                   </div>
                </div>
@@ -136,27 +170,39 @@ const ChooseCombo = (props: Props) => {
                         className=" h-[140px]"
                      />
                   </div>
-                  <h1 className="font-bold uppercase px-4 pt-2">{movieSelect?.name}</h1>
+                  <h1 className="font-bold uppercase px-4 pt-2">
+                     {movieSelect?.name}
+                  </h1>
                   {info && (
                      <>
                         <ul className="px-4 py-3">
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Rạp</b>: {webConfigs[0]?.storeName} |  {info && (<>{info[0]?.seatId?.roomId?.name}</>)}
+                              <b>Rạp</b>: {webConfigs[0]?.storeName} |{" "}
+                              {info && <>{info[0]?.seatId?.roomId?.name}</>}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Suất chiếu</b>:  {info && formatTime(info[0]?.showTimeId?.startAt)} |  {formatDateString(info[0]?.showTimeId?.date)}
+                              <b>Suất chiếu</b>:{" "}
+                              {info && formatTime(info[0]?.showTimeId?.startAt)} |{" "}
+                              {formatDateString(info[0]?.showTimeId?.date)}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Food</b> : {foodOrder?.map((item: any) => (
+                              <b>Food</b> :{" "}
+                              {foodOrder?.map((item: any) => (
                                  <span key={item?.foodId?._id}>
-                                    {item?.foodId?.name}{`(${item?.quantity})`}
+                                    {item?.foodId?.name}
+                                    {`(${item?.quantity})`}
                                  </span>
                               ))}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Ghế</b>: {info && info?.map((item: any) => (
-                                 <span key={item?._id}>{item?.seatId?.row}{item?.seatId?.column},</span>
-                              ))}
+                              <b>Ghế</b>:{" "}
+                              {info &&
+                                 info?.map((item: any) => (
+                                    <span key={item?._id}>
+                                       {item?.seatId?.row}
+                                       {item?.seatId?.column},
+                                    </span>
+                                 ))}
                            </li>
                         </ul>
                      </>
@@ -199,7 +245,7 @@ const ChooseCombo = (props: Props) => {
             <Skeleton />
          )}
       </>
-   )
-}
+   );
+};
 
 export default ChooseCombo;

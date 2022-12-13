@@ -54,6 +54,7 @@ const Payment = (props: Props) => {
   const [info, setInfo] = useState<any>();
   const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
+  
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
@@ -148,7 +149,7 @@ const Payment = (props: Props) => {
       language: "",
       foodDetailId: state?.foodDetailId,
     }
-    console.log(payload);
+    
     
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
@@ -185,7 +186,7 @@ const Payment = (props: Props) => {
           <div className="flex items-center justify-between p-2">
             <h1 className="text-3xl p-3 text-white ">Vui lòng thanh toán </h1>
             <div className="">
-              <CountdownComp timer={(Date.now() + 300000)} />
+              <CountdownComp deadline={Date.now() + 1000 * 60 * 8}  />
             </div>
           </div>
           <div className="bg-[#ffffff] h-[550px] w-[98%] mx-auto ">

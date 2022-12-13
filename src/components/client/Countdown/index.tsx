@@ -1,27 +1,29 @@
-import React from 'react'
-import Countdown from 'react-countdown';
+import React from "react";
+import { Statistic } from "antd";
 type Props = {
-   timer: any
-}
-// Random component
-const Completionist = () => <span>You are good to go!</span>;
-
-// Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }:any) => {
-  if (completed) {
-    // Render a completed state
-    return <Completionist />;
-  } else {
-    // Render a countdown
-    return <span>{hours}:{minutes}:{seconds}</span>;
-  }
+  deadline:any
 };
-const CountdownComp = ({timer}: Props) => {
-  return (
-    <div className='p-2 bg-[#182b47] text-white'>
-      <Countdown date={timer} renderer={renderer}/>
-    </div>
-  )
-}
+const { Countdown } = Statistic;
 
-export default CountdownComp
+const CountdownComp = ({deadline}: Props) => {
+
+  const onFinish = () => {
+    console.log("finished!");
+  };
+
+  const onChange = (val: any) => {
+    console.log("onChange", val);
+  };
+  return (
+    <div className="p-2 text-white">
+      <Countdown
+        title="Đơn hàng sẽ hủy sau"
+        value={deadline}
+        onFinish={onFinish}
+        onChange={onChange}
+      />
+    </div>
+  );
+};
+
+export default CountdownComp;

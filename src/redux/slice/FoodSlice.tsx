@@ -72,14 +72,13 @@ export const searchFood = createAsyncThunk(
 
 const initialState: any = {
   food: [],
-  localFood: [],
-  errMess: false,
-  FoodSearch: [],
 };
 const FoodSlice = createSlice({
   name: "food",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
   extraReducers: (builder) => {
     // create
     builder.addCase(createFood.pending, (state, action) => {
