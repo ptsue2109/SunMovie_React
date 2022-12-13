@@ -8,13 +8,22 @@ type Props = {};
 ChartJS.register(ArcElement, Tooltip, Legend);
 const YearRevenue = (props: Props) => {
   const { dashboard } = useAppSelector((state) => state.DashboardReducer);
+  let sum = dashboard?.profitByYear?.reduce((acc: any, item: any) => {
+    return acc + item.profit;
+  }, 0);
+  const CripData = dashboard?.profitByYear?.map((item: any) => {
+    return {
+      ...item,
+      profit: ((item.profit / sum) * 100).toFixed(2),
+    };
+  });
 
   const data = {
-    labels: dashboard?.profitByYear?.map((item: any) => item.date),
+    labels: CripData?.map((item: any) => "Doanh thu " + item.date + " (%)"),
     datasets: [
       {
         label: "My First Dataset",
-        data: dashboard?.profitByYear?.map((item: any) => item.profit),
+        data: CripData?.map((item: any) => +item.profit),
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
