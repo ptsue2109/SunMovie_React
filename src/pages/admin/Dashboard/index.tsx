@@ -206,12 +206,16 @@ const Dashboard = (props: Props) => {
                   {item.status === 0 ? (
                     <FontAwesomeIcon icon={faShoppingCart} />
                   ) : item.status === 1 ? (
+
                     <FontAwesomeIcon icon={faCheck} />
                   ) : item.status === 2 ? (
+                    
                     <FontAwesomeIcon icon={faShippingFast} />
                   ) : item.status === 3 ? (
+
                     <FontAwesomeIcon icon={faMoneyCheck} />
                   ) : (
+
                     <FontAwesomeIcon icon={faTimes} />
                   )}
                 </div>
@@ -251,6 +255,7 @@ const Dashboard = (props: Props) => {
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <div>
+          
             <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" />
           </div>
 

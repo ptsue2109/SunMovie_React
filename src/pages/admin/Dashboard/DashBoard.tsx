@@ -120,6 +120,7 @@ const Dashboard = (props: Props) => {
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <div>
+               {/* @ts-ignore */}
             <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" />
           </div>
 
