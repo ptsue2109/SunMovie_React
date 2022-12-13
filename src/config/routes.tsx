@@ -85,6 +85,7 @@ const routes = {
   adminOrders: "/admin/orders",
   adminOrdersDetail: "/admin/orders/:id",
   adminOrderFailed: "/admin/orders/failed",
+  adminOrderPaymented: "/admin/orders/paymented",
   adminListCommentMovie: "/admin/movieComment/:id",
 };
 

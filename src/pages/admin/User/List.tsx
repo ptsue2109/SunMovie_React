@@ -31,17 +31,17 @@ const AdminUserList = (props: Props) => {
   const { users, isFetching, isErr, errorMessage } = useAppSelector(
     (state: any) => state.userReducer
   );
-  const { currentUser } = useAppSelector((state: any) => state.authReducer);
-  const deleteUser = (data: string | undefined) => {
-    dispatch(removeUser(data))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errorMessage } });
-      });
-  };
+  // const { currentUser } = useAppSelector((state: any) => state.authReducer);
+  // const deleteUser = (data: string | undefined) => {
+  //   dispatch(removeUser(data))
+  //     .unwrap()
+  //     .then(() => {
+  //       message.success({ content: "Xoá thành công", key: "handling" });
+  //     })
+  //     .catch(() => {
+  //       message.error({ content: { errorMessage } });
+  //     });
+  // };
   const changeRole = (id: any, value: any) => {
     dispatch(updateUser({ _id: id, role: value }))
       .unwrap()
@@ -221,11 +221,11 @@ const AdminUserList = (props: Props) => {
     };
   });
 
-  useEffect(() => {
-    if (isErr) {
-      message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
-    }
-  }, [isErr]);
+  // useEffect(() => {
+  //   if (isErr) {
+  //     message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
+  //   }
+  // }, [isErr]);
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>

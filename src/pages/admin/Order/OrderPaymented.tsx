@@ -8,14 +8,12 @@ import configRoute from "../../../config";
 
 type Props = {};
 
-const AdminOrders = (props: Props) => {
+const OrderPaymented = (props: Props) => {
    document.title = "Admin | Orders";
    const dispatch = useAppDispatch();
 
    const { orders } = useAppSelector((state: any) => state.OrderReducer)
-   let orderSuccess = orders.filter((item: any) => item?.status === 1);
-   console.log(orderSuccess);
-
+   let orderSuccess = orders.filter((item: any) => item?.status === 2);
    const columns = [
       {
          title: "Mã đơn",
@@ -85,14 +83,11 @@ const AdminOrders = (props: Props) => {
    });
    return (
       <>
-         <div className="flex gap-3">
-            <Button type='primary' danger className='mb-3'><Link to={configRoute.routes.adminOrderFailed}>Order thanh toán không thành công</Link></Button>
-            <Button type='primary'   className='mb-3'><Link to={configRoute.routes.adminOrderPaymented}>Order đã xuất vé</Link></Button>
-         </div>
-         <h1 className="text-[20px]" >Danh sách order thành công / Đã xuất vé</h1>
+         <Button type='primary' danger className='mb-3'><Link to={configRoute.routes.adminOrderFailed}>Order thanh toán không thành công</Link></Button>
+         <h1 className="text-[20px]" > Order đã xuất vé</h1>
          <DataTable column={columns} data={data} />
       </>
    )
 }
 
-export default AdminOrders
+export default OrderPaymented

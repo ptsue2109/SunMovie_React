@@ -1,4 +1,4 @@
-import { Button, Space } from "antd";
+import { Button, Space, Tag } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from "../../../components/admin/Form&Table/Table";
@@ -11,7 +11,7 @@ type Props = {};
 
 const FailedOrder = (props: Props) => {
    const { orders } = useAppSelector((state: any) => state.OrderReducer)
-   let orderFailed = orders.filter((item: any) => item?.status !== 1);
+   let orderFailed = orders.filter((item: any) => item?.status === 0);
 
    const columns = [
       {
@@ -23,7 +23,12 @@ const FailedOrder = (props: Props) => {
       {
          title: "Trạng thái",
          dataIndex: "status",
-         render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 1 ? "Đã thanh toán" : "Đã xuất vé"}</p>,
+         render: (_: any, record: any) => (
+            <>
+               {record?.status === 0 ? <Tag color="processing">  Chưa thanh toán   </Tag> : record?.status === 1 ? <Tag color="#87d068"> Đã thanh toán  </Tag> : <Tag color="volcano">Đã xuất vé</Tag>}
+
+            </>
+         ),
       },
       {
          title: "Ngày tạo",
@@ -77,7 +82,8 @@ const FailedOrder = (props: Props) => {
    });
    return (
       <>
-         <Button type='primary' className='mb-3'><Link to={configRoute.routes.adminOrders}>Order thanh toán thành công</Link></Button>
+         <Button type='primary' className='mb-3 bg-[#87d068]'><Link to={configRoute.routes.adminOrders}>Order thanh toán thành công</Link></Button>
+         <h1 className="text-[20px]">Danh sách order không thành công / Chưa thanh toán</h1>
          <DataTable column={columns} data={data} />
       </>
    )
