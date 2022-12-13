@@ -111,6 +111,8 @@ const MovieDetail = (props: Props) => {
     const getOneShowtime = showTimeList.find(
       (item: any) => item._id === idShowtime
     );
+    console.log(getOneShowtime);
+
     let arrDate: any = [];
     showTimeList?.map((item: any) => {
       arrDate.push(item.date);
@@ -156,7 +158,7 @@ const MovieDetail = (props: Props) => {
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             {getOneShowtime
               ? getOneShowtime.roomId
                   .filter((x: any) => x.status == false)
@@ -169,7 +171,7 @@ const MovieDetail = (props: Props) => {
                         to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
                       >
                         <a className="text-black hover:text-white ">
-                          {item.name}
+                          {item.name} - {item.formatId?.name}
                         </a>
                       </Link>
                     </div>

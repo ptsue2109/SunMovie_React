@@ -49,7 +49,6 @@ const Dashboard = (props: Props) => {
   const { ticketDetails } = useAppSelector(
     (state) => state.TicketDetailReducer
   );
-  console.log(dashboard?.monthProfit);
 
   const onToggle = (number: number) => {
     setActive(number);
@@ -58,6 +57,7 @@ const Dashboard = (props: Props) => {
   // const countTicket = ticketDetails.filter((item: any) => !item.expireAt);
   // countTicket?.map((item: any, index: number) => (count = index + 1));
   useEffect(() => {
+    document.title = "DashBoard";
     (async () => {
       try {
         // phim
