@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { comenteCreate } from "../../../redux/slice/ComenteSlice";
 import { formatTime, formatDateString } from "../../../ultils";
 import { getOneMovie } from "../../../redux/slice/Movie";
+import Item from "antd/lib/list/Item";
 
 type Props = {
   data: any;
@@ -149,6 +150,9 @@ const Comente = ({ data }: Props) => {
                       <Tooltip title={item?.createdAt}>
                         {formatTime(item?.createdAt)},
                         {formatDateString(item?.createdAt)}
+                        <div className="rating">
+                          <Rate defaultValue={item?.rating} />
+                        </div>
                       </Tooltip>
                     }
                   />
