@@ -17,7 +17,6 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { comenteCreate } from "../../../redux/slice/ComenteSlice";
 import { formatTime, formatDateString } from "../../../ultils";
 import { getOneMovie } from "../../../redux/slice/Movie";
-import Item from "antd/lib/list/Item";
 
 type Props = {
   data: any;
