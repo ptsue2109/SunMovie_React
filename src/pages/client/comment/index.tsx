@@ -1,71 +1,80 @@
-
-import { Button, Col, Form, Input, message, notification, Rate, Row, Select } from "antd";
+import {
+  Button,
+  Form,
+  Rate,
+  Comment,
+  Tooltip,
+  Avatar,
+  message,
+  notification,
+} from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
+import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { comenteCreate } from "../../../redux/slice/ComenteSlice";
-import { Comment, Tooltip, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import { formatTime, formatDateString } from "../../../ultils";
+import { getOneMovie } from "../../../redux/slice/Movie";
+
 type Props = {
   data: any;
 };
 
 const Comente = ({ data }: Props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [movie, setMovie] = useState<any>();
   const [allCmt, setAllCmt] = useState<any[]>([]);
-
-  const [temp, setTemp] = useState<any>();
+  const { slug } = useParams();
   useEffect(() => {
     if (data) {
       setMovie(data?.movie);
-      let commentActive = data?.comment?.filter((item: any) => item?.status === 0)
-      setAllCmt(commentActive)
+      let commentActive = data?.comment?.filter(
+        (item: any) => item?.status === 0
+      );
+      setAllCmt(commentActive);
     }
-  }, [data])
+  }, [data]);
 
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
 
   const onFinish = async (values: any) => {
-    if (currentUser == null || currentUser == undefined) {
-      notification.info({ message: "Không thể comment", description: "Bạn cần đăng nhập để thực hiện chức năng này" });
+    if (Object.keys(currentUser).length === 0) {
+      notification.info({
+        message: "Bạn cần đăng nhập để thực hiện chức năng này",
+      });
       setTimeout(() => {
-        navigate(configRoute.routes.signin)
+        navigate(configRoute.routes.signin);
       }, 2000);
     } else {
       values.movieId = movie?._id;
       values.userId = currentUser?._id;
 
-      dispatch(comenteCreate(values)).unwrap()
+      dispatch(comenteCreate(values))
+        .unwrap()
         .then((payload: any) => {
           message.success("Thêm comment thành công");
-          setTemp(payload)
+          dispatch(getOneMovie(slug));
+          form.resetFields();
         })
-        .catch(() => message.error("Không thể thêm được comment"))
+        .catch((error: any) => console.log(error));
     }
-  }
-
+  };
 
   return (
     <div className="w-full max-w-[1440p] max-h-[800px]  bg-white p-2 m-0">
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-      >
+      <Form form={form} layout="vertical" onFinish={onFinish}>
         <div className="flex items-center gap-3">
-          {currentUser !== null && currentUser !== undefined && (currentUser?.avatar) ? (
+          {currentUser !== null &&
+          currentUser !== undefined &&
+          currentUser?.avatar ? (
             <>
               <div className="avatar">
-                {currentUser?.avatar[0] || currentUser?.avatar[0]?.url ? (
-                  <Avatar
-                    src={currentUser?.avatar[0] ?? currentUser?.avatar[0]?.url}
-                  />
+                {currentUser?.avatar || currentUser?.avatar?.url ? (
+                  <Avatar src={currentUser?.avatar[0]?.url} />
                 ) : (
                   <Avatar size="large" icon={<UserOutlined />} />
                 )}
@@ -80,9 +89,7 @@ const Comente = ({ data }: Props) => {
             <Form.Item
               name="content"
               label="Nhập nội dung"
-              rules={[
-                { required: true, message: "Không được để trống! " },
-              ]}
+              rules={[{ required: true, message: "Không được để trống! " }]}
             >
               <TextArea
                 id="content"
@@ -91,22 +98,27 @@ const Comente = ({ data }: Props) => {
                 placeholder={`Nội dung bạn muốn phản hồi `}
               />
             </Form.Item>
-
           </div>
         </div>
         <div className="pl-[50px]">
           <Form.Item
             name="rating"
             label="Điểm đánh giá"
-            rules={[
-              { required: true, message: "Không được để trống! " },
-            ]}
+            rules={[{ required: true, message: "Không được để trống! " }]}
           >
             <Rate />
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ backgroundColor: '#094196', outline: 'none', marginTop: '10px' }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                backgroundColor: "#094196",
+                outline: "none",
+                marginTop: "10px",
+              }}
+            >
               Gửi
             </Button>
           </Form.Item>
@@ -126,24 +138,21 @@ const Comente = ({ data }: Props) => {
                     key={item?._id}
                     author={<a>{item?.userId?.username}</a>}
                     avatar={
-                      item?.avatar ?
-                        (<Avatar size="large" icon={<UserOutlined />} />) :
-                        (<Avatar src={currentUser?.avatar[0] ?? currentUser?.avatar[0]?.url} />)
-
+                      item?.avatar ? (
+                        <Avatar size="large" icon={<UserOutlined />} />
+                      ) : (
+                        <Avatar src={currentUser?.avatar[0]?.url} />
+                      )
                     }
-                    content={
-                      <p>
-                        {item?.content}
-                      </p>
-                    }
+                    content={<p>{item?.content}</p>}
                     datetime={
                       <Tooltip title={item?.createdAt}>
-                        {formatTime(item?.createdAt)}, {formatDateString(item?.createdAt)}
+                        {formatTime(item?.createdAt)},
+                        {formatDateString(item?.createdAt)}
                       </Tooltip>
                     }
                   />
                 ))}
-
               </>
             ) : (
               <>Chưa có bình luận nào</>

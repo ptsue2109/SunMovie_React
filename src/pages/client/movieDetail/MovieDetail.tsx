@@ -21,6 +21,7 @@ import moment from "moment";
 import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -111,7 +112,6 @@ const MovieDetail = (props: Props) => {
     const getOneShowtime = showTimeList.find(
       (item: any) => item._id === idShowtime
     );
-    console.log(getOneShowtime);
 
     let arrDate: any = [];
     showTimeList?.map((item: any) => {
@@ -312,7 +312,8 @@ const MovieDetail = (props: Props) => {
               onClick={() => Toggle(3)}
               className={isActive == 3 ? styles.showTimesBtnActive : ""}
             >
-              <span>Binh luan</span>
+              <IoChatbubbleEllipsesOutline />
+              <span>Bình luận</span>
             </button>
           </div>
           <RenderShowTime />
