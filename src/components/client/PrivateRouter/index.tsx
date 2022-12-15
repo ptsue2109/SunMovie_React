@@ -27,6 +27,7 @@ const PrivateRoute = ({ children, acceptRole }: PrivateRouteProps) => {
    useEffect(() => {
       if (isLogged === false) {
          notification.info({ message: "Đăng nhập trước khi thực hiện chức năng này" });
+         navigate(configRoute.routes.signin)
       } else if (isLogged) {
          if (userLogin?.status == 2 || userLogin?.status == 0) {
             notification.info({ message: "Tài khoản của bạn đã bị khóa hoặc chưa được xác thực , hãy liên hệ với quản trị viên !!" });
