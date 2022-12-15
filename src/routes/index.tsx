@@ -35,9 +35,7 @@ import AdminRoomCreate from "../pages/admin/Rooms/Create";
 import AdminRoomEdit from "../pages/admin/Rooms/Edit";
 import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
-import AdminShowTimesEdit from "../pages/admin/showTime/Edit";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
-// import ShowTimeSeat from "../pages/admin/showTime/ShowTimeSeat";
 import CreateMovie from "../pages/admin/Movie/CreateMovie";
 import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
@@ -77,6 +75,7 @@ import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import FindOrder from "../pages/client/findOrder";
 import PaymentStatus from "../components/client/PaymentStatus";
 import OrderTab from "../pages/admin/Order/OrderTab";
+import NestedTable from "../pages/admin/Seats/NestedTable";
 type RoutesType = {
   path: string;
   component: any;
@@ -145,15 +144,12 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminRoomsCreate, component: AdminRoomCreate },
   { path: configRoute.routes.adminRoomEdit, component: AdminRoomEdit },
 
-  { path: configRoute.routes.AdminShowTimes, component: AdminShowTimeList },
+  { path: configRoute.routes.AdminShowTimes, component: NestedTable },
   {
     path: configRoute.routes.AdminShowTimesCreate,
     component: AdminShowTimesCreate,
   },
-  {
-    path: configRoute.routes.AdminShowTimesEdit,
-    component: AdminShowTimesEdit,
-  },
+ 
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 
@@ -174,7 +170,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
-
+  { path: configRoute.routes.test, component: NestedTable },
   { path: configRoute.routes.adminOrders, component: OrderTab },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
   {

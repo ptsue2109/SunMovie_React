@@ -75,7 +75,7 @@ const routes = {
   AdminPosts: "/admin/posts",
   AdminPostsCreate: "/admin/posts/add",
   AdminPostsEdit: "/admin/posts/:id",
-  renderSeatAdmin: "/admin/seats/_v=:id",
+  // renderSeatAdmin: "/admin/seats/_v=:id",
   webConfig: "/admin/webConfig",
   webConfigAdd: "/admin/webConfig/create",
   webConfigEdit: "/admin/webConfig/:id",
@@ -84,9 +84,8 @@ const routes = {
 
   adminOrders: "/admin/orders",
   adminOrdersDetail: "/admin/orders/:id",
-  adminOrderFailed: "/admin/orders/failed",
-  adminOrderPaymented: "/admin/orders/paymented",
   adminListCommentMovie: "/admin/movieComment/:id",
+  test: "/test"
 };
 
 export default routes;

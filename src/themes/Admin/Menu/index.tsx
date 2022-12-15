@@ -77,8 +77,6 @@ const MenuAdminLayout = (props: Props) => {
   return (
     <Menu
       theme="dark"
-      defaultSelectedKeys={["link"]}
-      defaultOpenKeys={["link"]}
       items={items}
       mode="inline"
     />

@@ -104,6 +104,7 @@ const RenderSeats = ({
     let flatern = findSelectSeat();
     setSeatArr(flatern);
   };
+
   const findSelectSeat = () => {
     let arr: any = [];
     for (const key in seatDetails) {
@@ -117,12 +118,6 @@ const RenderSeats = ({
     });
     return flatten;
   };
-
-
-
-
-
-
 
   const info = (val: any) => {
     Modal.info({
@@ -163,7 +158,7 @@ const RenderSeats = ({
           </div>
         </div>
       ),
-      onOk() {},
+      onOk() { },
     });
   };
   const changeStatusSeat = (id: any, val: number) => {
@@ -260,8 +255,6 @@ const RenderSeats = ({
         seatId: [...seatArr],
         _id: seatArr[0]?.roomId
       };
-  
-
       if (optionsSeatTpe === undefined || optionsStatus === undefined) {
         message.error({ content: "Thêm đẩy đủ trường" });
       } else {
@@ -284,7 +277,7 @@ const RenderSeats = ({
     return (
       <>
         <Button type="primary" onClick={showModal}>
-          choice List
+          Chọn nội dung muốn thay đổi
         </Button>
         <Modal
           title="Basic Modal"
@@ -353,13 +346,7 @@ const RenderSeats = ({
   return (
     <div className="flex overflow-hidden gap-3">
       <div className="col-8 p-5">{RenderSeatsContain()}</div>
-      <div className="col-4 ">{renderSeatClick()}</div>
-      <div>
-        {seatArrSelect &&
-          seatArrSelect?.map((item: any) => (
-            <div key={item?._id}>{item?._id}</div>
-          ))}
-      </div>
+      {seatArr?.length > 0 && <div className="col-4 ">{renderSeatClick()}</div>}
     </div>
   );
 };
