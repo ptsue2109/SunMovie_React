@@ -149,4 +149,6 @@
 .noTheme{
     height: auto;
     overflow-y: scroll;
+    height: 770px;
+    max-height: 770px;
 }

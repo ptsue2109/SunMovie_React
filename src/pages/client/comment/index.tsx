@@ -125,7 +125,7 @@ const Comente = ({ data }: Props) => {
         </div>
       </Form>
 
-      <div className="pl-[50px]">
+      <div className="pl-[50px] h-[670px]">
         <p className="text-normal text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 mt-2">
           Nội dung bình luận chỉ mang tính chất tham khảo
         </p>
