@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Space, TableColumnsType } from 'antd';
+import { Button, message, Select, TableColumnsType } from 'antd';
 import { Table } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { Link, useSearchParams } from 'react-router-dom';
 import { formatDate, formatTime } from '../../../ultils';
 import { getAlSt } from '../../../redux/slice/ShowTimeSlice';
-import { isFuture, isPast, parseISO } from "date-fns";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-
+import { isPast, parseISO } from "date-fns";
+import { defaultStatus } from '../../../ultils/data';
+import { updateData } from "../../../redux/slice/ShowTimeSlice"
 type Props = {}
 interface ExpandedDataType {
   key: React.Key;
@@ -18,7 +18,6 @@ interface ExpandedDataType {
 const NestedTable = (props: Props) => {
   const [payload, setPayload] = useState<any[]>([]);
   const [showByDate, setShowByDate] = useState<any[]>([]);
-  const [date, setDate] = useState<any>();
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "Admin | Showtime"
@@ -32,7 +31,7 @@ const NestedTable = (props: Props) => {
   let movieSelect = movie.find((item: any) => item?._id === movieId);
 
   useEffect(() => {
-    if (stList && movieId) {
+    if (stList) {
       let itemGet = stList?.filter((item: any) => item?.movieId?._id === movieId);
       setPayload(itemGet);
     }
@@ -55,35 +54,77 @@ const NestedTable = (props: Props) => {
     }, {});
     setShowByDate({ ...groupByDate });
   };
+  const changeStatus = (_id: any, val: any) => {
+    dispatch(updateData({ _id: _id, status: val })).unwrap()
+      .then(() => { message.success("Thay đổi trạng thái thành công") })
+      .catch(() => message.error("Lỗi"))
+  };
 
   const expandedRowRender = (row: any) => {
     const columns: TableColumnsType<ExpandedDataType> = [
       { title: '', dataIndex: 'indexKey', key: 'indexKey', width: 1, render: (_: any, { indexKey }: any) => <p className='text-white'>{indexKey}</p> },
       { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt', render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, width: 200 },
       {
-        title: 'Phòng chiếu', dataIndex: 'room', width: 250, key: 'room', render: (_: any, { room, _id }: any) => (
+        title: 'Phòng chiếu', dataIndex: 'room', width: 250, key: 'room', render: (_: any, { room, _id, status2 }: any) => (
           <>
-            {room?.map((roomItem: any) => (
-              <Button key={roomItem?._id} className="ml-3">
-                <Link to={`/book-chair?room=${roomItem?._id}&showtime=${_id}`}>
-                  {roomItem?.name}
-                </Link>
-              </Button>
-            ))}
+            {status2 ? (
+              <>
+                {room?.map((roomItem: any) => (
+                  <Button key={roomItem?._id} className="ml-3" disabled>
+                    <Link to={`/book-chair?room=${roomItem?._id}&showtime=${_id}`}>
+                      {roomItem?.name}
+                    </Link>
+                  </Button>
+                ))}
+              </>
+            ) : (
+              <>
+                {room?.map((roomItem: any) => (
+                  <Button key={roomItem?._id} className="ml-3">
+                    <Link to={`/book-chair?room=${roomItem?._id}&showtime=${_id}`}>
+                      {roomItem?.name}
+                    </Link>
+                  </Button>
+                ))}
+              </>
+            )}
           </>
         )
       },
-      // { title: 'Trạng thái ', dataIndex: 'status', key: 'status' },
-      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2' },
+      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2', render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
       {
         title: "Hành động",
         key: "status",
-        render: (_: any, record: any) => (
-          <Link to={`${record._id}`}>
-            <EditOutlined
-              style={{ color: "var(--primary)", fontSize: "18px" }}
-            />
-          </Link>
+        render: (_: any, { _id, status2, status }: any) => (
+          <>
+            {status2 ? (
+              <>
+                <Select disabled value={status === 0 ? "Hoạt động" : "Dừng hoạt động"}  >
+                  {defaultStatus?.map((item: any) => (
+                    <Select.Option value={item?.value} key={item?.value}>
+                      {item?.name}
+                    </Select.Option>
+                  ))}
+                </Select>
+
+              </>
+            ) : (
+              <>
+                <Select
+                  value={status === 0 ? "Hoạt động" : "Dừng hoạt động"}
+                  onChange={(value: any) => {
+                    changeStatus(_id, value);
+                  }}
+                >
+                  {defaultStatus?.map((item: any) => (
+                    <Select.Option value={item?.value} key={item?.value}>
+                      {item?.name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </>
+            )}
+          </>
         ),
       },
 
@@ -93,14 +134,15 @@ const NestedTable = (props: Props) => {
     for (let key in showByDate) {
       showByDate[key]?.map((item: any, index: any) => {
         if (formatDate(item?.date) == row?.date) {
+          let checkTime = isPast(parseISO(item?.date))
           data.push({
             indexKey: index,
             startAt: formatTime(item?.startAt),
             endAt: formatTime(item?.endAt),
             _id: item?._id,
-            status: item?.status == 0 ? "Đang hoạt động" : "Dừng hoạt động",
+            status: item?.status,
             room: item?.roomId,
-            status2: isPast(parseISO(item?.date)) === true ? "Đã hết hạn, không thể truy cập" : "Vẫn được chọn"
+            status2: checkTime
           })
         }
 
@@ -121,9 +163,6 @@ const NestedTable = (props: Props) => {
       date: key,
     });
   }
-
-
-
 
   return (
     <div>
