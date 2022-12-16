@@ -22,7 +22,7 @@ const ListMovie = (props: Props) => {
   //       message.error({ content: { errMess } });
   //     });
   // };
-  document.title = "Admin | DS Phim"
+  document.title = "Admin | DS Phim";
   const columnUserList: any = [
     {
       title: "Ảnh",
@@ -46,7 +46,7 @@ const ListMovie = (props: Props) => {
       title: "Thời gian chiếu",
       dataIndex: "runTime",
       render: (_: any, record: any) => (
-        <p>{convertMovieTime(record?.runTime)} h</p>
+        <p>{convertMovieTime(record?.runTime)}</p>
       ),
     },
 
