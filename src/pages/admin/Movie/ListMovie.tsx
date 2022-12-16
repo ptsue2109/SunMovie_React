@@ -50,15 +50,15 @@ const ListMovie = (props: Props) => {
       ),
     },
 
-    {
-      title: "Độ tuổi",
-      key: "ageLimit",
-      render: (_: any, record: any) => (
-        <div>
-          <p>{record?.ageLimit}+</p>
-        </div>
-      ),
-    },
+    // {
+    //   title: "Độ tuổi",
+    //   key: "ageLimit",
+    //   render: (_: any, record: any) => (
+    //     <div>
+    //       <p>{record?.ageLimit}+</p>
+    //     </div>
+    //   ),
+    // },
     {
       title: "Ngày khởi chiếu",
       key: "releaseDate",
