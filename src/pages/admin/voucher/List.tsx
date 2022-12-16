@@ -52,7 +52,6 @@ const AdminVoucherList = (props: Props) => {
       .unwrap()
       .then(() => message.success("Thay đổi trạng thái thành công"));
   };
-  useEffect(() => {}, []);
   const columns: any[] = [
     {
       title: "Thumbnail",
@@ -177,6 +176,7 @@ const AdminVoucherList = (props: Props) => {
       parseISO(item?.timeStart),
       parseISO(item?.timeEnd)
     );
+    let checkTime = isPast(parseISO(item?.date))
     return {
       key: index + 1,
       _id: item?._id,

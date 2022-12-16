@@ -39,7 +39,7 @@ export const formatTime = (dateString: Date) => {
 export const discountPercent = (money?: any, discount?: any) => {
   let moneyPrice = (money * discount) / 100;
   let newMoney = money - moneyPrice;
-  return newMoney?.toLocaleString("it-IT") + " đ";
+  return newMoney
 };
 
 export const convertMovieTime = (seconds: any) => {

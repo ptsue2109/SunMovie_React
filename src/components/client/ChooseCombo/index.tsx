@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import {
    Button,
-   message,
-   Steps,
    Skeleton,
    Avatar,
-   Divider,
    List,
-   Form,
-   Select,
-   Input,
    InputNumber,
-   Space,
-   Statistic
 } from "antd";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { formatCurrency, formatDateString, formatTime } from "../../../ultils";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createFD } from "../../../redux/slice/FoodDetail";
 import CountdownComp from "../Countdown";
 
 
 type Props = {};
-const { Countdown } = Statistic;
-
 const ChooseCombo = (props: Props) => {
    const deadline = Date.now() + 1000 * 60 * 10;
    const { food } = useAppSelector((state) => state.food);
@@ -78,18 +67,22 @@ const ChooseCombo = (props: Props) => {
    useEffect(() => {
       if (cart) {
          const arrayFiltered: any[] = [];
-         cart.forEach((obj: any) => {
-            const item = arrayFiltered.find(
-               (thisItem) => thisItem.foodId?._id === obj.foodId?._id
-            );
-            if (item) {
-               if (item.quantity < obj.quantity) {
-                  item.quantity = obj.quantity;
-               }
-               return;
+         const groupById = cart?.reduce((accumulator: any, arrayItem: any) => {
+            let rowName = arrayItem?.foodId?._id
+            if (accumulator[rowName] == null) {
+               accumulator[rowName] = [];
             }
-            arrayFiltered.push(obj);
-         });
+            accumulator[rowName].push(arrayItem);
+            return accumulator;
+         }, {});
+
+         for (const key in groupById) {
+            let item = groupById[key]
+            const last = item[item.length - 1];
+            if (last?.quantity > 0) {
+               arrayFiltered.push(last)
+            }
+         }
          setFoodOrder(arrayFiltered);
       }
    }, [cart]);
@@ -177,25 +170,25 @@ const ChooseCombo = (props: Props) => {
                      <>
                         <ul className="px-4 py-3">
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Rạp</b>: {webConfigs[0]?.storeName} |{" "}
+                              <b>Rạp</b>: {webConfigs[0]?.storeName} |
                               {info && <>{info[0]?.seatId?.roomId?.name}</>}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Suất chiếu</b>:{" "}
-                              {info && formatTime(info[0]?.showTimeId?.startAt)} |{" "}
+                              <b>Suất chiếu</b>:
+                              {info && formatTime(info[0]?.showTimeId?.startAt)} |
                               {formatDateString(info[0]?.showTimeId?.date)}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Food</b> :{" "}
+                              <b>Food</b> :
                               {foodOrder?.map((item: any) => (
                                  <span key={item?.foodId?._id}>
                                     {item?.foodId?.name}
-                                    {`(${item?.quantity})`}
+                                    {`(${item?.quantity})`},
                                  </span>
                               ))}
                            </li>
                            <li className="border-b-2 border-dotted border-black leading-10">
-                              <b>Ghế</b>:{" "}
+                              <b>Ghế</b>:
                               {info &&
                                  info?.map((item: any) => (
                                     <span key={item?._id}>

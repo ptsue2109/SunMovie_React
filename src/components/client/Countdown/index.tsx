@@ -12,7 +12,6 @@ const CountdownComp = ({deadline}: Props) => {
   };
 
   const onChange = (val: any) => {
-    console.log("onChange", val);
   };
   return (
     <div className="p-2 text-white">
