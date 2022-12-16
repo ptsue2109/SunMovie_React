@@ -1,12 +1,14 @@
-import { Button, Rate, Space, Switch, Table, Tag, message } from "antd";
+import { Button, Rate, Space, Switch, Table, Tag, message, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import DataTable from "../../../components/admin/Form&Table/Table";
 import { useAppSelector } from "../../../redux/hook";
 import { useAppDispatch } from "../../../redux/hook";
 import { Comenter } from "../../../service/commenApi";
+import { formatDate, formatTime } from "../../../ultils";
 type Props = {};
 
-function ListCommentMovie({}: Props) {
+function ListCommentMovie({ }: Props) {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state: any) => state);
   const [comments, setComments] = useState<any>([]);
@@ -35,25 +37,40 @@ function ListCommentMovie({}: Props) {
 
   const columns = [
     {
-      title: "#",
-      dataIndex: "stt",
-      key: "stt",
-      render: (text: any) => <a>{text}</a>,
-    },
-    {
       title: "Nội dung",
       dataIndex: "noidung",
       key: "noidung",
+      width: 420,
     },
     {
       title: "Đánh giá",
       dataIndex: "danhgia",
       key: "danhgia",
+      width: 120
+    },
+    {
+      title: "Người dùng",
+      dataIndex: "user",
+      key: "user",
+      width: 120,
+      render: (_: any, { user }: any) => (
+        <Tooltip title={user?.email}>
+          {user?.username}
+        </Tooltip>
+      )
+    },
+    {
+      title: "Thời gian tạo",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (_: any, { createdAt }: any) => <p>{formatTime(createdAt)} - {formatDate(createdAt)}</p>,
+      width: 120,
     },
     {
       title: "Hành Động",
       dataIndex: "hanhdong",
       key: "hanhdong",
+      width: 50,
     },
   ];
 
@@ -61,15 +78,18 @@ function ListCommentMovie({}: Props) {
     key,
     stt: key + 1,
     noidung: item.content,
-    danhgia: <Rate allowHalf defaultValue={item.rating} />,
+    danhgia: <Rate allowHalf defaultValue={item.rating} disabled style={{ fontSize: '12px' }} />,
     hanhdong: (
       <Switch
         defaultChecked={!Boolean(item.status)}
         checkedChildren="Hiện"
         unCheckedChildren="Ẩn"
         onChange={() => changeStatus(item, item.status)}
+
       />
     ),
+    user: item?.userId,
+    createdAt: item?.createdAt
   }));
 
   return (
@@ -79,7 +99,7 @@ function ListCommentMovie({}: Props) {
           <Link to="/admin/movies">Danh sách phim</Link>
         </Button>
       </div>
-      <Table columns={columns} dataSource={dataComment} />
+      <DataTable column={columns} data={dataComment} />
     </div>
   );
 }

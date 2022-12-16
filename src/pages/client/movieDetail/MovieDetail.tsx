@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Button, Modal, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.css";
 import { BsCalendar } from "react-icons/bs";
@@ -30,8 +30,6 @@ const MovieDetail = (props: Props) => {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
-
-  const [cometArr, setComentArr] = useState([]);
   const { currentUser } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
   const Toggle = (number: any) => {
@@ -51,7 +49,7 @@ const MovieDetail = (props: Props) => {
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
   let movieSelectId = data?.movie?._id;
-
+  document.title = `${slug}`
   useEffect(() => {
     if (movie) {
       let arr = movie?.filter((item: any) => item?._id !== movieSelectId);
@@ -66,7 +64,7 @@ const MovieDetail = (props: Props) => {
     dispatch(getAlSt({}));
   }, []);
 
-  if (data == "") return <div>Loading...</div>;
+  if (data == "") return <Spin spinning />
   const showModal2 = () => {
     setIsModalOpen2(true);
   };
@@ -161,21 +159,21 @@ const MovieDetail = (props: Props) => {
           <div className="grid grid-cols-3 gap-2">
             {getOneShowtime
               ? getOneShowtime.roomId
-                  .filter((x: any) => x.status == false)
-                  .map((item: any) => (
-                    <div
-                      key={item._id}
-                      className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
+                .filter((x: any) => x.status == false)
+                .map((item: any) => (
+                  <div
+                    key={item._id}
+                    className="border border-black px-3 py-2 hover:bg-[#f7f8f9] text-center"
+                  >
+                    <Link
+                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
                     >
-                      <Link
-                        to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
-                      >
-                        <a className="text-black hover:text-white ">
-                          {item.name} - {item.formatId?.name}
-                        </a>
-                      </Link>
-                    </div>
-                  ))
+                      <div className="font-bold uppercase text-black hover:text-gray-600">
+                        {item.name} - {item.formatId?.name}
+                      </div>
+                    </Link>
+                  </div>
+                ))
               : ""}
           </div>
         </Modal>
@@ -183,14 +181,14 @@ const MovieDetail = (props: Props) => {
           <div className={styles.showTimesListItem}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                  <span
-                    key={index}
-                    onClick={() => onDate(item)}
-                    className="cursor-pointer"
-                  >
-                    {formatDate(item)}
-                  </span>
-                ))
+                <span
+                  key={index}
+                  onClick={() => onDate(item)}
+                  className="cursor-pointer"
+                >
+                  {formatDate(item)}
+                </span>
+              ))
               : "Không có suất chiếu nào"}
           </div>
 

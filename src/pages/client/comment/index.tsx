@@ -26,6 +26,7 @@ const Comente = ({ data }: Props) => {
   const navigate = useNavigate();
   const [movie, setMovie] = useState<any>();
   const [allCmt, setAllCmt] = useState<any[]>([]);
+  const [avgPoint, setAvgPoint] = useState<any>(0);
   const { slug } = useParams();
   useEffect(() => {
     if (data) {
@@ -36,7 +37,15 @@ const Comente = ({ data }: Props) => {
       setAllCmt(commentActive);
     }
   }, [data]);
-
+  useEffect(() => {
+    if (allCmt?.length > 0) {
+      let avg = allCmt.reduce((pre: any, curr: any) => {
+        return pre + curr.rating
+      }, 0)
+      let point = (avg / (allCmt?.length)).toFixed(2)
+      setAvgPoint(point)
+    }
+  }, [allCmt])
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
@@ -69,8 +78,8 @@ const Comente = ({ data }: Props) => {
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <div className="flex items-center gap-3">
           {currentUser !== null &&
-          currentUser !== undefined &&
-          currentUser?.avatar ? (
+            currentUser !== undefined &&
+            currentUser?.avatar ? (
             <>
               <div className="avatar">
                 {currentUser?.avatar || currentUser?.avatar?.url ? (
@@ -106,7 +115,7 @@ const Comente = ({ data }: Props) => {
             label="Điểm đánh giá"
             rules={[{ required: true, message: "Không được để trống! " }]}
           >
-            <Rate />
+            <Rate allowHalf />
           </Form.Item>
 
           <Form.Item>
@@ -126,9 +135,10 @@ const Comente = ({ data }: Props) => {
       </Form>
 
       <div className="pl-[50px] h-[670px]">
-        <p className="text-normal text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 mt-2">
-          Nội dung bình luận chỉ mang tính chất tham khảo
-        </p>
+        <div className=" flex items-center justify-between text-normal text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 mt-2">
+          <p className="after:content-['****'] after:ml-0.5 after:text-red-500">Nội dung bình luận chỉ mang tính chất tham khảo</p>
+          {allCmt?.length > 0 ? <p>Điểm đánh giá: {avgPoint} điểm / {allCmt?.length} lượt</p> : ""}
+        </div>
         <div className="showAllComment">
           <div className="info">
             {allCmt ? (
@@ -144,16 +154,17 @@ const Comente = ({ data }: Props) => {
                         <Avatar src={currentUser?.avatar[0]?.url} />
                       )
                     }
-                    content={<p>{item?.content}</p>}
+                    content={<div className="">
+                      <Rate defaultValue={item?.rating} disabled style={{ fontSize: '12px' }} allowHalf /> <br />{item?.content}
+                    </div>}
                     datetime={
-                      <Tooltip title={item?.createdAt}>
+                      <>
                         {formatTime(item?.createdAt)},
                         {formatDateString(item?.createdAt)}
-                        <div className="rating">
-                          <Rate defaultValue={item?.rating} />
-                        </div>
-                      </Tooltip>
+                      </>
                     }
+
+
                   />
                 ))}
               </>
