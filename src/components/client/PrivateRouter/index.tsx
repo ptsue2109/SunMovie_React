@@ -41,7 +41,7 @@ const PrivateRoute = ({ children, acceptRole }: PrivateRouteProps) => {
             }
          }
       }
-   }, [userLogin]);
+   }, []);
 
    return children;
 };

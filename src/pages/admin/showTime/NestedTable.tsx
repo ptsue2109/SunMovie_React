@@ -8,6 +8,7 @@ import { getAlSt } from '../../../redux/slice/ShowTimeSlice';
 import { isPast, parseISO } from "date-fns";
 import { defaultStatus } from '../../../ultils/data';
 import { updateData } from "../../../redux/slice/ShowTimeSlice"
+import configRoute from '../../../config';
 type Props = {}
 interface ExpandedDataType {
   key: React.Key;
@@ -62,8 +63,8 @@ const NestedTable = (props: Props) => {
 
   const expandedRowRender = (row: any) => {
     const columns: TableColumnsType<ExpandedDataType> = [
-      { title: '', dataIndex: 'indexKey', key: 'indexKey', width: 1, render: (_: any, { indexKey }: any) => <p className='text-white'>{indexKey}</p> },
-      { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt', render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, width: 200 },
+      { title: '', dataIndex: 'indexKey', key: 'indexKey',width: 0,className: "" , render: (_: any, { indexKey }: any) => <p className='text-white'>{indexKey}</p> },
+      { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt',width: 150, render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, },
       {
         title: 'Phòng chiếu', dataIndex: 'room', width: 250, key: 'room', render: (_: any, { room, _id, status2 }: any) => (
           <>
@@ -91,10 +92,11 @@ const NestedTable = (props: Props) => {
           </>
         )
       },
-      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2', render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
+      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2',width: 100 ,render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
       {
         title: "Hành động",
         key: "status",
+        width: 100,
         render: (_: any, { _id, status2, status }: any) => (
           <>
             {status2 ? (
@@ -166,7 +168,10 @@ const NestedTable = (props: Props) => {
 
   return (
     <div>
-      <h3>Danh sách giờ chiếu theo của phim {movieSelect?.name}</h3>
+      <Button>
+        <Link to={configRoute.routes.adminMovie}>DS Phim</Link>
+      </Button>
+      <h1 className='flex justify-center uppercase'> phim : {movieSelect?.name} </h1>
       <Table
         columns={columns}
         expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}

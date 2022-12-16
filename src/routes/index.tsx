@@ -75,7 +75,7 @@ import AdminOrdersDetail from "../pages/admin/Order/Detail";
 import FindOrder from "../pages/client/findOrder";
 import PaymentStatus from "../components/client/PaymentStatus";
 import OrderTab from "../pages/admin/Order/OrderTab";
-import NestedTable from "../pages/admin/Seats/NestedTable";
+import NestedTable from "../pages/admin/showTime/NestedTable";
 type RoutesType = {
   path: string;
   component: any;

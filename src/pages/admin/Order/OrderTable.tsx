@@ -175,7 +175,7 @@ const OrderTable = ({ data }: Props) => {
       },
    ];
    return (
-      <div> <Table columns={columns} dataSource={dataSource} /></div>
+      <div> <Table columns={columns} dataSource={dataSource}  /></div>
    )
 }
 

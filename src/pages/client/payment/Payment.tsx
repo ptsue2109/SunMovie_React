@@ -34,7 +34,7 @@ import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
 import CountdownComp from "../../../components/client/Countdown";
 const layout = {
-  labelCol: { span: 7 },
+  labelCol: { span: 12 },
   wrapperCol: { span: 12 },
 };
 
@@ -189,7 +189,7 @@ const Payment = (props: Props) => {
               <CountdownComp deadline={Date.now() + 1000 * 60 * 8}  />
             </div>
           </div>
-          <div className="bg-[#ffffff] h-[550px] w-[98%] mx-auto ">
+          <div className="bg-[#ffffff] h-[550px] max-h-[550px] w-[98%] max-w-[98%] p-5 ml-2">
             <Form
               {...layout}
               layout="horizontal"
@@ -252,7 +252,7 @@ const Payment = (props: Props) => {
                 </Form.Item>
                 <small className="text-red-500 ml-[170px]">{voucherMess}</small>
               </div>
-              <div className=" w-[280px] justify-center flex flex-col ml-[160px]">
+              <div className=" w-[280px] justify-center flex flex-col ml-[250px] ">
                 <Button
                   onClick={handle}
                   style={{
