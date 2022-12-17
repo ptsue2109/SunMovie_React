@@ -22,6 +22,7 @@ import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -182,16 +183,25 @@ const MovieDetail = (props: Props) => {
           </div>
         </Modal>
         <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
-          <div className={styles.showTimesListItem}>
+          <div className={`styles.showTimesListItem`}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                  <span
+                  // <span
+                  //   key={index}
+                  //   onClick={() => onDate(item)}
+                  //   className="cursor-pointer"
+                  // >
+                  //   <PlusOutlined />
+                  //   {formatDate(item)}
+                  // </span>
+                  <Button
+                    style={{ margin: "10px", color: "white" }}
+                    type="ghost"
                     key={index}
                     onClick={() => onDate(item)}
-                    className="cursor-pointer"
                   >
                     {formatDate(item)}
-                  </span>
+                  </Button>
                 ))
               : "Không có suất chiếu nào"}
           </div>
