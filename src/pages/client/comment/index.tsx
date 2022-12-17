@@ -83,7 +83,7 @@ const Comente = ({ data }: Props) => {
             <>
               <div className="avatar">
                 {currentUser?.avatar || currentUser?.avatar?.url ? (
-                  <Avatar src={currentUser?.avatar[0]?.url} />
+                  <Avatar src={currentUser?.avatar[0]?.url || currentUser?.avatar[0]} />
                 ) : (
                   <Avatar size="large" icon={<UserOutlined />} />
                 )}
@@ -151,7 +151,7 @@ const Comente = ({ data }: Props) => {
                       item?.avatar ? (
                         <Avatar size="large" icon={<UserOutlined />} />
                       ) : (
-                        <Avatar src={currentUser?.avatar[0]?.url} />
+                        <Avatar src={item?.userId?.avatar[0]?.url || item?.userId?.avatar[0]} />
                       )
                     }
                     content={<div className="">
@@ -163,8 +163,6 @@ const Comente = ({ data }: Props) => {
                         {formatDateString(item?.createdAt)}
                       </>
                     }
-
-
                   />
                 ))}
               </>

@@ -1,6 +1,6 @@
 import { Button, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link, useFetcher, useParams } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import Ticket from "../../../components/client/Ticket";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneOrder } from "../../../redux/slice/OrdersSlice";

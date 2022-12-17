@@ -1,17 +1,21 @@
 import React from "react";
 import { Statistic } from "antd";
+import { useNavigate } from "react-router-dom";
+import configRoute from "../../../config";
 type Props = {
-  deadline:any
+  deadline: any,
+  info?: any
 };
 const { Countdown } = Statistic;
 
-const CountdownComp = ({deadline}: Props) => {
-
+const CountdownComp = ({ deadline, info }: Props) => {
+  const navigate = useNavigate()
   const onFinish = () => {
-    console.log("finished!");
+    navigate(`${configRoute.routes.cancelOrder}`, { state: info })
   };
 
   const onChange = (val: any) => {
+    localStorage.setItem('timer', val)
   };
   return (
     <div className="p-2 text-white">

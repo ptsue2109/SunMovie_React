@@ -22,15 +22,12 @@ import {
 import moment from "moment";
 import { formatCurrency } from "../../../ultils";
 import { formatDistance, isEqual, parseISO } from "date-fns";
-import isFuture from "date-fns/isFuture";
 import isPast from "date-fns/isPast";
 type Props = {};
 const { Text } = Typography;
 const { Option } = Select;
 
 const AdminVoucherList = (props: Props) => {
-  const [timeFuture, setTimeFuture] = useState();
-
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "Admin | List Voucher";
@@ -40,12 +37,7 @@ const AdminVoucherList = (props: Props) => {
   const { vouchers, errorMessage } = useAppSelector(
     (state: any) => state.voucherReducer
   );
-  const deleteData = (data: string | undefined) => {
-    dispatch(removeData(data))
-      .unwrap()
-      .then(() => message.success("Xóa thành công"))
-      .catch(() => message.error(errorMessage));
-  };
+
 
   const changeStatus = (id: any, value: any) => {
     dispatch(updateData({ _id: id, status: value }))
@@ -79,26 +71,13 @@ const AdminVoucherList = (props: Props) => {
           </Text>
         </Link>
       ),
-      width: 50,
+      width: 70,
     },
     {
       title: "SL",
       key: "quantity",
       dataIndex: "quantity",
       width: 50,
-    },
-    {
-      title: "SL trong kho",
-      key: "activeQuantity",
-      dataIndex: "activeQuantity",
-      render: (_: any, record: any) => (
-        <Tag color={record.activeQuantity ? "red" : "blue"}>
-          {record.activeQuantity <= 5
-            ? `Còn  ${record.activeQuantity} voucher`
-            : `Còn  ${record.activeQuantity} voucher`}
-        </Tag>
-      ),
-      width: 150,
     },
     {
       title: "Condition",
@@ -110,7 +89,7 @@ const AdminVoucherList = (props: Props) => {
             : `Giảm ${record.conditionNumber}%`}
         </Tag>
       ),
-      width: 150,
+      width: 50,
     },
     {
       title: "Status",
@@ -130,23 +109,31 @@ const AdminVoucherList = (props: Props) => {
           ))}
         </Select>
       ),
+      width: 50
     },
     {
       title: "Thời gian áp dụng",
       key: "time",
       render: (_: any, record: any) => (
         <Text>
-          {moment(record.timeStart).format("DD/MM/YYYY HH:mm:ss")} -{" "}
-          {moment(record.timeEnd).format("DD/MM/YYYY HH:mm:ss")}
+          {moment(record.timeStart).format("DD/MM/YYYY HH:mm")} -
+          {moment(record.timeEnd).format("DD/MM/YYYY HH:mm")}
         </Text>
       ),
+      width: 260
     },
     {
       title: "Thời hạn ",
       key: "distance",
       render: (_: any, record: any) => <Text>{record.distance}</Text>,
+      width: 80
     },
-
+    {
+      title: "Còn Hoạt động ?",
+      key: "distance",
+      render: (_: any, { isActive }: any) => <Text>{isActive ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</Text>,
+      width: 80
+    },
     {
       title: "ACTION",
       key: "action",
@@ -157,17 +144,9 @@ const AdminVoucherList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteData(record?._id)}
-          >
-            <DeleteOutlined style={{ color: 'red', fontSize: '18px' }} />
-          </Popconfirm> */}
         </Space>
       ),
-      width: 30,
+      width: 10,
     },
   ];
 
@@ -176,13 +155,13 @@ const AdminVoucherList = (props: Props) => {
       parseISO(item?.timeStart),
       parseISO(item?.timeEnd)
     );
-    let checkTime = isPast(parseISO(item?.date))
+    let checkTime = isPast(parseISO(item?.timeEnd));
     return {
       key: index + 1,
       _id: item?._id,
       code: item?.code,
       thumbnail:
-        item?.imagesFile[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      item?.imagesFile[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       quantity: item?.quantity,
       status: item?.status,
       condition: item?.condition,
@@ -192,6 +171,7 @@ const AdminVoucherList = (props: Props) => {
       conditionNumber: item?.conditionNumber,
       activeQuantity: item?.quantity, // số lượng còn (sau khi trừ của user đã dùng)
       distance: distanceV,
+      isActive: checkTime
     };
   });
 
