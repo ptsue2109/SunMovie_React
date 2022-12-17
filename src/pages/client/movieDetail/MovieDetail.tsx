@@ -22,6 +22,7 @@ import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -49,7 +50,7 @@ const MovieDetail = (props: Props) => {
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
   let movieSelectId = data?.movie?._id;
-  document.title = `${slug}`
+  document.title = `${slug}`;
   useEffect(() => {
     if (movie) {
       let arr = movie?.filter((item: any) => item?._id !== movieSelectId);
@@ -64,7 +65,7 @@ const MovieDetail = (props: Props) => {
     dispatch(getAlSt({}));
   }, []);
 
-  if (data == "") return <Spin spinning />
+  if (data == "") return <Spin spinning />;
   const showModal2 = () => {
     setIsModalOpen2(true);
   };
@@ -83,12 +84,16 @@ const MovieDetail = (props: Props) => {
     let showTimeList = stList?.filter(
       (item: any) => item?.movieId?._id === movieSelectId && item?.status === 0
     );
+    let today = new Date();
     showTimeList = showTimeList.map((item: any) => {
       return (item = {
         ...item,
         date: convertDateToNumber(item.date),
       });
     });
+    showTimeList = showTimeList
+      .sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
+      .filter((item: any) => convertDate(today) < convertDate(item.startAt));
     const showModal = (id: any) => {
       setIsModalOpen(true);
       setIdShowtime(id);
@@ -115,7 +120,7 @@ const MovieDetail = (props: Props) => {
     showTimeList?.map((item: any) => {
       arrDate.push(item.date);
     });
-    let today = new Date();
+
     arrDate = arrDate
       .sort()
       .filter(
@@ -123,9 +128,6 @@ const MovieDetail = (props: Props) => {
           arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
       );
 
-    showtime = showtime
-      .sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
-      .filter((item: any) => convertDate(today) < convertDate(item.startAt));
     const checkUser = (id: any) => {
       let exitsUser = users.find((item: any) => item._id === currentUser._id);
       if (exitsUser) {
@@ -145,12 +147,15 @@ const MovieDetail = (props: Props) => {
         });
       }
     };
+
     if (!showTimeList) return <div>Loading...</div>;
 
     return (
       <>
         <Modal
-          title="Vui lòng chọn phòng"
+          title={`Vui lòng chọn phòng ( khung giờ: ${formatTime(
+            getOneShowtime?.startAt
+          )} )`}
           footer={null}
           open={isModalOpen}
           onOk={handleOk}
@@ -159,36 +164,45 @@ const MovieDetail = (props: Props) => {
           <div className="grid grid-cols-3 gap-2">
             {getOneShowtime
               ? getOneShowtime.roomId
-                .filter((x: any) => x.status == false)
-                .map((item: any) => (
-                  <div
-                    key={item._id}
-                    className="border border-black px-3 py-2 hover:bg-[#f7f8f9] text-center"
-                  >
-                    <Link
-                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                  .filter((x: any) => x.status == false)
+                  .map((item: any) => (
+                    <div
+                      key={item._id}
+                      className="border border-black px-3 py-2 hover:bg-[#f7f8f9] text-center"
                     >
-                      <div className="font-bold uppercase text-black hover:text-gray-600">
-                        {item.name} - {item.formatId?.name}
-                      </div>
-                    </Link>
-                  </div>
-                ))
+                      <Link
+                        to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
+                      >
+                        <div className="font-bold uppercase text-black hover:text-gray-600">
+                          {item.name} - {item.formatId?.name}
+                        </div>
+                      </Link>
+                    </div>
+                  ))
               : ""}
           </div>
         </Modal>
         <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
-          <div className={styles.showTimesListItem}>
+          <div className={`styles.showTimesListItem`}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                <span
-                  key={index}
-                  onClick={() => onDate(item)}
-                  className="cursor-pointer"
-                >
-                  {formatDate(item)}
-                </span>
-              ))
+                  // <span
+                  //   key={index}
+                  //   onClick={() => onDate(item)}
+                  //   className="cursor-pointer"
+                  // >
+                  //   <PlusOutlined />
+                  //   {formatDate(item)}
+                  // </span>
+                  <Button
+                    style={{ margin: "10px", color: "white" }}
+                    type="ghost"
+                    key={index}
+                    onClick={() => onDate(item)}
+                  >
+                    {formatDate(item)}
+                  </Button>
+                ))
               : "Không có suất chiếu nào"}
           </div>
 
