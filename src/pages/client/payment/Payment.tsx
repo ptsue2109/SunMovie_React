@@ -1,35 +1,13 @@
-import {
-  Button,
-  Form,
-  Input,
-  message,
-  notification,
-  Popconfirm,
-  Select,
-  Steps,
-} from "antd";
+import { Button, Form, Input, message, Select, } from "antd";
 import style from "./Payment.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import React, { useState, useEffect } from "react";
-import {
-  discountPercent,
-  formatCurrency,
-  formatDate,
-  formatDateString,
-  formatTime,
-} from "../../../ultils";
+import { useState, useEffect } from "react";
+import { discountPercent, formatCurrency, formatDate, formatDateString, formatTime, } from "../../../ultils";
 import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { createOrder, createPaymeny } from "../../../redux/slice/OrdersSlice";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import { getticketDetailById } from "../../../redux/slice/ticketSlice";
+import { createPaymeny } from "../../../redux/slice/OrdersSlice";
+import { useLocation, useNavigate, } from "react-router-dom";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
 import CountdownComp from "../../../components/client/Countdown";
@@ -54,8 +32,7 @@ const Payment = (props: Props) => {
   const [info, setInfo] = useState<any>();
   const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
-  
-  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
@@ -121,11 +98,25 @@ const Payment = (props: Props) => {
         } else if (checkUsed) {
           setVoucherMess("bạn đã sử dụng voucher này");
         } else {
+          console.log(item);
+          let limit = item?.voucherLimit;
+
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
-          } else {
+            let price2: any = Number(tempPrice) - Number(vcDiscount)
+            if (price2 <= limit) {
+              setPriceAfterDiscount(price2)
+            } else {
+              setPriceAfterDiscount(Number(tempPrice) - Number(limit))
+            }
+          } else if (item?.condition === 0) {
             let price: any = discountPercent(tempPrice, vcDiscount);
-            setPriceAfterDiscount(price);
+            if (price <= limit) {
+              setPriceAfterDiscount(Number(tempPrice) - Number(price))
+            } else {
+              setPriceAfterDiscount(Number(tempPrice) - Number(limit))
+            }
+
           }
           message.info("Đã áp dụng mã giảm giá");
         }
@@ -149,8 +140,8 @@ const Payment = (props: Props) => {
       language: "",
       foodDetailId: state?.foodDetailId,
     }
-    
-    
+
+
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
       text: "",
@@ -186,7 +177,7 @@ const Payment = (props: Props) => {
           <div className="flex items-center justify-between p-2">
             <h1 className="text-3xl p-3 text-white ">Vui lòng thanh toán </h1>
             <div className="">
-              <CountdownComp deadline={Date.now() + 1000 * 60 * 8}  />
+              {/* <CountdownComp deadline={Date.now() + 1000 * 60 * 1} info={info} /> */}
             </div>
           </div>
           <div className="bg-[#ffffff] h-[550px] max-h-[550px] w-[98%] max-w-[98%] p-5 ml-2">
@@ -347,6 +338,7 @@ const Payment = (props: Props) => {
             {formatCurrency(tempPrice)}
           </span>
         </h2>
+
         <h2 className="px-4 text-base">
           Tổng:
           {priceAfterDiscount ? (

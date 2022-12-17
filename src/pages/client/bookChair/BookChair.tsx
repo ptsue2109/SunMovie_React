@@ -27,7 +27,7 @@ const BookChair = (props: Props) => {
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const showtime = stList.find((item: any) => item._id === idShowtime);  
-  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);
+  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);  
   React.useEffect(() => {
     dispatch(getAlSt({}));
     dispatch(getRooms());
@@ -53,7 +53,7 @@ const BookChair = (props: Props) => {
           <div className="border border-[#ccc] rounded-md ">
             <div className="bg-[#182b47] h-[50px] flex gap-3 text-white p-2 justify-between items-center uppercase font-bold">
               <p> Tên phim :{showtime?.movieId?.name} </p>
-              <p>  Phòng chiếu :  {roomSelect?.formatId?.name}</p>
+              <p>  Phòng chiếu :{roomSelect?.name} -  {roomSelect?.formatId?.name}</p>
               <p>Giờ chiếu: {formatTime(showtime?.startAt)} ,ngày <span className="">{formatDate(showtime?.date)}</span> </p>
             </div>
             <div className="p-5 text-center">

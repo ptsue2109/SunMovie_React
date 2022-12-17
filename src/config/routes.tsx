@@ -26,6 +26,7 @@ const routes = {
   profileOrder: "/profile/orders/:id",
   checkOrder: "/checkOrder",
   findOrder: "/findOrder",
+  cancelOrder: "/cancel",
   // admin
   dashboard: "/admin",
   adminUserList: "/admin/users",

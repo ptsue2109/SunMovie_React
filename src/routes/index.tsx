@@ -76,6 +76,7 @@ import FindOrder from "../pages/client/findOrder";
 import PaymentStatus from "../components/client/PaymentStatus";
 import OrderTab from "../pages/admin/Order/OrderTab";
 import NestedTable from "../pages/admin/showTime/NestedTable";
+import CancelOrder from "../components/client/CancelOrder";
 type RoutesType = {
   path: string;
   component: any;
@@ -106,6 +107,8 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
   { path: configRoute.routes.step, component: PaymentStep },
   { path: configRoute.routes.findOrder, component: FindOrder },
+  { path: configRoute.routes.cancelOrder, component: CancelOrder },
+
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
