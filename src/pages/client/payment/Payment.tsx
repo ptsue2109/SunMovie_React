@@ -177,7 +177,7 @@ const Payment = (props: Props) => {
           <div className="flex items-center justify-between p-2">
             <h1 className="text-3xl p-3 text-white ">Vui lòng thanh toán </h1>
             <div className="">
-              {/* <CountdownComp deadline={Date.now() + 1000 * 60 * 1} info={info} /> */}
+              <CountdownComp deadline={Date.now() + 1000 * 60 * 1} info={info} />
             </div>
           </div>
           <div className="bg-[#ffffff] h-[550px] max-h-[550px] w-[98%] max-w-[98%] p-5 ml-2">
