@@ -86,7 +86,6 @@ const routes = {
   adminOrders: "/admin/orders",
   adminOrdersDetail: "/admin/orders/:id",
   adminListCommentMovie: "/admin/movieComment/:id",
-  test: "/test"
 };
 
 export default routes;

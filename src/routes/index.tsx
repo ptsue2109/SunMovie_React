@@ -173,7 +173,6 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },
   { path: configRoute.routes.webConfigEdit, component: WebConfigEdit },
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
-  { path: configRoute.routes.test, component: NestedTable },
   { path: configRoute.routes.adminOrders, component: OrderTab },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
   {

@@ -213,7 +213,7 @@ const AdminUserList = (props: Props) => {
       username: item?.username,
       fullname: item?.fullname,
       email: item?.email,
-      avatar: item?.avatar[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      avatar: (item?.avatar[0]?.url || item?.avatar[0]) ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
@@ -221,11 +221,6 @@ const AdminUserList = (props: Props) => {
     };
   });
 
-  // useEffect(() => {
-  //   if (isErr) {
-  //     message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
-  //   }
-  // }, [isErr]);
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>

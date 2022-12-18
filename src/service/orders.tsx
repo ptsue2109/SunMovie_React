@@ -24,4 +24,7 @@ export const orderApi = {
     let url = "/dashboard";
     return axiosClient.get(url);
   },
+  exportOrderTicket(input:any) {
+    return axiosClient.get(`/ticket-export/${input}`);
+  }
 };

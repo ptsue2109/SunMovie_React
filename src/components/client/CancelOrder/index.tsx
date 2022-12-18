@@ -8,12 +8,14 @@ type Props = {
 const CancelOrder = (props: Props) => {
   const { state } = useLocation();
   const [info, setInfo] = useState<any>()
-  console.log('state cancel', state);
 
   useEffect(() => {
     document.title = "SUNCINEMA";
     if (state) {
-      setInfo(state.populatedDetail[0])
+      if (state?.populatedDetail) {
+        let i = state?.populatedDetail[0]
+        setInfo(i)
+      }
     }
   }, [state])
   return (
@@ -31,21 +33,17 @@ const CancelOrder = (props: Props) => {
               title="Đơn hàng của bạn đã bị hủy do quá hạn thời gian"
               extra={
                 <>
-                  {info ? (
-                    <>
-                      <Button type="primary" key="console">
-                        <Link to={`/book-chair?room=${info?.seatId?.roomId?._id}&showtime=${info?.showTimeId?._id}`}>
-                          Đặt lại vé</Link>
-                      </Button>
-                    </>
+                  {(info ) ? (
+                    <Button type="primary" key="console">
+                      <Link to={`/book-chair?room=${info?.seatId?.roomId?._id}&showtime=${info?.showTimeId?._id}`}>
+                        Đặt lại vé</Link>
+                    </Button>
                   ) : (
                     <Button type="primary" key="console">
-                      <Link to="/">
+                      <Link to={`/`}>
                         Đặt lại vé</Link>
                     </Button>
                   )}
-
-
                 </>
               }
             />

@@ -9,6 +9,7 @@ import { isPast, parseISO } from "date-fns";
 import { defaultStatus } from '../../../ultils/data';
 import { updateData } from "../../../redux/slice/ShowTimeSlice"
 import configRoute from '../../../config';
+import { convertDate } from '../../../ultils';
 type Props = {}
 interface ExpandedDataType {
   key: React.Key;
@@ -30,11 +31,12 @@ const NestedTable = (props: Props) => {
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
   let movieSelect = movie.find((item: any) => item?._id === movieId);
-
+  
   useEffect(() => {
     if (stList) {
       let itemGet = stList?.filter((item: any) => item?.movieId?._id === movieId);
       setPayload(itemGet);
+      
     }
   }, [stList, movieId]);
 
@@ -45,7 +47,8 @@ const NestedTable = (props: Props) => {
   }, [payload]);
 
   const handleSubmit = () => {
-    const groupByDate = payload?.reduce((accumulator: any, arrayItem: any) => {
+    let sort: any[] = payload?.sort((a:any, b:any) => convertDate(a.startAt) - convertDate(b.startAt))
+    const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
       let rowName = formatDate(arrayItem.date)
       if (accumulator[rowName] == null) {
         accumulator[rowName] = [];
@@ -63,8 +66,8 @@ const NestedTable = (props: Props) => {
 
   const expandedRowRender = (row: any) => {
     const columns: TableColumnsType<ExpandedDataType> = [
-      { title: '', dataIndex: 'indexKey', key: 'indexKey',width: 0,className: "" , render: (_: any, { indexKey }: any) => <p className='text-white'>{indexKey}</p> },
-      { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt',width: 150, render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, },
+      { title: '', dataIndex: 'key', key: 'key', width: 0, className: "", render: (_: any, { key }: any) => <p className='text-white'>{key}</p> },
+      { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt', width: 150, render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, },
       {
         title: 'Phòng chiếu', dataIndex: 'room', width: 250, key: 'room', render: (_: any, { room, _id, status2 }: any) => (
           <>
@@ -92,7 +95,7 @@ const NestedTable = (props: Props) => {
           </>
         )
       },
-      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2',width: 100 ,render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
+      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2', width: 100, render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
       {
         title: "Hành động",
         key: "status",
@@ -133,12 +136,12 @@ const NestedTable = (props: Props) => {
     ];
 
     const data: any[] = [];
-    for (let key in showByDate) {
-      showByDate[key]?.map((item: any, index: any) => {
+    for (let showKey in showByDate) {
+      showByDate[showKey]?.map((item: any, index: any) => {
         if (formatDate(item?.date) == row?.date) {
           let checkTime = isPast(parseISO(item?.date))
           data.push({
-            indexKey: index,
+            key: index,
             startAt: formatTime(item?.startAt),
             endAt: formatTime(item?.endAt),
             _id: item?._id,
@@ -155,17 +158,16 @@ const NestedTable = (props: Props) => {
 
   const columns: TableColumnsType<any[]> = [
     { title: 'Ngày chiếu', dataIndex: 'date', key: 'date' },
-    { title: '', dataIndex: 'index', key: 'index', width: 3, render: (_: any, { index }: any) => <p className='text-white'>{index}</p> },
+    { title: '', dataIndex: 'key', key: 'key', width: 3, render: (_: any, { key }: any) => <p className='text-white'>{key}</p> },
   ];
 
   const data: any[] = [];
   for (let key in showByDate) {
     data.push({
-      index: 1,
+      key: Math.floor(Math.random() * showByDate[key].length * 100),
       date: key,
     });
   }
-
   return (
     <div>
       <Button>

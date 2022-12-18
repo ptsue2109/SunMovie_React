@@ -7,6 +7,7 @@ import type { FilterConfirmProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom';
 import { EditOutlined } from "@ant-design/icons";
+import { formatCurrency } from '../../../ultils';
 
 
 type Props = {
@@ -118,7 +119,7 @@ const OrderTable = ({ data }: Props) => {
          createdAt: item?.createdAt,
          qrCode: item?.qrCode,
          ticketId: item?.ticketId,
-         totalPrice: item?.totalPrice,
+         totalPrice: formatCurrency(item?.totalPrice),
          userId: item?.userId,
          ticket: item?.ticketId?.quantity,
          code: item?.shortId
@@ -132,6 +133,7 @@ const OrderTable = ({ data }: Props) => {
          key: 'code',
          width: '30%',
          ...getColumnSearchProps('code'),
+         render: (_:any, {code, _id} :any) => <Link to={`${_id}`}>{code}</Link>
       },
       {
          title: 'Tổng tiền',
@@ -175,7 +177,7 @@ const OrderTable = ({ data }: Props) => {
       },
    ];
    return (
-      <div> <Table columns={columns} dataSource={dataSource}  /></div>
+      <div> <Table columns={columns} dataSource={dataSource}/></div>
    )
 }
 
