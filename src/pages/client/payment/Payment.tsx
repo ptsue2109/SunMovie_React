@@ -25,6 +25,7 @@ const Payment = (props: Props) => {
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const [tempPrice, setTempPrice] = useState<any>();
   const [voucherMess, setVoucherMess] = useState<any>("");
+  const [voucherMess2, setVoucherMess2] = useState<any>("");
   const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
   const [priceAfterDiscount, setPriceAfterDiscount] = useState<number>();
   const [CODE, setCODE] = useState<any>("");
@@ -94,11 +95,10 @@ const Payment = (props: Props) => {
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
         if (tempPrice < vcValue) {
-          setVoucherMess("Hóa đơn chưa đủ điều kiện để giảm");
+          setVoucherMess2("Hóa đơn chưa đủ điều kiện để giảm");
         } else if (checkUsed) {
-          setVoucherMess("bạn đã sử dụng voucher này");
+          setVoucherMess2("bạn đã sử dụng voucher này");
         } else {
-          console.log(item);
           let limit = item?.voucherLimit;
 
           if (item?.condition === 1) {
@@ -241,7 +241,7 @@ const Payment = (props: Props) => {
                     onChange={(e: any) => checkCode(e?.target?.value, e)}
                   />
                 </Form.Item>
-                <small className="text-red-500 ml-[270px]">{voucherMess}</small>
+                <small className="text-red-500 ml-[270px]">{voucherMess} {voucherMess2}</small>
               </div>
               <div className=" w-[280px] justify-center flex flex-col ml-[250px] ">
                 <Button

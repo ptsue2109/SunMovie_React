@@ -34,7 +34,7 @@ const AdminOrdersDetail = (props: Props) => {
          <Button type="primary" style={{ marginBottom: "20px" }}>
             <Link to="/admin/orders">DS Orders</Link>
          </Button>
-         {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal} />}
+         {order && <Ticket detail={detail} order={orderDetail} isAdmin={true}/>}
       </div>
    );
 };
