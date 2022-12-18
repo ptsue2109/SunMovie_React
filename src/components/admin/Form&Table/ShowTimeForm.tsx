@@ -59,13 +59,14 @@ const ShowTimeForm = ({
    const [messTime, setMessTime] = useState<any>("");
    const [timeGet, setTimeGet] = useState<any>();
    const [roomSelect, setRoomSelect] = useState<any>();
-
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
    const { stList } = useAppSelector((state) => state.ShowTimeReducer);
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
+   let movieRelease = moment(movieSelect?.releaseDate).date()
+
    const [timeEnd, setTimeEnd] = useState<any>();
    const [priceExtra, setPriceExtra] = useState<any>();
 
@@ -73,6 +74,7 @@ const ShowTimeForm = ({
       if (movieId) {
          form.setFieldsValue({
             movieId: movieId,
+            releaseDate: moment(movieSelect?.releaseDate)
          });
       }
    }, [movieId]);
@@ -84,6 +86,7 @@ const ShowTimeForm = ({
          });
       }
    }, [timeEnd]);
+
    // eslint-disable-next-line arrow-body-style
    const disabledDate: RangePickerProps["disabledDate"] = (current) => {
       return current && current <= moment().endOf("day");
@@ -92,13 +95,26 @@ const ShowTimeForm = ({
    const validRange = (value: any, dateString: any) => {
       setTimeEnd(moment(value).add(movieTime));
       let timeStart = moment(value).hour();
-      if (timeStart >= 9 && timeStart <= 16) {
-         setPriceExtra(20000);
-      } else if (timeStart >= 17 && timeStart <= 21) {
-         setPriceExtra(30000);
+      let dayStart = moment(value).date()
+      if (dayStart >= movieRelease) {
+         if (timeStart >= 9 && timeStart <= 16) {
+            setPriceExtra(20000);
+         } else if (timeStart >= 17 && timeStart <= 21) {
+            setPriceExtra(30000);
+         } else {
+            setPriceExtra(10000);
+         }
       } else {
-         setPriceExtra(10000);
+         if (timeStart >= 9 && timeStart <= 16) {
+            setPriceExtra(40000);
+         } else if (timeStart >= 17 && timeStart <= 21) {
+            setPriceExtra(50000);
+         } else {
+            setPriceExtra(30000);
+         }
       }
+
+
       let timeget = moment(value).format()
       setTimeGet(timeget);
    };
@@ -109,18 +125,18 @@ const ShowTimeForm = ({
    const validateST = () => {
       const allShowTimeStart = stList?.map((item: any) => moment(item?.startAt).format());
       const allShowTimeEnd = stList?.map((item: any) => moment(item?.endAt).format());
-      console.log(allShowTimeEnd);
-      
+      // console.log(allShowTimeEnd);
+
       let allRoomSelect = stList?.map((item: any) => item?.roomId[0]);
       allShowTimeStart.forEach((el: any) => {
          let getDateAllShowTimeStart = moment(el).dayOfYear()
          let getDateTimeGet = moment(timeGet).dayOfYear()
          let getHourAllShowTimeStart = moment(el).format("HH:mm");
          let getHourTimeGet = moment(timeGet).format("HH:mm");
-    
+
          if (getDateAllShowTimeStart == getDateTimeGet && getHourAllShowTimeStart == getHourTimeGet) {
             setMessTime("Không được chọn khung giờ này")
-           
+
             let checkroom: any = allRoomSelect?.filter((item: any) => item?._id?.includes(roomSelect));
 
             if (checkroom) {
@@ -130,8 +146,6 @@ const ShowTimeForm = ({
                setMessTime("")
             }
          }
-        
-
       });
    };
    useEffect(() => {
@@ -165,6 +179,13 @@ const ShowTimeForm = ({
                               </Select.Option>
                            ))}
                         </Select>
+                     </Form.Item>
+                     <Form.Item
+                        label="Ngày khởi chiếu"
+                        name="releaseDate"
+                        rules={[{ required: true }]}
+                     >
+                        <DatePicker format="DD-MM-YYYY" value={movieSelect?.releaseDate} disabled className="w-full" />
                      </Form.Item>
                      <div className="flex flex-wrap justify-between">
                         <Form.Item
@@ -210,47 +231,18 @@ const ShowTimeForm = ({
                         </Select>
                      </Form.Item>
                      {messRoom && <div className="mt-[-10px] mb-3 text-danger"> {messRoom}</div>}
-                     <div className="col-12">
-                        <Card
-                           style={{
-                              position: "sticky",
-                              bottom: "0",
-                              left: "0",
-                              width: "100%",
-                              border: "none",
-                           }}
-                        >
-                           <div
-                              style={{
-                                 display: "flex",
-                                 justifyContent: "start",
-                                 gap: "5px",
-                              }}
-                           >
-                              {onReset && (
-                                 <Button htmlType="button" onClick={onReset}>
-                                    Nhập lại
-                                 </Button>
-                              )}
-                              <Button
-                                 htmlType="submit"
-                                 type="primary"
-                                 style={{ minWidth: 150 }}
-                              >
-                                 Lưu
-                              </Button>
-                           </div>
-                        </Card>
-                     </div>
+
                   </Card>
                   <Card className="col-6 w-full">
-                     <small className="block text-danger w-[230px]">
-                        Bảng giá extra: <br />
-                        Từ 9am - 16am: phụ thu {formatCurrency(20000)}
+                     <small className="block text-red-600 w-[300px] font-semibold">
+                        <span className="text-black">Bảng giá extra:</span> <br />
+                        Từ 9.am - 16.am: phụ thu {formatCurrency(20000)}
                         <br />
-                        Từ 17am - 21pm: phụ thu {formatCurrency(30000)}
+                        Từ 17.am - 21.pm: phụ thu {formatCurrency(30000)}
                         <br />
-                        Sau 21pm: phụ thu {formatCurrency(10000)}
+                        Sau 21.pm: phụ thu {formatCurrency(10000)}
+                        <br />
+                        <b>* Suất chiếu sớm: phụ thu {formatCurrency(20000)} + giờ chiếu</b>
                      </small>
                      <Form.Item
                         label="price"
@@ -290,6 +282,38 @@ const ShowTimeForm = ({
                               ))}
                         </Select>
                      </Form.Item>
+                     <div className="col-12">
+                        <Card
+                           style={{
+                              position: "sticky",
+                              bottom: "0",
+                              left: "0",
+                              width: "100%",
+                              border: "none",
+                           }}
+                        >
+                           <div
+                              style={{
+                                 display: "flex",
+                                 justifyContent: "start",
+                                 gap: "5px",
+                              }}
+                           >
+                              {onReset && (
+                                 <Button htmlType="button" onClick={onReset}>
+                                    Nhập lại
+                                 </Button>
+                              )}
+                              <Button
+                                 htmlType="submit"
+                                 type="primary"
+                                 style={{ minWidth: 150 }}
+                              >
+                                 Lưu
+                              </Button>
+                           </div>
+                        </Card>
+                     </div>
                   </Card>
                </>
             ) : (
