@@ -41,7 +41,7 @@ const ImageUpload = (props: Props) => {
           onProgress({ percent: (e.loaded / e.total) * 100 })
         }
       });
-      file.url = data.url;
+      file.url = data.url ;
       file.thumbUrl = null;
       onSuccess("ok");
     } catch (error) {
