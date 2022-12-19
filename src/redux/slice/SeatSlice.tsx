@@ -86,7 +86,7 @@ const seatsSlice = createSlice({
     builder.addCase(updateSeatThunk.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
-      state.seats = state.seats.map((item) =>  item._id !== action.payload[0]?._id ? item : action.payload[0]?._id );
+      state.seats = state.seats.map((item) =>  item._id !== action.payload._id ? item : action.payload );
     });
     builder.addCase(updateSeatThunk.rejected, (state, action) => {
       state.isFetching = false;
