@@ -40,12 +40,12 @@ const Comente = ({ data }: Props) => {
   useEffect(() => {
     if (allCmt?.length > 0) {
       let avg = allCmt.reduce((pre: any, curr: any) => {
-        return pre + curr.rating
-      }, 0)
-      let point = (avg / (allCmt?.length)).toFixed(2)
-      setAvgPoint(point)
+        return pre + curr.rating;
+      }, 0);
+      let point = (avg / allCmt?.length).toFixed(2);
+      setAvgPoint(point);
     }
-  }, [allCmt])
+  }, [allCmt]);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
@@ -69,21 +69,23 @@ const Comente = ({ data }: Props) => {
           dispatch(getOneMovie(slug));
           form.resetFields();
         })
-        .catch((error: any) => console.log(error));
+        .catch((error: any) => message.error(error));
     }
   };
 
   return (
-    <div className="w-full max-w-[1440p] max-h-[800px]  bg-white p-2 m-0">
+    <div className="content__comment w-full max-w-[1440p] bg-white p-2 m-0 rounded-b-xl">
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <div className="flex items-center gap-3">
           {currentUser !== null &&
-            currentUser !== undefined &&
-            currentUser?.avatar ? (
+          currentUser !== undefined &&
+          currentUser?.avatar ? (
             <>
               <div className="avatar">
                 {currentUser?.avatar || currentUser?.avatar?.url ? (
-                  <Avatar src={currentUser?.avatar[0]?.url || currentUser?.avatar[0]} />
+                  <Avatar
+                    src={currentUser?.avatar[0]?.url || currentUser?.avatar[0]}
+                  />
                 ) : (
                   <Avatar size="large" icon={<UserOutlined />} />
                 )}
@@ -94,7 +96,7 @@ const Comente = ({ data }: Props) => {
               <Avatar size="large" icon={<UserOutlined />} />
             </>
           )}
-          <div className=" mt-2 w-full">
+          <div className="mt-2 w-full">
             <Form.Item
               name="content"
               label="Nhập nội dung"
@@ -134,10 +136,18 @@ const Comente = ({ data }: Props) => {
         </div>
       </Form>
 
-      <div className="pl-[50px] h-[670px]">
-        <div className=" flex items-center justify-between text-normal text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 mt-2">
-          <p className="after:content-['****'] after:ml-0.5 after:text-red-500">Nội dung bình luận chỉ mang tính chất tham khảo</p>
-          {allCmt?.length > 0 ? <p>Điểm đánh giá: {avgPoint} điểm / {allCmt?.length} lượt</p> : ""}
+      <div className="pl-[50px]">
+        <div className="flex items-center justify-between text-normal text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-400 mt-2">
+          <p className="after:content-['****'] after:ml-0.5 after:text-red-500">
+            Nội dung bình luận chỉ mang tính chất tham khảo
+          </p>
+          {allCmt?.length > 0 ? (
+            <p>
+              Điểm đánh giá: {avgPoint} điểm / {allCmt?.length} lượt
+            </p>
+          ) : (
+            ""
+          )}
         </div>
         <div className="showAllComment">
           <div className="info">
@@ -151,12 +161,26 @@ const Comente = ({ data }: Props) => {
                       item?.avatar ? (
                         <Avatar size="large" icon={<UserOutlined />} />
                       ) : (
-                        <Avatar src={item?.userId?.avatar[0]?.url || item?.userId?.avatar[0]} />
+                        <Avatar
+                          src={
+                            item?.userId?.avatar[0]?.url ||
+                            item?.userId?.avatar[0]
+                          }
+                        />
                       )
                     }
-                    content={<div className="">
-                      <Rate defaultValue={item?.rating} disabled style={{ fontSize: '12px' }} allowHalf /> <br />{item?.content}
-                    </div>}
+                    content={
+                      <div className="">
+                        <Rate
+                          defaultValue={item?.rating}
+                          disabled
+                          style={{ fontSize: "12px" }}
+                          allowHalf
+                        />{" "}
+                        <br />
+                        {item?.content}
+                      </div>
+                    }
                     datetime={
                       <>
                         {formatTime(item?.createdAt)},
