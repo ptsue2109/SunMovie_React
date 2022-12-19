@@ -74,8 +74,8 @@ const ShowTimeForm = ({
             releaseDate: moment(movieSelect?.releaseDate)
          });
       }
-      if(rooms) {
-         let roomActive = rooms?.filter((item:any) => item?.status ==0);
+      if (rooms) {
+         let roomActive = rooms?.filter((item: any) => item?.status == 0);
          setRoomList(roomActive)
       }
    }, [movieId, rooms]);
@@ -160,11 +160,8 @@ const ShowTimeForm = ({
 
             for (let time in sortByTime) {
                if (time == timeChose) {
-                  console.log("trùng ngày trùng h");
-
                   setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
                   let roomExist = flatten(sortByTime[time]);
-                  setSortByTime(roomExist)
 
                   let kiemtraphongtrong = roomList.filter((cv: any) => {
                      return !roomExist.find((e: any) => {
@@ -178,14 +175,25 @@ const ShowTimeForm = ({
                      setHiddenRoom(true)
                   }
                } else {
-                  console.log("trùng ngày khác giờ")
+                  // check trùng ngày khác giờ
+                  let roomExist2 = flatten(stByDays[key]);
+                  console.log(roomExist2);
+                  let kiemtraphongtrong2 = roomList.filter((cv: any) => {
+                     return !roomExist2.find((e: any) => {
+                        return e?._id == cv?._id;
+                     });
+                  });
+                  if (kiemtraphongtrong2?.length > 0) {
+                     setMessRoom(`Phòng đang trống: ${kiemtraphongtrong2?.map((item: any) => item?.name)}`);
+                  } else {
+                     setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
+                  }
+
                }
             }
-
-
          } else {
-            console.log("Khác ngầy");
-
+            setMessRoom("")
+            setMessTime("")
 
          }
       }
