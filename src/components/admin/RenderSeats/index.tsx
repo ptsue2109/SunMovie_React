@@ -253,7 +253,7 @@ const RenderSeats = ({
         status: Number(optionsStatus),
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
-        _id: seatArr[0]?.roomId
+        roomId: seatArr[0]?.roomId
       };
       if (optionsSeatTpe === undefined || optionsStatus === undefined) {
         message.error({ content: "Thêm đẩy đủ trường" });
@@ -264,7 +264,7 @@ const RenderSeats = ({
             message.success("Update thành công");
             navigate(configRoute.routes.adminRooms);
           })
-          .catch(() => message.error("Lỗi update"));
+          .catch((error: any) => message.error(error));
       }
     };
     const getStatusChoice = (val: any) => {
