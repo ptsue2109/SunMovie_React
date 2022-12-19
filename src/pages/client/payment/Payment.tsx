@@ -53,7 +53,8 @@ const Payment = (props: Props) => {
       setMovieDetail(movieSelect);
     }
   }, [state, movieSelect]);
-
+  console.log("paymentInfo", info);
+  
   useEffect(() => {
     form.setFieldsValue({
       username: currentUser?.fullname ?? currentUser?.username,
