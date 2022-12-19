@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 type Props = {
   deadline: any,
-  info?: any
+  info?: any,
+  onChange?:any
 };
 const { Countdown } = Statistic;
 
-const CountdownComp = ({ deadline, info }: Props) => {
+const CountdownComp = ({ deadline, info, onChange }: Props) => {
   const navigate = useNavigate()
   const onFinish = () => {
   navigate(`/cancel`, { state: info })
@@ -20,10 +21,6 @@ const CountdownComp = ({ deadline, info }: Props) => {
     }
   }, [])
 
-
-  const onChange = (val: any) => {
-    localStorage.setItem('timer', val)
-  };
   return (
     <div className="p-2 text-white">
       <Countdown
@@ -31,6 +28,7 @@ const CountdownComp = ({ deadline, info }: Props) => {
         value={timer}
         onFinish={onFinish}
         onChange={onChange}
+       
       />
     </div>
   );
