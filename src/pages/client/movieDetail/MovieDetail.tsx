@@ -278,7 +278,7 @@ const MovieDetail = (props: Props) => {
                   {data.nameMovieType.map((x: any) => x + ", ")}
                 </p>
                 <p>
-                  <span>Thời lượng:</span> {data?.movie?.runTime}
+                  <span>Thời lượng:</span> {data?.movie?.runTime} phút
                 </p>
                 <p>
                   <span>Diễn viên:</span> {data?.movie?.actor}
