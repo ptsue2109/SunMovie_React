@@ -32,6 +32,7 @@
 .content_info_items{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 .content_info h3{
     color: white;

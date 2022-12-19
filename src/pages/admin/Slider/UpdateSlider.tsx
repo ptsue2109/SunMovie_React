@@ -18,7 +18,7 @@ const UpdateSlider = (props: Props) => {
 
   const { slider, errMess } = useAppSelector((state) => state.slider);
   const data = slider.find((item: any) => item._id === id);
-  
+
   useEffect(() => {
     if (data) {
       setImage(data?.image);
@@ -28,7 +28,7 @@ const UpdateSlider = (props: Props) => {
       });
     }
   }, [data]);
-
+  const { movie } = useAppSelector((state) => state.movie);
   const onFinish = async (values: any) => {
     values._id = id;
     values.releaseDate = new Date(moment(values.releaseDate).format());
@@ -40,7 +40,7 @@ const UpdateSlider = (props: Props) => {
       .unwrap()
       .then(() => {
         message.success({ content: "Sửa thành công" });
-        navigate(configRoute.routes.adminMovie);
+        navigate(configRoute.routes.adminSlider);
       })
       .catch(() => {
         message.error({ content: "Thất bại" });
@@ -48,9 +48,9 @@ const UpdateSlider = (props: Props) => {
   };
   return (
     <>
-    <Button className="mb-3">
-      <Link to={configRoute.routes.adminSlider}>DS Slider</Link>
-    </Button>
+      <Button className="mb-3">
+        <Link to={configRoute.routes.adminSlider}>DS Slider</Link>
+      </Button>
       <Form
         form={form}
         layout="vertical"
@@ -81,15 +81,21 @@ const UpdateSlider = (props: Props) => {
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {movie?.map((item: any) => (
+              <Select.Option value={item.slug} key={item._id}>
+                {item?.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           label="slug"
           name="slug"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
