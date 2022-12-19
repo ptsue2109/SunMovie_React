@@ -172,9 +172,9 @@ const RenderSeats = ({
         dispatch(getOneSBSTById(roomId));
         setIsModalOpen(false)
         message.success("Thay đổi trạng thái thành công");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
 
       })
       .catch(() => message.error("Lỗi"));
@@ -186,6 +186,7 @@ const RenderSeats = ({
       .unwrap()
       .then(() => {
         dispatch(getOneSBSTById(roomId));
+        setIsModalOpen(false)
         message.success("Thay đổi loại ghế thành công");
         setTimeout(() => {
           window.location.reload();
