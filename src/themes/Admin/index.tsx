@@ -70,15 +70,11 @@ const AdminLayout = ({ children, title, BCR }: AdminLayoutProps) => {
             {BCR}
           </div>
           <div style={
-            title !== "Dashboard"
-              ? {
+               {
                 backgroundColor: "#fff",
                 padding: 10,
                 boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
                 borderRadius: 4,
-              }
-              : {
-                padding: 10,
               }
           }>
             {children}

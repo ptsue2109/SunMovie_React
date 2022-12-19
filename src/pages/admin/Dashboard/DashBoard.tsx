@@ -1,10 +1,9 @@
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { MovieApi } from "../../../service/MovieApi";
 import { orderApi } from "../../../service/orders";
 import { UserApi } from "../../../service/userApi";
 import { RiMovie2Fill, RiUserLine } from "react-icons/ri";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -90,10 +89,12 @@ const Dashboard = (props: Props) => {
           <div className="text-center">
             <span className="block text-black font-semibold">
               {dashboard.length !== 0
-                ? formatCurrency(dashboard?.weekProfit[0]?.weekTotal)
+                ? formatCurrency(dashboard?.dayProfit[0]?.dayTotal)
                 : ""}
             </span>
-            <span className="text-sm font-semibold">Doanh thu tuần</span>
+            <span className="text-sm font-semibold">
+              Doanh thu ngày hôm nay
+            </span>
           </div>
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
@@ -120,8 +121,7 @@ const Dashboard = (props: Props) => {
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <div>
-               {/* @ts-ignore */}
-            <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" />
+            <FaMoneyCheckAlt size={30} />
           </div>
 
           <div className="text-center">

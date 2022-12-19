@@ -91,7 +91,7 @@ const WebConfigForm = ({ setAvatarList, avatarList, form, onFinish, onReset, hid
                               {onReset && (
                                  <Button htmlType="button" onClick={onReset}>  Nhập lại  </Button>
                               )}
-                              <Button htmlType="submit" type="primary" style={{ minWidth: 150 }} disabled={hiddenBtn}>
+                              <Button htmlType="submit" type="primary" style={{ minWidth: 150 }}>
                                  Lưu
                               </Button>
                            </div>

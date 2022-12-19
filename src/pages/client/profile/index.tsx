@@ -79,7 +79,7 @@ const Profile = (props: Props) => {
             onCancel={() => setOpen(false)}
             width={1000}
           >
-            {order && <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal}  />}
+            {order && <Ticket detail={detail} order={orderDetail}  />}
           </Modal>
         </>
       ),
@@ -92,7 +92,7 @@ const Profile = (props: Props) => {
     {
       title: "Trạng Thái",
       dataIndex: "status",
-      render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 2 ? "Thanh toán Lỗi" : "Đã xuất vé"}</p>,
+      render: (_: any, record: any) => <p>{record?.status === 0 ? 'Chưa thanh toán  ' : record?.status === 3 ? "Đã xuất vé" : "Đã thanh toán"}</p>,
     },
   ];
   const data: any[] = yourOrder?.map((item: any, index: any) => {

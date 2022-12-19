@@ -31,17 +31,17 @@ const AdminUserList = (props: Props) => {
   const { users, isFetching, isErr, errorMessage } = useAppSelector(
     (state: any) => state.userReducer
   );
-  // const { currentUser } = useAppSelector((state: any) => state.authReducer);
-  // const deleteUser = (data: string | undefined) => {
-  //   dispatch(removeUser(data))
-  //     .unwrap()
-  //     .then(() => {
-  //       message.success({ content: "Xoá thành công", key: "handling" });
-  //     })
-  //     .catch(() => {
-  //       message.error({ content: { errorMessage } });
-  //     });
-  // };
+  const { currentUser } = useAppSelector((state: any) => state.authReducer);
+  const deleteUser = (data: string | undefined) => {
+    dispatch(removeUser(data))
+      .unwrap()
+      .then(() => {
+        message.success({ content: "Xoá thành công", key: "handling" });
+      })
+      .catch(() => {
+        message.error({ content: { errorMessage } });
+      });
+  };
   const changeRole = (id: any, value: any) => {
     dispatch(updateUser({ _id: id, role: value }))
       .unwrap()
@@ -97,8 +97,8 @@ const AdminUserList = (props: Props) => {
             status === 0
               ? "Chưa xác thực"
               : status === 1
-              ? "Đang hoạt động"
-              : "Dừng hoạt động"
+                ? "Đang hoạt động"
+                : "Dừng hoạt động"
           }
           onChange={(value: any) => {
             changeStatus(_id, value);
@@ -190,7 +190,7 @@ const AdminUserList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* {currentUser?._id !== record?._id && (
+          {currentUser?._id !== record?._id && (
             <Popconfirm
               title={`Xóa ${record?.username ?? record?._id}?`}
               okText="OK"
@@ -199,7 +199,7 @@ const AdminUserList = (props: Props) => {
             >
               <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
             </Popconfirm>
-          )} */}
+          )}
         </Space>
       ),
       width: 30,
@@ -213,7 +213,7 @@ const AdminUserList = (props: Props) => {
       username: item?.username,
       fullname: item?.fullname,
       email: item?.email,
-      avatar: item?.avatar[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      avatar: (item?.avatar[0]?.url || item?.avatar[0]) ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
@@ -221,11 +221,6 @@ const AdminUserList = (props: Props) => {
     };
   });
 
-  // useEffect(() => {
-  //   if (isErr) {
-  //     message.error({ content: `Failed: ${errorMessage} `, key: "handling" });
-  //   }
-  // }, [isErr]);
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>

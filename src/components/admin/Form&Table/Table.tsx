@@ -45,7 +45,6 @@ const DataTable = ({
             ),
           }}
           loading={loading}
-          pagination={false}
         />
       </TableWrapper>
     </>

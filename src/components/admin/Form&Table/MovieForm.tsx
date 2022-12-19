@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, DatePicker, Form, Input, Select, Skeleton } from "antd";
+import { Button, Card, DatePicker, Form, Input, InputNumber, Select, Skeleton } from "antd";
 import { useAppSelector } from "../../../redux/hook";
 import {
   MovieCountry,
@@ -49,13 +49,16 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   label="Thời gian chiếu (dv: phút)"
                   rules={[
                     {
-                    
                       required: true,
-                    
                     },
+                    {
+                      type: "number",
+                      min: 45,
+                      max: 180
+                    }
                   ]}
-                >
-                  <Input />
+                > 
+                  <InputNumber min={45} max={180} style={{width: '100%'}}/>
                 </Form.Item>
 
                 <Form.Item

@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Statistic } from "antd";
+import { useNavigate } from "react-router-dom";
+import configRoute from "../../../config";
 type Props = {
-  deadline:any
+  deadline: any,
+  info?: any,
+  onChange?:any
 };
 const { Countdown } = Statistic;
 
-const CountdownComp = ({deadline}: Props) => {
-
+const CountdownComp = ({ deadline, info, onChange }: Props) => {
+  const navigate = useNavigate()
   const onFinish = () => {
-    console.log("finished!");
+  navigate(`/cancel`, { state: info })
   };
+  const [timer, setTimer] = useState<any>()
+  useEffect(() => {
+    if (deadline) {
+      setTimer(deadline)
+    }
+  }, [])
 
-  const onChange = (val: any) => {
-    console.log("onChange", val);
-  };
   return (
     <div className="p-2 text-white">
       <Countdown
         title="Đơn hàng sẽ hủy sau"
-        value={deadline}
+        value={timer}
         onFinish={onFinish}
         onChange={onChange}
+       
       />
     </div>
   );

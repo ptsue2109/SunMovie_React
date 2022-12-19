@@ -1,47 +1,45 @@
-import React from "react";
-import { PageHeader, Form, Input, Steps } from "antd";
-import StepPanel from "./StepPanel";
-import Payment from "../../../pages/client/payment/Payment";
+import React, { useState, useEffect } from "react";
+import CountdownComp from "../Countdown";
 
-type Props = {};
-const { Step } = Steps;
+type Props = {
+   nextStep: any, children: any, rightContent: any, name: any
+};
+const PaymentStep = ({ nextStep, children, rightContent, name }: Props) => {
+   let deadline = Date.now() + 1000 * 60 * 10;
 
-const PaymentStep = (props: Props) => {
-   const [stepForm] = Form.useForm();
-
-   const Step1Form = () => {
-      return (
-         <>
-            <Form.Item name="field1" label="Field1">
-               <Input />
-            </Form.Item>
-         </>
-      );
-   };
-
-  
-   const onFinish = (fieldsValue: any) => {
-      let a = stepForm.getFieldValue([]);
-      console.log(a);
-   };
-   const steps = [
-      {
-         title: "Step1",
-         content: <Step1Form />,
-      },
+   const getTimeCountdown = (val: any) => {
       
-   ];
-   return (
-      <section className="container max-w-6xl px-3 mx-auto  mt-8 justify-center h-[550px] ">
-         <div className="mx-auto my-0 flex  h-full  bg-[#182b47] rounded-md flex-col" >
-            <PageHeader title="Step Form" subTitle="Multi-Step form">
-               <Form form={stepForm} onFinish={onFinish}>
-                  <StepPanel steps={steps} />
-               </Form>
-            </PageHeader>
-         </div>
-      </section>
+   }
 
+
+   const renderCD = () => {
+      return (
+         <></>
+      )
+   }
+   return (
+      <>
+         <div className="flex flex-row justify-center mt-16 ">
+            <div className="w-[55%]">
+               <div className="bg-[#f6710d] h-[680px] ">
+                  <div className="flex items-center justify-between p-2">
+                     <h1 className="text-3xl p-3 text-white ">
+                        {name}
+                     </h1>
+                     <div className="">
+                        <CountdownComp deadline={deadline} onChange={getTimeCountdown} />
+                     </div>
+                  </div>
+                  {children}
+
+               </div>
+            </div>
+            <div className="w-[20%] bg-white ml-10 h-[680px] ">
+               {rightContent}
+            </div>
+         </div>
+
+      </>
 
    );
 };

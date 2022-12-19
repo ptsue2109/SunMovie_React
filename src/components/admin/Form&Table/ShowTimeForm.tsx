@@ -8,6 +8,7 @@ import {
    Skeleton,
    InputNumber,
    Form,
+   Alert,
 } from "antd";
 import type { RangePickerProps } from "antd/es/date-picker";
 import { validateMessages } from "../../../ultils/FormMessage";
@@ -15,20 +16,9 @@ import moment from "moment";
 import { defaultStatus } from "../../../ultils/data";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import "antd/dist/antd.css";
-import { convertDate, convertMovieTime, formatCurrency } from "../../../ultils";
+import { formatTime, convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-import isBefore from "date-fns/isBefore";
-import {
-   compareAsc,
-   differenceInBusinessDays,
-   differenceInDays,
-   differenceInMinutes,
-   format,
-   isEqual,
-   parseISO,
-   sub,
-} from "date-fns";
-import formatDistance from 'date-fns/formatDistance'
+
 interface ShowTimeFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -42,14 +32,11 @@ interface ShowTimeFormProps {
    setTimeEnd: any;
    timeEnd: any;
 }
-const { RangePicker } = DatePicker;
 const ShowTimeForm = ({
    form,
    movieId,
    onFinish,
    onReset,
-   edit = false,
-   loading = false,
    editUser = true,
 }: ShowTimeFormProps) => {
    const dispatch = useAppDispatch();
@@ -57,25 +44,41 @@ const ShowTimeForm = ({
    const { rooms } = useAppSelector((state) => state.roomReducer);
    const [messRoom, setMessRoom] = useState<any>("");
    const [messTime, setMessTime] = useState<any>("");
-   const [timeGet, setTimeGet] = useState<any>();
    const [roomSelect, setRoomSelect] = useState<any>();
-
+   const [timeEnd, setTimeEnd] = useState<any>();
+   const [priceExtra, setPriceExtra] = useState<any>();
+   const [days, setDays] = useState<any>();
+   const [timeChose, setTimeChose] = useState<any>();
+   const [sortByTime, setSortByTime] = useState<any>();
+   const [hiddenRoom, setHiddenRoom] = useState<any>(false);
+   const [stByDays, setStByDays] = useState<any>();
+   const [roomList, setRoomList] = useState<any>([]);
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
    const { stList } = useAppSelector((state) => state.ShowTimeReducer);
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
-   const [timeEnd, setTimeEnd] = useState<any>();
-   const [priceExtra, setPriceExtra] = useState<any>();
+   let movieRelease = moment(movieSelect?.releaseDate).date()
 
+   // flatten roomId
+   const flatten = (arr: any) => {
+      return arr.reduce((pre: any, cur: any) => {
+         return pre.concat(Array.isArray(cur) ? flatten(cur) : cur?.roomId)
+      }, [])
+   }
    useEffect(() => {
       if (movieId) {
          form.setFieldsValue({
             movieId: movieId,
+            releaseDate: moment(movieSelect?.releaseDate)
          });
       }
-   }, [movieId]);
+      if (rooms) {
+         let roomActive = rooms?.filter((item: any) => item?.status == 0);
+         setRoomList(roomActive)
+      }
+   }, [movieId, rooms]);
    useEffect(() => {
       if (timeEnd && priceExtra) {
          form.setFieldsValue({
@@ -84,6 +87,7 @@ const ShowTimeForm = ({
          });
       }
    }, [timeEnd]);
+
    // eslint-disable-next-line arrow-body-style
    const disabledDate: RangePickerProps["disabledDate"] = (current) => {
       return current && current <= moment().endOf("day");
@@ -92,55 +96,109 @@ const ShowTimeForm = ({
    const validRange = (value: any, dateString: any) => {
       setTimeEnd(moment(value).add(movieTime));
       let timeStart = moment(value).hour();
-      if (timeStart >= 9 && timeStart <= 16) {
-         setPriceExtra(20000);
-      } else if (timeStart >= 17 && timeStart <= 21) {
-         setPriceExtra(30000);
+      let dayStart = moment(value).date();
+      let getDayStart = formatDate(dateString);
+      let fullTimeStart = moment(value).format("HH:mm");
+
+      setTimeChose(fullTimeStart)
+      setDays(getDayStart);
+
+      if (dayStart >= movieRelease) {
+         if (timeStart >= 9 && timeStart <= 16) {
+            setPriceExtra(20000);
+         } else if (timeStart >= 17 && timeStart <= 21) {
+            setPriceExtra(30000);
+         } else {
+            setPriceExtra(10000);
+         }
       } else {
-         setPriceExtra(10000);
+         if (timeStart >= 9 && timeStart <= 16) {
+            setPriceExtra(40000);
+         } else if (timeStart >= 17 && timeStart <= 21) {
+            setPriceExtra(50000);
+         } else {
+            setPriceExtra(30000);
+         }
       }
-      let timeget = moment(value).format()
-      setTimeGet(timeget);
    };
    const watchRoomId = (val: any) => {
       setRoomSelect(val)
    };
+   useEffect(() => {
+      const sortStByDay = stList?.reduce((accumulator: any, arrayItem: any) => {
+         let rowName = formatDate(arrayItem.date)
+         if (accumulator[rowName] == null) {
+            accumulator[rowName] = [];
+         }
+         accumulator[rowName].push(arrayItem);
+         return accumulator;
+      }, {});
+      setStByDays(sortStByDay)
+
+   }, [stList]);
+
+   useEffect(() => {
+      if (days && timeChose) {
+         validateST();
+      } else {
+         setMessRoom("");
+         setMessTime("")
+      }
+   }, [days, timeChose, stList]);
 
    const validateST = () => {
-      const allShowTimeStart = stList?.map((item: any) => moment(item?.startAt).format());
-      const allShowTimeEnd = stList?.map((item: any) => moment(item?.endAt).format());
-      console.log(allShowTimeEnd);
-      
-      let allRoomSelect = stList?.map((item: any) => item?.roomId[0]);
-      allShowTimeStart.forEach((el: any) => {
-         let getDateAllShowTimeStart = moment(el).dayOfYear()
-         let getDateTimeGet = moment(timeGet).dayOfYear()
-         let getHourAllShowTimeStart = moment(el).format("HH:mm");
-         let getHourTimeGet = moment(timeGet).format("HH:mm");
-    
-         if (getDateAllShowTimeStart == getDateTimeGet && getHourAllShowTimeStart == getHourTimeGet) {
-            setMessTime("Không được chọn khung giờ này")
-           
-            let checkroom: any = allRoomSelect?.filter((item: any) => item?._id?.includes(roomSelect));
+      for (let key in stByDays) {
+         if (key == days) {
+            let sortByTime = stByDays[key]?.reduce((accumulator: any, arrayItem: any) => {
+               let rowName = formatTime(arrayItem.startAt)
+               if (accumulator[rowName] == null) {
+                  accumulator[rowName] = [];
+               }
+               accumulator[rowName].push(arrayItem);
+               return accumulator;
+            }, {});
 
-            if (checkroom) {
-               setMessRoom(`Phòng ${checkroom?.map((item: any) => item?.name)} được sử dụng, vui lòng chọn phòng khác`)
-            } else if (!checkroom || checkroom == undefined || checkroom?.length == 0) {
-               setMessRoom("")
-               setMessTime("")
+            for (let time in sortByTime) {
+               if (time == timeChose) {
+                  setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
+                  let roomExist = flatten(sortByTime[time]);
+
+                  let kiemtraphongtrong = roomList.filter((cv: any) => {
+                     return !roomExist.find((e: any) => {
+                        return e?._id == cv?._id;
+                     });
+                  });
+                  if (kiemtraphongtrong?.length > 0) {
+                     setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
+                  } else {
+                     setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
+                     setHiddenRoom(true)
+                  }
+               } else {
+                  // check trùng ngày khác giờ
+                  let roomExist2 = flatten(stByDays[key]);
+                  console.log(roomExist2);
+                  let kiemtraphongtrong2 = roomList.filter((cv: any) => {
+                     return !roomExist2.find((e: any) => {
+                        return e?._id == cv?._id;
+                     });
+                  });
+                  if (kiemtraphongtrong2?.length > 0) {
+                     setMessRoom(`Phòng đang trống: ${kiemtraphongtrong2?.map((item: any) => item?.name)}`);
+                  } else {
+                     setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
+                  }
+
+               }
             }
+         } else {
+            setMessRoom("")
+            setMessTime("")
+
          }
-        
-
-      });
-   };
-   useEffect(() => {
-      validateST();
-      if (!roomSelect) {
-         setMessRoom("")
       }
+   };
 
-   }, [timeGet, roomSelect, timeEnd, messTime, messRoom]);
 
    return (
       <Form
@@ -165,6 +223,13 @@ const ShowTimeForm = ({
                               </Select.Option>
                            ))}
                         </Select>
+                     </Form.Item>
+                     <Form.Item
+                        label="Ngày khởi chiếu"
+                        name="releaseDate"
+                        rules={[{ required: true }]}
+                     >
+                        <DatePicker format="DD-MM-YYYY" value={movieSelect?.releaseDate} disabled className="w-full" />
                      </Form.Item>
                      <div className="flex flex-wrap justify-between">
                         <Form.Item
@@ -195,62 +260,44 @@ const ShowTimeForm = ({
                            />
                         </Form.Item>
                      </div>
-                     {messTime && <div className="mt-[-10px] mb-3 text-danger">{messTime} </div>}
+                     {messTime && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messTime} type="warning" showIcon /></div>}
+
                      <Form.Item
                         label="Chọn phòng chiếu"
                         name="roomId"
                         rules={[{ required: true }]}
                      >
-                        <Select mode="multiple" onChange={watchRoomId}>
-                           {rooms.map((item: any, index: any) => (
-                              <Select.Option key={item._id} value={item[index]}>
-                                 {item.name}
-                              </Select.Option>
-                           ))}
-                        </Select>
+                        {hiddenRoom ? (
+                           <Select mode="multiple" onChange={watchRoomId} disabled>
+                              {roomList.map((item: any, index: any) => (
+                                 <Select.Option key={item._id} value={item[index]}>
+                                    {item.name}
+                                 </Select.Option>
+                              ))}
+                           </Select>
+                        ) : (
+                           <Select mode="multiple" onChange={watchRoomId}>
+                              {roomList.map((item: any, index: any) => (
+                                 <Select.Option key={item._id} value={item[index]}>
+                                    {item.name}
+                                 </Select.Option>
+                              ))}
+                           </Select>
+                        )}
                      </Form.Item>
-                     {messRoom && <div className="mt-[-10px] mb-3 text-danger"> {messRoom}</div>}
-                     <div className="col-12">
-                        <Card
-                           style={{
-                              position: "sticky",
-                              bottom: "0",
-                              left: "0",
-                              width: "100%",
-                              border: "none",
-                           }}
-                        >
-                           <div
-                              style={{
-                                 display: "flex",
-                                 justifyContent: "start",
-                                 gap: "5px",
-                              }}
-                           >
-                              {onReset && (
-                                 <Button htmlType="button" onClick={onReset}>
-                                    Nhập lại
-                                 </Button>
-                              )}
-                              <Button
-                                 htmlType="submit"
-                                 type="primary"
-                                 style={{ minWidth: 150 }}
-                              >
-                                 Lưu
-                              </Button>
-                           </div>
-                        </Card>
-                     </div>
+                     {messRoom && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messRoom} type="error" showIcon /></div>}
+
                   </Card>
                   <Card className="col-6 w-full">
-                     <small className="block text-danger w-[230px]">
-                        Bảng giá extra: <br />
-                        Từ 9am - 16am: phụ thu {formatCurrency(20000)}
+                     <small className="block text-red-600 w-[300px] font-semibold">
+                        <span className="text-black">Bảng giá extra:</span> <br />
+                        Từ 9.am - 16.am: phụ thu {formatCurrency(20000)}
                         <br />
-                        Từ 17am - 21pm: phụ thu {formatCurrency(30000)}
+                        Từ 17.am - 21.pm: phụ thu {formatCurrency(30000)}
                         <br />
-                        Sau 21pm: phụ thu {formatCurrency(10000)}
+                        Sau 21.pm: phụ thu {formatCurrency(10000)}
+                        <br />
+                        <b>* Suất chiếu sớm: phụ thu {formatCurrency(20000)} + giờ chiếu</b>
                      </small>
                      <Form.Item
                         label="price"
@@ -290,6 +337,39 @@ const ShowTimeForm = ({
                               ))}
                         </Select>
                      </Form.Item>
+                     <div className="col-12">
+                        <Card
+                           style={{
+                              position: "sticky",
+                              bottom: "0",
+                              left: "0",
+                              width: "100%",
+                              border: "none",
+                           }}
+                        >
+                           <div
+                              style={{
+                                 display: "flex",
+                                 justifyContent: "start",
+                                 gap: "5px",
+                              }}
+                           >
+                              {onReset && (
+                                 <Button htmlType="button" onClick={onReset}>
+                                    Nhập lại
+                                 </Button>
+                              )}
+                              <Button
+                                 htmlType="submit"
+                                 type="primary"
+                                 style={{ minWidth: 150 }}
+                              >
+                                 Lưu
+                              </Button>
+
+                           </div>
+                        </Card>
+                     </div>
                   </Card>
                </>
             ) : (

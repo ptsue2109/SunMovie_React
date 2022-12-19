@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Button, Modal, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.css";
 import { BsCalendar } from "react-icons/bs";
@@ -21,6 +21,8 @@ import moment from "moment";
 import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -29,8 +31,6 @@ const MovieDetail = (props: Props) => {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isActive, setActive] = useState(1);
   const [relateArr, setRelateArr] = useState([]);
-
-  const [cometArr, setComentArr] = useState([]);
   const { currentUser } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
   const Toggle = (number: any) => {
@@ -50,7 +50,7 @@ const MovieDetail = (props: Props) => {
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
   let movieSelectId = data?.movie?._id;
-
+  document.title = `${slug}`;
   useEffect(() => {
     if (movie) {
       let arr = movie?.filter((item: any) => item?._id !== movieSelectId);
@@ -65,7 +65,7 @@ const MovieDetail = (props: Props) => {
     dispatch(getAlSt({}));
   }, []);
 
-  if (data == "") return <div>Loading...</div>;
+  if (data == "") return <Spin spinning />;
   const showModal2 = () => {
     setIsModalOpen2(true);
   };
@@ -84,12 +84,16 @@ const MovieDetail = (props: Props) => {
     let showTimeList = stList?.filter(
       (item: any) => item?.movieId?._id === movieSelectId && item?.status === 0
     );
+    let today = new Date();
     showTimeList = showTimeList.map((item: any) => {
       return (item = {
         ...item,
         date: convertDateToNumber(item.date),
       });
     });
+    showTimeList = showTimeList
+      .sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
+      .filter((item: any) => convertDate(today) < convertDate(item.startAt));
     const showModal = (id: any) => {
       setIsModalOpen(true);
       setIdShowtime(id);
@@ -111,13 +115,12 @@ const MovieDetail = (props: Props) => {
     const getOneShowtime = showTimeList.find(
       (item: any) => item._id === idShowtime
     );
-    console.log(getOneShowtime);
 
     let arrDate: any = [];
     showTimeList?.map((item: any) => {
       arrDate.push(item.date);
     });
-    let today = new Date();
+
     arrDate = arrDate
       .sort()
       .filter(
@@ -125,9 +128,6 @@ const MovieDetail = (props: Props) => {
           arrDate.indexOf(item) === index && item >= convertDateToNumber(today)
       );
 
-    showtime = showtime
-      .sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
-      .filter((item: any) => convertDate(today) < convertDate(item.startAt));
     const checkUser = (id: any) => {
       let exitsUser = users.find((item: any) => item._id === currentUser._id);
       if (exitsUser) {
@@ -147,12 +147,15 @@ const MovieDetail = (props: Props) => {
         });
       }
     };
+
     if (!showTimeList) return <div>Loading...</div>;
 
     return (
       <>
         <Modal
-          title="Vui lòng chọn phòng"
+          title={`Vui lòng chọn phòng ( khung giờ: ${formatTime(
+            getOneShowtime?.startAt
+          )} )`}
           footer={null}
           open={isModalOpen}
           onOk={handleOk}
@@ -165,14 +168,14 @@ const MovieDetail = (props: Props) => {
                   .map((item: any) => (
                     <div
                       key={item._id}
-                      className="border border-black px-3 py-2 hover:bg-[#132445] text-center"
+                      className="border border-black px-3 py-2 hover:bg-[#f7f8f9] text-center"
                     >
                       <Link
                         to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
                       >
-                        <a className="text-black hover:text-white ">
+                        <div className="font-bold uppercase text-black hover:text-gray-600">
                           {item.name} - {item.formatId?.name}
-                        </a>
+                        </div>
                       </Link>
                     </div>
                   ))
@@ -180,16 +183,25 @@ const MovieDetail = (props: Props) => {
           </div>
         </Modal>
         <div className={isActive == 1 ? styles.showTimesList : "hidden"}>
-          <div className={styles.showTimesListItem}>
+          <div className={`styles.showTimesListItem`}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                  <span
+                  // <span
+                  //   key={index}
+                  //   onClick={() => onDate(item)}
+                  //   className="cursor-pointer"
+                  // >
+                  //   <PlusOutlined />
+                  //   {formatDate(item)}
+                  // </span>
+                  <Button
+                    style={{ margin: "10px", color: "white" }}
+                    type="ghost"
                     key={index}
                     onClick={() => onDate(item)}
-                    className="cursor-pointer"
                   >
                     {formatDate(item)}
-                  </span>
+                  </Button>
                 ))
               : "Không có suất chiếu nào"}
           </div>
@@ -266,7 +278,7 @@ const MovieDetail = (props: Props) => {
                   {data.nameMovieType.map((x: any) => x + ", ")}
                 </p>
                 <p>
-                  <span>Thời lượng:</span> {data?.movie?.runTime}
+                  <span>Thời lượng:</span> {data?.movie?.runTime} phút
                 </p>
                 <p>
                   <span>Diễn viên:</span> {data?.movie?.actor}
@@ -312,7 +324,8 @@ const MovieDetail = (props: Props) => {
               onClick={() => Toggle(3)}
               className={isActive == 3 ? styles.showTimesBtnActive : ""}
             >
-              <span>Binh luan</span>
+              <IoChatbubbleEllipsesOutline />
+              <span>Bình luận</span>
             </button>
           </div>
           <RenderShowTime />

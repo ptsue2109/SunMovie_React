@@ -13,6 +13,7 @@ const CreateSlider = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { movie } = useAppSelector((state) => state.movie);
   const onFinish = async (values: any) => {
     values.releaseDate = new Date(moment(values.releaseDate).format());
     values.images = values.avatarList?.fileList;
@@ -61,7 +62,13 @@ const CreateSlider = (props: Props) => {
           name="url"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
-          <Input />
+          <Select>
+            {movie?.map((item: any) => (
+              <Select.Option value={item.slug} key={item._id}>
+                {item?.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item>

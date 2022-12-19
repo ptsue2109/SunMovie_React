@@ -69,12 +69,8 @@ const ComenterSlice = createSlice({
     // create
     builder.addCase(comenteCreate.pending, (state, action) => {
       state.errMess = false;
-
     });
-    builder.addCase(comenteCreate.fulfilled, (state, action) => {
-      state.commenter = state.commenter.push(action.payload);
-
-    });
+    builder.addCase(comenteCreate.fulfilled, (state, action) => {});
     builder.addCase(comenteCreate.rejected, (state, action) => {
       state.errMess = action.payload;
     });

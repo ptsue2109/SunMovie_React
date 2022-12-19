@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   RenderInfoSeats,
@@ -26,8 +26,8 @@ const BookChair = (props: Props) => {
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
-  const showtime = stList.find((item: any) => item._id === idShowtime);
-  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);
+  const showtime = stList.find((item: any) => item._id === idShowtime);  
+  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);  
   React.useEffect(() => {
     dispatch(getAlSt({}));
     dispatch(getRooms());
@@ -36,6 +36,7 @@ const BookChair = (props: Props) => {
       const { payload } = await dispatch(getOneSBSTById(idRoom));
       setSeats(payload);
     })();
+    document.title = "Chọn ghế"
   }, []);
 
   React.useEffect(() => {
@@ -43,40 +44,32 @@ const BookChair = (props: Props) => {
     setRow(roomSelect?.rows);
   }, []);
   let { currentUser } = useAppSelector((state) => state.authReducer);
-  console.log(roomSelect);
+
   return (
     <>
       <div className="container">
-        <div className="title">
-          <h3>Chọn ghế</h3>
-          <p>
-            Bạn đã chọn:{" "}
-            <span>
-              {showtime?.movieId?.name} - {roomSelect?.formatId?.name}
-            </span>
-          </p>
-          <p>Phòng chiếu: {roomSelect?.name}</p>
-          <p>
-            Suất chiếu: {formatTime(showtime?.startAt)} -{" "}
-            {formatDate(showtime?.date)}
-          </p>
-        </div>
-
         {/* chair */}
-        <div className="mt-20 grid grid-cols-[900px,300px] gap-10 ">
-          <div className="border border-[#ccc] rounded-md p-10 ">
-            <p className="text-white">
-              Để chọn ghế vui lòng chọn ghế ưa thích theo icon
-            </p>
-            <p className="text-white">
-              Click tiếp vào ghế đã chọn để xoá lựa chọn
-            </p>
-            <div className="my-10">
-              <img
-                className="mx-auto"
-                src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/img49.png"
-                alt=""
-              />
+        <div className="mt-5 grid grid-cols-[900px,300px] gap-10 ">
+          <div className="border border-[#ccc] rounded-md ">
+            <div className="bg-[#182b47] h-[50px] flex gap-3 text-white p-2 justify-between items-center uppercase font-bold">
+              <p> Tên phim :{showtime?.movieId?.name} </p>
+              <p>  Phòng chiếu :{roomSelect?.name} -  {roomSelect?.formatId?.name}</p>
+              <p>Giờ chiếu: {formatTime(showtime?.startAt)} ,ngày <span className="">{formatDate(showtime?.date)}</span> </p>
+            </div>
+            <div className="p-5 text-center">
+              <p className="text-white">
+                Để chọn ghế vui lòng chọn ghế ưa thích theo icon
+              </p>
+              <p className="text-white">
+                Click tiếp vào ghế đã chọn để xoá lựa chọn
+              </p>
+              <div className="my-5">
+                <img
+                  className="mx-auto"
+                  src="https://chieuphimquocgia.com.vn/Themes/RapChieuPhim/Content/content.v2/images/img49.png"
+                  alt=""
+                />
+              </div>
             </div>
 
             {/* chair */}

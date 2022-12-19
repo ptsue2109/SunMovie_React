@@ -38,7 +38,7 @@ const CreateMovieType = (props: Props) => {
       >
         <Form.Item
           name="movieName"
-          label="Tên phim"
+          label="Tên thể loại phim"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Input />

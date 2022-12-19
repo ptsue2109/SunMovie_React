@@ -1,5 +1,6 @@
-import { message, Spin } from "antd";
+import { message, notification, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
+import configRoute from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { getCurrentUser } from "../../../redux/slice/AuthSlice";
 
@@ -14,7 +15,10 @@ const LoadingPushAccountInLocalStorage = (props: Props) => {
          message.success("Đăng Nhập thành công")
          navigate('/')
       })
-      .catch((err: any) => console.log(err)
+      .catch((err: any) =>{
+         notification.error({message: "Đăng nhập thất bại"});
+         navigate(configRoute.routes.signin)
+      }
       )
    return (
       <Spin size="large" />

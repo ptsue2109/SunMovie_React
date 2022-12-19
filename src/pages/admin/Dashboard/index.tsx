@@ -1,16 +1,9 @@
-import {
-  faCheck,
-  faMoneyCheck,
-  faShippingFast,
-  faShoppingCart,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { MovieApi } from "../../../service/MovieApi";
 import { orderApi } from "../../../service/orders";
 import { UserApi } from "../../../service/userApi";
 import { RiMovie2Fill, RiUserLine } from "react-icons/ri";
+import {FaCheckCircle, FaCartArrowDown, FaShippingFast, FaMoneyCheck,FaTimes} from "react-icons/fa"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -204,19 +197,15 @@ const Dashboard = (props: Props) => {
               <div className="flex items-center justify-between">
                 <div className="">
                   {item.status === 0 ? (
-                    <FontAwesomeIcon icon={faShoppingCart} />
+                    <FaCartArrowDown />
                   ) : item.status === 1 ? (
-
-                    <FontAwesomeIcon icon={faCheck} />
+                    <FaCheckCircle />
                   ) : item.status === 2 ? (
-                    
-                    <FontAwesomeIcon icon={faShippingFast} />
+                    <FaShippingFast />
                   ) : item.status === 3 ? (
-
-                    <FontAwesomeIcon icon={faMoneyCheck} />
+                    <FaMoneyCheck/>
                   ) : (
-
-                    <FontAwesomeIcon icon={faTimes} />
+                    <FaTimes />
                   )}
                 </div>
                 <div className="text-center">
@@ -255,8 +244,7 @@ const Dashboard = (props: Props) => {
         </div>
         <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
           <div>
-          
-            <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" />
+            {/* <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" /> */}
           </div>
 
           <div className="text-center">

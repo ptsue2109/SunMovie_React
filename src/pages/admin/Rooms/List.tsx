@@ -49,7 +49,7 @@ const AdminRoomList = (props: Props) => {
     dispatch(updateRoom({ _id: id, status: val }))
       .unwrap()
       .then(() => message.success("Thay đổi trạng thái thành công"))
-      .catch((err: any) => alert(err));
+      .catch((err: any) => message.error(err));
   };
   const columns: any = [
     {
