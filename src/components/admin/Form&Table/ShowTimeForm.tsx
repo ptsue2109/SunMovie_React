@@ -8,6 +8,7 @@ import {
    Skeleton,
    InputNumber,
    Form,
+   Alert,
 } from "antd";
 import type { RangePickerProps } from "antd/es/date-picker";
 import { validateMessages } from "../../../ultils/FormMessage";
@@ -15,7 +16,7 @@ import moment from "moment";
 import { defaultStatus } from "../../../ultils/data";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import "antd/dist/antd.css";
-import { convertDate, convertMovieTime, formatCurrency } from "../../../ultils";
+import { formatTime, convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import isBefore from "date-fns/isBefore";
 import {
@@ -29,6 +30,7 @@ import {
    sub,
 } from "date-fns";
 import formatDistance from 'date-fns/formatDistance'
+import { ImFlickr } from "react-icons/im";
 interface ShowTimeFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -48,8 +50,6 @@ const ShowTimeForm = ({
    movieId,
    onFinish,
    onReset,
-   edit = false,
-   loading = false,
    editUser = true,
 }: ShowTimeFormProps) => {
    const dispatch = useAppDispatch();
@@ -59,6 +59,12 @@ const ShowTimeForm = ({
    const [messTime, setMessTime] = useState<any>("");
    const [timeGet, setTimeGet] = useState<any>();
    const [roomSelect, setRoomSelect] = useState<any>();
+   const [timeEnd, setTimeEnd] = useState<any>();
+   const [priceExtra, setPriceExtra] = useState<any>();
+   const [days, setDays] = useState<any>();
+   const [timeChose, setTimeChose] = useState<any>();
+   const [isDisable, setIsDisable] = useState<boolean>();
+   const [activeRoom, setActiveRoom] = useState<any>();
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
@@ -67,9 +73,21 @@ const ShowTimeForm = ({
    let movieTime = convertMovieTime(movieSelect?.runTime);
    let movieRelease = moment(movieSelect?.releaseDate).date()
 
-   const [timeEnd, setTimeEnd] = useState<any>();
-   const [priceExtra, setPriceExtra] = useState<any>();
+   const sortStByDay = stList?.reduce((accumulator: any, arrayItem: any) => {
+      let rowName = formatDate(arrayItem.date)
+      if (accumulator[rowName] == null) {
+         accumulator[rowName] = [];
+      }
+      accumulator[rowName].push(arrayItem);
+      return accumulator;
+   }, {});
 
+   // flatten roomId
+   const flatten = (arr: any) => {
+      return arr.reduce((pre: any, cur: any) => {
+         return pre.concat(Array.isArray(cur) ? flatten(cur) : cur?.roomId)
+      }, [])
+   }
    useEffect(() => {
       if (movieId) {
          form.setFieldsValue({
@@ -95,7 +113,12 @@ const ShowTimeForm = ({
    const validRange = (value: any, dateString: any) => {
       setTimeEnd(moment(value).add(movieTime));
       let timeStart = moment(value).hour();
-      let dayStart = moment(value).date()
+      let dayStart = moment(value).date();
+      let getDayStart = formatDate(dateString);
+      let fullTimeStart = moment(value).format("HH:mm");
+      setTimeChose(fullTimeStart);
+      setDays(getDayStart);
+
       if (dayStart >= movieRelease) {
          if (timeStart >= 9 && timeStart <= 16) {
             setPriceExtra(20000);
@@ -113,48 +136,54 @@ const ShowTimeForm = ({
             setPriceExtra(30000);
          }
       }
-
-
       let timeget = moment(value).format()
       setTimeGet(timeget);
    };
    const watchRoomId = (val: any) => {
       setRoomSelect(val)
    };
-
-   const validateST = () => {
-      const allShowTimeStart = stList?.map((item: any) => moment(item?.startAt).format());
-      const allShowTimeEnd = stList?.map((item: any) => moment(item?.endAt).format());
-      // console.log(allShowTimeEnd);
-
-      let allRoomSelect = stList?.map((item: any) => item?.roomId[0]);
-      allShowTimeStart.forEach((el: any) => {
-         let getDateAllShowTimeStart = moment(el).dayOfYear()
-         let getDateTimeGet = moment(timeGet).dayOfYear()
-         let getHourAllShowTimeStart = moment(el).format("HH:mm");
-         let getHourTimeGet = moment(timeGet).format("HH:mm");
-
-         if (getDateAllShowTimeStart == getDateTimeGet && getHourAllShowTimeStart == getHourTimeGet) {
-            setMessTime("Không được chọn khung giờ này")
-
-            let checkroom: any = allRoomSelect?.filter((item: any) => item?._id?.includes(roomSelect));
-
-            if (checkroom) {
-               setMessRoom(`Phòng ${checkroom?.map((item: any) => item?.name)} được sử dụng, vui lòng chọn phòng khác`)
-            } else if (!checkroom || checkroom == undefined || checkroom?.length == 0) {
-               setMessRoom("")
-               setMessTime("")
-            }
-         }
-      });
-   };
    useEffect(() => {
       validateST();
-      if (!roomSelect) {
-         setMessRoom("")
-      }
+   }, [days, timeChose]);
 
-   }, [timeGet, roomSelect, timeEnd, messTime, messRoom]);
+   const validateST = () => {
+      if (days) {
+         for (let key in sortStByDay) {
+            // nếu input đã có trên hệ thống
+            if (key == days) {
+               // sort showtime theo khung giờ 
+               let sortByTime = sortStByDay[key]?.reduce((accumulator: any, arrayItem: any) => {
+                  let rowName = formatTime(arrayItem.startAt)
+                  if (accumulator[rowName] == null) {
+                     accumulator[rowName] = [];
+                  }
+                  accumulator[rowName].push(arrayItem);
+                  return accumulator;
+               }, {});
+               //kiểm tra xem đã có khung giờ này chưa
+               for (let time in sortByTime) {
+                  //nếu khung giờ của input == khung giờ đã có sẵn, loop qua room xem còn phòng nào trống
+                  if (time == timeChose) {
+                     setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
+                     let roomExist = flatten(sortByTime[time])
+                     // kiểm tra xem còn có phòng trống hay k
+                     let kiemtraphongtrong = rooms.filter((cv: any) => {
+                        return !roomExist.find((e: any) => {
+                           return e?._id == cv?._id;
+                        });
+                     });
+                     if (kiemtraphongtrong?.length > 0) {
+                        setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
+                     } else {
+                        setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác")
+                     }
+                  }
+               }
+            }
+         }
+      }
+   };
+
 
    return (
       <Form
@@ -216,7 +245,8 @@ const ShowTimeForm = ({
                            />
                         </Form.Item>
                      </div>
-                     {messTime && <div className="mt-[-10px] mb-3 text-danger">{messTime} </div>}
+                     {messTime && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messTime} type="warning" showIcon /></div>}
+
                      <Form.Item
                         label="Chọn phòng chiếu"
                         name="roomId"
@@ -230,7 +260,7 @@ const ShowTimeForm = ({
                            ))}
                         </Select>
                      </Form.Item>
-                     {messRoom && <div className="mt-[-10px] mb-3 text-danger"> {messRoom}</div>}
+                     {messRoom && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messRoom} type="error" showIcon /></div>}
 
                   </Card>
                   <Card className="col-6 w-full">
@@ -304,13 +334,24 @@ const ShowTimeForm = ({
                                     Nhập lại
                                  </Button>
                               )}
-                              <Button
-                                 htmlType="submit"
-                                 type="primary"
-                                 style={{ minWidth: 150 }}
-                              >
-                                 Lưu
-                              </Button>
+                              {!isDisable ? (
+                                 <Button
+                                    htmlType="submit"
+                                    type="primary"
+                                    style={{ minWidth: 150 }}
+                                    disabled={true}
+                                 >
+                                    Lưu
+                                 </Button>
+                              ) : (
+                                 <Button
+                                    htmlType="submit"
+                                    type="primary"
+                                    style={{ minWidth: 150 }}
+                                 >
+                                    Lưu
+                                 </Button>
+                              )}
                            </div>
                         </Card>
                      </div>
