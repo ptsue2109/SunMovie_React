@@ -17,6 +17,8 @@ import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
 import configRoute from "../../../config";
 import { useNavigate } from "react-router-dom";
+import type { MenuProps } from 'antd';
+import { Dropdown } from 'antd'
 type Props = {
   row?: any;
   column?: any;
@@ -51,8 +53,22 @@ const RenderSeats = ({
   const [optionsSeatTpe, setOptionsSeatTpe] = useState();
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+  const items: MenuProps['items'] = [
+    {
+      label: '1st menu item',
+      key: '1',
+    },
+    {
+      label: '2nd menu item',
+      key: '2',
+    },
+    {
+      label: '3rd menu item',
+      key: '3',
+    },
+  ];
   useEffect(() => {
     handleSubmit();
   }, [seats]);
@@ -167,7 +183,12 @@ const RenderSeats = ({
       .unwrap()
       .then(() => {
         dispatch(getOneSBSTById(roomId));
+        setIsModalOpen(false)
         message.success("Thay đổi trạng thái thành công");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+
       })
       .catch(() => message.error("Lỗi"));
   };
@@ -179,6 +200,9 @@ const RenderSeats = ({
       .then(() => {
         dispatch(getOneSBSTById(roomId));
         message.success("Thay đổi loại ghế thành công");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch(() => message.error("Lỗi"));
   };
@@ -253,7 +277,7 @@ const RenderSeats = ({
         status: Number(optionsStatus),
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
-        _id: seatArr[0]?.roomId
+        roomId: seatArr[0]?.roomId
       };
       if (optionsSeatTpe === undefined || optionsStatus === undefined) {
         message.error({ content: "Thêm đẩy đủ trường" });
@@ -343,9 +367,27 @@ const RenderSeats = ({
       </div>
     );
   };
+  const getInfo = (val: any) => {
+    console.log(val);
+
+
+  }
   return (
     <div className="flex overflow-hidden gap-3">
-      <div className="col-8 p-5">{RenderSeatsContain()}</div>
+      <div className="col-8 p-5">
+        {RenderSeatsContain()}
+        {/* <Dropdown menu={{ items }} trigger={['contextMenu']} onOpenChange={getInfo}>
+          <div
+            className="site-dropdown-context-menu"
+            style={{
+              textAlign: 'center',
+              border: "1px solid"
+            }}
+          >
+           
+          </div>
+        </Dropdown> */}
+      </div>
       {seatArr?.length > 0 && <div className="col-4 ">{renderSeatClick()}</div>}
     </div>
   );
