@@ -10,7 +10,7 @@ export const updateSeatThunk = createAsyncThunk<
     const { data } = await SeatApi.updateSeat(input);
     return data;
   } catch (error: any) {
-    return rejectWithValue(error.response.data.message);
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -86,7 +86,7 @@ const seatsSlice = createSlice({
     builder.addCase(updateSeatThunk.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
-      state.seats = state.seats.map((item) =>  item._id !== action.payload._id ? item : action.payload );
+      state.seats = state.seats.map((item) => item._id !== action.payload._id ? item : action.payload);
     });
     builder.addCase(updateSeatThunk.rejected, (state, action) => {
       state.isFetching = false;
