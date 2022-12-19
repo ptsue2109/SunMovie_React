@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Statistic } from "antd";
 import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
@@ -11,8 +11,15 @@ const { Countdown } = Statistic;
 const CountdownComp = ({ deadline, info }: Props) => {
   const navigate = useNavigate()
   const onFinish = () => {
-    navigate(`${configRoute.routes.cancelOrder}`, { state: info })
+  navigate(`/cancel`, { state: info })
   };
+  const [timer, setTimer] = useState<any>()
+  useEffect(() => {
+    if (deadline) {
+      setTimer(deadline)
+    }
+  }, [])
+
 
   const onChange = (val: any) => {
     localStorage.setItem('timer', val)
@@ -21,7 +28,7 @@ const CountdownComp = ({ deadline, info }: Props) => {
     <div className="p-2 text-white">
       <Countdown
         title="Đơn hàng sẽ hủy sau"
-        value={deadline}
+        value={timer}
         onFinish={onFinish}
         onChange={onChange}
       />

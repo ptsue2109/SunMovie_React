@@ -18,19 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import "antd/dist/antd.css";
 import { formatTime, convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-import isBefore from "date-fns/isBefore";
-import {
-   compareAsc,
-   differenceInBusinessDays,
-   differenceInDays,
-   differenceInMinutes,
-   format,
-   isEqual,
-   parseISO,
-   sub,
-} from "date-fns";
-import formatDistance from 'date-fns/formatDistance'
-import { ImFlickr } from "react-icons/im";
+
 interface ShowTimeFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;
@@ -44,7 +32,6 @@ interface ShowTimeFormProps {
    setTimeEnd: any;
    timeEnd: any;
 }
-const { RangePicker } = DatePicker;
 const ShowTimeForm = ({
    form,
    movieId,
@@ -57,14 +44,15 @@ const ShowTimeForm = ({
    const { rooms } = useAppSelector((state) => state.roomReducer);
    const [messRoom, setMessRoom] = useState<any>("");
    const [messTime, setMessTime] = useState<any>("");
-   const [timeGet, setTimeGet] = useState<any>();
    const [roomSelect, setRoomSelect] = useState<any>();
    const [timeEnd, setTimeEnd] = useState<any>();
    const [priceExtra, setPriceExtra] = useState<any>();
    const [days, setDays] = useState<any>();
    const [timeChose, setTimeChose] = useState<any>();
-   const [isDisable, setIsDisable] = useState<boolean>();
-   const [activeRoom, setActiveRoom] = useState<any>();
+   const [sortByTime, setSortByTime] = useState<any>();
+   const [hiddenRoom, setHiddenRoom] = useState<any>(false);
+   const [stByDays, setStByDays] = useState<any>();
+   const [roomList, setRoomList] = useState<any>([]);
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
@@ -72,15 +60,6 @@ const ShowTimeForm = ({
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
    let movieRelease = moment(movieSelect?.releaseDate).date()
-
-   const sortStByDay = stList?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = formatDate(arrayItem.date)
-      if (accumulator[rowName] == null) {
-         accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-   }, {});
 
    // flatten roomId
    const flatten = (arr: any) => {
@@ -95,7 +74,11 @@ const ShowTimeForm = ({
             releaseDate: moment(movieSelect?.releaseDate)
          });
       }
-   }, [movieId]);
+      if(rooms) {
+         let roomActive = rooms?.filter((item:any) => item?.status ==0);
+         setRoomList(roomActive)
+      }
+   }, [movieId, rooms]);
    useEffect(() => {
       if (timeEnd && priceExtra) {
          form.setFieldsValue({
@@ -116,7 +99,8 @@ const ShowTimeForm = ({
       let dayStart = moment(value).date();
       let getDayStart = formatDate(dateString);
       let fullTimeStart = moment(value).format("HH:mm");
-      setTimeChose(fullTimeStart);
+
+      setTimeChose(fullTimeStart)
       setDays(getDayStart);
 
       if (dayStart >= movieRelease) {
@@ -136,50 +120,73 @@ const ShowTimeForm = ({
             setPriceExtra(30000);
          }
       }
-      let timeget = moment(value).format()
-      setTimeGet(timeget);
    };
    const watchRoomId = (val: any) => {
       setRoomSelect(val)
    };
    useEffect(() => {
-      validateST();
-   }, [days, timeChose]);
+      const sortStByDay = stList?.reduce((accumulator: any, arrayItem: any) => {
+         let rowName = formatDate(arrayItem.date)
+         if (accumulator[rowName] == null) {
+            accumulator[rowName] = [];
+         }
+         accumulator[rowName].push(arrayItem);
+         return accumulator;
+      }, {});
+      setStByDays(sortStByDay)
+
+   }, [stList]);
+
+   useEffect(() => {
+      if (days && timeChose) {
+         validateST();
+      } else {
+         setMessRoom("");
+         setMessTime("")
+      }
+   }, [days, timeChose, stList]);
 
    const validateST = () => {
-      if (days) {
-         for (let key in sortStByDay) {
-            // nếu input đã có trên hệ thống
-            if (key == days) {
-               // sort showtime theo khung giờ 
-               let sortByTime = sortStByDay[key]?.reduce((accumulator: any, arrayItem: any) => {
-                  let rowName = formatTime(arrayItem.startAt)
-                  if (accumulator[rowName] == null) {
-                     accumulator[rowName] = [];
-                  }
-                  accumulator[rowName].push(arrayItem);
-                  return accumulator;
-               }, {});
-               //kiểm tra xem đã có khung giờ này chưa
-               for (let time in sortByTime) {
-                  //nếu khung giờ của input == khung giờ đã có sẵn, loop qua room xem còn phòng nào trống
-                  if (time == timeChose) {
-                     setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
-                     let roomExist = flatten(sortByTime[time])
-                     // kiểm tra xem còn có phòng trống hay k
-                     let kiemtraphongtrong = rooms.filter((cv: any) => {
-                        return !roomExist.find((e: any) => {
-                           return e?._id == cv?._id;
-                        });
+      for (let key in stByDays) {
+         if (key == days) {
+            let sortByTime = stByDays[key]?.reduce((accumulator: any, arrayItem: any) => {
+               let rowName = formatTime(arrayItem.startAt)
+               if (accumulator[rowName] == null) {
+                  accumulator[rowName] = [];
+               }
+               accumulator[rowName].push(arrayItem);
+               return accumulator;
+            }, {});
+
+            for (let time in sortByTime) {
+               if (time == timeChose) {
+                  console.log("trùng ngày trùng h");
+
+                  setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
+                  let roomExist = flatten(sortByTime[time]);
+                  setSortByTime(roomExist)
+
+                  let kiemtraphongtrong = roomList.filter((cv: any) => {
+                     return !roomExist.find((e: any) => {
+                        return e?._id == cv?._id;
                      });
-                     if (kiemtraphongtrong?.length > 0) {
-                        setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
-                     } else {
-                        setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác")
-                     }
+                  });
+                  if (kiemtraphongtrong?.length > 0) {
+                     setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
+                  } else {
+                     setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
+                     setHiddenRoom(true)
                   }
+               } else {
+                  console.log("trùng ngày khác giờ")
                }
             }
+
+
+         } else {
+            console.log("Khác ngầy");
+
+
          }
       }
    };
@@ -252,13 +259,23 @@ const ShowTimeForm = ({
                         name="roomId"
                         rules={[{ required: true }]}
                      >
-                        <Select mode="multiple" onChange={watchRoomId}>
-                           {rooms.map((item: any, index: any) => (
-                              <Select.Option key={item._id} value={item[index]}>
-                                 {item.name}
-                              </Select.Option>
-                           ))}
-                        </Select>
+                        {hiddenRoom ? (
+                           <Select mode="multiple" onChange={watchRoomId} disabled>
+                              {roomList.map((item: any, index: any) => (
+                                 <Select.Option key={item._id} value={item[index]}>
+                                    {item.name}
+                                 </Select.Option>
+                              ))}
+                           </Select>
+                        ) : (
+                           <Select mode="multiple" onChange={watchRoomId}>
+                              {roomList.map((item: any, index: any) => (
+                                 <Select.Option key={item._id} value={item[index]}>
+                                    {item.name}
+                                 </Select.Option>
+                              ))}
+                           </Select>
+                        )}
                      </Form.Item>
                      {messRoom && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messRoom} type="error" showIcon /></div>}
 
@@ -334,24 +351,14 @@ const ShowTimeForm = ({
                                     Nhập lại
                                  </Button>
                               )}
-                              {!isDisable ? (
-                                 <Button
-                                    htmlType="submit"
-                                    type="primary"
-                                    style={{ minWidth: 150 }}
-                                    disabled={true}
-                                 >
-                                    Lưu
-                                 </Button>
-                              ) : (
-                                 <Button
-                                    htmlType="submit"
-                                    type="primary"
-                                    style={{ minWidth: 150 }}
-                                 >
-                                    Lưu
-                                 </Button>
-                              )}
+                              <Button
+                                 htmlType="submit"
+                                 type="primary"
+                                 style={{ minWidth: 150 }}
+                              >
+                                 Lưu
+                              </Button>
+
                            </div>
                         </Card>
                      </div>
