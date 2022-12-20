@@ -22,7 +22,7 @@ const UpdateSlider = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      setImage(data?.images as any[]);
+      setImage(data?.image);
       form.setFieldsValue({
         ...data,
       });
@@ -42,13 +42,7 @@ const UpdateSlider = (props: Props) => {
     let imageOld = values.avatarList?.fileList;
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
-    let checkURL = movie?.filter((item: any) => (item?.slug)?.includes(values?.url));
-    if (!checkURL || checkURL?.length > 0) {
-      values.url = values.url
-    } else {
-      values.url = `/post/${values.url}`
-    }
-    console.log(values)
+    delete values?.imageOld;
     dispatch(UpdateSliderThunk(values))
       .unwrap()
       .then(() => {

@@ -37,10 +37,10 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
    "st/create",
    async (input, { rejectWithValue }) => {
       try {
-         const {data} = await showTimetApi.create(input);
+         const { data } = await showTimetApi.create(input);
          return data;
       } catch (error: any) {
-         return rejectWithValue(error.response.data.message);
+         return rejectWithValue(error.response.data);
       }
    }
 );
@@ -60,7 +60,7 @@ const ShowTimeSlice = createSlice({
    },
    extraReducers: (builder) => {
       //getAll
-     
+
       builder.addCase(getAlSt.fulfilled, (state, { payload }) => {
          state.stList = payload;
       });
