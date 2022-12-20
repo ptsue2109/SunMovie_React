@@ -33,15 +33,6 @@ const Ticket = ({ detail, order, isAdmin }: Props) => {
       }
    }, [order, total, detail]);
 
-   const handleTicket = async () => {
-      dispatch(exportTicketThunk(order?._id)).unwrap()
-         .then((payload:any) => {
-            message.success("Xuất vé thành công");
-            navigate(configRoute.routes.adminOrders);
-            dispatch(getAllOrders({}))
-         })
-         .catch(() => { message.error("Không thể xuất vé") })
-   }
 
    return (
       <>
@@ -101,8 +92,8 @@ const Ticket = ({ detail, order, isAdmin }: Props) => {
                   <>
                      {order?.status === 1 ? (
                         <>
-                           <Button type='link' className='uppercase font-bold' onClick={handleTicket}>
-                              Xuất vé ngay
+                           <Button type='link' className='uppercase font-bold' >
+                              <a href={`${import.meta.env.VITE_API_URL}/ticket-export/${order?._id}`}>Xuất vé ngay</a>
                            </Button>
                         </>
                      ) : (

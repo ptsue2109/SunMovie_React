@@ -10,6 +10,9 @@ import { defaultStatus } from '../../../ultils/data';
 import { updateData } from "../../../redux/slice/ShowTimeSlice"
 import configRoute from '../../../config';
 import { convertDate } from '../../../ultils';
+import { PlusOutlined } from '@ant-design/icons';
+import DrawerShowTime from './DrawerShowTime';
+import AdminShowTimesCreate from './Create';
 type Props = {}
 interface ExpandedDataType {
   key: React.Key;
@@ -20,6 +23,7 @@ interface ExpandedDataType {
 const NestedTable = (props: Props) => {
   const [payload, setPayload] = useState<any[]>([]);
   const [showByDate, setShowByDate] = useState<any[]>([]);
+  const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "Admin | Showtime"
@@ -31,12 +35,18 @@ const NestedTable = (props: Props) => {
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
   let movieSelect = movie.find((item: any) => item?._id === movieId);
-  
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     if (stList) {
       let itemGet = stList?.filter((item: any) => item?.movieId?._id === movieId);
       setPayload(itemGet);
-      
+
     }
   }, [stList, movieId]);
 
@@ -47,7 +57,7 @@ const NestedTable = (props: Props) => {
   }, [payload]);
 
   const handleSubmit = () => {
-    let sort: any[] = payload?.sort((a:any, b:any) => convertDate(a.startAt) - convertDate(b.startAt))
+    let sort: any[] = payload?.sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
     const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
       let rowName = formatDate(arrayItem.date)
       if (accumulator[rowName] == null) {
@@ -170,15 +180,17 @@ const NestedTable = (props: Props) => {
   }
   return (
     <div>
-      <Button>
+      <Button className='mr-3'>
         <Link to={configRoute.routes.adminMovie}>DS Phim</Link>
       </Button>
+      <DrawerShowTime children={<AdminShowTimesCreate />} isCreate={true} />
       <h1 className='flex justify-center uppercase'> phim : {movieSelect?.name} </h1>
       <Table
         columns={columns}
         expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
         dataSource={data}
       />
+
     </div>
   )
 }

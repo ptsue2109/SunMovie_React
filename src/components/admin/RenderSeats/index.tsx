@@ -17,6 +17,8 @@ import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
 import configRoute from "../../../config";
 import { useNavigate } from "react-router-dom";
+import type { MenuProps } from 'antd';
+import { Dropdown } from 'antd'
 type Props = {
   row?: any;
   column?: any;
@@ -165,9 +167,15 @@ const RenderSeats = ({
     const upload = { seatId: [id], status: Number(val), roomId: roomId };
     dispatch(updateSeatThunk(upload))
       .unwrap()
-      .then(() => {
+      .then((pl:any) => {
+        console.log(pl)
         dispatch(getOneSBSTById(roomId));
+        setIsModalOpen(false)
         message.success("Thay đổi trạng thái thành công");
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
+
       })
       .catch(() => message.error("Lỗi"));
   };
@@ -179,6 +187,9 @@ const RenderSeats = ({
       .then(() => {
         dispatch(getOneSBSTById(roomId));
         message.success("Thay đổi loại ghế thành công");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch(() => message.error("Lỗi"));
   };
@@ -186,6 +197,7 @@ const RenderSeats = ({
     let seatArray: any[] = [];
     for (let key in seatDetails) {
       let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
+
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
           {rowIndex === 0 && <span className={styles.colNameAd}>{key}</span>}
           {rowIndex === 0 && <span className={styles.colNameAd2}>{key}</span>}
@@ -212,7 +224,9 @@ const RenderSeats = ({
       ));
       seatArray.push(colValue);
     }
-    return <div className={styles.seatsLeafContainer}>{seatArray}</div>;
+    return (
+        <div className={styles.seatsLeafContainer} style={{ border: "1px solid red" }}>{seatArray}</div>
+    )
   };
 
   //table
@@ -253,7 +267,7 @@ const RenderSeats = ({
         status: Number(optionsStatus),
         seatTypeId: optionsSeatTpe,
         seatId: [...seatArr],
-        _id: seatArr[0]?.roomId
+        roomId: seatArr[0]?.roomId
       };
       if (optionsSeatTpe === undefined || optionsStatus === undefined) {
         message.error({ content: "Thêm đẩy đủ trường" });
@@ -264,7 +278,7 @@ const RenderSeats = ({
             message.success("Update thành công");
             navigate(configRoute.routes.adminRooms);
           })
-          .catch(() => message.error("Lỗi update"));
+          .catch((error: any) => message.error(error));
       }
     };
     const getStatusChoice = (val: any) => {
@@ -343,9 +357,12 @@ const RenderSeats = ({
       </div>
     );
   };
+
   return (
     <div className="flex overflow-hidden gap-3">
-      <div className="col-8 p-5">{RenderSeatsContain()}</div>
+      <div className="col-8 p-5">
+        {RenderSeatsContain()}
+      </div>
       {seatArr?.length > 0 && <div className="col-4 ">{renderSeatClick()}</div>}
     </div>
   );

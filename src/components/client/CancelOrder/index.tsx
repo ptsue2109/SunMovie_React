@@ -7,15 +7,14 @@ type Props = {
 
 const CancelOrder = (props: Props) => {
   const { state } = useLocation();
+  console.log('state', state);
+  
   const [info, setInfo] = useState<any>()
 
   useEffect(() => {
     document.title = "SUNCINEMA";
     if (state) {
-      if (state?.populatedDetail) {
-        let i = state?.populatedDetail[0]
-        setInfo(i)
-      }
+      setInfo(state[0])
     }
   }, [state])
   return (
