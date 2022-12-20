@@ -10,14 +10,20 @@ type Props = {};
 
 const CreateSlider = (props: Props) => {
   const [image, setImage] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { movie } = useAppSelector((state) => state.movie);
+  const { posts } = useAppSelector((state) => state.PostReducer);
   const onFinish = async (values: any) => {
-    values.releaseDate = new Date(moment(values.releaseDate).format());
     values.images = values.avatarList?.fileList;
-    delete values?.avatarList;
+    let checkURL = movie?.filter((item: any) => (item?.slug)?.includes(values?.url));
+    if (!checkURL || checkURL?.length > 0) {
+      values.url = values.url
+    } else {
+      values.url = `/post/${values.url}`
+    }
     const { meta, payload } = await dispatch(createSlider(values));
     if (meta.requestStatus == "fulfilled") {
       message.success("Thêm thành công");
@@ -26,6 +32,11 @@ const CreateSlider = (props: Props) => {
       message.error(`${payload}`);
     }
   };
+  useEffect(() => {
+    if (movie && data) {
+      setData([...movie, ...posts]);
+    }
+  }, [movie, posts])
 
   return (
     <>
@@ -63,9 +74,9 @@ const CreateSlider = (props: Props) => {
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Select>
-            {movie?.map((item: any) => (
-              <Select.Option value={item.slug} key={item._id}>
-                {item?.name}
+            {data?.map((item: any) => (
+              <Select.Option value={`${item?.slug}`} key={item._id}>
+                {item?.name ?? `/post/${item?.title}`}
               </Select.Option>
             ))}
           </Select>
