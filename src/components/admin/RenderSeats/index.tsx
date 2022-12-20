@@ -53,7 +53,7 @@ const RenderSeats = ({
   const [optionsSeatTpe, setOptionsSeatTpe] = useState();
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const [uploadFail, setUploadFail] = useState(false);
 
   useEffect(() => {
     handleSubmit();
@@ -105,6 +105,7 @@ const RenderSeats = ({
     setSeatDetails({ ...seatDetails });
     let flatern = findSelectSeat();
     setSeatArr(flatern);
+   
   };
 
   const findSelectSeat = () => {
@@ -167,17 +168,18 @@ const RenderSeats = ({
     const upload = { seatId: [id], status: Number(val), roomId: roomId };
     dispatch(updateSeatThunk(upload))
       .unwrap()
-      .then((pl:any) => {
+      .then((pl: any) => {
         console.log(pl)
         dispatch(getOneSBSTById(roomId));
         setIsModalOpen(false)
         message.success("Thay đổi trạng thái thành công");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
 
       })
-      .catch(() => message.error("Lỗi"));
+      .catch((err: any) => message.error(err)
+      );
   };
 
   const changeSeatType = (id: any, val: any) => {
@@ -225,7 +227,7 @@ const RenderSeats = ({
       seatArray.push(colValue);
     }
     return (
-        <div className={styles.seatsLeafContainer} style={{ border: "1px solid red" }}>{seatArray}</div>
+      <div className={styles.seatsLeafContainer}>{seatArray}</div>
     )
   };
 
@@ -276,9 +278,17 @@ const RenderSeats = ({
           .unwrap()
           .then(() => {
             message.success("Update thành công");
-            navigate(configRoute.routes.adminRooms);
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           })
-          .catch((error: any) => message.error(error));
+          .catch((error: any) => {
+            setSeatArr([]);
+            setSelectedRowKeys([]);
+            setSeatArrSelect([])
+            message.error(error)
+            setUploadFail(true)
+          });
       }
     };
     const getStatusChoice = (val: any) => {
