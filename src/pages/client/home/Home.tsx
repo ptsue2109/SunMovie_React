@@ -10,16 +10,20 @@ import Voucher from "../../../components/client/voucher";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
 import NewsContent from "../../../components/client/NewsContent";
 import News from "../News/News";
+import { Spin } from "antd"
+
 type Props = {};
 
 const Home = (props: Props) => {
-  useEffect(() => {document.title = "Trang chủ";},[])
+  useEffect(() => { document.title = "Trang chủ"; }, [])
   const [isAcive, setActive] = useState(1);
+  const { slider, isErr, isFetching, isSucess } = useAppSelector(
+    (state) => state.slider
+  );
   const Toggle = (number: number) => {
     setActive(number);
   };
   const { movie } = useAppSelector((state: any) => state.movie);
-
   let dateToday = Date.now();
   //  convert date to number
   let data = movie.map((item: any) => {
@@ -32,7 +36,7 @@ const Home = (props: Props) => {
   const data2 = data.filter((item: any) => item.releaseDate > dateToday);
   return (
     <>
-      <SlideShow />
+      {isFetching ? <Spin size="large" /> : <SlideShow slider={slider} />}
       <div className={styles.content}>
         <div className={styles.content_btn}>
           <button

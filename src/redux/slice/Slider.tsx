@@ -101,16 +101,18 @@ const sliderSlice = createSlice({
     // list
     builder.addCase(getSlider.pending, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
+      state.isFetching = true;
+      state.isSucess = false;
     });
     builder.addCase(getSlider.fulfilled, (state, action) => {
       state.slider = action.payload;
+      state.isFetching = false;
+      state.isSucess = true;
     });
     builder.addCase(getSlider.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
+      state.isFetching = false;
+      state.isSucess = false;
     });
     // remove
     builder.addCase(removeSliderItem.fulfilled, (state, action) => {
