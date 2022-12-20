@@ -21,7 +21,7 @@ const UpdateSlider = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      setImage(data?.image);
+      setImage(data?.images);
       form.setFieldsValue({
         ...data,
         releaseDate: moment(data.releaseDate),
@@ -33,8 +33,8 @@ const UpdateSlider = (props: Props) => {
     values._id = id;
     values.releaseDate = new Date(moment(values.releaseDate).format());
     let imageOld = values.avatarList?.fileList;
-    if (imageOld) values.image = imageOld;
-    else values.image = values?.image;
+    if (imageOld) values.images = imageOld;
+    else values.images = values?.images;
     delete values?.imageOld;
     dispatch(UpdateSliderThunk(values))
       .unwrap()
