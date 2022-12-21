@@ -25,6 +25,7 @@ type Props = {
   roomId: any;
   showtime: any;
   userId: any;
+  adminPreview?: any
 };
 export const RenderInfoSeats = ({
   row,
@@ -130,6 +131,7 @@ export const RenderSeatClient = ({
   setSeatFile,
   roomId,
   showtime,
+  adminPreview
 }: Props) => {
   const [elClick, setElClick] = useState();
   const dispatch = useAppDispatch();
@@ -144,7 +146,7 @@ export const RenderSeatClient = ({
   }, []);
   const [classSeatChoose, setClassSeatChoose] = useState("");
 
-  const clearSelectedSeats = () => {};
+  const clearSelectedSeats = () => { };
 
   const getClassNameForSeats = (seatValue: any) => {
     let seatStatus = seatValue?.status;
@@ -222,7 +224,15 @@ export const RenderSeatClient = ({
     for (let key in seatDetails) {
       let colValue = seatDetails[key]?.map((seatValue: any, rowIndex: any) => (
         <span key={`${key}.${rowIndex}`} className={styles.seatsHolder}>
-          {rowIndex === 0 && <span className={styles.colName}>{key}</span>}
+
+          {adminPreview ? (
+            <>
+              {rowIndex === 0 && <span className={styles.colNameAd}>{key}</span>}
+              {rowIndex === 0 && <span className={styles.colNameAd2}>{key}</span>}
+            </>
+          ) : (
+            <>{rowIndex === 0 && <span className={styles.colName}>{key}</span>}</>
+          )}
           <span
             style={{ backgroundColor: `${seatValue?.seatTypeId?.color}` }}
             className={`${getClassNameForSeats(seatValue)}`}
