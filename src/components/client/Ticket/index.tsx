@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { formatCurrency, formatDateString, formatTime } from '../../../ultils'
 import "./order.scss"
-import { Button, Skeleton, message } from "antd"
+import { Button, Skeleton, message, notification } from "antd"
 import { useAppDispatch } from '../../../redux/hook'
 import { orderApi } from '../../../service/orders'
-import { exportTicketThunk, getAllOrders } from '../../../redux/slice/OrdersSlice'
+import { exportTicketThunk, getAllOrders, getOneOrder } from '../../../redux/slice/OrdersSlice'
 import { useNavigate } from 'react-router-dom'
-import configRoute from '../../../config'
+import configRoute from '../../../config';
+import { Spin } from 'antd';
 type Props = {
    detail?: any,
    order?: any,
@@ -18,7 +19,6 @@ const Ticket = ({ detail, order, isAdmin }: Props) => {
    const [total, setTotal] = useState<any>();
    const [discount, setDiscount] = useState<any>();
    const dispatch = useAppDispatch();
-   const navigate = useNavigate()
    useEffect(() => {
       if (order) {
          let a = (order?.foodDetailId?.totalPrice) + (order?.ticketId?.totalPrice);
@@ -33,7 +33,14 @@ const Ticket = ({ detail, order, isAdmin }: Props) => {
       }
    }, [order, total, detail]);
 
-
+   const handle = () => {
+      notification.info({ message: "Đang xuất vé, xin vui lòng chờ trong giây lát" })
+      document.location.href = `${import.meta.env.VITE_API_URL}/ticket-export/${order?._id}`
+      setTimeout(() => {
+         dispatch(getOneOrder(order?._id))
+         dispatch(getAllOrders({}))
+      }, 2000);
+   }
    return (
       <>
          {detail && order ? (
@@ -92,8 +99,8 @@ const Ticket = ({ detail, order, isAdmin }: Props) => {
                   <>
                      {order?.status === 1 ? (
                         <>
-                           <Button type='link' className='uppercase font-bold' >
-                              <a href={`${import.meta.env.VITE_API_URL}/ticket-export/${order?._id}`}>Xuất vé ngay</a>
+                           <Button type='link' className='uppercase font-bold' onClick={handle}>
+                              Xuất vé ngay
                            </Button>
                         </>
                      ) : (
