@@ -23,17 +23,17 @@ const OrderTab = (props: Props) => {
    const items: any[] = [
       {
          key: 1,
-         label: "Đơn thanh toán thành công",
+         label: `Đơn thanh toán thành công (${orderSuccess?.length})`,
          children: <OrderTable data={orderSuccess} />
       },
       {
          key: 2,
-         label: "Đơn thanh toán Lỗi / Chưa thanh toán",
+         label: `Đơn thanh toán Lỗi / Chưa thanh toán (${orderFailed?.length}) `,
          children: <OrderTable data={orderFailed} />
       },
       {
          key: 3,
-         label: "Đã xuất vé",
+         label: `Đã xuất vé  (${orderXuatVe?.length}) `,
          children: <OrderTable data={orderXuatVe} />
       }
    ]
