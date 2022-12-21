@@ -60,15 +60,20 @@ const Home = (props: Props) => {
                         item?.image[0]?.url ??
                         `${import.meta.env.VITE_HIDDEN_SRC}`
                       }
-                      alt=""
+                      alt={
+                        item?.image[0]?.url ??
+                        `${import.meta.env.VITE_HIDDEN_SRC}`
+                      }
                     />
                   </div>
                   <div className={styles.content_list_item_info}>
                     <h3>{item.name}</h3>
                     <p>
-                      Thể loại:{" "}
-                      {item.movieTypeId?.map((x: any) => x.movieName + ", ")}
-                    </p>
+                        Thể loại:{" "}
+                        {item.movieTypeId
+                          ?.map((item: any) => item.movieName)
+                          ?.join(", ")}
+                      </p>
                     <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
                     <button>Đặt vé</button>
                   </div>

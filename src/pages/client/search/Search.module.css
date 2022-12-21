@@ -105,6 +105,8 @@
 }
 .content_list_item_img img{
     transition: all ease 0.5s;
+    height: 422px;
+    width: 285px;
 }
 .content_list_item:hover .content_list_item_img img{
     transform: scale(1.2);
