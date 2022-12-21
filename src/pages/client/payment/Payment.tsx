@@ -34,6 +34,7 @@ const Payment = (props: Props) => {
   const [info, setInfo] = useState<any>();
   const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
+  const [voucherApply,setVoucherApply] = useState<any>();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
@@ -95,6 +96,7 @@ const Payment = (props: Props) => {
           `Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`
         );
       } else {
+        setVoucherApply(item)
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
         if (tempPrice < vcValue) {
@@ -142,8 +144,11 @@ const Payment = (props: Props) => {
       orderType: "billpayment",
       language: "",
       foodDetailId: state?.foodDetailId,
+      voucherId: {
+        _id: voucherApply?._id,
+        quantity: 1
+      }
     }
-
 
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
@@ -157,17 +162,19 @@ const Payment = (props: Props) => {
       if (result.isConfirmed) {
         dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
-            window.location.href = `${res}`;
             let voucherChange = {
               _id: voucherItem?._id,
               quantity: voucherItem?.quantity - 1,
               userId: [...voucherItem?.userId, currentUser?._id]
             }
-            console.log(voucherChange);
-            
+
+
             dispatch(updateData(voucherChange)).unwrap()
               .then(() => console.log('success'))
               .catch(() => console.log('errr'))
+
+
+            window.location.href = `${res}`
           })
           .catch((err: any) => message.error(`${err}`));
       }
@@ -542,7 +549,7 @@ const Payment = (props: Props) => {
     //     </h2>
     //   </div>
     // </div>
-    <PaymentStep children={childrenComp()} nextStep={null} rightContent={rightContent()} name="Thanh toán"/>
+    <PaymentStep children={childrenComp()} nextStep={null} rightContent={rightContent()} name="Thanh toán" />
 
   );
 };
