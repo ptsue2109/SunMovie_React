@@ -327,7 +327,6 @@ const RenderSeats = ({
             <Form.Item label=" Loại ghế:" name="seatTypeId" rules={[{ required: true }]}>
               <Select
                 placeholder="Vui lòng chọn loại ghế"
-
                 onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
