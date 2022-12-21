@@ -163,7 +163,8 @@ const Payment = (props: Props) => {
               quantity: voucherItem?.quantity - 1,
               userId: [...voucherItem?.userId, currentUser?._id]
             }
-
+            console.log(voucherChange);
+            
             dispatch(updateData(voucherChange)).unwrap()
               .then(() => console.log('success'))
               .catch(() => console.log('errr'))

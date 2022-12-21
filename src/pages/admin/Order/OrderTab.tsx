@@ -13,8 +13,10 @@ const OrderTab = (props: Props) => {
    const [orderXuatVe, setOrderXuatVe] = useState<any[]>([]);
    useEffect(() => {
       if (orders) {
+         let dataStt0 = orders?.filter((item: any) => item?.status == 0);
+         let dataStt2 = orders?.filter((item: any) => item?.status ==2)
          setOrderSuccess(orders?.filter((item: any) => item?.status == 1));
-         setOrderFailed(orders?.filter((item: any) => item?.status == 0));
+         setOrderFailed([...dataStt0, ...dataStt2]);
          setOrderXuatVe(orders?.filter((item: any) => item?.status == 3))
       }
    }, [orders])

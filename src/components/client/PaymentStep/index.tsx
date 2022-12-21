@@ -5,7 +5,7 @@ type Props = {
    nextStep: any, children: any, rightContent: any, name: any
 };
 const PaymentStep = ({ nextStep, children, rightContent, name }: Props) => {
-   let deadline = Date.now() + 1000 * 60 * 10;
+   let deadline = Date.now() + 1000 * 60 * 9;
 
    const getTimeCountdown = (val: any) => {
       
