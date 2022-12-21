@@ -1,9 +1,6 @@
 import {
   Button,
-  Card,
-  Collapse,
   Form,
-  Input,
   message,
   Modal,
   Select,
@@ -22,7 +19,6 @@ type Props = {
   seatDetails?: any;
   setSeatDetails?: any;
   seatFile?: any;
-  setSeatFile?: any;
   seats?: any;
   setSeats?: any;
   roomId?: any;
@@ -37,7 +33,6 @@ const RenderSeats = ({
   seatDetails,
   setSeatDetails,
   seatFile,
-  setSeatFile,
   roomId,
   showTable,
 }: Props) => {
@@ -50,7 +45,6 @@ const RenderSeats = ({
   const [optionsSeatTpe, setOptionsSeatTpe] = useState();
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [uploadFail, setUploadFail] = useState(false);
 
   useEffect(() => {
     handleSubmit();
@@ -87,9 +81,7 @@ const RenderSeats = ({
         },
         {}
       );
-
       setSeatDetails({ ...groupByRowName });
-      setSeatFile({ ...groupByRowName });
     }
   };
 
@@ -252,11 +244,15 @@ const RenderSeats = ({
 
   const getInfoSelectFromTable = () => {
     if (selectedRowKeys) {
-      let arrToUpdate  = seatArr?.filter((item:any, index:any) => selectedRowKeys.includes(index + 1));
+      let arrToUpdate = seatArr?.filter((item: any, index: any) => selectedRowKeys.includes(index + 1));
       setSeatArrSelect(arrToUpdate)
     }
   }
 
+  // console.log('setSeatDetails', seatDetails);
+  const onReset = () => {
+    form.resetFields();
+  };
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
@@ -278,6 +274,7 @@ const RenderSeats = ({
       dispatch(updateSeatThunk(payload))
         .unwrap()
         .then(() => {
+          onReset()
           message.success("Update thành công");
           setTimeout(() => {
             window.location.reload();
@@ -286,12 +283,13 @@ const RenderSeats = ({
         .catch((error: any) => {
           setSeatArr([]);
           setSelectedRowKeys([]);
-          setSeatArrSelect([])
+          setSeatArrSelect([]);
           message.error(error)
-          setUploadFail(true)
+          handleSubmit();
+          onReset()
         });
-
     };
+
     const getStatusChoice = (val: any) => {
       setOptionsStatus(val);
     };
