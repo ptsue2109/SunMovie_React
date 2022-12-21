@@ -105,7 +105,7 @@ const RenderSeats = ({
     setSeatDetails({ ...seatDetails });
     let flatern = findSelectSeat();
     setSeatArr(flatern);
-   
+
   };
 
   const findSelectSeat = () => {
@@ -193,7 +193,7 @@ const RenderSeats = ({
           window.location.reload();
         }, 2000);
       })
-      .catch(() => message.error("Lỗi"));
+      .catch((error: any) => message.error(error));
   };
   const RenderSeatsContain = () => {
     let seatArray: any[] = [];
