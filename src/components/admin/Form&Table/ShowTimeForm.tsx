@@ -174,7 +174,7 @@ const ShowTimeForm = ({
                }else{
                   setMessRoom("")
                   setMessTime("")
-                  setHiddenRoom(true)                     
+                  setHiddenRoom(false)                     
 
                }
                //else if(time !== timeChose && key == days) {
@@ -264,7 +264,7 @@ const ShowTimeForm = ({
                         </Form.Item>
                      </div>
                      {messTime && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messTime} type="warning" showIcon /></div>}
-
+                       
                      <Form.Item
                         label="Chọn phòng chiếu"
                         name="roomId"
@@ -289,6 +289,8 @@ const ShowTimeForm = ({
                         )}
                      </Form.Item>
                      {messRoom && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messRoom} type="error" showIcon /></div>}
+                  
+
                   </Card>
                   <Card className="col-6 w-full">
                      <small className="block text-red-600 w-[300px] font-semibold">

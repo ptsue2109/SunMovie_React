@@ -5,7 +5,6 @@ import RenderSeats from "../../../components/admin/RenderSeats";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { CaretRightOutlined } from "@ant-design/icons";
-import { updateSeatThunk } from "../../../redux/slice/SeatSlice";
 
 const { Panel } = Collapse;
 type Props = {};

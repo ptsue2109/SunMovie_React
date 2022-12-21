@@ -15,10 +15,7 @@ import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { updateSeatThunk } from "../../../redux/slice/SeatSlice";
 import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
-import configRoute from "../../../config";
-import { useNavigate } from "react-router-dom";
-import type { MenuProps } from 'antd';
-import { Dropdown } from 'antd'
+import { validateMessages } from "../../../ultils/FormMessage";
 type Props = {
   row?: any;
   column?: any;
@@ -58,6 +55,10 @@ const RenderSeats = ({
   useEffect(() => {
     handleSubmit();
   }, [seats]);
+
+  useEffect(() => {
+    getInfoSelectFromTable()
+  }, [selectedRowKeys]);
 
   const getClassNameForSeats = (seatValue: any) => {
     let dynamicClass;
@@ -247,11 +248,14 @@ const RenderSeats = ({
 
   const onSelectChange = (newSelectedRowKeys: any) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    let selectArr: any[] = seatArr?.filter((item: any, index: any) =>
-      selectedRowKeys.includes(index + 1)
-    );
-    setSeatArrSelect(selectArr);
   };
+
+  const getInfoSelectFromTable = () => {
+    if (selectedRowKeys) {
+      let arrToUpdate  = seatArr?.filter((item:any, index:any) => selectedRowKeys.includes(index + 1));
+      setSeatArrSelect(arrToUpdate)
+    }
+  }
 
   const rowSelection = {
     selectedRowKeys,
@@ -266,30 +270,27 @@ const RenderSeats = ({
     };
     const onFinish = (val: any) => {
       const payload = {
-        status: Number(optionsStatus),
-        seatTypeId: optionsSeatTpe,
-        seatId: [...seatArr],
+        status: Number(val?.status),
+        seatTypeId: val?.seatTypeId,
+        seatId: [...seatArrSelect],
         roomId: seatArr[0]?.roomId
       };
-      if (optionsSeatTpe === undefined || optionsStatus === undefined) {
-        message.error({ content: "Thêm đẩy đủ trường" });
-      } else {
-        dispatch(updateSeatThunk(payload))
-          .unwrap()
-          .then(() => {
-            message.success("Update thành công");
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
-          })
-          .catch((error: any) => {
-            setSeatArr([]);
-            setSelectedRowKeys([]);
-            setSeatArrSelect([])
-            message.error(error)
-            setUploadFail(true)
-          });
-      }
+      dispatch(updateSeatThunk(payload))
+        .unwrap()
+        .then(() => {
+          message.success("Update thành công");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        })
+        .catch((error: any) => {
+          setSeatArr([]);
+          setSelectedRowKeys([]);
+          setSeatArrSelect([])
+          message.error(error)
+          setUploadFail(true)
+        });
+
     };
     const getStatusChoice = (val: any) => {
       setOptionsStatus(val);
@@ -304,18 +305,17 @@ const RenderSeats = ({
           Chọn nội dung muốn thay đổi
         </Button>
         <Modal
-          title="Basic Modal"
+          title="Thay đổi thông tin ghế"
           open={isModalOpen}
           onCancel={handleCancel}
           okButtonProps={{ style: { display: "none" } }}
         >
-          <Form onFinish={onFinish} form={form}>
-            <div>
-              Trạng thái ghế:
+          <Form onFinish={onFinish} form={form} layout="horizontal" validateMessages={validateMessages}>
+            <Form.Item label="Trạng thái ghế" name="status" rules={[{ required: true }]} >
               <Select
                 placeholder="Vui lòng chọn trạng thái ghế"
-                style={{ width: "200px" }}
                 onChange={(value: any) => getStatusChoice(value)}
+
               >
                 {defaultStatus?.map((item: any) => (
                   <Option value={item?._id} key={item?.value}>
@@ -323,12 +323,11 @@ const RenderSeats = ({
                   </Option>
                 ))}
               </Select>
-            </div>
-            <div className="mt-2">
-              Loại ghế:
+            </Form.Item>
+            <Form.Item label=" Loại ghế:" name="seatTypeId" rules={[{ required: true }]}>
               <Select
                 placeholder="Vui lòng chọn loại ghế"
-                style={{ width: "200px" }}
+
                 onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
@@ -337,13 +336,14 @@ const RenderSeats = ({
                   </Option>
                 ))}
               </Select>
-            </div>
+            </Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               style={{ marginTop: "20px" }}
+
             >
-              Change all items
+              Cập nhật thông tin ghế
             </Button>
           </Form>
         </Modal>
@@ -361,7 +361,6 @@ const RenderSeats = ({
             rowSelection={rowSelection}
             columns={columns}
             dataSource={data}
-            pagination={false}
           />
         </div>
       </div>

@@ -82,7 +82,7 @@ const Ticket = ({ detail, order, isAdmin }: Props) => {
                            <span className="ticket--info--subtitle">{` Giá tạm tính: ${formatCurrency(total)}`}</span>
                            <span className="ticket--info--subtitle">{` Giảm: ${formatCurrency(discount)}`}</span>
                            <span className="ticket--info--subtitle">{` Tổng thanh toán: ${formatCurrency(order?.totalPrice)}`}</span>
-                           <span className="ticket--info--content">{` Trạng thái thanh toán: ${order?.status === 1 ? "Đã thanh toán" : order?.status == 3 ? "Đã xuất vé" : "Chưa thanh toán"}`}</span>
+                           <span className="ticket--info--content">{` Trạng thái thanh toán: ${order?.status === 1 ? "Đã thanh toán" : order?.status == 3 ? "Đã xuất vé" : "Chưa thanh toán / thanh toán lỗi"}`}</span>
                         </div>
 
                      </div>

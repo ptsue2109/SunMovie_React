@@ -90,9 +90,7 @@ const ShowTimeSlice = createSlice({
       //update
 
       builder.addCase(updateData.fulfilled, (state, action) => {
-         state.stList = state.stList.map((item) =>
-            item._id !== action.payload._id ? item : action.payload
-         );
+       
       });
       builder.addCase(updateData.rejected, (state, action) => {
          state.errorMessage = action.payload;
