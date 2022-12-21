@@ -53,7 +53,7 @@ const ShowTimeForm = ({
    const [hiddenRoom, setHiddenRoom] = useState<any>(false);
    const [stByDays, setStByDays] = useState<any>();
    const [roomList, setRoomList] = useState<any>([]);
-   const [stLisst, setStLisst]= useState<any>([]);
+   const [stLisst, setStLisst] = useState<any>([]);
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
@@ -69,7 +69,7 @@ const ShowTimeForm = ({
       }, [])
    }
    useEffect(() => {
-      if(stList){
+      if (stList) {
          setStLisst(stList)
       }
    }, [stList])
@@ -169,42 +169,28 @@ const ShowTimeForm = ({
                      return !roomExist.find((e: any) => {
                         return e?._id == cv?._id;
                      });
-                  });                  
+                  });
                   if (kiemtraphongtrong?.length > 0) {
                      setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
-                     
+
                   } else {
                      setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
-                     setHiddenRoom(true)                     
+                     setHiddenRoom(true)
                   }
-               }else{
+               }
+               else {
                   setMessRoom("")
                   setMessTime("")
-                  setHiddenRoom(false)                     
+                  setHiddenRoom(false)
 
                }
-               //else if(time !== timeChose && key == days) {
-               //    // check trùng ngày khác giờ
-               //    let startEnd = moment(timeEnd).format("HH:mm");
-               //    let roomExist2 = flatten(stByDays[key]);
-               //    let kiemtraphongtrong2 = roomList.filter((cv: any) => {
-               //       return !roomExist2.find((e: any) => {
-               //          return e?._id == cv?._id;
-               //       });
-               //    });
-               //    if (kiemtraphongtrong2?.length > 0) {
-               //       setMessRoom(`Phòng đang trống: ${kiemtraphongtrong2?.map((item: any) => item?.name)}`);
-               //    } else {
-               //       setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
-               //    }
-
-               // }else{
-
-               // }
             }
 
 
-         } 
+         }else{
+            console.log('Hello');
+            
+         }
       }
    };
 
@@ -270,13 +256,13 @@ const ShowTimeForm = ({
                         </Form.Item>
                      </div>
                      {messTime && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messTime} type="warning" showIcon /></div>}
-                       
+
                      <Form.Item
                         label="Chọn phòng chiếu"
                         name="roomId"
                         rules={[{ required: true }]}
                      >
-                        {hiddenRoom== true ? (
+                        {hiddenRoom == true ? (
                            <Select mode="multiple" onChange={watchRoomId} disabled>
                               {roomList.map((item: any, index: any) => (
                                  <Select.Option key={item._id} value={item[index]}>
@@ -295,7 +281,7 @@ const ShowTimeForm = ({
                         )}
                      </Form.Item>
                      {messRoom && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messRoom} type="error" showIcon /></div>}
-                  
+
 
                   </Card>
                   <Card className="col-6 w-full">
