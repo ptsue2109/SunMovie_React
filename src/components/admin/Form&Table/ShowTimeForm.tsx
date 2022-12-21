@@ -53,20 +53,26 @@ const ShowTimeForm = ({
    const [hiddenRoom, setHiddenRoom] = useState<any>(false);
    const [stByDays, setStByDays] = useState<any>();
    const [roomList, setRoomList] = useState<any>([]);
+   const [stLisst, setStLisst]= useState<any>([]);
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
    const { stList } = useAppSelector((state) => state.ShowTimeReducer);
+
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
    let movieRelease = moment(movieSelect?.releaseDate).date()
-
    // flatten roomId
    const flatten = (arr: any) => {
       return arr.reduce((pre: any, cur: any) => {
          return pre.concat(Array.isArray(cur) ? flatten(cur) : cur?.roomId)
       }, [])
    }
+   useEffect(() => {
+      if(stList){
+         setStLisst(stList)
+      }
+   }, [stList])
    useEffect(() => {
       if (movieId) {
          form.setFieldsValue({
@@ -125,7 +131,7 @@ const ShowTimeForm = ({
       setRoomSelect(val)
    };
    useEffect(() => {
-      const sortStByDay = stList?.reduce((accumulator: any, arrayItem: any) => {
+      const sortStByDay = stLisst?.reduce((accumulator: any, arrayItem: any) => {
          let rowName = formatDate(arrayItem.date)
          if (accumulator[rowName] == null) {
             accumulator[rowName] = [];
@@ -135,13 +141,13 @@ const ShowTimeForm = ({
       }, {});
       setStByDays(sortStByDay)
 
-   }, [stList]);
+   }, [stLisst]);
 
    useEffect(() => {
       if (days && timeChose) {
          validateST();
       }
-   }, [days, timeChose, stList]);
+   }, [days, timeChose, stLisst]);
 
    const validateST = () => {
       for (let key in stByDays) {
