@@ -263,7 +263,7 @@ const RenderSeats = ({
     return (
       <div className="m-3  flex gap-3">
         <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-          Chọn tất cả
+          Chọn tất cả ({seats?.length} ghế)
         </Button>
         {seatArr?.length > 0 && (
           <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>
@@ -311,12 +311,12 @@ const RenderSeats = ({
         });
     };
 
-    const getStatusChoice = (val: any) => {
-      setOptionsStatus(val);
-    };
-    const getSeatTypeChoice = (val: any) => {
-      setOptionsSeatTpe(val);
-    };
+    // const getStatusChoice = (val: any) => {
+    //   setOptionsStatus(val);
+    // };
+    // const getSeatTypeChoice = (val: any) => {
+    //   setOptionsSeatTpe(val);
+    // };
     const getAllSeatChosing = () => {
       let indexKey = seatArr?.map((item: any, index: any) => index + 1);
       setSelectedRowKeys(indexKey);
@@ -334,10 +334,13 @@ const RenderSeats = ({
             <Button onClick={ExitAllSeatChosing} icon={<CloseOutlined />} className={styles.renderBtnIcon}>
             </Button>
           </Tooltip>
+          {selectedRowKeys.length >= 1 && (
           <Tooltip title="Chọn nội dung thay đổi" >
             <Button onClick={showModal} icon={<IoCreateOutline />} className={styles.renderBtnIcon}> </Button>
           </Tooltip>
+           )}
         </Space.Compact>
+        <p>Bạn đang chọn {selectedRowKeys?.length} ghế</p>
         <Modal
           title="Thay đổi thông tin ghế"
           open={isModalOpen}
@@ -357,7 +360,7 @@ const RenderSeats = ({
             >
               <Select
                 placeholder="Vui lòng chọn trạng thái ghế"
-                onChange={(value: any) => getStatusChoice(value)}
+              // onChange={(value: any) => getStatusChoice(value)}
               >
                 {defaultStatus?.map((item: any) => (
                   <Option value={item?._id} key={item?.value}>
@@ -373,7 +376,7 @@ const RenderSeats = ({
             >
               <Select
                 placeholder="Vui lòng chọn loại ghế"
-                onChange={(value: any) => getSeatTypeChoice(value)}
+              // onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
                   <Option value={item?.value} key={item?._id}>
@@ -397,9 +400,9 @@ const RenderSeats = ({
   const renderSeatClick = () => {
     return (
       <div className="w-full mt-3">
-        {selectedRowKeys.length >= 1 && (
+        {/* {selectedRowKeys.length >= 1 && ( */}
           <div className="flex gap-3">{renderChoice()}</div>
-        )}
+        {/* )} */}
         <div style={{ width: "100%" }}>
           <Table
             rowSelection={rowSelection}

@@ -187,9 +187,9 @@ const ShowTimeForm = ({
             }
 
 
-         }else{
+         } else {
             console.log('Hello');
-            
+
          }
       }
    };
