@@ -1,97 +1,73 @@
-import React, { useState, useEffect } from "react";
-import CountdownComp from "../Countdown";
-import { convertDateToNumber, convertMovieTime } from "../../../ultils";
-import moment from "moment";
-import ChooseCombo from "../ChooseCombo";
-import Payment from "../../../pages/client/payment/Payment";
-import { Button, Steps, message } from "antd";
+import { FormEvent, useState } from "react"
+import { useMultistepForm } from "./useMultistepForm"
+import ChooseCombo from "../ChooseCombo"
+import Payment from "../../../pages/client/payment/Payment"
+import { Statistic } from "antd"
+const {Countdown} = Statistic
+const PaymentStep = () => {
+  const [data, setData] = useState<any>();
 
-type Props = {
-   nextStep: any;
-   children: any;
-   rightContent: any;
-   name: any;
-   time?: any;
-};
-const PaymentStep = ({
-   nextStep,
-   children,
-   rightContent,
-   name,
-   time,
-}: Props) => {
-   let deadline = Date.now() + 1000 * 60 * 9;
-   const [timer, setTimer] = useState<any>();
-   const [current, setCurrent] = useState(0);
+  console.log("dataAtPaymetStep", data);
 
-   const next = () => {
-      setCurrent(current + 1);
-   };
+  const updateFields = (fields: Partial<FormData>) => {
+    console.log("fieldsAtPaymetStep", fields);
 
-   const prev = () => {
-      setCurrent(current - 1);
-   };
-   const steps = [
-      {
-         title: "First",
-      },
-      {
-         title: "Last",
-      },
-   ];
-   const items = steps.map((item) => ({ key: item.title, title: item.title }));
-   const getTimeCountdown = (val: any) => { };
+    setData((prev: any) => {
+      return { ...prev, ...fields }
+    })
+  }
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultistepForm([
+      <ChooseCombo {...data} updateFields={updateFields} />,
+      <Payment {...data} updateFields={updateFields} />,
+    ])
 
-   const RenderStep = () => {
-      return (
-         <>
-            <div className="flex flex-row justify-center mt-16 ">
-               <div className="w-[75%]">
-                  <div className="bg-[#f6710d] h-[680px] ">
-                     <div className="flex items-center justify-between p-2">
-                        <h1 className="text-3xl p-3 text-white ">
-                           {name}
-                        </h1>
-                        <div className="">
-                          
-                        </div>
-                     </div>
-                     {children}
+  function onSubmit(e: FormEvent) {
+    e.preventDefault()
+    if (!isLastStep) return next()
+    alert("Successful Account Creation")
+  }
+  const RenderC= () => {
+    return (
+      <>
+      <div className="container">
+     
+        <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
+          {currentStepIndex + 1} / {steps.length}
+        </div>
+        {step}
+        <div
+          style={{
+            marginTop: "1rem",
+            display: "flex",
+            gap: ".5rem",
+            justifyContent: "flex-end",
+          }}
+        >
+          {!isFirstStep && (
+            <button type="button" onClick={back}>
+              Back
+            </button>
+          )}
+          <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+        </div>
+   
+    </div>
+      </>
+    )
+  }
 
-                  </div>
-               </div>
-               <div className="w-[25%] bg-white ml-10 h-[680px] ">
-                  {rightContent}
-               </div>
-            </div>
-            {current < steps.length - 1 && (
-               <Button type="primary" onClick={() => next()}>
-                  Next
-               </Button>
-            )}
-            {current === steps.length - 1 && (
-               <Button
-                  type="primary"
-                  onClick={() => message.success("Processing complete!")}
-               >
-                  Done
-               </Button>
-            )}
-            {current > 0 && (
-               <Button style={{ margin: "0 8px" }} onClick={() => prev()}>
-                  Previous
-               </Button>
-            )}
-         </>
-      );
-   };
+  return (
+    <>
+    <Countdown
+        title="Đơn hàng sẽ hủy sau"
+        value={Date.now() + 1000 * 60 * 9}
 
-   return (
-      <div className=" bg-[#182b47] container">
-         <CountdownComp deadline={deadline} onChange={getTimeCountdown} />
-         <RenderStep />
-      </div>
-   );
-};
+      // onChange={onChange}
+      />
+      <RenderC />
+      </>
+  )
+}
 
-export default PaymentStep;
+export default PaymentStep

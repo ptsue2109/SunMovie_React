@@ -15,7 +15,7 @@ import { validateMessages } from "../../../ultils/FormMessage";
 import moment from "moment";
 import { defaultStatus } from "../../../ultils/data";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import "antd/dist/antd.css";
+ import "antd/dist/antd.css";
 import { formatTime, convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 

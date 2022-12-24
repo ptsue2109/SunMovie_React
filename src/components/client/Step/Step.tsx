@@ -6,36 +6,60 @@ import Payment from '../../../pages/client/payment/Payment';
 import CountdownComp from '../Countdown';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../redux/hook';
+import { createFD } from '../../../redux/slice/FoodDetail';
+
 type Props = {
 
 }
 const { Countdown } = Statistic;
 
 const StepC = ({ }: Props) => {
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>([]);
+  const [foodData, setFoodData] = useState<any>([]);
+  const [foodData2, setFoodData2] = useState<any>([]);
+   useEffect(() => {
+    saveFoodData()
+    if (foodData) {
+      setFoodData2(foodData)
+    }
+  }, [])
+  const updateFieldsFood = (fields: any) => {
+    localStorage.setItem("fields", JSON.stringify({ food: fields })
+    );
+  }
+
+  const updateFields = (fields: any) => {
+    console.log(fields);
+  }
+
+  const saveFoodData = () => {
+    let a = JSON.parse(localStorage.getItem("fields") as any);
+    setFoodData(a);
+
+  };
+
   const steps = [
     {
       title: 'Firsst',
-      component: <ChooseCombo />,
+      comp: <ChooseCombo {...data} updateFieldsFood={updateFieldsFood}  />
+
     },
     {
       title: 'Last',
-      component: <Payment />,
+      comp: <Payment {...data} updateFields={updateFields} foodData={foodData} />
     },
   ];
   const [current, setCurrent] = useState(0);
   const dispatch = useAppDispatch()
   const next = () => {
     setCurrent(current + 1);
-    handle()
+    saveFoodData()
   };
-  const handle = () => {
-    console.log("213123");
 
-  };
 
   const prev = () => {
     setCurrent(current - 1);
+    saveFoodData()
   };
   const items = steps.map(item => ({ key: item.title, title: item.title }));
   let deadline = Date.now() + 1000 * 60 * 9;
@@ -44,9 +68,9 @@ const StepC = ({ }: Props) => {
 
   }
   const navigate = useNavigate()
-  // const onFinish = () => {
-  //   navigate(`/cancel`, { state: info })
-  // };
+  const onFinish = () => {
+    navigate(`/cancel`, { state: [] })
+  };
   const [timer, setTimer] = useState<any>()
   useEffect(() => {
     if (deadline) {
@@ -57,15 +81,14 @@ const StepC = ({ }: Props) => {
   const RenderStep = () => {
     return (
       <>
-        <Steps current={current} items={items} />
-        <div>{steps[current].component}</div>
+        <div>{steps[current].comp}</div>
         <div>
           {current < steps.length - 1 && (
-            <Button type="primary" onClick={() => next()}>
+            <Button type="primary" onClick={next}>
               Next
             </Button>
           )}
-          {current === steps.length - 1 && (
+          {/* {current === steps.length - 1 && (
             <Button type="primary" onClick={() => message.success('Processing complete!')}>
               Done
             </Button>
@@ -74,7 +97,7 @@ const StepC = ({ }: Props) => {
             <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
               Previous
             </Button>
-          )}
+          )} */}
         </div>
       </>
     )
@@ -85,7 +108,7 @@ const StepC = ({ }: Props) => {
         <Countdown
           title="Đơn hàng sẽ hủy sau"
           value={timer}
-        // onFinish={onFinish}
+          onFinish={onFinish}
         // onChange={onChange}
         />
       </div>

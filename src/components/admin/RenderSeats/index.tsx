@@ -8,6 +8,7 @@ import styles from "../Form&Table/room.module.scss";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { CloseOutlined, FormOutlined, EditOutlined } from '@ant-design/icons';
 import { IoApps, IoCreateOutline } from 'react-icons/io5';
+
 type Props = {
   row?: any;
   column?: any;
@@ -42,9 +43,13 @@ const RenderSeats = ({
   const [optionsSeatTpe, setOptionsSeatTpe] = useState();
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blockSeat, setBlockSeat] = useState<any>([]);
 
   useEffect(() => {
     handleSubmit();
+    let blockS = seats?.filter((item: any) => item?.status == 1);
+    setBlockSeat(blockS);
+
   }, [seats]);
 
   useEffect(() => {
@@ -261,9 +266,9 @@ const RenderSeats = ({
     };
 
     return (
-      <div className="m-3  flex gap-3">
+      <div className="mb-5  flex gap-3">
         <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-          Chọn tất cả ({seats?.length} ghế)
+          Chọn tất cả ({seats?.length})
         </Button>
         {seatArr?.length > 0 && (
           <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>
@@ -311,12 +316,6 @@ const RenderSeats = ({
         });
     };
 
-    // const getStatusChoice = (val: any) => {
-    //   setOptionsStatus(val);
-    // };
-    // const getSeatTypeChoice = (val: any) => {
-    //   setOptionsSeatTpe(val);
-    // };
     const getAllSeatChosing = () => {
       let indexKey = seatArr?.map((item: any, index: any) => index + 1);
       setSelectedRowKeys(indexKey);
@@ -335,10 +334,10 @@ const RenderSeats = ({
             </Button>
           </Tooltip>
           {selectedRowKeys.length >= 1 && (
-          <Tooltip title="Chọn nội dung thay đổi" >
-            <Button onClick={showModal} icon={<IoCreateOutline />} className={styles.renderBtnIcon}> </Button>
-          </Tooltip>
-           )}
+            <Tooltip title="Chọn nội dung thay đổi" >
+              <Button onClick={showModal} icon={<IoCreateOutline />} className={styles.renderBtnIcon}> </Button>
+            </Tooltip>
+          )}
         </Space.Compact>
         <p>Bạn đang chọn {selectedRowKeys?.length} ghế</p>
         <Modal
@@ -360,7 +359,6 @@ const RenderSeats = ({
             >
               <Select
                 placeholder="Vui lòng chọn trạng thái ghế"
-              // onChange={(value: any) => getStatusChoice(value)}
               >
                 {defaultStatus?.map((item: any) => (
                   <Option value={item?._id} key={item?.value}>
@@ -376,7 +374,6 @@ const RenderSeats = ({
             >
               <Select
                 placeholder="Vui lòng chọn loại ghế"
-              // onChange={(value: any) => getSeatTypeChoice(value)}
               >
                 {seatType?.map((item: any) => (
                   <Option value={item?.value} key={item?._id}>
@@ -400,9 +397,7 @@ const RenderSeats = ({
   const renderSeatClick = () => {
     return (
       <div className="w-full mt-3">
-        {/* {selectedRowKeys.length >= 1 && ( */}
-          <div className="flex gap-3">{renderChoice()}</div>
-        {/* )} */}
+        <div className="flex gap-3">{renderChoice()}</div>
         <div style={{ width: "100%" }}>
           <Table
             rowSelection={rowSelection}

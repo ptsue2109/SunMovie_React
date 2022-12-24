@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { useAppSelector } from "../../../redux/hook";
 import {
-   Button,
    Skeleton,
    Avatar,
    List,
@@ -9,13 +8,13 @@ import {
 } from "antd";
 import { formatCurrency, formatDateString, formatTime } from "../../../ultils";
 import { useLocation, useNavigate } from "react-router-dom";
-import { createFD } from "../../../redux/slice/FoodDetail";
-import CountdownComp from "../Countdown";
-import PaymentStep from "../PaymentStep";
 
 type Props = {
+   updateFieldsFood: any
 };
-const ChooseCombo = ({ }: Props) => {
+const ChooseCombo = ({ updateFieldsFood }: Props) => {
+
+
    const { food } = useAppSelector((state) => state.food);
    let foodActive = food?.filter((item: any) => item?.status == 0);
    const [initLoading, setInitLoading] = useState(true);
@@ -28,10 +27,7 @@ const ChooseCombo = ({ }: Props) => {
    const [foodOrder, setFoodOrder] = useState<any[]>([]);
    const [foodPrice, setFoodPrice] = useState<any>(0);
    const [cart, setCart] = useState<any[]>([]);
-   const [time, setTime] = useState<any>(0);
-   const [send, setSend] = useState<any>();
-   const dispatch = useAppDispatch();
-   const navigate = useNavigate();
+
    let movieSelect = movie?.find(
       (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
    );
@@ -60,6 +56,12 @@ const ChooseCombo = ({ }: Props) => {
       }
    }, [foodOrder]);
 
+   useEffect(() => {
+      let a = Number(tempPrice + foodPrice);
+      updateFieldsFood({ data: foodOrder, totalPrice: Number(a) })
+   }, [foodPrice, tempPrice]);
+
+
    const handleFood = (qt: any, val: any) => {
       let foodprice = val?.price * qt;
       let pl = { foodId: val, quantity: qt, price: foodprice };
@@ -87,21 +89,6 @@ const ChooseCombo = ({ }: Props) => {
          setFoodOrder(arrayFiltered);
       }
    }, [cart]);
-
-   const nextStep = () => {
-      dispatch(createFD(foodOrder))
-         .unwrap()
-         .then((data: any) => {
-            let stateToNextStep = {
-               ...state,
-               finalPrice: tempPrice + foodPrice,
-               foodDetailId: data?._id,
-               foodDetail: foodOrder,
-            };
-
-            navigate("/step", { state: stateToNextStep });
-         });
-   };
 
    const listRender = () => {
       return (
@@ -206,7 +193,7 @@ const ChooseCombo = ({ }: Props) => {
                   {formatCurrency(tempPrice + foodPrice)}
                </span>
             </h2>
-            <Button
+            {/* <Button
                onClick={nextStep}
                style={{
                   width: "47%",
@@ -219,7 +206,7 @@ const ChooseCombo = ({ }: Props) => {
                className="hover: text-red-600"
             >
                Tiếp tục
-            </Button>
+            </Button> */}
          </>
       )
    }
