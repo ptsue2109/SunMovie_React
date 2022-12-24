@@ -22,7 +22,7 @@ const CountdownComp = ({ deadline, info, onChange }: Props) => {
   }, [])
 
   return (
-    <div className="p-2 text-white">
+    <div className="text-white">
       <Countdown
         title="Đơn hàng sẽ hủy sau"
         value={timer}

@@ -70,7 +70,9 @@ const NestedTable = (props: Props) => {
   };
   const changeStatus = (_id: any, val: any) => {
     dispatch(updateData({ _id: _id, status: val })).unwrap()
-      .then(() => { message.success("Thay đổi trạng thái thành công") })
+      .then(() => { message.success("Thay đổi trạng thái thành công"); setTimeout(() => {
+        window.location.reload();
+      }, 1000); })
       .catch(() => message.error("Lỗi"))
   };
 

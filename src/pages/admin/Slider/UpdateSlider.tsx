@@ -18,24 +18,37 @@ const UpdateSlider = (props: Props) => {
 
   const { slider, errMess } = useAppSelector((state) => state.slider);
   const data = slider.find((item: any) => item._id === id);
+  const [dataUpdate, setDataUpdate] = useState<any[]>([]);
 
   useEffect(() => {
     if (data) {
-      setImage(data?.image);
+      setImage(data?.images as any[]);
       form.setFieldsValue({
         ...data,
-        releaseDate: moment(data.releaseDate),
       });
     }
   }, [data]);
   const { movie } = useAppSelector((state) => state.movie);
+  const { posts } = useAppSelector((state) => state.PostReducer);
+
+  useEffect(() => {
+    if (movie && data) {
+      setDataUpdate([...movie, ...posts]);
+    }
+  }, [movie, posts]);
+
   const onFinish = async (values: any) => {
     values._id = id;
-    values.releaseDate = new Date(moment(values.releaseDate).format());
     let imageOld = values.avatarList?.fileList;
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
-    delete values?.imageOld;
+    let checkURL = movie?.filter((item: any) => (item?.slug)?.includes(values?.url));
+    if (!checkURL || checkURL?.length > 0) {
+      values.url = values.url
+    } else {
+      values.url = `/post/${values.url}`
+    }
+    console.log(values)
     dispatch(UpdateSliderThunk(values))
       .unwrap()
       .then(() => {
@@ -46,6 +59,7 @@ const UpdateSlider = (props: Props) => {
         message.error({ content: "Thất bại" });
       });
   };
+
   return (
     <>
       <Button className="mb-3">
@@ -82,20 +96,13 @@ const UpdateSlider = (props: Props) => {
           rules={[{ required: true, message: "Không được để trống! " }]}
         >
           <Select>
-            {movie?.map((item: any) => (
+            {dataUpdate?.map((item: any) => (
               <Select.Option value={item.slug} key={item._id}>
                 {item?.name}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
-        {/* <Form.Item
-          label="slug"
-          name="slug"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item> */}
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit

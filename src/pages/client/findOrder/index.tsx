@@ -80,7 +80,7 @@ const FindOrder = (props: Props) => {
         {showlog ? (
           <div className="bg-white mb-3">
             <p className="p-3 text-danger">Đã tìm thấy đơn hàng của bạn </p>
-            <Ticket detail={detail} order={orderDetail} totalPriceFinal={totalPriceFinal}/>
+            <Ticket detail={detail} order={orderDetail} />
           </div>
         ) : null}
       </div>

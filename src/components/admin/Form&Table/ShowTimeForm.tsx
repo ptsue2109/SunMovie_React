@@ -53,20 +53,26 @@ const ShowTimeForm = ({
    const [hiddenRoom, setHiddenRoom] = useState<any>(false);
    const [stByDays, setStByDays] = useState<any>();
    const [roomList, setRoomList] = useState<any>([]);
+   const [stLisst, setStLisst] = useState<any>([]);
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
    const { stList } = useAppSelector((state) => state.ShowTimeReducer);
+
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
    let movieRelease = moment(movieSelect?.releaseDate).date()
-
    // flatten roomId
    const flatten = (arr: any) => {
       return arr.reduce((pre: any, cur: any) => {
          return pre.concat(Array.isArray(cur) ? flatten(cur) : cur?.roomId)
       }, [])
    }
+   useEffect(() => {
+      if (stList) {
+         setStLisst(stList)
+      }
+   }, [stList])
    useEffect(() => {
       if (movieId) {
          form.setFieldsValue({
@@ -125,7 +131,7 @@ const ShowTimeForm = ({
       setRoomSelect(val)
    };
    useEffect(() => {
-      const sortStByDay = stList?.reduce((accumulator: any, arrayItem: any) => {
+      const sortStByDay = stLisst?.reduce((accumulator: any, arrayItem: any) => {
          let rowName = formatDate(arrayItem.date)
          if (accumulator[rowName] == null) {
             accumulator[rowName] = [];
@@ -135,16 +141,13 @@ const ShowTimeForm = ({
       }, {});
       setStByDays(sortStByDay)
 
-   }, [stList]);
+   }, [stLisst]);
 
    useEffect(() => {
       if (days && timeChose) {
          validateST();
-      } else {
-         setMessRoom("");
-         setMessTime("")
       }
-   }, [days, timeChose, stList]);
+   }, [days, timeChose, stLisst]);
 
    const validateST = () => {
       for (let key in stByDays) {
@@ -162,7 +165,6 @@ const ShowTimeForm = ({
                if (time == timeChose) {
                   setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
                   let roomExist = flatten(sortByTime[time]);
-
                   let kiemtraphongtrong = roomList.filter((cv: any) => {
                      return !roomExist.find((e: any) => {
                         return e?._id == cv?._id;
@@ -170,30 +172,23 @@ const ShowTimeForm = ({
                   });
                   if (kiemtraphongtrong?.length > 0) {
                      setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
+
                   } else {
                      setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
                      setHiddenRoom(true)
                   }
-               } else {
-                  // check trùng ngày khác giờ
-                  let roomExist2 = flatten(stByDays[key]);
-                  console.log(roomExist2);
-                  let kiemtraphongtrong2 = roomList.filter((cv: any) => {
-                     return !roomExist2.find((e: any) => {
-                        return e?._id == cv?._id;
-                     });
-                  });
-                  if (kiemtraphongtrong2?.length > 0) {
-                     setMessRoom(`Phòng đang trống: ${kiemtraphongtrong2?.map((item: any) => item?.name)}`);
-                  } else {
-                     setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
-                  }
+               }
+               else {
+                  setMessRoom("")
+                  setMessTime("")
+                  setHiddenRoom(false)
 
                }
             }
+
+
          } else {
-            setMessRoom("")
-            setMessTime("")
+            console.log('Hello');
 
          }
       }
@@ -267,7 +262,7 @@ const ShowTimeForm = ({
                         name="roomId"
                         rules={[{ required: true }]}
                      >
-                        {hiddenRoom ? (
+                        {hiddenRoom == true ? (
                            <Select mode="multiple" onChange={watchRoomId} disabled>
                               {roomList.map((item: any, index: any) => (
                                  <Select.Option key={item._id} value={item[index]}>
@@ -286,6 +281,7 @@ const ShowTimeForm = ({
                         )}
                      </Form.Item>
                      {messRoom && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messRoom} type="error" showIcon /></div>}
+
 
                   </Card>
                   <Card className="col-6 w-full">

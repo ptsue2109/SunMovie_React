@@ -147,7 +147,7 @@ const OrderTable = ({ data }: Props) => {
          dataIndex: "status",
          render: (_: any, record: any) => (
             <>
-               {record?.status === 0 ? <Tag color="processing">  Chưa thanh toán   </Tag> : record?.status === 1 ? <Tag color="#87d068"> Đã thanh toán  </Tag> : <Tag color="volcano">Đã xuất vé</Tag>}
+               {record?.status === 1 ? <Tag color="#87d068"> Đã thanh toán   </Tag> : record?.status === 3 ? <Tag color="#d06d68"> Đã xuất vé </Tag> : <Tag color="processing">Đang chờ thanh toán / thanh toán lỗi</Tag>}
             </>
 
          )

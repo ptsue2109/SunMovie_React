@@ -15,7 +15,7 @@ const Maintain = ({ children, isMaintain }: PrivateRouteProps) => {
   let mail = webConfigs[0]?.social?.find((item: any) => item?.name === "Email")
 
   useEffect(() => {
-    document.title = "Website đang bảo trì"
+    document.title = `${webConfigs[0]?.storeName}`
   }, [])
   const renderSocial = () => {
     return (

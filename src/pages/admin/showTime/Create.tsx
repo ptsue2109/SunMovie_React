@@ -34,7 +34,7 @@ const AdminShowTimesCreate = (_props: Props) => {
         message.success('Tạo thành công');
         navigate(config.routes.adminMovie)
       })
-      .catch(() => message.error(errorMessage))
+      .catch((error: any) => message.error(error.message))
   }
 
   const onReset = () => {
