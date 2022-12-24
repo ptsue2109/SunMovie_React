@@ -27,6 +27,7 @@ const Comente = ({ data }: Props) => {
   const [movie, setMovie] = useState<any>();
   const [allCmt, setAllCmt] = useState<any[]>([]);
   const [avgPoint, setAvgPoint] = useState<any>(0);
+  const [haveUserCurrCmt, setHaveUserCurrCmt] = useState<any>();
   const { slug } = useParams();
   useEffect(() => {
     if (data) {
@@ -37,6 +38,7 @@ const Comente = ({ data }: Props) => {
       setAllCmt(commentActive);
     }
   }, [data]);
+
   useEffect(() => {
     if (allCmt?.length > 0) {
       let avg = allCmt.reduce((pre: any, curr: any) => {
@@ -50,6 +52,13 @@ const Comente = ({ data }: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (movie && allCmt && currentUser) {
+      let checkUserCmted = allCmt?.filter((item: any) => item?.userId?._id);
+      setHaveUserCurrCmt(checkUserCmted?.length > 0 ? true : false);
+    }
+  }, [allCmt, movie, currentUser]);
+
   const onFinish = async (values: any) => {
     if (Object.keys(currentUser).length === 0) {
       notification.info({
@@ -59,27 +68,32 @@ const Comente = ({ data }: Props) => {
         navigate(configRoute.routes.signin);
       }, 2000);
     } else {
-      values.movieId = movie?._id;
-      values.userId = currentUser?._id;
+      if (haveUserCurrCmt) {
+        message.error("Bạn đã comment cho phim này");
+        form.resetFields()
+      } else {
+        values.movieId = movie?._id;
+        values.userId = currentUser?._id;
 
-      dispatch(comenteCreate(values))
-        .unwrap()
-        .then((payload: any) => {
-          message.success("Thêm comment thành công");
-          dispatch(getOneMovie(slug));
-          form.resetFields();
-        })
-        .catch((error: any) => message.error(error));
+        dispatch(comenteCreate(values))
+          .unwrap()
+          .then((payload: any) => {
+            message.success("Thêm comment thành công");
+            dispatch(getOneMovie(slug));
+            form.resetFields();
+          })
+          .catch((error: any) => message.error(error));
+      }
     }
   };
 
   return (
-    <div className="content__comment w-full max-w-[1440p] bg-white p-2 m-0 rounded-b-xl">
+    <div className="content__comment min-h-full w-full max-w-[1440p] bg-white p-2 m-0 rounded-b-xl">
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <div className="flex items-center gap-3">
           {currentUser !== null &&
-          currentUser !== undefined &&
-          currentUser?.avatar ? (
+            currentUser !== undefined &&
+            currentUser?.avatar ? (
             <>
               <div className="avatar">
                 {currentUser?.avatar || currentUser?.avatar?.url ? (
