@@ -40,7 +40,7 @@ const RenderSeats = ({
   const [seatArr, setSeatArr] = useState<any>([]);
   const [seatArrSelect, setSeatArrSelect] = useState<any>([]);
   const [optionsStatus, setOptionsStatus] = useState();
-  const [optionsSeatTpe, setOptionsSeatTpe] = useState();
+  const [hiddenChooseAll, setHiddenChooseAll] = useState(false);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blockSeat, setBlockSeat] = useState<any>([]);
@@ -265,11 +265,30 @@ const RenderSeats = ({
       setSeatArr([]);
     };
 
+    const handleChooseAllBlock = () => {
+      setHiddenChooseAll(true)
+      let cloneArr: any[] = JSON.parse(JSON.stringify(seats));
+      let newArr: any = []
+      for (const key in cloneArr) {
+        if (cloneArr[key]?.status == 1) {
+          cloneArr[key]['status'] = 2
+        }
+        newArr.push(cloneArr[key])
+      }
+      let groupItem = groupBy(newArr);
+
+      setSeatDetails(groupItem);
+      setSeatArrSelect(blockSeat);
+      setSeatArr(blockSeat);
+    }
     return (
       <div className="mb-5  flex gap-3">
         <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
           Chọn tất cả ({seats?.length})
         </Button>
+       {blockSeat?.length > 0 && <Button type="primary" onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+          Chọn tất cả ghế dừng hoạt động ({blockSeat?.length})
+        </Button>}
         {seatArr?.length > 0 && (
           <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>
         )}
