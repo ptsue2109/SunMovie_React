@@ -102,6 +102,10 @@ const StepC = ({ }: Props) => {
       </>
     )
   }
+  const onChange = (val:any) => {
+    console.log("val", val);
+    
+  }
   return (
     <div className='bg-[#182b47] rounded-md container p-3' >
       <div className="text-white" style={{ top: 250, right: '33%', position: "absolute" }}>
@@ -109,7 +113,7 @@ const StepC = ({ }: Props) => {
           title="Đơn hàng sẽ hủy sau"
           value={timer}
           onFinish={onFinish}
-        // onChange={onChange}
+        onChange={onChange}
         />
       </div>
 
