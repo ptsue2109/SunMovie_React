@@ -12,15 +12,17 @@ import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
 import CountdownComp from "../../../components/client/Countdown";
 import PaymentStep from "../../../components/client/PaymentStep";
+import StepC from "../../../components/client/Step/Step";
 const layout = {
   labelCol: { span: 12 },
   wrapperCol: { span: 12 },
 };
 
-type Props = {};
-const { Countdown } = Statistic;
-const Payment = (props: Props) => {
-  document.title = "Payment";
+type Props = {
+  updateFields: any,
+  foodData: any
+};
+const Payment = ({ updateFields, foodData }: Props) => {
 
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
@@ -35,6 +37,7 @@ const Payment = (props: Props) => {
   const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
   const [voucherApply, setVoucherApply] = useState<any>();
+  const [paymentP, setPaymentP] = useState<any>("");
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
@@ -42,18 +45,18 @@ const Payment = (props: Props) => {
     return text.toUpperCase();
   };
   const { state } = useLocation();
-  let time = Number(localStorage.getItem("timeDefault"))
   let movieSelect = movie?.find(
     (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
   );
 
   useEffect(() => {
-    if (state && movieSelect) {
+    if (state && movieSelect && foodData) {
       setInfo(state?.populatedDetail);
       setData(state?.ticket);
-      setTempPrice(state?.finalPrice);
-      setPriceAfterDiscount(state?.finalPrice);
+      setTempPrice(foodData?.food?.totalPrice);
+      setPriceAfterDiscount(foodData?.food?.totalPrice);
       setMovieDetail(movieSelect);
+      document.title = "Payment";
     }
   }, [state, movieSelect]);
 
@@ -144,11 +147,12 @@ const Payment = (props: Props) => {
       orderType: "billpayment",
       language: "",
       foodDetailId: state?.foodDetailId,
-      voucherId: {
-        _id: voucherApply?._id,
-        quantity: 1
-      }
+      // voucherId: {
+      //   _id: voucherApply?._id,
+      //   quantity: 1
+      // }
     }
+    console.log(payload);
 
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
@@ -162,16 +166,16 @@ const Payment = (props: Props) => {
       if (result.isConfirmed) {
         dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
-            let voucherChange = {
-              _id: voucherItem?._id,
-              quantity: voucherItem?.quantity - 1,
-              userId: [...voucherItem?.userId, currentUser?._id]
-            }
-
-
-            dispatch(updateData(voucherChange)).unwrap()
-              .then(() => console.log('success'))
-              .catch(() => console.log('errr'))
+            console.log("res", res);
+            window.location.href = `${res}`
+            // let voucherChange = {
+            //   _id: voucherItem?._id,
+            //   quantity: voucherItem?.quantity - 1,
+            //   userId: [...voucherItem?.userId, currentUser?._id]
+            // }
+            // dispatch(updateData(voucherChange)).unwrap()
+            //   .then(() => console.log('success'))
+            //   .catch(() => console.log('errr'))
 
 
             window.location.href = `${res}`
@@ -180,6 +184,7 @@ const Payment = (props: Props) => {
       }
     });
   };
+
   const childrenComp = () => {
     return (
       <div className="bg-[#ffffff] h-[550px] max-h-[550px]  w-[98%] max-w-[98%] p-5 ml-2">
@@ -260,7 +265,7 @@ const Payment = (props: Props) => {
             </Button>
             <p className="text-xs mt-2 ">
               (*) Bằng việc click/chạm vào THANH TOÁN, bạn đã xác nhận hiểu
-              rõ các Quy Định Giao Dịch Trực Tuyến của{" "}
+              rõ các Quy Định Giao Dịch Trực Tuyến của
               {webConfigs[0]?.storeName}.
             </p>
 
@@ -307,24 +312,24 @@ const Payment = (props: Props) => {
           <>
             <ul className="px-4 py-3">
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Rạp</b>: {webConfigs[0]?.storeName} |{" "}
+                <b>Rạp</b>: {webConfigs[0]?.storeName} |
                 {info && <>{info[0]?.seatId?.roomId?.name}</>}
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Suất chiếu</b>:{" "}
-                {info && formatTime(info[0]?.showTimeId?.startAt)} |{" "}
+                <b>Suất chiếu</b>:
+                {info && formatTime(info[0]?.showTimeId?.startAt)} |
                 {formatDateString(info[0]?.showTimeId?.date)}
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Combo</b>:{" "}
-                {state?.foodDetail?.map((item: any) => (
+                <b>Combo</b>:
+                {foodData?.food?.data?.map((item: any) => (
                   <span key={item?.foodId?._id}>
-                    {item?.foodId?.name}({item?.quantity}){" "}
+                    {item?.foodId?.name}({item?.quantity})
                   </span>
                 ))}
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
-                <b>Ghế</b>:{" "}
+                <b>Ghế</b>:
                 {info &&
                   info?.map((item: any) => (
                     <span key={item?._id}>
@@ -335,7 +340,7 @@ const Payment = (props: Props) => {
               </li>
             </ul>
           </>
-        )}
+        )}q
         <h2 className="px-4 text-base">
           Tổng Giá:
           <span className="font-semibold text-xl text-[#dcdcd]">

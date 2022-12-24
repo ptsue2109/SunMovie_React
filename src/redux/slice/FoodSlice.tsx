@@ -72,12 +72,12 @@ export const searchFood = createAsyncThunk(
 
 const initialState: any = {
   food: [],
+  foodDetails: []
 };
 const FoodSlice = createSlice({
   name: "food",
   initialState,
   reducers: {
-    
   },
   extraReducers: (builder) => {
     // create
