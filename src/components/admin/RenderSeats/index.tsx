@@ -1,4 +1,4 @@
-import { Button, Col, Form, message, Modal, Row, Select, Space, Table, Tooltip } from "antd";
+import { Button, Col, Form, InputNumber, message, Modal, Row, Select, Space, Table, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
@@ -6,7 +6,7 @@ import { updateSeatThunk } from "../../../redux/slice/SeatSlice";
 import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { CloseOutlined, FormOutlined, EditOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 import { IoApps, IoCreateOutline } from 'react-icons/io5';
 
 type Props = {
@@ -39,12 +39,12 @@ const RenderSeats = ({
   const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>([]);
   const [seatArr, setSeatArr] = useState<any>([]);
   const [seatArrSelect, setSeatArrSelect] = useState<any>([]);
-  const [optionsStatus, setOptionsStatus] = useState();
+  const [showByCT, setShowByCT] = useState(false);
   const [hiddenChooseAll, setHiddenChooseAll] = useState(false);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blockSeat, setBlockSeat] = useState<any>([]);
-
+  const [parseCharac, setParseCharac] = useState<any>([]);
   useEffect(() => {
     handleSubmit();
     let blockS = seats?.filter((item: any) => item?.status == 1);
@@ -55,6 +55,16 @@ const RenderSeats = ({
   useEffect(() => {
     getInfoSelectFromTable();
   }, [selectedRowKeys]);
+
+  useEffect(() => {
+    if (seatDetails) {
+      let charcArr: any = []
+      for (let key in seatDetails) {
+        charcArr.push(key)
+      }
+      setParseCharac(charcArr)
+    }
+  }, [seatDetails, seats])
 
   const getClassNameForSeats = (seatValue: any) => {
     let dynamicClass;
@@ -248,6 +258,43 @@ const RenderSeats = ({
       setSeatArrSelect(arrToUpdate);
     }
   };
+  //
+  const findByCharacter = (name: any, start: number, end: number) => {
+    let cloneArrFBCT: any[] = JSON.parse(JSON.stringify(seats));
+    let newArrFBCT: any = [];
+    let newArrFBCTCase2: any = [];
+
+    if (start == end) { // nếu vị trí bắt đầu = vị trí kết thúc => là 1 ô
+      let seatCase1 = seats?.filter((item: any) => item?.row == name && item?.column == start)
+      for (const key in cloneArrFBCT) {
+        if (cloneArrFBCT[key]?.row == name && cloneArrFBCT[key]?.column == start) {
+          cloneArrFBCT[key]['status'] = 2
+        }
+        newArrFBCT.push(cloneArrFBCT[key])
+      }
+      let groupItem = groupBy(newArrFBCT);
+      setSeatDetails(groupItem);
+      setSeatArrSelect(seatCase1);
+      setSeatArr(seatCase1);
+
+    } else { // nếu vị trí bắt đầu khác vị trí kết thúc => render ra mảng theo vị trí
+      let viTri: any = [];
+      for (const key in cloneArrFBCT) {
+        for (var i = start; i <= end; i++) {
+          if (cloneArrFBCT[key]?.row == name && cloneArrFBCT[key]?.column == i) {
+            cloneArrFBCT[key]['status'] = 2;
+          }
+        }
+        viTri.push(cloneArrFBCT[key]);
+      }
+      newArrFBCTCase2 = viTri?.filter((item: any) => item['status'] == 2);
+      let groupItem2 = groupBy(viTri);
+      setSeatDetails(groupItem2);
+      setSeatArrSelect(newArrFBCTCase2);
+      setSeatArr(newArrFBCTCase2);
+    }
+
+  }
 
   const chooseAllSeat = () => {
     const handleChooseAll = () => {
@@ -266,7 +313,6 @@ const RenderSeats = ({
     };
 
     const handleChooseAllBlock = () => {
-      setHiddenChooseAll(true)
       let cloneArr: any[] = JSON.parse(JSON.stringify(seats));
       let newArr: any = []
       for (const key in cloneArr) {
@@ -276,27 +322,91 @@ const RenderSeats = ({
         newArr.push(cloneArr[key])
       }
       let groupItem = groupBy(newArr);
-
       setSeatDetails(groupItem);
       setSeatArrSelect(blockSeat);
       setSeatArr(blockSeat);
     }
+    const chooseTheoCT = () => {
+      setHiddenChooseAll(true);
+      setShowByCT(true)
+    }
+
+    const closeOption = () => {
+      setHiddenChooseAll(false);
+      setShowByCT(false)
+      onReset()
+    }
+
+    const RenderSeatBYDK = () => {
+
+      const finshByCT = (val: any) => {
+        findByCharacter(val?.tenHang, val?.batDau, val?.KetThuc)
+      }
+      return (
+        <div className="mb-2">
+          <Form form={form} onFinish={finshByCT} layout="inline">
+            <Form.Item name="tenHang">
+              <Select
+                placeholder="Chọn tên hàng"
+              >
+                {parseCharac?.map((item: any) => (
+                  <Option value={item} key={item}>
+                    {item}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item name="batDau">
+              <InputNumber placeholder="bắt đầu" min={1} max={column} />
+            </Form.Item>
+            <Form.Item name="KetThuc">
+              <InputNumber placeholder="kết thúc" max={column} />
+            </Form.Item>
+            <Form.Item >
+              <Button htmlType="submit" type="primary">Submit</Button>
+            </Form.Item>
+            <Form.Item >
+              <Button onClick={onReset} >Reset</Button>
+            </Form.Item>
+            <Form.Item >
+              <Button onClick={closeOption} danger>Xóa lựa chọn</Button>
+            </Form.Item>
+          </Form>
+        </div>
+      )
+    }
     return (
-      <div className="mb-5  flex gap-3">
-        <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-          Chọn tất cả ({seats?.length})
-        </Button>
-       {blockSeat?.length > 0 && <Button type="primary" onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-          Chọn tất cả ghế dừng hoạt động ({blockSeat?.length})
-        </Button>}
-        {seatArr?.length > 0 && (
-          <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>
-        )}
-      </div>
+      <>
+        {hiddenChooseAll && <RenderSeatBYDK />}
+        <div className="mb-5  flex gap-3">
+          <Button type="ghost" onClick={chooseTheoCT} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+            Chọn nhanh
+          </Button>
+
+          {!hiddenChooseAll && (
+            <>
+              <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+                Chọn tất cả ({seats?.length})
+              </Button>
+
+              {blockSeat?.length > 0 && <Button type="primary" onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+                Chọn tất cả ghế dừng hoạt động ({blockSeat?.length})
+              </Button>}
+              {seatArr?.length > 0 && (
+                <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>
+              )}
+            </>
+          )}
+        </div></>
     );
   };
   const onReset = () => {
-    form.resetFields();
+    setSeatArr([]);
+    setSelectedRowKeys([]);
+    setSeatArrSelect([]);
+    handleSubmit();
+    form.resetFields()
+
   };
   const rowSelection = {
     selectedRowKeys,
@@ -319,19 +429,16 @@ const RenderSeats = ({
       dispatch(updateSeatThunk(payload))
         .unwrap()
         .then(() => {
-          onReset();
           message.success("Update thành công");
           setTimeout(() => {
             window.location.reload();
+            onReset();
           }, 2000);
         })
         .catch((error: any) => {
-          setSeatArr([]);
-          setSelectedRowKeys([]);
-          setSeatArrSelect([]);
-          message.error(error);
           handleSubmit();
           onReset();
+          message.error(error);
         });
     };
 
