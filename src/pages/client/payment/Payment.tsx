@@ -159,20 +159,16 @@ const Payment = ({ }: Props) => {
       confirmButtonText: "Yes",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        dispatch(createPaymeny(payload))
-          .unwrap()
+        let voucherChange = {
+          _id: voucherApply?._id,
+          quantity: voucherApply?.quantity - 1,
+          userId: [...voucherApply?.userId, currentUser?._id]
+        }
+        dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
-            window.location.href = `${res}`;
-            let voucherChange = {
-              _id: voucherItem?._id,
-              quantity: voucherItem?.quantity - 1,
-              userId: [...voucherItem?.userId, currentUser?._id],
-            };
-
-            dispatch(updateData(voucherChange))
-              .unwrap()
-              .then(() => console.log("success"))
-              .catch(() => console.log("errr"));
+            dispatch(updateData(voucherChange)).unwrap()
+              .then(() => { window.location.href = `${res}` })
+              .catch((err: any) => message.error(err.message))
           })
           .catch((err: any) => message.error(`${err}`));
       }
