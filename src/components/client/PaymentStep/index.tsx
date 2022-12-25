@@ -9,7 +9,7 @@ type Props = {
   rightContent: any;
   name: any;
   ticket: any;
-  send:any
+  send?:any
 };
 const PaymentStep = ({
   nextStep,

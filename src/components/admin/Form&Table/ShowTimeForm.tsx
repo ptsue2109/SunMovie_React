@@ -57,7 +57,7 @@ const ShowTimeForm = ({
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
-   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
+   const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);
 
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
