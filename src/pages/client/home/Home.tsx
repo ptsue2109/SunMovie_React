@@ -17,7 +17,8 @@ type Props = {};
 const Home = (props: Props) => {
   document.title = "SUNCINEMA"
   const [isAcive, setActive] = useState(1);
-  const { slider, isErr, isFetching, isSucess } = useAppSelector(
+  const [isShow, setIsShow] = useState(false)
+  const { slider, isErr, isFetching } = useAppSelector(
     (state) => state.slider
   );
   const Toggle = (number: number) => {
@@ -130,7 +131,7 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Tin tức</h3>
-            <News activeNav={true} />
+            <News activeNav={true}  isShow={isShow}/>
           </div>
 
           {/* <div className={styles.content_cmt}>

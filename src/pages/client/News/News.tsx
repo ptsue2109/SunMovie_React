@@ -10,6 +10,7 @@ import { getAlPost, getListPostByCate } from "../../../redux/slice/PostSlice";
 
 type Props = {
   activeNav: boolean;
+  isShow:boolean
 };
 
 const News = ({ activeNav }: Props) => {
@@ -18,7 +19,7 @@ const News = ({ activeNav }: Props) => {
   const { slug } = useParams();
   const [path, setPath] = useState<string>("");
   const [data, setData] = useState<any>([]);
-
+  const [activePost, setActivePost]= useState<any>([]);
   useEffect(() => {
     if (!slug) {
       setPath(config.routes.news);
@@ -42,10 +43,15 @@ const News = ({ activeNav }: Props) => {
       })();
     }
   }, [slug]);
+
+  useEffect(() => {
+    let a = posts?.filter((item:any) => item?.status == 0);
+    setActivePost(a)
+  }, [posts])
   return (
     <>
       {!activeNav && <NavNews />}
-      {!slug && <NewsContent data={posts} path={path}  dataName=""/>}
+      {!slug && <NewsContent data={activePost} path={path}  dataName=""/>}
       {slug && <NewsContent data={data} path={path} dataName="" />}
     </>
   );

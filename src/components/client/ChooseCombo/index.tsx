@@ -213,6 +213,7 @@ const ChooseCombo = ({ updateFieldsFood }: Props) => {
         rightContent={rightContent()}
         name="Chọn đồ ăn"
         ticket={state?.ticket}
+        send={undefined}
       />
     </>
   );
