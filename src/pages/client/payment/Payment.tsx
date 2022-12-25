@@ -80,6 +80,7 @@ const Payment = ({ }: Props) => {
   const checkCode = (codeVal: any, e: Event) => {
     e.preventDefault();
     e.stopPropagation();
+    setVoucherApply(null);
     if (codeVal.length >= 1) {
       setCODE(codeVal);
     } else {
@@ -164,24 +165,21 @@ const Payment = ({ }: Props) => {
       confirmButtonText: "Yes",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        let voucherChange = {
-          _id: voucherApply?._id,
-          quantity: voucherApply?.quantity - 1,
-          userId: [...voucherApply?.userId, currentUser?._id]
-        }
         dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
-
-            let voucherChange = {
-              _id: voucherApply?._id,
-              quantity: voucherApply?.quantity - 1,
-              userId: [...voucherApply?.userId, currentUser?._id],
-            };
-
-            dispatch(updateData(voucherChange))
-              .unwrap()
-              .then(() => window.location.href = `${res}`)
-              .catch(() => console.log("errr"));
+            if (voucherApply) {
+              let voucherChange = {
+                _id: voucherApply?._id,
+                quantity: voucherApply?.quantity - 1,
+                userId: [...voucherApply?.userId, currentUser?._id]
+              }
+              dispatch(updateData(voucherChange)).unwrap()
+                .then(() => { window.location.href = `${res}` })
+                .catch((err: any) => message.error(err.message))
+            }
+            else {
+              window.location.href = `${res}`
+            }
           })
           .catch((err: any) => message.error(`${err}`));
       }
