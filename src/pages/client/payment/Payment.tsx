@@ -146,13 +146,23 @@ const Payment = ({ updateFields, foodData }: Props) => {
       orderDescription: "thanh toan",
       orderType: "billpayment",
       language: "",
-      foodDetailId: state?.foodDetailId,
+      foodData: {
+        food: foodData.food.data.map((item: any) => {
+          return {
+            foodId: item.foodId._id,
+            quantity: item.quantity
+          }
+        }),
+        totalPrice: foodData.food.data.reduce((total: any, currentValue: any) => {
+          return total + currentValue.price * currentValue.quantity
+        }, 0)
+      }
       // voucherId: {
       //   _id: voucherApply?._id,
       //   quantity: 1
       // }
     }
-    console.log(payload);
+
 
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
@@ -164,21 +174,16 @@ const Payment = ({ updateFields, foodData }: Props) => {
       confirmButtonText: "Yes",
     }).then((result: any) => {
       if (result.isConfirmed) {
+        let voucherChange = {
+          _id: voucherApply?._id,
+          quantity: voucherApply?.quantity - 1,
+          userId: [...voucherApply?.userId, currentUser?._id]
+        }
         dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
-            console.log("res", res);
-            window.location.href = `${res}`
-            // let voucherChange = {
-            //   _id: voucherItem?._id,
-            //   quantity: voucherItem?.quantity - 1,
-            //   userId: [...voucherItem?.userId, currentUser?._id]
-            // }
-            // dispatch(updateData(voucherChange)).unwrap()
-            //   .then(() => console.log('success'))
-            //   .catch(() => console.log('errr'))
-
-
-            window.location.href = `${res}`
+            dispatch(updateData(voucherChange)).unwrap()
+              .then(() => { window.location.href = `${res}` })
+              .catch((err: any) => message.error(err.message))
           })
           .catch((err: any) => message.error(`${err}`));
       }

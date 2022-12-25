@@ -17,7 +17,7 @@ const StepC = ({ }: Props) => {
   const [data, setData] = useState<any>([]);
   const [foodData, setFoodData] = useState<any>([]);
   const [foodData2, setFoodData2] = useState<any>([]);
-   useEffect(() => {
+  useEffect(() => {
     saveFoodData()
     if (foodData) {
       setFoodData2(foodData)
@@ -41,7 +41,7 @@ const StepC = ({ }: Props) => {
   const steps = [
     {
       title: 'Firsst',
-      comp: <ChooseCombo {...data} updateFieldsFood={updateFieldsFood}  />
+      comp: <ChooseCombo {...data} updateFieldsFood={updateFieldsFood} />
 
     },
     {
@@ -102,9 +102,9 @@ const StepC = ({ }: Props) => {
       </>
     )
   }
-  const onChange = (val:any) => {
-    console.log("val", val);
-    
+  const onChange = (val: any) => {
+    // console.log("val", val);
+
   }
   return (
     <div className='bg-[#182b47] rounded-md container p-3' >
@@ -113,7 +113,7 @@ const StepC = ({ }: Props) => {
           title="Đơn hàng sẽ hủy sau"
           value={timer}
           onFinish={onFinish}
-        onChange={onChange}
+          onChange={onChange}
         />
       </div>
 
