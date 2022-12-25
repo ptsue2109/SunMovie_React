@@ -15,7 +15,7 @@ import { Spin } from "antd"
 type Props = {};
 
 const Home = (props: Props) => {
-  useEffect(() => { document.title = "Trang chủ"; }, [])
+  document.title = "SUNCINEMA"
   const [isAcive, setActive] = useState(1);
   const { slider, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.slider

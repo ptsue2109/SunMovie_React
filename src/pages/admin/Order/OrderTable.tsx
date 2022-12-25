@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { InputRef, Tag } from 'antd';
+import { Image, InputRef, Tag } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnsType, ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
@@ -181,7 +181,12 @@ const OrderTable = ({ data }: Props) => {
          title: 'QR',
          dataIndex: 'qrCode',
          key: 'qrCode',
-         render: (_: any, { qrCode }: any) => <img src={qrCode} style={{ width: '50px', height: "50px" }} />
+         render: (_: any, { qrCode }: any) => <Image
+            width={40}
+            height={40}
+            src="error"
+            fallback={qrCode}
+         />
       },
       {
          title: "ACTION",
