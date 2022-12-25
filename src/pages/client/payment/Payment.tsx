@@ -164,8 +164,12 @@ const Payment = ({ }: Props) => {
       confirmButtonText: "Yes",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        dispatch(createPaymeny(payload))
-          .unwrap()
+        let voucherChange = {
+          _id: voucherApply?._id,
+          quantity: voucherApply?.quantity - 1,
+          userId: [...voucherApply?.userId, currentUser?._id]
+        }
+        dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
 
             let voucherChange = {
