@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Result } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-type Props = {
-
-}
+type Props = { }
 
 const CancelOrder = (props: Props) => {
   const { state } = useLocation();
-  console.log('state', state);
-  
   const [info, setInfo] = useState<any>()
 
   useEffect(() => {
     document.title = "SUNCINEMA";
     if (state) {
-      setInfo(state[0])
+      setInfo(state?.populatedDetail[0])
     }
   }, [state])
   return (

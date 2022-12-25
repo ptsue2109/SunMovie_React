@@ -13,7 +13,7 @@ import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { createPaymeny } from "../../../redux/slice/OrdersSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
 import PaymentStep from "../../../components/client/PaymentStep";
@@ -36,12 +36,13 @@ const Payment = ({ }: Props) => {
   const [CODE, setCODE] = useState<any>("");
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
-  const [voucherItem, setVoucherItem] = useState<any>();
+  const [voucherActive, setVoucherActive] = useState<any>([]);
   const [movieDetail, setMovieDetail] = useState<any>();
   const [voucherApply, setVoucherApply] = useState<any>();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
+  const navigate = useNavigate()
   const upperText = (text: any) => {
     return text.toUpperCase();
   };
@@ -50,6 +51,10 @@ const Payment = ({ }: Props) => {
   let movieSelect = movie?.find(
     (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
   );
+  useEffect(() => {
+    let active = vouchers?.filter((item: any) => item?.status == 0)
+    setVoucherActive(active)
+  }, [vouchers])
 
   useEffect(() => {
     if (state && movieSelect) {
@@ -87,7 +92,7 @@ const Payment = ({ }: Props) => {
   const handle = () => {
     if (CODE) {
       let upper = upperText(CODE);
-      let item = vouchers.find((item: any) => item?.code === upper);
+      let item = voucherActive.find((item: any) => item?.code === upper);
       let checkUsed = item?.userId?.find(
         (val: any) => val?._id === currentUser?._id
       );
@@ -100,7 +105,6 @@ const Payment = ({ }: Props) => {
           `Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`
         );
       } else {
-        console.log("items", item)
         setVoucherApply(item)
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
@@ -149,6 +153,7 @@ const Payment = ({ }: Props) => {
       foodDetailId: state?.foodDetailId,
       voucherId: voucherApply
     };
+
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
       text: "",
@@ -166,15 +171,43 @@ const Payment = ({ }: Props) => {
         }
         dispatch(createPaymeny(payload)).unwrap()
           .then((res: any) => {
-            dispatch(updateData(voucherChange)).unwrap()
-              .then(() => { window.location.href = `${res}` })
-              .catch((err: any) => message.error(err.message))
+
+            let voucherChange = {
+              _id: voucherApply?._id,
+              quantity: voucherApply?.quantity - 1,
+              userId: [...voucherApply?.userId, currentUser?._id],
+            };
+
+            dispatch(updateData(voucherChange))
+              .unwrap()
+              .then(() => window.location.href = `${res}`)
+              .catch(() => console.log("errr"));
           })
           .catch((err: any) => message.error(`${err}`));
       }
     });
   };
-
+  const backStep = () => {
+    navigate("/combo", { state: state })
+  }
+  const ButtonBack = () => {
+    return (
+      <Button
+        onClick={backStep}
+        style={{
+          width: "47%",
+          marginLeft: "17px",
+          backgroundColor: "#f6710d",
+          border: "none",
+        }}
+        type="primary"
+        htmlType="submit"
+        className="hover: text-red-600"
+      >
+        Thanh toán
+      </Button>
+    )
+  }
   const childrenComp = () => {
     return (
       <div className="bg-[#ffffff] h-[550px] max-h-[550px]  w-[98%] max-w-[98%] p-5 ml-2">
@@ -250,18 +283,7 @@ const Payment = ({ }: Props) => {
             </p>
 
             <div className="flex">
-              <Button
-                className={style.btn}
-                style={{
-                  width: "47%",
-                  backgroundColor: "#f6710d",
-                  border: "none",
-                }}
-                type="primary"
-                htmlType="submit"
-              >
-                Quay lại
-              </Button>
+              <ButtonBack />
               <Button
                 style={{
                   width: "47%",
@@ -347,6 +369,7 @@ const Payment = ({ }: Props) => {
       </>
     );
   };
+
   return (
     <PaymentStep
       ticket={state?.ticket}
@@ -354,6 +377,7 @@ const Payment = ({ }: Props) => {
       nextStep={null}
       rightContent={rightContent()}
       name="Thanh toán"
+      send={state}
     />
   );
 };

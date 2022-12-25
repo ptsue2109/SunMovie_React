@@ -9,6 +9,7 @@ type Props = {
   rightContent: any;
   name: any;
   ticket: any;
+  send:any
 };
 const PaymentStep = ({
   nextStep,
@@ -16,12 +17,12 @@ const PaymentStep = ({
   rightContent,
   name,
   ticket,
+  send,
 }: Props) => {
   let today: any = new Date();
   let a = convertDate(ticket?.createdAt) + 1000 * 60 *9;
   let deadline = a - convertDate(today) + moment(today).unix() * 1000;
   
-  const getTimeCountdown = (val: any) => { }; 
   return (
     <>
       <div className="flex flex-row justify-center mt-16 ">
@@ -32,7 +33,7 @@ const PaymentStep = ({
               <div className="">
                 <CountdownComp
                   deadline={deadline}
-                  onChange={getTimeCountdown}
+                  info={send}
                 />
               </div>
             </div>

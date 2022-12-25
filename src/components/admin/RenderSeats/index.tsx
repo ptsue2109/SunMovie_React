@@ -236,13 +236,16 @@ const RenderSeats = ({
   const columns: any[] = [
     { title: "STT", dataIndex: "key" },
     { title: "position", dataIndex: "position", render: (_: any, { position }: any) => <b>{position}</b> },
-    { title: "_id", dataIndex: "_id" },
+    {title: "Loại ghế", dataIndex: "seatType"}
   ];
   const data: any[] = seatArr?.map((item: any, index: any) => {
+    console.log(item);
+    
     return {
       key: index + 1,
       position: `${item?.row}${item?.column}`,
       _id: item?._id,
+      seatType: item?.seatTypeId?.name
     };
   });
 
