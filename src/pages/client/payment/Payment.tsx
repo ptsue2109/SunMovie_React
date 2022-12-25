@@ -1,13 +1,19 @@
-import { Button, Form, Input, message, Select, Statistic, } from "antd";
+import { Button, Form, Input, message, Select, Statistic } from "antd";
 import style from "./Payment.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { useState, useEffect } from "react";
-import { discountPercent, formatCurrency, formatDate, formatDateString, formatTime, } from "../../../ultils";
+import {
+  discountPercent,
+  formatCurrency,
+  formatDate,
+  formatDateString,
+  formatTime,
+} from "../../../ultils";
 import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { createPaymeny } from "../../../redux/slice/OrdersSlice";
-import { json, useLocation, useNavigate, } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
 import CountdownComp from "../../../components/client/Countdown";
@@ -41,7 +47,7 @@ const Payment = (props: Props) => {
     return text.toUpperCase();
   };
   const { state } = useLocation();
-  let time = Number(localStorage.getItem("timeDefault"))
+  let time = Number(localStorage.getItem("timeDefault"));
   let movieSelect = movie?.find(
     (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
   );
@@ -55,7 +61,6 @@ const Payment = (props: Props) => {
       setMovieDetail(movieSelect);
     }
   }, [state, movieSelect]);
-
 
   useEffect(() => {
     form.setFieldsValue({
@@ -106,20 +111,19 @@ const Payment = (props: Props) => {
 
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
-            let price2: any = Number(tempPrice) - Number(vcDiscount)
+            let price2: any = Number(tempPrice) - Number(vcDiscount);
             if (price2 <= limit) {
-              setPriceAfterDiscount(price2)
+              setPriceAfterDiscount(price2);
             } else {
-              setPriceAfterDiscount(Number(tempPrice) - Number(limit))
+              setPriceAfterDiscount(Number(tempPrice) - Number(limit));
             }
           } else if (item?.condition === 0) {
             let price: any = discountPercent(tempPrice, vcDiscount);
             if (price <= limit) {
-              setPriceAfterDiscount(Number(tempPrice) - Number(price))
+              setPriceAfterDiscount(Number(tempPrice) - Number(price));
             } else {
-              setPriceAfterDiscount(Number(tempPrice) - Number(limit))
+              setPriceAfterDiscount(Number(tempPrice) - Number(limit));
             }
-
           }
           message.info("Đã áp dụng mã giảm giá");
         }
@@ -142,8 +146,7 @@ const Payment = (props: Props) => {
       orderType: "billpayment",
       language: "",
       foodDetailId: state?.foodDetailId,
-    }
-
+    };
 
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
@@ -155,18 +158,20 @@ const Payment = (props: Props) => {
       confirmButtonText: "Yes",
     }).then((result: any) => {
       if (result.isConfirmed) {
-        dispatch(createPaymeny(payload)).unwrap()
+        dispatch(createPaymeny(payload))
+          .unwrap()
           .then((res: any) => {
             window.location.href = `${res}`;
             let voucherChange = {
               _id: voucherItem?._id,
               quantity: voucherItem?.quantity - 1,
-              userId: [...voucherItem?.userId, currentUser?._id]
-            }
+              userId: [...voucherItem?.userId, currentUser?._id],
+            };
 
-            dispatch(updateData(voucherChange)).unwrap()
-              .then(() => console.log('success'))
-              .catch(() => console.log('errr'))
+            dispatch(updateData(voucherChange))
+              .unwrap()
+              .then(() => console.log("success"))
+              .catch(() => console.log("errr"));
           })
           .catch((err: any) => message.error(`${err}`));
       }
@@ -193,12 +198,7 @@ const Payment = (props: Props) => {
                 <Select.Option key={index} value={item?.value}>
                   <div className="flex justify-between">
                     {item?.name}
-                    <img
-                      src={item?.image}
-                      alt=""
-                      width="25px"
-                      height="25px"
-                    />
+                    <img src={item?.image} alt="" width="25px" height="25px" />
                   </div>
                 </Select.Option>
               ))}
@@ -213,11 +213,7 @@ const Payment = (props: Props) => {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
             <Input disabled />
           </Form.Item>
 
@@ -231,11 +227,11 @@ const Payment = (props: Props) => {
 
           <div className="">
             <Form.Item name="voucherCode" label="Mã giảm giá">
-              <Input
-                onChange={(e: any) => checkCode(e?.target?.value, e)}
-              />
+              <Input onChange={(e: any) => checkCode(e?.target?.value, e)} />
             </Form.Item>
-            <small className="text-red-500 ml-[270px]">{voucherMess} {voucherMess2}</small>
+            <small className="text-red-500 ml-[270px]">
+              {voucherMess} {voucherMess2}
+            </small>
           </div>
           <div className=" w-[260px] justify-center flex flex-col ml-[250px] float-right">
             <Button
@@ -251,9 +247,8 @@ const Payment = (props: Props) => {
               Áp dụng
             </Button>
             <p className="text-xs mt-2 ">
-              (*) Bằng việc click/chạm vào THANH TOÁN, bạn đã xác nhận hiểu
-              rõ các Quy Định Giao Dịch Trực Tuyến của{" "}
-              {webConfigs[0]?.storeName}.
+              (*) Bằng việc click/chạm vào THANH TOÁN, bạn đã xác nhận hiểu rõ
+              các Quy Định Giao Dịch Trực Tuyến của {webConfigs[0]?.storeName}.
             </p>
 
             <div className="flex">
@@ -286,8 +281,8 @@ const Payment = (props: Props) => {
           </div>
         </Form>
       </div>
-    )
-  }
+    );
+  };
   const rightContent = () => {
     return (
       <>
@@ -352,8 +347,8 @@ const Payment = (props: Props) => {
           )}
         </h2>
       </>
-    )
-  }
+    );
+  };
   return (
     //  <div className="flex flex-row justify-center mt-16 ">
     //   <div className="w-[55%]">
@@ -541,8 +536,13 @@ const Payment = (props: Props) => {
     //     </h2>
     //   </div>
     // </div>
-    <PaymentStep children={childrenComp()} nextStep={null} rightContent={rightContent()} name="Thanh toán"/>
-
+    <PaymentStep
+      ticket={state?.ticket}
+      children={childrenComp()}
+      nextStep={null}
+      rightContent={rightContent()}
+      name="Thanh toán"
+    />
   );
 };
 
