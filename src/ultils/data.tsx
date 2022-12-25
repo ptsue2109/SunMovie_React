@@ -90,3 +90,9 @@ export let dateFake = [
   { profit: 0, date: "11" },
   { profit: 0, date: "12" },
 ];
+
+export const orderMutipleOption = [
+  { value: "userId", name: "Theo id khách hàng" },
+  { value: "userName", name: "Theo tên khách hàng" },
+  { value: "orderCode", name: "Theo mã đơn" },
+];

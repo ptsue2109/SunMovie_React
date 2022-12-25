@@ -7,7 +7,8 @@ import type { FilterConfirmProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom';
 import { EditOutlined } from "@ant-design/icons";
-import { formatCurrency } from '../../../ultils';
+import { formatCurrency, formatDate, formatTime } from '../../../ultils';
+import SearchMutiple from './SearchByCate';
 
 
 type Props = {
@@ -100,7 +101,7 @@ const OrderTable = ({ data }: Props) => {
          }
       },
       render: (text) =>
-         searchedColumn === dataIndex ? (
+         searchedColumn == dataIndex ? (
             <Highlighter
                highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
                searchWords={[searchText]}
@@ -131,15 +132,29 @@ const OrderTable = ({ data }: Props) => {
          title: 'Mã đơn',
          dataIndex: 'code',
          key: 'code',
-         width: '30%',
          ...getColumnSearchProps('code'),
-         render: (_:any, {code, _id} :any) => <Link to={`${_id}`}>{code}</Link>
+         render: (_: any, { code, _id }: any) => <Link to={`${_id}`}>{code}</Link>
+      },
+      {
+         title: 'Ngày đặt',
+         dataIndex: 'createdAt',
+         key: 'createdAt',
+         ...getColumnSearchProps('createdAt'),
+         sortDirections: ['descend', 'ascend'],
+         render: (_: any, { createdAt }: any) => <p>{formatDate(createdAt)} {formatTime(createdAt)}</p>
+      },
+      {
+         title: 'SL Vé',
+         dataIndex: 'ticket',
+         key: 'ticket',
+         ...getColumnSearchProps('ticket'),
+         sorter: (a, b) => a.ticket.length - b.ticket.length,
+         sortDirections: ['descend', 'ascend'],
       },
       {
          title: 'Tổng tiền',
          dataIndex: 'totalPrice',
          key: 'totalPrice',
-         width: '20%',
          ...getColumnSearchProps('totalPrice'),
       },
       {
@@ -149,16 +164,24 @@ const OrderTable = ({ data }: Props) => {
             <>
                {record?.status === 1 ? <Tag color="#87d068"> Đã thanh toán   </Tag> : record?.status === 3 ? <Tag color="#d06d68"> Đã xuất vé </Tag> : <Tag color="processing">Đang chờ thanh toán / thanh toán lỗi</Tag>}
             </>
-
          )
       },
+
       {
-         title: 'SL Vé',
-         dataIndex: 'ticket',
-         key: 'ticket',
-         ...getColumnSearchProps('ticket'),
-         sorter: (a, b) => a.ticket.length - b.ticket.length,
+         title: 'Người đặt',
+         dataIndex: 'userId',
+         key: 'userId',
+         ...getColumnSearchProps('userId.username'),
+         sorter: (a, b) => a.userId.username.length - b.userId.username.length,
          sortDirections: ['descend', 'ascend'],
+         render: (_: any, { userId }: any) => <p>{userId?.username}</p>
+      },
+
+      {
+         title: 'QR',
+         dataIndex: 'qrCode',
+         key: 'qrCode',
+         render: (_: any, { qrCode }: any) => <img src={qrCode} style={{ width: '50px', height: "50px" }} />
       },
       {
          title: "ACTION",
@@ -177,7 +200,9 @@ const OrderTable = ({ data }: Props) => {
       },
    ];
    return (
-      <div> <Table columns={columns} dataSource={dataSource}/></div>
+      <div>
+         <Table columns={columns} dataSource={dataSource} />
+      </div>
    )
 }
 
