@@ -107,11 +107,12 @@ const StepC = ({ }: Props) => {
 
   }
   return (
-    <div className='bg-[#182b47] rounded-md container p-3' >
-      <div className="text-white" style={{ top: 250, right: '33%', position: "absolute" }}>
+    <div className='bg-[#182b47] rounded-md text-white container p-3' >
+      <div  >
         <Countdown
-          title="Đơn hàng sẽ hủy sau"
+          title={<span className="text-white">Đơn hàng sẽ hủy sau</span>}
           value={timer}
+          valueStyle={{ "color": "white" }}
           onFinish={onFinish}
           onChange={onChange}
         />

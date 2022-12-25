@@ -212,7 +212,7 @@ const ChooseCombo = ({ updateFieldsFood }: Props) => {
    }
    return (
       <>
-         <div className="flex flex-row justify-center mt-16 ">
+         <div className="flex flex-row justify-center mt-3 ">
             <div className="w-[75%]">
                <div className="bg-[#f6710d] h-[680px] ">
                   <div className="flex items-center justify-between p-2">

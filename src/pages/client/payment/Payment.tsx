@@ -345,7 +345,7 @@ const Payment = ({ updateFields, foodData }: Props) => {
               </li>
             </ul>
           </>
-        )}q
+        )}
         <h2 className="px-4 text-base">
           Tổng Giá:
           <span className="font-semibold text-xl text-[#dcdcd]">
@@ -373,7 +373,7 @@ const Payment = ({ updateFields, foodData }: Props) => {
     )
   }
   return (
-    <div className="flex flex-row justify-center mt-16 ">
+    <div className="flex flex-row justify-center mt-3 ">
       <div className="w-[75%]">
         <div className="bg-[#f6710d] h-[680px] ">
           <div className="flex items-center justify-between p-2">
