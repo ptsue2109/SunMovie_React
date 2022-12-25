@@ -1,73 +1,49 @@
-import { FormEvent, useState } from "react"
-import { useMultistepForm } from "./useMultistepForm"
-import ChooseCombo from "../ChooseCombo"
-import Payment from "../../../pages/client/payment/Payment"
-import { Statistic } from "antd"
-const {Countdown} = Statistic
-const PaymentStep = () => {
-  const [data, setData] = useState<any>();
+import moment from "moment";
+import React, { useState, useEffect } from "react";
+import { convertDate, convertDateToNumber } from "../../../ultils";
+import CountdownComp from "../Countdown";
 
-  console.log("dataAtPaymetStep", data);
-
-  const updateFields = (fields: Partial<FormData>) => {
-    console.log("fieldsAtPaymetStep", fields);
-
-    setData((prev: any) => {
-      return { ...prev, ...fields }
-    })
-  }
-  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
-    useMultistepForm([
-      <ChooseCombo {...data} updateFields={updateFields} />,
-      <Payment {...data} updateFields={updateFields} />,
-    ])
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    if (!isLastStep) return next()
-    alert("Successful Account Creation")
-  }
-  const RenderC= () => {
-    return (
-      <>
-      <div className="container">
-     
-        <div style={{ position: "absolute", top: ".5rem", right: ".5rem" }}>
-          {currentStepIndex + 1} / {steps.length}
-        </div>
-        {step}
-        <div
-          style={{
-            marginTop: "1rem",
-            display: "flex",
-            gap: ".5rem",
-            justifyContent: "flex-end",
-          }}
-        >
-          {!isFirstStep && (
-            <button type="button" onClick={back}>
-              Back
-            </button>
-          )}
-          <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
-        </div>
-   
-    </div>
-      </>
-    )
-  }
-
+type Props = {
+  nextStep: any;
+  children: any;
+  rightContent: any;
+  name: any;
+  ticket: any;
+};
+const PaymentStep = ({
+  nextStep,
+  children,
+  rightContent,
+  name,
+  ticket,
+}: Props) => {
+  let today: any = new Date();
+  let a = convertDate(ticket?.createdAt) + 1000 * 60 *9;
+  let deadline = a - convertDate(today) + moment(today).unix() * 1000;
+  
+  const getTimeCountdown = (val: any) => { }; 
   return (
     <>
-    <Countdown
-        title="Đơn hàng sẽ hủy sau"
-        value={Date.now() + 1000 * 60 * 9}
+      <div className="flex flex-row justify-center mt-16 ">
+        <div className="w-[55%]">
+          <div className="bg-[#f6710d] h-[680px] ">
+            <div className="flex items-center justify-between p-2">
+              <h1 className="text-3xl p-3 text-white ">{name}</h1>
+              <div className="">
+                <CountdownComp
+                  deadline={deadline}
+                  onChange={getTimeCountdown}
+                />
+              </div>
+            </div>
+            {children}
+          </div>
+        </div>
+        <div className="w-[20%] bg-white ml-10 h-[680px] ">{rightContent}</div>
+      </div>
+    </>
+  );
+};
 
-      // onChange={onChange}
-      />
-      <RenderC />
-      </>
-  )
-}
 
 export default PaymentStep

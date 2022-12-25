@@ -77,8 +77,6 @@ import PaymentStatus from "../components/client/PaymentStatus";
 import OrderTab from "../pages/admin/Order/OrderTab";
 import NestedTable from "../pages/admin/showTime/NestedTable";
 import CancelOrder from "../components/client/CancelOrder";
-import Step from "../components/client/Step/Step";
-import StepC from "../components/client/Step/Step";
 import CheckOrder from "../pages/client/CheckOrder";
 type RoutesType = {
   path: string;
@@ -108,7 +106,6 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.loadingPushAccountInLocalStorage, component: LoadingPushAccountInLocalStorage },
   { path: configRoute.routes.chooseCombo, component: ChooseCombo },
   { path: configRoute.routes.paymentStatus, component: PaymentStatus },
-  { path: configRoute.routes.step, component: StepC },
   { path: configRoute.routes.findOrder, component: FindOrder },
   { path: configRoute.routes.cancelOrder, component: CancelOrder },
   { path: configRoute.routes.checkOrder, component: CheckOrder },

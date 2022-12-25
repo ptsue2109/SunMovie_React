@@ -73,8 +73,7 @@ export const RenderInfoSeats = ({
       .unwrap()
       .then((payload: any) => {
         //@ts-ignore
-        // navigate("/combo", { state: payload });
-        navigate("/step", { state: payload });
+        navigate("/combo", { state: payload });
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {
