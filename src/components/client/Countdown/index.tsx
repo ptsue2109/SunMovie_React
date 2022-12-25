@@ -3,23 +3,23 @@ import { Statistic } from "antd";
 import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 type Props = {
-  deadline: any,
-  info?: any,
-  onChange?:any
+  deadline: any;
+  info?: any;
+  onChange?: any;
 };
 const { Countdown } = Statistic;
 
 const CountdownComp = ({ deadline, info, onChange }: Props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onFinish = () => {
-  navigate(`/cancel`, { state: info })
+    navigate(`/cancel`, { state: info });
   };
-  const [timer, setTimer] = useState<any>()
+  const [timer, setTimer] = useState<any>();
   useEffect(() => {
     if (deadline) {
-      setTimer(deadline)
+      setTimer(deadline);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="text-white">
@@ -28,7 +28,6 @@ const CountdownComp = ({ deadline, info, onChange }: Props) => {
         value={timer}
         onFinish={onFinish}
         onChange={onChange}
-       
       />
     </div>
   );

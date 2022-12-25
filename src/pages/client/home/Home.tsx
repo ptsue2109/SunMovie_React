@@ -32,8 +32,12 @@ const Home = (props: Props) => {
       releaseDate: convertDateToNumber(item.releaseDate),
     });
   });
-  const data1 = data.filter((item: any) => item.releaseDate <= dateToday);
-  const data2 = data.filter((item: any) => item.releaseDate > dateToday);
+  const data1 = data
+    .sort((a: any, b: any) => a.releaseDate - b.releaseDate)
+    .filter((item: any) => item.releaseDate <= dateToday);
+  const data2 = data
+    .sort((a: any, b: any) => a.releaseDate - b.releaseDate)
+    .filter((item: any) => item.releaseDate > dateToday);
   return (
     <>
       {isFetching ? <Spin size="large" /> : <SlideShow slider={slider} />}
