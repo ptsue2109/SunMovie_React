@@ -29,7 +29,7 @@ const StepC = ({ }: Props) => {
   }
 
   const updateFields = (fields: any) => {
-    console.log(fields);
+    // console.log(fields);
   }
 
   const saveFoodData = () => {
@@ -107,7 +107,7 @@ const StepC = ({ }: Props) => {
 
   }
   return (
-    <div className='bg-[#182b47] rounded-md text-white container p-3' >
+    <div className='bg-[#182b47] rounded-md container p-3' >
       <div  >
         <Countdown
           title={<span className="text-white">Đơn hàng sẽ hủy sau</span>}

@@ -21,7 +21,7 @@ const FindOrder = (props: Props) => {
   const dispatch = useAppDispatch();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (!orderId.trim() || orderId?.length < 1)  {
+    if (!orderId.trim() || orderId?.length < 1) {
       notification.info({ message: "Vui lòng nhập mã đơn hàng!" });
       setShowlog(false)
       return;
@@ -42,7 +42,7 @@ const FindOrder = (props: Props) => {
 
   useEffect(() => {
     if (order) {
-      console.log(order);
+      // console.log(order);
       setOrderDetail(order?.order);
       setDetail(order?.detail);
       let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice);
