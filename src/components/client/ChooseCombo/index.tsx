@@ -23,7 +23,6 @@ const ChooseCombo = ({ updateFieldsFood }: Props) => {
   const [foodOrder, setFoodOrder] = useState<any[]>([]);
   const [foodPrice, setFoodPrice] = useState<any>(0);
   const [cart, setCart] = useState<any[]>([]);
-  const [time, setTime] = useState<any>(0);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   let movieSelect = movie?.find(
@@ -81,10 +80,7 @@ const ChooseCombo = ({ updateFieldsFood }: Props) => {
       setFoodOrder(arrayFiltered);
     }
   }, [cart]);
-  const getTimeCountdown = (val: any) => {
-    localStorage.setItem("val", JSON.parse(JSON.stringify(val)));
-    localStorage.setItem("time", JSON.parse(JSON.stringify(deadline)));
-  };
+
   const nextStep = () => {
     dispatch(createFD(foodOrder))
       .unwrap()
@@ -113,7 +109,7 @@ const ChooseCombo = ({ updateFieldsFood }: Props) => {
                 <List.Item.Meta
                   avatar={<Avatar src={item?.image[0]?.url} />}
                   title={<b className="uppercase">{item?.name}</b>}
-                  description={`stock: ${item?.stock} , price: ${formatCurrency(
+                  description={`stock: ${item?.stock > 0 ? item?.stock : "Đã hết"} , price: ${formatCurrency(
                     item?.price
                   )}`}
                 />

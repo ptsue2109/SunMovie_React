@@ -23,7 +23,7 @@ const AdminVoucherEdit = (props: Props) => {
     return text.toUpperCase();
   };
   const dataSelected = vouchers.find((item: any) => item._id === id);
-console.log(dataSelected);
+  // console.log(dataSelected);
 
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.code ?? dataSelected?._id}`;
@@ -71,7 +71,7 @@ console.log(dataSelected);
         avatarList={avatarList}
         setAvatarList={setAvatarList}
         onReset={onReset}
-        voucherId= {id}
+        voucherId={id}
         userId={dataSelected?.userId}
       />
     </div>

@@ -20,9 +20,8 @@ const PaymentStep = ({
   let today: any = new Date();
   let a = convertDate(ticket?.createdAt) + 1000 * 60 *9;
   let deadline = a - convertDate(today) + moment(today).unix() * 1000;
-
-  const getTimeCountdown = (val: any) => { };
-
+  
+  const getTimeCountdown = (val: any) => { }; 
   return (
     <>
       <div className="flex flex-row justify-center mt-16 ">

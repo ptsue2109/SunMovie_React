@@ -17,7 +17,7 @@ const ChangePassword = (props: Props) => {
     labelCol: { span: 8 },
     wrapperCol: { span: 8 },
   };
-  console.log(currentUser._id);
+  // console.log(currentUser._id);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

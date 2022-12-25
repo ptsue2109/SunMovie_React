@@ -24,7 +24,7 @@ const routes = {
   paymentStatus: "/payment-status",
   step: "/step",
   profileOrder: "/profile/orders/:id",
-  checkOrder: "/checkOrder",
+  checkOrder: "/checkOrder/:id",
   findOrder: "/findOrder",
   cancelOrder: "/cancel",
   // admin

@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Select, Statistic } from "antd";
+import { Button, Form, Input, message, Select } from "antd";
 import style from "./Payment.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { useState, useEffect } from "react";
@@ -13,22 +13,18 @@ import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { createPaymeny } from "../../../redux/slice/OrdersSlice";
-import { json, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
-import CountdownComp from "../../../components/client/Countdown";
 import PaymentStep from "../../../components/client/PaymentStep";
-import StepC from "../../../components/client/Step/Step";
 const layout = {
   labelCol: { span: 12 },
   wrapperCol: { span: 12 },
 };
 
 type Props = {
-  updateFields: any,
-  foodData: any
 };
-const Payment = ({ updateFields, foodData }: Props) => {
+const Payment = ({ }: Props) => {
 
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
@@ -43,7 +39,6 @@ const Payment = ({ updateFields, foodData }: Props) => {
   const [voucherItem, setVoucherItem] = useState<any>();
   const [movieDetail, setMovieDetail] = useState<any>();
   const [voucherApply, setVoucherApply] = useState<any>();
-  const [paymentP, setPaymentP] = useState<any>("");
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
@@ -51,20 +46,20 @@ const Payment = ({ updateFields, foodData }: Props) => {
     return text.toUpperCase();
   };
   const { state } = useLocation();
-  let time = Number(localStorage.getItem("timeDefault"));
+
   let movieSelect = movie?.find(
     (item: any) => item?._id === state?.populatedDetail[0]?.showTimeId?.movieId
   );
 
   useEffect(() => {
-    if (state && movieSelect && foodData) {
+    if (state && movieSelect) {
       setInfo(state?.populatedDetail);
       setData(state?.ticket);
-      setTempPrice(foodData?.food?.totalPrice);
-      setPriceAfterDiscount(foodData?.food?.totalPrice);
+      setTempPrice(state?.finalPrice);
+      setPriceAfterDiscount(state?.finalPrice);
       setMovieDetail(movieSelect);
-      document.title = "Payment";
     }
+    document.title = "Payment";
   }, [state, movieSelect]);
 
   useEffect(() => {
@@ -105,6 +100,7 @@ const Payment = ({ updateFields, foodData }: Props) => {
           `Voucher áp dụng từ ngày ${formatDate(item?.timeStart)}`
         );
       } else {
+        console.log("items", item)
         setVoucherApply(item)
         let vcDiscount = item?.conditionNumber;
         let vcValue = item?.voucherVal; // tiền tối thiểu để giảm
@@ -114,7 +110,6 @@ const Payment = ({ updateFields, foodData }: Props) => {
           setVoucherMess2("bạn đã sử dụng voucher này");
         } else {
           let limit = item?.voucherLimit;
-
           if (item?.condition === 1) {
             setPriceAfterDiscount(Number(tempPrice) - Number(vcDiscount));
             let price2: any = Number(tempPrice) - Number(vcDiscount);
@@ -152,8 +147,8 @@ const Payment = ({ updateFields, foodData }: Props) => {
       orderType: "billpayment",
       language: "",
       foodDetailId: state?.foodDetailId,
+      voucherId: voucherApply
     };
-
     Swal.fire({
       title: "Bạn có chắc muốn thanh toán",
       text: "",
@@ -311,7 +306,7 @@ const Payment = ({ updateFields, foodData }: Props) => {
               </li>
               <li className="border-b-2 border-dotted border-black leading-10">
                 <b>Combo</b>:
-                {foodData?.food?.data?.map((item: any) => (
+                {state?.foodDetail?.map((item: any) => (
                   <span key={item?.foodId?._id}>
                     {item?.foodId?.name}({item?.quantity})
                   </span>
@@ -329,7 +324,7 @@ const Payment = ({ updateFields, foodData }: Props) => {
               </li>
             </ul>
           </>
-        )}q
+        )}
         <h2 className="px-4 text-base">
           Tổng Giá:
           <span className="font-semibold text-xl text-[#dcdcd]">

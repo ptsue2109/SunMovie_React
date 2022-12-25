@@ -43,7 +43,7 @@ const Profile = (props: Props) => {
       setYourOrder(a);
     }
   }, [orders]);
-    console.log(yourOrder);
+  // console.log(yourOrder);
 
   useEffect(() => {
     dispatch(getOneOrder(orderID));
@@ -79,7 +79,7 @@ const Profile = (props: Props) => {
             onCancel={() => setOpen(false)}
             width={1000}
           >
-            {order && <Ticket detail={detail} order={orderDetail}  />}
+            {order && <Ticket detail={detail} order={orderDetail} />}
           </Modal>
         </>
       ),
