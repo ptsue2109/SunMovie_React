@@ -23,6 +23,7 @@ import { getTicketDetails } from "../../../redux/slice/TicketDetailSlice";
 import CripTicketFood from "./CripTicketFood";
 import { formatCurrency } from "../../../ultils";
 import YearRevenue from "./YearRevenue";
+import StatisticsOverTime from "./StatisticsOverTime";
 
 ChartJS.register(
   CategoryScale,
@@ -169,9 +170,20 @@ const Dashboard = (props: Props) => {
               : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
           }
         >
-          Tổng doanh thu vé, đồ ăn của rạp
+          Doanh thu vé, đồ ăn của rạp
+        </button>
+        <button
+          onClick={() => onToggle(5)}
+          className={
+            active == 5
+              ? "px-7 bg-green-600 text-white h-[50px] mx-2 rounded"
+              : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
+          }
+        >
+          Doanh thu khoảng thời gian
         </button>
       </div>
+
       <div className={active == 1 ? "" : "hidden"}>
         <MonthRevenue />
       </div>
@@ -183,6 +195,9 @@ const Dashboard = (props: Props) => {
       </div>
       <div className={active == 4 ? "" : "hidden"}>
         <CripTicketFood />
+      </div>
+      <div className={active == 5 ? "" : "hidden"}>
+        <StatisticsOverTime />
       </div>
     </>
   );
