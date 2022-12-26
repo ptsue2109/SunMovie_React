@@ -1,9 +1,10 @@
-import { Button, message, Modal, Popconfirm, Space, Table } from "antd";
+import { useState } from "react";
+import { Button, message, Modal, notification, Select, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import { removeMovieItem } from "../../../redux/slice/Movie";
+import { UpdateMovie } from "../../../redux/slice/Movie";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   formatDate,
   convertMovieTime,
@@ -12,21 +13,30 @@ import {
 } from "../../../ultils";
 import configRoute from "../../../config";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import { defaultStatus } from "../../../ultils/data";
 type Props = {};
+const { Option } = Select;
 
 const ListMovie = (props: Props) => {
+  const [active, setActive] = useState(true);
   const dispatch = useAppDispatch();
   const { movie, errMess } = useAppSelector((state) => state.movie);
-  // const deleteUser = (data: string | undefined) => {
-  //   dispatch(removeMovieItem(data))
-  //     .unwrap()
-  //     .then(() => {
-  //       message.success({ content: "Xoá thành công", key: "handling" });
-  //     })
-  //     .catch(() => {
-  //       message.error({ content: { errMess } });
-  //     });
-  // };
+  const changeStatus = (id: any, value: any) => {
+    dispatch(UpdateMovie({ _id: id, status: value }))
+      .unwrap()
+      .then(() => message.success("Thay đổi trạng thái thành công"));
+  };
+  const checkSt = (val: any) => {
+    if (val?.status !== 0) {
+      notification.info({
+        message: "Phim đang bị ẩn",
+        description: "Vui lòng đổi trạng thái phim để tạo suất chiếu",
+      });
+      setActive(false);
+    } else {
+      setActive(true);
+    }
+  };
   document.title = "Admin | DS Phim";
   const columnUserList: any = [
     {
@@ -46,24 +56,6 @@ const ListMovie = (props: Props) => {
       dataIndex: "name",
       render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
-
-    // {
-    //   title: "Thời gian chiếu",
-    //   dataIndex: "runTime",
-    //   render: (_: any, record: any) => (
-    //     <p>{convertMovieTime(record?.runTime)}</p>
-    //   ),
-    // },
-
-    // {
-    //   title: "Độ tuổi",
-    //   key: "ageLimit",
-    //   render: (_: any, record: any) => (
-    //     <div>
-    //       <p>{record?.ageLimit}+</p>
-    //     </div>
-    //   ),
-    // },
     {
       title: "Ngày khởi chiếu",
       key: "releaseDate",
@@ -74,6 +66,24 @@ const ListMovie = (props: Props) => {
       ),
     },
     {
+      title: "Trạng thái",
+      key: "status",
+      render: (_: any, { _id, status }: any) => (
+        <Select
+          value={status === 0 ? "Hoạt động" : "Dừng hoạt động"}
+          onChange={(value: any) => {
+            changeStatus(_id, value);
+          }}
+        >
+          {defaultStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
+      ),
+    },
+    {
       title: "Doanh thu",
       key: "profit",
       render: (_: any, record: any) => (
@@ -81,6 +91,7 @@ const ListMovie = (props: Props) => {
           <p>{formatCurrency(record?.profit)}</p>
         </div>
       ),
+      width: "150px",
     },
     {
       title: "Hành động",
@@ -101,22 +112,16 @@ const ListMovie = (props: Props) => {
               cursor: "pointer",
             }}
           />
-          {/* <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteUser(record?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm> */}
-          <Button type="dashed" block>
-            <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
-              <PlusOutlined
-                style={{ color: "var(--primary)", fontSize: "18px" }}
-              />
-              Tạo suất chiếu
-            </Link>
-          </Button>
+          {record?.status == 0 && (
+            <Button type="dashed" block >
+              <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
+                <PlusOutlined
+                  style={{ color: "var(--primary)", fontSize: "18px" }}
+                />
+                Tạo suất chiếu
+              </Link>
+            </Button>
+          )}
           <Button type="dashed" block>
             <Link to={`/admin/showTimes?movieId=${record?._id}`}>
               Danh sách giờ chiếu
@@ -183,7 +188,7 @@ const ListMovie = (props: Props) => {
           <div className="mt-4">{movieOne?.description}</div>
         </div>
       ),
-      onOk() {},
+      onOk() { },
     });
   };
   return (
@@ -198,7 +203,7 @@ const ListMovie = (props: Props) => {
           </Link>
         </Button>
       </div>
-      <Table columns={columnUserList} dataSource={data} />
+      <DataTable column={columnUserList} data={data} />
     </div>
   );
 };

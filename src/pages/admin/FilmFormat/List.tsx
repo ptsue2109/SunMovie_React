@@ -151,6 +151,9 @@ const FilmFormatList = (props: Props) => {
     <div className="flex gap-3">
       <div className="col-6 w-full">
         <Button className="mb-5">
+          <Link to={configRoute.routes.adminRooms}>Danh sách phòng chiếu</Link>
+        </Button>
+        <Button className="mb-5">
           <Link to={configRoute.routes.adminMovie}>Danh sách phim</Link>
         </Button>
         <DataTable column={columns} data={data} loading={isFetching} />

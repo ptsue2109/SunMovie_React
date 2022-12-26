@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { Card, Collapse, message, Popconfirm, Table, Tag, Tooltip } from 'antd';
-import { Space, Button } from 'antd';
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
+import { Card, Collapse} from 'antd';
+import {  Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { formatCurrency, formatDate, formatTime, convertMovieTime } from '../../../ultils'
-import configRoute from '../../../config';
-import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
+import { formatDate, formatTime, convertMovieTime } from '../../../ultils'
+import { getAlSt } from '../../../redux/slice/ShowTimeSlice'
 import { useSearchParams } from 'react-router-dom';
 import { CaretRightOutlined } from '@ant-design/icons';
-import moment from 'moment';
+
 type Props = {}
 const { Panel } = Collapse;
 const AdminShowTimeList = (props: Props) => {
