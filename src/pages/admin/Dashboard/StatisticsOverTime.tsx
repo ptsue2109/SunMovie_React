@@ -11,7 +11,11 @@ const StatisticsOverTime = (props: Props) => {
   const [dateStart, setDateStart] = useState();
   const [dateEnd, setDateEnd] = useState();
   const [total, setTotal] = useState(0);
-  let a = 0;
+  const [totalTicket, setTotalTicket] = useState(0);
+  const [totalFood, setTotalFood] = useState(0);
+  let t = 0;
+  let tk = 0;
+  let fd = 0;
   orders = orders.filter((item: any) => item.status == 1 || item.status == 3);
 
   const { RangePicker } = DatePicker;
@@ -27,10 +31,20 @@ const StatisticsOverTime = (props: Props) => {
       // moment(item?.createdAt).unix() >= moment(dateStrings[0]).unix() &&
       // moment(item?.createdAt).unix() <= moment(dateStrings[1]).unix()
     );
-    a = order.reduce((a: any, b: any) => {
+    tk = order.reduce((a: any, b: any) => {
+      return a + b.ticketId.totalPrice;
+    }, 0);
+    fd = order.reduce((a: any, b: any) => {
+      return a + b.foodDetailId.totalPrice;
+    }, 0);
+    t = order.reduce((a: any, b: any) => {
       return a + b.totalPrice;
     }, 0);
-    setTotal(a);
+    console.log(order);
+
+    setTotal(t);
+    setTotalTicket(tk);
+    setTotalFood(fd);
   };
 
   return (
@@ -44,10 +58,27 @@ const StatisticsOverTime = (props: Props) => {
         </div>
         {dateStart && (
           <div className="text-center py-10 text-xl">
-            Doanh thu từ ngày "{dateStart}" đến ngày "{dateEnd}":{" "}
+            Doanh thu từ ngày "{moment(dateStart).format("DD-MM-YYYY")}" đến
+            ngày "{moment(dateEnd).format("DD-MM-YYYY")}":{" "}
             <span className="text-2xl text-red-600">
               {formatCurrency(total)}
             </span>
+            {/* <table>
+              <thead>
+                <tr>
+                  <th>Doanh thu đồ ăn</th>
+                  <th>Doanh thu vé</th>
+                  <th>Tổng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{formatCurrency(totalFood)}</td>
+                  <td>{formatCurrency(totalTicket)}</td>
+                  <td>{formatCurrency(total)}</td>
+                </tr>
+              </tbody>
+            </table> */}
           </div>
         )}
       </div>
