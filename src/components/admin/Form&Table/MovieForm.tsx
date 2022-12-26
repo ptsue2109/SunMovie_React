@@ -5,6 +5,7 @@ import {
   MovieCountry,
   MoviLanguages,
   MovieLimitAge,
+  defaultStatus,
 } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import ImageUpload from "../../../components/upload";
@@ -20,7 +21,7 @@ type Props = {
 const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
 
- 
+
   return (
     <>
       <Form
@@ -57,8 +58,8 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                       max: 180
                     }
                   ]}
-                > 
-                  <InputNumber min={45} max={180} style={{width: '100%'}}/>
+                >
+                  <InputNumber min={45} max={180} style={{ width: '100%' }} />
                 </Form.Item>
 
                 <Form.Item
@@ -90,7 +91,6 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                     ))}
                   </Select>
                 </Form.Item>
-
                 <Form.Item
                   name="languages"
                   label="Loại hình chiếu"
@@ -126,7 +126,15 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                     ))}
                   </Select>
                 </Form.Item>
-
+                <Form.Item label="Trạng thái" name="status">
+                  <Select>
+                    {defaultStatus.map((item: any) => (
+                      <Select.Option key={item.value} value={item.value}>
+                        {item.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
                 <Form.Item
                   name="actor"
                   label="Diễn viên"

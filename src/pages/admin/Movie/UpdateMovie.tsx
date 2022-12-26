@@ -39,7 +39,6 @@ const UpdateMovies = (props: Props) => {
     let imageOld = values.avatarList?.fileList;
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
-
     dispatch(UpdateMovie(values))
       .unwrap()
       .then(() => {

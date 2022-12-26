@@ -18,6 +18,7 @@ const Home = (props: Props) => {
   document.title = "SUNCINEMA"
   const [isAcive, setActive] = useState(1);
   const [isShow, setIsShow] = useState(false)
+  const [movieActive, setMovieActive] = useState<any>([]);
   const { slider, isErr, isFetching } = useAppSelector(
     (state) => state.slider
   );
@@ -25,9 +26,15 @@ const Home = (props: Props) => {
     setActive(number);
   };
   const { movie } = useAppSelector((state: any) => state.movie);
+  useEffect(() => {
+    if(movie) {
+      let a = movie?.filter((item:any) => item?.status == 0)
+      setMovieActive(a)
+    }
+  })
   let dateToday = Date.now();
   //  convert date to number
-  let data = movie.map((item: any) => {
+  let data = movieActive.map((item: any) => {
     return (item = {
       ...item,
       releaseDate: convertDateToNumber(item.releaseDate),
