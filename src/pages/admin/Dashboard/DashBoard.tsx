@@ -24,6 +24,7 @@ import CripTicketFood from "./CripTicketFood";
 import { formatCurrency } from "../../../ultils";
 import YearRevenue from "./YearRevenue";
 import StatisticsOverTime from "./StatisticsOverTime";
+import { getAllOrders } from "../../../redux/slice/OrdersSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -53,6 +54,9 @@ const Dashboard = (props: Props) => {
   const onToggle = (number: number) => {
     setActive(number);
   };
+  useEffect(() => {
+    dispatch(getAllOrders({}));
+  }, [dispatch]);
   // let count = 0;
   // const countTicket = ticketDetails.filter((item: any) => !item.expireAt);
   // countTicket?.map((item: any, index: number) => (count = index + 1));
