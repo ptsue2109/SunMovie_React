@@ -9,9 +9,9 @@ import MovieForm from "../../../components/admin/Form&Table/MovieForm";
 type Props = {};
 
 const CreateMovie = (props: Props) => {
-  const [image, setImage] = useState<any[]>([]);
+  const [image, setImage] = useState<any  []>([]);
   const [form] = Form.useForm();
-
+  document.title = "Admin | Tạo Phim"
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Button, Card, DatePicker, Form, Input, Select, Skeleton } from "antd";
+import { Button, Card, DatePicker, Form, Input, InputNumber, Select, Skeleton } from "antd";
 import { useAppSelector } from "../../../redux/hook";
 import {
   MovieCountry,
   MoviLanguages,
   MovieLimitAge,
+  defaultStatus,
 } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { convertMovieTime } from "../../../ultils";
 import ImageUpload from "../../../components/upload";
 
 type Props = {
@@ -21,17 +21,7 @@ type Props = {
 const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
 
-  const validateRunTime = (rule: any, value: any, callback: any) => {
-    if (value) {
-      if (value >= 60 && value <= 180) {
-        callback();
-      } else {
-        callback(`Thời gian chiếu không hợp lệ `);
-      }
-    } else {
-      callback();
-    }
-  };
+
   return (
     <>
       <Form
@@ -60,13 +50,16 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   label="Thời gian chiếu (dv: phút)"
                   rules={[
                     {
-                      type: "number",
                       required: true,
-                      validator: validateRunTime,
                     },
+                    {
+                      type: "number",
+                      min: 45,
+                      max: 180
+                    }
                   ]}
                 >
-                  <Input />
+                  <InputNumber min={45} max={180} style={{ width: '100%' }} />
                 </Form.Item>
 
                 <Form.Item
@@ -78,7 +71,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                     {movieType &&
                       movieType?.map((item: any, index: any) => (
                         <Select.Option value={item._id} key={index}>
-                          {item.movieName}
+                          {item?.movieName}
                         </Select.Option>
                       ))}
                   </Select>
@@ -98,7 +91,6 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                     ))}
                   </Select>
                 </Form.Item>
-
                 <Form.Item
                   name="languages"
                   label="Loại hình chiếu"
@@ -134,7 +126,15 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                     ))}
                   </Select>
                 </Form.Item>
-
+                <Form.Item label="Trạng thái" name="status">
+                  <Select>
+                    {defaultStatus.map((item: any) => (
+                      <Select.Option key={item.value} value={item.value}>
+                        {item.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
                 <Form.Item
                   name="actor"
                   label="Diễn viên"

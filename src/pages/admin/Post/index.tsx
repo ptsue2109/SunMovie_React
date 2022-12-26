@@ -8,6 +8,8 @@ import { defaultStatus } from '../../../ultils/data';
 import { removeData, updateData, getAlPost } from "../../../redux/slice/PostSlice"
 
 import { formatDate } from '../../../ultils';
+import { getUsers } from '../../../redux/slice/userSlice';
+import { getCategories } from '../../../redux/slice/CategorySlice';
 type Props = {}
 const { Text } = Typography;
 const { Option } = Select;
@@ -28,8 +30,12 @@ const AdminPosts = (props: Props) => {
       .catch(() => message.error(errorMessage))
   };
 
-  const changeStatus = (id: any, value: any) => {
-    dispatch(updateData({ _id: id, status: value })).unwrap().then(() => message.success('Thay đổi trạng thái thành công'))
+  const changeStatus = (id: any, value: any,title:any) => {
+    dispatch(updateData({ _id: id, status: value, title: title })).unwrap()
+    .then(() => {
+      message.success('Thay đổi trạng thái thành công');
+      dispatch(getAlPost())
+    });
   }
 
   const columns: any[] = [
@@ -82,9 +88,9 @@ const AdminPosts = (props: Props) => {
       title: "Trạng thái",
       key: "status",
       dataIndex: "status",
-      render: (_: any, { _id, status }: any) => (
+      render: (_: any, { _id, status, title }: any) => (
         <Select value={status === 0 ? 'active' : 'inActive'}
-          onChange={(value: any) => { changeStatus(_id, value) }}>
+          onChange={(value: any) => { changeStatus(_id, value, title) }}>
           {defaultStatus?.map((item: any) => (
             <Option value={item?.value} key={item?.value}>{item?.name}</Option>
           ))}

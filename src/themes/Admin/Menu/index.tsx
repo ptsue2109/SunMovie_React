@@ -10,7 +10,6 @@ import config from "../../../config";
 import { LogOut } from "../../../redux/slice/AuthSlice";
 import { useAppDispatch } from "../../../redux/hook";
 import configRoute from "../../../config";
-import BreadCrumbCustom from "../../../components/Breadcrumb";
 type MenuItem = Required<any>["items"][number];
 
 function getItem(
@@ -34,7 +33,7 @@ const MenuAdminLayout = (props: Props) => {
     navigate(configRoute.routes.signin);
   };
   const items: any[] = [
-    getItem(<Link to="/admin">Thống kê</Link>, "link", <PieChartOutlined />),
+    getItem(<Link to={config.routes.dashboard}>Thống kê</Link>, "link", <PieChartOutlined />),
     getItem("Quản lí người dùng", "adminUser", <UserOutlined />, [
       getItem(<Link to={config.routes.adminUserList}> Danh sách người dùng</Link>, "adminUser1"),
       getItem(<Link to={config.routes.adminUserAdd}> Thêm người dùng</Link>, "adminUser2"),
@@ -78,8 +77,6 @@ const MenuAdminLayout = (props: Props) => {
   return (
     <Menu
       theme="dark"
-      defaultSelectedKeys={["link"]}
-      defaultOpenKeys={["link"]}
       items={items}
       mode="inline"
     />

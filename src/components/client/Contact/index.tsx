@@ -1,15 +1,8 @@
-import {
-  faEnvelope,
-  faLocationDot,
-  faPhoneVolume,
-  faBuildingCircleArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
-// import { getAll } from "../../../service/webConfig";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../../redux/hook";
-
+import { FaEnvelope, FaLocationArrow, FaPhoneVolume } from 'react-icons/fa'
+import { BsFillArrowRightCircleFill } from "react-icons/bs"
 type Props = {};
 
 const Contact = (props: Props) => {
@@ -35,7 +28,7 @@ const Contact = (props: Props) => {
                   Điền vào form để gửi phản hồi cho chúng tôi
                 </p>
                 <div className="flex items-center mt-4 text-gray-600 dark:text-gray-400">
-                  <FontAwesomeIcon icon={faLocationDot} className="w-5 h-5" />
+                  <FaLocationArrow />
                   <Link
                     to="#"
                     className="ml-4 text-md text-gray-600 dark:text-gray-400 tracking-wide font-semibold"
@@ -44,7 +37,8 @@ const Contact = (props: Props) => {
                   </Link>
                 </div>
                 <div className="flex items-center mt-4 text-gray-600 dark:text-gray-400">
-                  <FontAwesomeIcon icon={faPhoneVolume} className="w-5 h-5" />
+                  <FaPhoneVolume />
+
                   <Link
                     className="ml-4 text-md text-gray-600 dark:text-gray-400 tracking-wide font-semibold"
                     to="tel:0348090652"
@@ -53,7 +47,7 @@ const Contact = (props: Props) => {
                   </Link>
                 </div>
                 <div className="flex items-center mt-4 text-gray-600 dark:text-gray-400">
-                  <FontAwesomeIcon icon={faEnvelope} className="w-5 h-5" />
+                  <FaEnvelope />
                   <Link
                     to="mailto:minhtuan0330@gmail.com"
                     className="ml-4 text-md text-gray-600 dark:text-gray-400 tracking-wide font-semibold"
@@ -62,10 +56,7 @@ const Contact = (props: Props) => {
                   </Link>
                 </div>
                 <div className="flex items-center mt-4 text-gray-600 dark:text-gray-400">
-                  <FontAwesomeIcon
-                    icon={faBuildingCircleArrowRight}
-                    className="w-5 h-5"
-                  />
+                  <BsFillArrowRightCircleFill />
                   <Link
                     to="mailto:minhtuan0330@gmail.com"
                     className="ml-4 text-md text-gray-600 dark:text-gray-400 tracking-wide font-semibold"

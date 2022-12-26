@@ -48,7 +48,7 @@ const reducers = combineReducers({
   OrderReducer,
   FoodDetailReducer,
   ComenterReducer,
-  DashboardReducer,
+  DashboardReducer
 });
 const rootReducer = persistReducer(persistConfig, reducers);
 

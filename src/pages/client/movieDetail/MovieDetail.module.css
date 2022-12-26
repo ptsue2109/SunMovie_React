@@ -32,6 +32,7 @@
 .content_info_items{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 .content_info h3{
     color: white;
@@ -79,6 +80,7 @@
     margin: auto 0;
     font-size: 18px;
     padding: 20px 50px;
+    align-items: center;
 }
 .showTimesBtn button span{
     padding: 0 10px;
@@ -144,4 +146,10 @@
 }
 .showFilmListItem:hover h3{
     color: #2055b1;
+}
+.noTheme{
+    height: auto;
+    overflow-y: scroll;
+    height: 770px;
+    max-height: 770px;
 }

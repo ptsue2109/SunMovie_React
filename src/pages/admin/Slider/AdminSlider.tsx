@@ -116,7 +116,6 @@ const AdminSlider = (props: Props) => {
       <DataTable
         column={columnUserList}
         data={data}
-        scrollWidth={{ x: 2000 }}
       />
     </div>
   );

@@ -10,33 +10,45 @@ import Voucher from "../../../components/client/voucher";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
 import NewsContent from "../../../components/client/NewsContent";
 import News from "../News/News";
+import { Spin } from "antd"
+
 type Props = {};
 
 const Home = (props: Props) => {
+  document.title = "SUNCINEMA"
   const [isAcive, setActive] = useState(1);
+  const [isShow, setIsShow] = useState(false)
+  const [movieActive, setMovieActive] = useState<any>([]);
+  const { slider, isErr, isFetching } = useAppSelector(
+    (state) => state.slider
+  );
   const Toggle = (number: number) => {
     setActive(number);
   };
   const { movie } = useAppSelector((state: any) => state.movie);
-
+  useEffect(() => {
+    if(movie) {
+      let a = movie?.filter((item:any) => item?.status == 0)
+      setMovieActive(a)
+    }
+  })
   let dateToday = Date.now();
   //  convert date to number
-  let data = movie.map((item: any) => {
+  let data = movieActive.map((item: any) => {
     return (item = {
       ...item,
       releaseDate: convertDateToNumber(item.releaseDate),
     });
   });
-  const data1 = data.filter((item: any) => item.releaseDate <= dateToday);
-  const data2 = data.filter((item: any) => item.releaseDate > dateToday);
-
-
-
-
-
+  const data1 = data
+    .sort((a: any, b: any) => a.releaseDate - b.releaseDate)
+    .filter((item: any) => item.releaseDate <= dateToday);
+  const data2 = data
+    .sort((a: any, b: any) => a.releaseDate - b.releaseDate)
+    .filter((item: any) => item.releaseDate > dateToday);
   return (
     <>
-      <SlideShow />
+      {isFetching ? <Spin size="large" /> : <SlideShow slider={slider} />}
       <div className={styles.content}>
         <div className={styles.content_btn}>
           <button
@@ -69,7 +81,10 @@ const Home = (props: Props) => {
                   </div>
                   <div className={styles.content_list_item_info}>
                     <h3>{item.name}</h3>
-                    <p>Thể loại: Kinh dị</p>
+                    <p>
+                      Thể loại:{" "}
+                      {item.movieTypeId?.map((x: any) => x.movieName + ", ")}
+                    </p>
                     <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
                     <button>Đặt vé</button>
                   </div>
@@ -97,7 +112,10 @@ const Home = (props: Props) => {
                   </div>
                   <div className={styles.content_list_item_info}>
                     <h3>{item.name}</h3>
-                    <p>Thể loại: Kinh dị</p>
+                    <p>
+                      Thể loại:{" "}
+                      {item.movieTypeId?.map((x: any) => x.movieName + ", ")}
+                    </p>
                     <p>Khởi chiếu: {formatDate(item.releaseDate)}</p>
                     <button>Đặt vé</button>
                   </div>
@@ -120,9 +138,9 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Tin tức</h3>
-            <News  activeNav={true}/>
+            <News activeNav={true}  isShow={isShow}/>
           </div>
-          
+
           {/* <div className={styles.content_cmt}>
             <h3>Bình luận phim</h3>
           </div> */}
@@ -131,9 +149,8 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Khuyến mãi mới</h3>
-            <Voucher  activeNav={true}/>
+            <Voucher activeNav={true} />
           </div>
-          
         </div>
       </div>
     </>

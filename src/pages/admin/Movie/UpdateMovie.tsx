@@ -21,13 +21,14 @@ const UpdateMovies = (props: Props) => {
   const { movie } = useAppSelector((state) => state.movie);
   const data = movie?.find((item: any) => item._id === id);
   console.log(data);
-  
+
   useEffect(() => {
     if (data) {
       setImage(data?.image as any[]);
       form.setFieldsValue({
         ...data,
         releaseDate: moment(data.releaseDate),
+        movieTypeId: data?.movieTypeId?.map((item: any) => item?._id)
       });
     }
   }, [data]);
@@ -38,7 +39,6 @@ const UpdateMovies = (props: Props) => {
     let imageOld = values.avatarList?.fileList;
     if (imageOld) values.image = imageOld;
     else values.image = values?.image;
-
     dispatch(UpdateMovie(values))
       .unwrap()
       .then(() => {

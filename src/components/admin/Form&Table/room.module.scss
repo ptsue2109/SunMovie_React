@@ -3,7 +3,7 @@
 // }
 
 .seatsHolder {
-  margin: 10px;
+  margin: 8px;
   overflow: hidden;
   width: 12px;
   max-width: 12px;
@@ -44,6 +44,7 @@
   padding-right: 5px;
   float: left;
 }
+
 .colName2 {
   color: white;
   font-weight: 700;
@@ -52,22 +53,21 @@
   padding-right: 5px;
   float: right;
 }
+
 .colNameAd {
   color: black;
   font-weight: 700;
-  // margin-right: 20px;
-  // border: 2px solid rebeccapurple;
-  padding-right: 5px;
+  padding-right: 1px;
   float: left;
 }
+
 .colNameAd2 {
   color: black;
   font-weight: 700;
-  // margin-right: 20px;
-  // border: 2px solid rebeccapurple;
-  padding-right: 5px;
+  padding-right: 1px;
   float: right;
 }
+
 .seatNotBooksed {
   background-color: white;
 }
@@ -89,28 +89,32 @@
 
 .seatBlocked {
   color: #fff !important;
-  background: tomato;
+  background: rgb(88, 13, 0);
+}
+
+.seatBlockedClient {}
+
+.seatSelected0 {
+  color: red !important;
+}
+
+.seatBooked {
+  background: red !important;
+  cursor: default;
+  color: white
+}
+
+.seatSelected {
+  color: #fff !important;
+  background: rgb(53 212 6) !important;
+}
+
+.seatBlocked {
+  color: #fff !important;
+  background: rgb(69, 69, 69) !important;
 }
 
 .seatBlockedClient {
- }
- .seatSelected0 {
-   color: red !important;
- }
- .seatBooked {
-   background: red !important;
-   cursor: default;
-   color:white
- }
- .seatSelected {
-   color: #fff !important;
-   background: rgb(53 212 6) !important;
- }
- .seatBlocked {
-   color: #fff !important;
-   background: rgb(69, 69, 69) !important;
-   }
- .seatBlockedClient{
   visibility: hidden !important;
 }
 
@@ -156,4 +160,8 @@
 
 .headerBlockedText {
   color: tomato;
+}
+.renderBtnIcon{
+  text-align: center !important;
+  font-size: 24px !important;
 }

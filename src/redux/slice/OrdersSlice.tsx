@@ -79,10 +79,23 @@ export const getDashboardData = createAsyncThunk(
     }
   }
 );
+export const exportTicketThunk = createAsyncThunk(
+  "order/exportTicketThunk",
+  async (input: any, { rejectWithValue }) => {
+    try {
+      const { data } = await orderApi.exportOrderTicket(input);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 const initialState: any = {
   orders: [],
   order: {},
-  dataPayload: []
+  exportData: {},
+  loading: false,
+  msg: ""
 };
 const OrderSlice = createSlice({
   name: "orders",
@@ -107,11 +120,20 @@ const OrderSlice = createSlice({
       state.order = action.payload;
     });
     builder.addCase(updateOrder.fulfilled, (state, action) => {
-      state.orders = state.orders.filter((item:any) => item._id !== action?.payload._id);
+      state.orders = state.orders.filter((item: any) => item._id !== action?.payload._id);
     });
     builder.addCase(getDashboardData.fulfilled, (state, action) => {
       state.dataPayload = action.payload;
     });
+    builder.addCase(exportTicketThunk.fulfilled, (state, { payload }) => {
+      state.orders = state.orders.map((item: any) =>  item._id !== payload._id ? item : payload)
+    })
+    builder.addCase(exportTicketThunk.rejected, (state, { payload }) => {
+      state.msg = payload
+    })
+    builder.addCase(exportTicketThunk.pending, (state, { payload }) => {
+      state.loading = true
+    })
   },
 });
 

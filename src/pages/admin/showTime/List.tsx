@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { Card, Collapse, message, Popconfirm, Table, Tag, Tooltip } from 'antd';
-import { Space, Button } from 'antd';
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons"
+import { Card, Collapse} from 'antd';
+import {  Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { formatCurrency, formatDate, formatTime, convertMovieTime } from '../../../ultils'
-import configRoute from '../../../config';
-import { getAlSt, removeData } from '../../../redux/slice/ShowTimeSlice'
+import { formatDate, formatTime, convertMovieTime } from '../../../ultils'
+import { getAlSt } from '../../../redux/slice/ShowTimeSlice'
 import { useSearchParams } from 'react-router-dom';
 import { CaretRightOutlined } from '@ant-design/icons';
-import moment from 'moment';
+
 type Props = {}
 const { Panel } = Collapse;
 const AdminShowTimeList = (props: Props) => {
@@ -23,12 +21,13 @@ const AdminShowTimeList = (props: Props) => {
 
   const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
   const { movie } = useAppSelector((state) => state.movie);
-  
+
   const [showByDate, setShowByDate] = useState([])
   const [searchParams, setSearchParams] = useSearchParams();
   let movieId = searchParams.get("movieId");
   let movieSelect = movie?.find((item: any) => item?._id === movieId);
-    const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId && item?.status == 0));
+  const showTimeByMovieId = (stList?.filter((item: any) => item?.movieId?._id === movieId && item?.status == 0));
+  console.log('showTimeByMovieId', showTimeByMovieId);
 
   // get by date
   const handleSubmit = () => {
@@ -43,7 +42,7 @@ const AdminShowTimeList = (props: Props) => {
     setShowByDate({ ...groupByDate });
 
   };
- 
+
   return (
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
@@ -72,7 +71,7 @@ const AdminShowTimeList = (props: Props) => {
               <div>Phòng chiếu :
                 {item?.roomId?.map((roomItem: any) => (
                   <Button key={roomItem?._id}>
-                    <Link to={`/showTimes?date=${formatDate(item?.date)}?movieId=${item?._id}?roomId=${roomItem?._id}`}>
+                    <Link to={`/book-chair?room=${roomItem?._id}&showtime=${item?._id}`}>
                       {roomItem?.name}
                     </Link>
                   </Button>

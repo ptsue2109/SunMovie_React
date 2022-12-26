@@ -56,17 +56,10 @@ export const getOneComente = createAsyncThunk(
   }
 );
 // silice
-type CommenState = {
-  isLogged: boolean;
-  currentComent: any | {};
-  accessToken: string;
-};
 
 const initialState: any = {
   commenter: [],
-  oneslider: [],
   errMess: false,
-  sliderSearch: [],
 };
 const ComenterSlice = createSlice({
   name: "commenter",
@@ -76,34 +69,21 @@ const ComenterSlice = createSlice({
     // create
     builder.addCase(comenteCreate.pending, (state, action) => {
       state.errMess = false;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
     });
-    builder.addCase(comenteCreate.fulfilled, (state, action) => {
-      //   state.errMess = false;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
-      state.commenter.push(action.payload);
-    });
+    builder.addCase(comenteCreate.fulfilled, (state, action) => {});
     builder.addCase(comenteCreate.rejected, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     // list
 
     builder.addCase(listCommentByMovie.pending, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
     });
     builder.addCase(listCommentByMovie.fulfilled, (state, action) => {
       state.commenter = action.payload;
     });
     builder.addCase(listCommentByMovie.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
 
     //commentByMovie
