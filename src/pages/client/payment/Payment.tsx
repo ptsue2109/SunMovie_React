@@ -202,7 +202,7 @@ const Payment = ({ }: Props) => {
         htmlType="submit"
         className="hover: text-red-600"
       >
-        Thanh toán
+        Quay lại
       </Button>
     )
   }
