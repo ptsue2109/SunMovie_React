@@ -169,7 +169,7 @@ const Dashboard = (props: Props) => {
               : "px-7 border border-green-600 text-green-600 h-[50px] mx-2 rounded"
           }
         >
-          Doanh thu vé, đồ ăn của rạp
+          Tổng doanh thu vé, đồ ăn của rạp
         </button>
       </div>
       <div className={active == 1 ? "" : "hidden"}>
