@@ -74,14 +74,14 @@ const WebConfig = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          <Popconfirm
+          {/* <Popconfirm
             title={`Xóa ${record?.storeName ?? record?._id}?`}
             okText="OK"
             cancelText="Cancel"
             onConfirm={confirm}
           >
             <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
+          </Popconfirm> */}
         </Space>
       ),
       width: 130,

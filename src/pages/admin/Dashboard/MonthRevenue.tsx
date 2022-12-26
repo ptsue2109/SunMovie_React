@@ -84,7 +84,13 @@ const MonthRevenue = (props: Props) => {
         </Select>
       </div>
 
-      {data?.length === 0 ? "" : <Line data={barDataTopMovie} height={275} />}
+      {data?.length === 0 ? (
+        ""
+      ) : (
+        <div className="">
+          <Line data={barDataTopMovie} height={275} />
+        </div>
+      )}
     </>
   );
 };
