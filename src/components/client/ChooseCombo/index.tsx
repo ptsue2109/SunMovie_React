@@ -47,7 +47,7 @@ const ChooseCombo = ({ updateFieldsFood }: Props) => {
   useEffect(() => {
     if (foodOrder) {
       const totalPrice = foodOrder.reduce((total, currentValue) => {
-        return total + currentValue.price * currentValue.quantity;
+        return total + currentValue.price;
       }, 0);
       setFoodPrice(totalPrice);
     }

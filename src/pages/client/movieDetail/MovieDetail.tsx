@@ -325,7 +325,7 @@ const MovieDetail = (props: Props) => {
               className={isActive == 3 ? styles.showTimesBtnActive : ""}
             >
               <IoChatbubbleEllipsesOutline />
-              <span>Bình luận</span>
+              <span>Đánh giá phim</span>
             </button>
           </div>
           <RenderShowTime />
