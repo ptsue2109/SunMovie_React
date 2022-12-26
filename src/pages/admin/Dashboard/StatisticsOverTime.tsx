@@ -1,12 +1,14 @@
 import { DatePicker } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import { useAppSelector } from "../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { getAllOrders } from "../../../redux/slice/OrdersSlice";
 import { convertDateToNumber, formatCurrency } from "../../../ultils";
 
 type Props = {};
 
 const StatisticsOverTime = (props: Props) => {
+  const dispatch = useAppDispatch();
   let { orders } = useAppSelector((state: any) => state.OrderReducer);
   const [dateStart, setDateStart] = useState();
   const [dateEnd, setDateEnd] = useState();
@@ -18,6 +20,9 @@ const StatisticsOverTime = (props: Props) => {
   let fd = 0;
   orders = orders.filter((item: any) => item.status == 1 || item.status == 3);
 
+  React.useEffect(() => {
+    dispatch(getAllOrders({}));
+  }, [dispatch]);
   const { RangePicker } = DatePicker;
   const onChangeDate = (_: any, dateStrings: any) => {
     setDateStart(dateStrings[0]);
@@ -60,10 +65,10 @@ const StatisticsOverTime = (props: Props) => {
           <div className="text-center py-10 text-xl">
             Doanh thu từ ngày "{moment(dateStart).format("DD-MM-YYYY")}" đến
             ngày "{moment(dateEnd).format("DD-MM-YYYY")}":{" "}
-            <span className="text-2xl text-red-600">
+            {/* <span className="text-2xl text-red-600">
               {formatCurrency(total)}
-            </span>
-            {/* <table>
+            </span> */}
+            <table className="border border-gray-600 w-full my-5">
               <thead>
                 <tr>
                   <th>Doanh thu đồ ăn</th>
@@ -78,7 +83,7 @@ const StatisticsOverTime = (props: Props) => {
                   <td>{formatCurrency(total)}</td>
                 </tr>
               </tbody>
-            </table> */}
+            </table>
           </div>
         )}
       </div>
