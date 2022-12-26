@@ -14,7 +14,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { comenteCreate } from "../../../redux/slice/ComenteSlice";
+import { comenteCreate, getComente } from "../../../redux/slice/ComenteSlice";
 import { formatTime, formatDateString } from "../../../ultils";
 import { getOneMovie } from "../../../redux/slice/Movie";
 
@@ -56,6 +56,7 @@ const Comente = ({ data }: Props) => {
     if (movie && allCmt && currentUser) {
       let checkUserCmted = allCmt?.filter((item: any) => item?.userId?._id);
       setHaveUserCurrCmt(checkUserCmted?.length > 0 ? true : false);
+      dispatch(getComente())
     }
   }, [allCmt, movie, currentUser]);
 
