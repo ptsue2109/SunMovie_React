@@ -37,18 +37,6 @@ const MonthRevenue = (props: Props) => {
         (item: any) => moment(item?.date).format("YYYY") === value
       )
     );
-    // setDataNew(
-    //   dateFake.map((item: any) => {
-    //     data.map((x: any) => {
-    //       if (moment(item.date).format("MM") == moment(x.date).format("MM")) {
-    //         return setProfitFake(x.profit);
-    //       } else {
-    //         return setProfitFake(0);
-    //       }
-    //     });
-    //     return (item = { ...item, profit: profitFake });
-    //   })
-    // );
   };
 
   const barDataTopMovie = {
