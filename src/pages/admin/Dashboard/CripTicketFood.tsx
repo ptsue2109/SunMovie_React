@@ -63,13 +63,13 @@ const CripTicketFood = (props: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-2 mx-10 my-20 border border-gray-600 rounded-md p-10">
-        <div className="w-[400px] ">
+      <div className=" mx-10 my-20 border border-gray-600 rounded-md p-10">
+        <div className="w-[400px] mx-auto">
           <Pie data={data} />;
         </div>
-        <div>
+        {/* <div>
           <Table columns={columns} dataSource={dataTable} />;
-        </div>
+        </div> */}
       </div>
     </>
   );
