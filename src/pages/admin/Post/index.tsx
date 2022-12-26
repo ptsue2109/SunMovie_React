@@ -10,6 +10,7 @@ import { removeData, updateData, getAlPost } from "../../../redux/slice/PostSlic
 import { formatDate } from '../../../ultils';
 import { getUsers } from '../../../redux/slice/userSlice';
 import { getCategories } from '../../../redux/slice/CategorySlice';
+import configRoute from '../../../config';
 type Props = {}
 const { Text } = Typography;
 const { Option } = Select;
@@ -149,8 +150,11 @@ const AdminPosts = (props: Props) => {
 
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
+      <Button type="primary" style={{ marginBottom: "20px", marginRight: "12px" }}>
         <Link to="add">Tạo Bài viết</Link>
+      </Button>
+      <Button  style={{ marginBottom: "20px" }}>
+        <Link to={configRoute.routes.adminCategories}>DS Danh mục</Link>
       </Button>
       <DataTable column={columns} data={data} />
 
