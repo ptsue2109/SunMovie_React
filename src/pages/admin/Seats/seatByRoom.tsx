@@ -122,6 +122,13 @@ const SeatByRoom = (props: Props) => {
             <span className="text-black pl-2 capitalize  ">{item.name}</span>
           </div>
         ))}
+        <div className="flex">
+          <p
+            className={`w-5 h-5 border-2 border-black`}
+            style={{ backgroundColor: "#000" }}
+          ></p>
+          <span className="text-black pl-2 capitalize  ">Ghế bị khóa</span>
+        </div>
 
         <div className="flex">
           <p className="w-5 h-5 bg-[#35d406]"></p>
