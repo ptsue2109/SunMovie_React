@@ -64,6 +64,9 @@ const ListCategories = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to={configRoute.routes.adminCategoriesCreate}>Add Category</Link>
       </Button>
+      <Button style={{ marginLeft: "20px" }}>
+        <Link to={configRoute.routes.AdminPosts}>DS Bài viết</Link>
+      </Button>
       <DataTable column={columnList} data={data} loading={isFetching} />
     </>
   );

@@ -4,12 +4,18 @@ import { useAppSelector } from '../../../redux/hook';
 import OrderTable from './OrderTable';
 import SearchMutiple from './SearchByCate';
 import SearchByCate from './SearchByCate';
+import { useDispatch } from 'react-redux';
+import { getAllOrders } from '../../../redux/slice/OrdersSlice';
 
 type Props = {
 }
 
 const OrderTab = ({ }: Props) => {
    document.title = "Admin | Orders";
+   const dispatch = useDispatch<any>();
+   useEffect(() => {
+      dispatch(getAllOrders({}))
+   },[dispatch])
    const { orders } = useAppSelector((state: any) => state.OrderReducer);
    const [orderSuccess, setOrderSuccess] = useState<any[]>([]);
    const [orderFailed, setOrderFailed] = useState<any[]>([]);

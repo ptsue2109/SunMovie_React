@@ -1,4 +1,4 @@
-import { Button, Col, Form, InputNumber, message, Modal, Row, Select, Space, Table, Tooltip } from "antd";
+import { Button, Col, Form, Input, InputNumber, message, Modal, Row, Select, Space, Table, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
@@ -6,9 +6,9 @@ import { updateSeatThunk } from "../../../redux/slice/SeatSlice";
 import { defaultStatus } from "../../../ultils/data";
 import styles from "../Form&Table/room.module.scss";
 import { validateMessages } from "../../../ultils/FormMessage";
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { IoApps, IoCreateOutline } from 'react-icons/io5';
-
+import { MinusOutlined, OrderedListOutlined } from "@ant-design/icons";
 type Props = {
   row?: any;
   column?: any;
@@ -45,6 +45,9 @@ const RenderSeats = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blockSeat, setBlockSeat] = useState<any>([]);
   const [parseCharac, setParseCharac] = useState<any>([]);
+  const [mutipleForm, setMutipleForm] = useState(false);
+
+
   useEffect(() => {
     handleSubmit();
     let blockS = seats?.filter((item: any) => item?.status == 1);
@@ -236,11 +239,9 @@ const RenderSeats = ({
   const columns: any[] = [
     { title: "STT", dataIndex: "key" },
     { title: "position", dataIndex: "position", render: (_: any, { position }: any) => <b>{position}</b> },
-    {title: "Loại ghế", dataIndex: "seatType"}
+    { title: "Loại ghế", dataIndex: "seatType" }
   ];
   const data: any[] = seatArr?.map((item: any, index: any) => {
-    console.log(item);
-    
     return {
       key: index + 1,
       position: `${item?.row}${item?.column}`,
@@ -261,6 +262,7 @@ const RenderSeats = ({
       setSeatArrSelect(arrToUpdate);
     }
   };
+
   //
   const findByCharacter = (name: any, start: number, end: number) => {
     let cloneArrFBCT: any[] = JSON.parse(JSON.stringify(seats));
@@ -279,7 +281,6 @@ const RenderSeats = ({
       setSeatDetails(groupItem);
       setSeatArrSelect(seatCase1);
       setSeatArr(seatCase1);
-
     } else { // nếu vị trí bắt đầu khác vị trí kết thúc => render ra mảng theo vị trí
       let viTri: any = [];
       for (const key in cloneArrFBCT) {
@@ -290,13 +291,13 @@ const RenderSeats = ({
         }
         viTri.push(cloneArrFBCT[key]);
       }
+
       newArrFBCTCase2 = viTri?.filter((item: any) => item['status'] == 2);
       let groupItem2 = groupBy(viTri);
       setSeatDetails(groupItem2);
       setSeatArrSelect(newArrFBCTCase2);
       setSeatArr(newArrFBCTCase2);
     }
-
   }
 
   const chooseAllSeat = () => {
@@ -331,17 +332,18 @@ const RenderSeats = ({
     }
     const chooseTheoCT = () => {
       setHiddenChooseAll(true);
-      setShowByCT(true)
+      setShowByCT(false)
+      setMutipleForm(false)
     }
 
     const closeOption = () => {
       setHiddenChooseAll(false);
       setShowByCT(false)
+      setMutipleForm(false)
       onReset()
     }
 
     const RenderSeatBYDK = () => {
-
       const finshByCT = (val: any) => {
         findByCharacter(val?.tenHang, val?.batDau, val?.KetThuc)
       }
@@ -378,22 +380,121 @@ const RenderSeats = ({
         </div>
       )
     }
+
+    // mutil form: update ghế rtheo nhiều hàng
+    const renderMutipleForm = () => {
+      setHiddenChooseAll(false);
+      setShowByCT(false)
+      setMutipleForm(true)
+    }
+    const FormMutiple = () => {
+      const onFinishMutiple = (val: any) => {
+        let dataMutil = val?.dynamic;
+        let cloneArrFBCT: any[] = JSON.parse(JSON.stringify(seats));
+        let newArrFBCTCase2: any[] = []
+        let newArr: any[] = []
+
+        for (const key in cloneArrFBCT) {
+          for (const iterator of dataMutil) {
+            for (var i = iterator?.batDau; i <= iterator?.KetThuc; i++) {
+              if (cloneArrFBCT[key]?.row == iterator?.tenHang && cloneArrFBCT[key]?.column == i) {
+                cloneArrFBCT[key]['status'] = 2;
+              }
+            }
+          }
+          newArrFBCTCase2.push(cloneArrFBCT[key]);
+        }
+
+        newArr = newArrFBCTCase2?.filter((item: any) => item['status'] == 2);
+        let groupItem2 = groupBy(newArrFBCTCase2);
+        setSeatDetails(groupItem2)
+        setSeatArrSelect(newArr)
+        setSeatArr(newArr)
+      }
+      return (
+        <Form name="dynamic_form_nest_item" onFinish={onFinishMutiple} autoComplete="off" form={form}>
+          <Form.List name="dynamic">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'tenHang']}
+                      rules={[{ required: true }]}
+                    >
+                      <Select
+                        placeholder="Chọn tên hàng"
+                      >
+                        {parseCharac?.map((item: any) => (
+                          <Option value={item} key={item}>
+                            {item}
+                          </Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'batDau']}
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber placeholder="bắt đầu" min={1} max={column} />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'KetThuc']}
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber placeholder="kết thúc" max={column} />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    Add field
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+          <div className="flex gap-3">
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+            <Form.Item >
+              <Button onClick={onReset} >Reset</Button>
+            </Form.Item>
+
+            <Form.Item >
+              <Button onClick={closeOption} danger>Xóa lựa chọn</Button>
+            </Form.Item></div>
+        </Form>
+      )
+    }
     return (
       <>
-        {hiddenChooseAll && <RenderSeatBYDK />}
-        <div className="mb-5  flex gap-3">
-          <Button type="ghost" onClick={chooseTheoCT} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-            Chọn nhanh
-          </Button>
+        {hiddenChooseAll && !mutipleForm && <RenderSeatBYDK />}
+        {!hiddenChooseAll && mutipleForm && <FormMutiple />}
 
-          {!hiddenChooseAll && (
+        <div className="mb-5  flex gap-3">
+          {!hiddenChooseAll && !mutipleForm && <Button type="ghost" onClick={chooseTheoCT} icon={<MinusOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+            Chọn theo hàng
+          </Button>}
+          {!mutipleForm && !hiddenChooseAll && <Button type="ghost" danger onClick={renderMutipleForm} icon={<OrderedListOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+            Chọn nhiều hàng
+          </Button>}
+          {!hiddenChooseAll && !mutipleForm && (
             <>
               <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
                 Chọn tất cả ({seats?.length})
               </Button>
 
-              {blockSeat?.length > 0 && <Button type="primary" onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-                Chọn tất cả ghế dừng hoạt động ({blockSeat?.length})
+              {blockSeat?.length > 0 && <Button onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3, background: "#000", color: "#ffff" }}>
+                Chọn ghế dừng hoạt động ({blockSeat?.length})
               </Button>}
               {seatArr?.length > 0 && (
                 <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>

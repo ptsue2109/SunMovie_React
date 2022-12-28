@@ -10,28 +10,26 @@ import Voucher from "../../../components/client/voucher";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
 import NewsContent from "../../../components/client/NewsContent";
 import News from "../News/News";
-import { Spin } from "antd"
+import { Spin } from "antd";
 
 type Props = {};
 
 const Home = (props: Props) => {
-  document.title = "SUNCINEMA"
+  document.title = "SUNCINEMA";
   const [isAcive, setActive] = useState(1);
-  const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = useState(false);
   const [movieActive, setMovieActive] = useState<any>([]);
-  const { slider, isErr, isFetching } = useAppSelector(
-    (state) => state.slider
-  );
+  const { slider, isErr, isFetching } = useAppSelector((state) => state.slider);
   const Toggle = (number: number) => {
     setActive(number);
   };
   const { movie } = useAppSelector((state: any) => state.movie);
   useEffect(() => {
-    if(movie) {
-      let a = movie?.filter((item:any) => item?.status == 0)
-      setMovieActive(a)
+    if (movie) {
+      let a = movie?.filter((item: any) => item?.status == 0);
+      setMovieActive(a);
     }
-  })
+  }, [movie]);
   let dateToday = Date.now();
   //  convert date to number
   let data = movieActive.map((item: any) => {
@@ -138,7 +136,7 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Tin tức</h3>
-            <News activeNav={true}  isShow={isShow}/>
+            <News activeNav={true} isShow={isShow} />
           </div>
 
           {/* <div className={styles.content_cmt}>

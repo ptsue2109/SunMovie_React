@@ -23,7 +23,10 @@ const CreateCategory = (props: Props) => {
   return (
     <>
       <Button className="mb-3">
-        <Link to={configRoute.routes.adminCategories}>List Category</Link>
+        <Link to={configRoute.routes.adminCategories}>DS Danh mục</Link>
+      </Button>
+      <Button style={{ marginLeft: "20px" }}>
+        <Link to={configRoute.routes.AdminPosts}>DS Bài viết</Link>
       </Button>
       <Form
         form={form}

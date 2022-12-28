@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import PostForm from "../../../components/admin/Form&Table/PostForm";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import config from "../../../config";
+import configRoute from "../../../config";
 
 type Props = {}
 
@@ -54,6 +55,9 @@ const AdminPostsEdit = (props: Props) => {
       <div>
          <Button type="primary" style={{ marginBottom: "20px" }}>
             <Link to={config.routes.AdminPosts}>DS Bài viết</Link>
+         </Button>
+         <Button style={{ marginLeft: "20px" }}>
+            <Link to={configRoute.routes.adminCategories}>DS Danh mục</Link>
          </Button>
          <PostForm
             form={form}

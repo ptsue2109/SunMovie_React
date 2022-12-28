@@ -37,18 +37,6 @@ const MonthRevenue = (props: Props) => {
         (item: any) => moment(item?.date).format("YYYY") === value
       )
     );
-    // setDataNew(
-    //   dateFake.map((item: any) => {
-    //     data.map((x: any) => {
-    //       if (moment(item.date).format("MM") == moment(x.date).format("MM")) {
-    //         return setProfitFake(x.profit);
-    //       } else {
-    //         return setProfitFake(0);
-    //       }
-    //     });
-    //     return (item = { ...item, profit: profitFake });
-    //   })
-    // );
   };
 
   const barDataTopMovie = {
@@ -84,7 +72,13 @@ const MonthRevenue = (props: Props) => {
         </Select>
       </div>
 
-      {data?.length === 0 ? "" : <Line data={barDataTopMovie} height={275} />}
+      {data?.length === 0 ? (
+        ""
+      ) : (
+        <div className="">
+          <Line data={barDataTopMovie} height={275} />
+        </div>
+      )}
     </>
   );
 };

@@ -21,6 +21,7 @@ const AdminOrdersDetail = (props: Props) => {
    if (!order) {
       message.error("Lấy thông tin đơn hàng thất bại");
    }
+   console.log(order)
    useEffect(() => {
       if (order) {
          setOrderDetail(order?.order);
